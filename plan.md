@@ -303,6 +303,12 @@ color_picker = ColorPicker.create
 * **Resolution**: Never hardcode sensitive parameters in the layout function. Instead, bind the component to a reactive State var (e.g., `rx.text(State.sensitive_data)`). The state variable should start empty and only be populated at runtime from a secure backend-only variable (`_api_key`) after verifying user permissions.
 * **Link**: [Authentication Overview Docs](https://reflex.dev/docs/authentication/authentication-overview.md)
 
+### 4. Evaluation values requirements
+
+* If a value is required from the user, they should be passed as environment variables, like REFLEX_CLOUD_TOKEN, REFLEX_CLOUD_PROJECT_ID, etc.
+* If a value is optional, then should pick a good default value and should not be passed as an environment variable.
+* If a value is a random value or specific value for the evaluation, then should generate a random value and should not be passed as an environment variable.
+
 ---
 
 ## 5. Evaluation Ideas
