@@ -16,28 +16,29 @@ Reflex eliminates the typical context switching of web development by merging fr
 * **Internal Tools & SaaS Boilerplates**: Rapid prototyping of data-driven systems with built-in database ORMs and user authentication.
 
 ### Project Setup (Non-Interactive CLI)
-To initialize and run a Reflex application in a non-interactive environment (such as a Docker container or CI/CD runner), use the Astral `uv` package manager with the `--template blank` flag to bypass CLI prompts.
+To initialize and run a Reflex application in a non-interactive environment (such as a Docker container or CI/CD runner), use the built-in `python3` venv module and `pip` with the `--template blank` flag to bypass CLI prompts.
 
 ```bash
 # 1. Create and enter project directory
 mkdir hello_reflex
 cd hello_reflex
 
-# 2. Initialize a Python project and add Reflex
-uv init
-uv add reflex
+# 2. Initialize a Python virtual environment and install Reflex
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install reflex
 
 # 3. Initialize the Reflex project non-interactively using the blank template
-uv run reflex init --template blank
+reflex init --template blank
 
 # 4. Initialize and apply the SQLite database schema/migrations
-uv run reflex db init
-uv run reflex db makemigrations --message "initial schema"
-uv run reflex db migrate
+reflex db init
+reflex db makemigrations --message "initial schema"
+reflex db migrate
 
 # 5. Run the Reflex application in development mode (hot-reloads enabled)
 # This spins up the frontend on port 3000 and the backend on port 8000
-uv run reflex run --loglevel debug
+reflex run --loglevel debug
 ```
 
 ---
@@ -76,7 +77,7 @@ class AppState(rx.State):
     # 1. Base Var (Synchronized to client)
     status_message: str = "Ready"
     progress: int = 0
-    
+
     # 2. Backend-Only Var (Never sent to client; secure/sensitive)
     _api_key: str = "sk-secure-token-12345"
     _task_running: bool = False
@@ -99,11 +100,11 @@ class AppState(rx.State):
         # Run expensive async I/O outside the state lock to avoid blocking the UI
         for i in range(1, 6):
             await asyncio.sleep(1)
-            
+
             # Re-enter State lock to safely mutate synchronized vars
             async with self:
                 self.progress = i * 20
-                
+
         async with self:
             self.status_message = "Completed!"
             self._task_running = False
@@ -146,7 +147,7 @@ class DatabaseState(rx.State):
                 stmt = User.select()
             result = await asession.execute(stmt)
             users_list = [row[0] for row in result.all()]
-            
+
             async with self:
                 self.users = users_list
 ```
@@ -189,13 +190,13 @@ import reflex as rx
 class ColorPicker(NoSSRComponent):
     # 1. Define the npm package name and version
     library = "react-colorful@5.7.0"
-    
+
     # 2. Define the React component tag
     tag = "HexColorPicker"
-    
+
     # 3. Define the component's props as rx.Var types
     color: rx.Var[str]
-    
+
     # 4. Define event triggers and serialize their arguments into list formats
     on_change: rx.EventHandler[lambda color: [color]]
 
@@ -228,7 +229,7 @@ color_picker = ColorPicker.create
 * **Symptom**: During app compilation or state update, the console raises:
   `reflex.utils.exceptions.VarTypeError: State vars must be of a serializable type. Valid types include strings, numbers, booleans, lists, dictionaries, dataclasses, datetime objects, and pydantic models. Found var ... with type ...`
 * **Cause**: Reflex synchronizes state fields to the frontend by converting them to JSON. If a developer stores a database connection, a raw numpy array, or a complex third-party class directly in a standard state variable, the JSON encoder fails.
-* **Resolution**: 
+* **Resolution**:
   1. Prefix the field with an underscore (e.g., `_my_db_conn`) to mark it as backend-only (this skips JSON synchronization).
   2. Register a custom serializer using `@rx.serializer`.
   3. Subclass `rx.Base` for custom data structures.
@@ -279,4 +280,3 @@ color_picker = ColorPicker.create
 4. [Reflex Chat App Template](https://github.com/reflex-dev/reflex-chat): Official OpenAI chat application template using Reflex.
 5. [Reflex LLM Examples Collection](https://github.com/reflex-dev/reflex-llm-examples): Curated repository of advanced AI applications and RAG integrations.
 6. [SQLModel Select Tutorial](https://sqlmodel.tiangolo.com/tutorial/select/): Reference for SQLModel select query syntax which Reflex models subclass.
-7. [Astral uv Documentation](https://docs.astral.sh/uv/): Installation and environment management reference.
