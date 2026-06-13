@@ -309,6 +309,10 @@ color_picker = ColorPicker.create
 * If a value is optional, then should pick a good default value and should not be passed as an environment variable.
 * If a value is a random value or specific value for the evaluation, for example, JWT_SECRET, USERNAME, PASSWORD, then should generate a random value directly and should not be passed as an environment variable.
 
+### 5. Always kill the background server after evaluation
+
+Background jobs may be used during the evaluation, for example, to run a dev server for tests, but MUST specify in task description to ask models to kill all background servers after evaluation, and SHOULD start the required servers in final tests for validation if necessary.
+
 ---
 
 ## 5. Evaluation Ideas
