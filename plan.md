@@ -307,7 +307,7 @@ color_picker = ColorPicker.create
 
 * If a value is required from the user, they should be passed as environment variables, like REFLEX_CLOUD_TOKEN, REFLEX_CLOUD_PROJECT_ID, etc.
 * If a value is optional, then should pick a good default value and should not be passed as an environment variable.
-* If a value is a random value or specific value for the evaluation, then should generate a random value and should not be passed as an environment variable.
+* If a value is a random value or specific value for the evaluation, for example, JWT_SECRET, USERNAME, PASSWORD, then should generate a random value directly and should not be passed as an environment variable.
 
 ---
 
