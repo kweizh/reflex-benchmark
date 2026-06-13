@@ -16,30 +16,37 @@ Reflex eliminates the typical context switching of web development by merging fr
 * **Internal Tools & SaaS Boilerplates**: Rapid prototyping of data-driven systems with built-in database ORMs and user authentication.
 
 ### Project Setup (Non-Interactive CLI)
-To initialize and run a Reflex application in a non-interactive environment (such as a Docker container or CI/CD runner), use the built-in `python3` venv module and `pip` with the `--template blank` flag to bypass CLI prompts.
+
+To initialize and run a Reflex application in a non-interactive environment (such as a Docker container or CI/CD runner), use the Astral `uv` package manager with the `--template blank` flag to bypass CLI prompts.
 
 ```bash
 # 1. Create and enter project directory
 mkdir hello_reflex
 cd hello_reflex
 
-# 2. Initialize a Python virtual environment and install Reflex
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install reflex
+# 2. Initialize a Python project and add Reflex
+uv init
+uv add reflex
 
 # 3. Initialize the Reflex project non-interactively using the blank template
-reflex init --template blank
+uv run reflex init --template blank
 
 # 4. Initialize and apply the SQLite database schema/migrations
-reflex db init
-reflex db makemigrations --message "initial schema"
-reflex db migrate
+uv run reflex db init
+uv run reflex db makemigrations --message "initial schema"
+uv run reflex db migrate
 
 # 5. Run the Reflex application in development mode (hot-reloads enabled)
 # This spins up the frontend on port 3000 and the backend on port 8000
-reflex run --loglevel debug
+uv run reflex run --loglevel debug
 ```
+
+**IMPORTANT NOTES:**
+
+Please note that, some dependencies of reflex has conflicts with the system python packages. So, MUST use `uv` to manage the python environment in Dockerfile and task description.
+When using `uv`, MUST make sure the dependencies are installed and the environment is activated before run.
+
+For initial state and final state tests, it always run by the system python3 and python3-tests, so should not assume reflex installed and only check the env and outputs.
 
 ---
 
@@ -280,3 +287,4 @@ color_picker = ColorPicker.create
 4. [Reflex Chat App Template](https://github.com/reflex-dev/reflex-chat): Official OpenAI chat application template using Reflex.
 5. [Reflex LLM Examples Collection](https://github.com/reflex-dev/reflex-llm-examples): Curated repository of advanced AI applications and RAG integrations.
 6. [SQLModel Select Tutorial](https://sqlmodel.tiangolo.com/tutorial/select/): Reference for SQLModel select query syntax which Reflex models subclass.
+7. [Astral uv Documentation](https://docs.astral.sh/uv/): Installation and environment management reference.
