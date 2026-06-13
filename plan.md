@@ -48,6 +48,61 @@ When using `uv`, MUST make sure the dependencies are installed and the environme
 
 For initial state and final state tests, it always run by the system python3 and python3-tests, so should not assume reflex installed and only check the env and outputs.
 
+### Cloud Deployment (Reflex Cloud)
+
+Reflex provides a managed hosting service (Reflex Cloud) to easily deploy applications without configuring infrastructure.
+
+**Prerequisites:**
+- `reflex>=0.6.6`
+- A working Reflex application
+- A `requirements.txt` file at the root of the project containing all Python dependencies (e.g., generated via `uv pip freeze > requirements.txt`).
+
+**Deployment Steps:**
+
+1. **Authentication:**
+   Log in to Reflex Cloud via the CLI.
+   This must be executed in a reflex project folder.
+
+   ```bash
+   uv run reflex cloud config --no-interactive --token REFLEX_CLOUD_TOKEN
+   ```
+
+2. **Deployment:**
+   Use the `reflex deploy` command with your project ID (obtained from the Reflex Cloud Web UI dashboard).
+   ```bash
+   uv run reflex deploy --project REFLEX_CLOUD_PROJECT_ID
+   ```
+   The deployment process is interactive by default and will check your `requirements.txt`, confirm the new app deployment, and optionally ask for a description. Once uploaded, the deployment continues on the cloud infrastructure, and the live application URL will be available in the Reflex Cloud Dashboard.
+
+3. **App Management (Reflex Cloud Apps CLI):**
+   Reflex Cloud provides several commands to manage deployed applications.
+
+   - **List deployments:**
+     ```bash
+     uv run reflex cloud apps list
+     ```
+   - **Check deployment status:**
+     ```bash
+     uv run reflex cloud apps status <deployment-id>
+     ```
+   - **Stop/Start an application:**
+     ```bash
+     uv run reflex cloud apps stop <app-id>
+     uv run reflex cloud apps start <app-id>
+     ```
+   - **Scale an application (e.g., change VM type or regions):**
+     ```bash
+     uv run reflex cloud apps scale <app-id> --vmtype <type> --regions <region>
+     ```
+   - **View application logs:**
+     ```bash
+     uv run reflex cloud apps logs <app-id> --follow
+     ```
+   - **Delete an application:**
+     ```bash
+     uv run reflex cloud apps delete <app-id>
+     ```
+
 ---
 
 ## 2. Core Primitives & APIs
