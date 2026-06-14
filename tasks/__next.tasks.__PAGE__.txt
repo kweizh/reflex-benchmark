@@ -1,5 +1,388 @@
 1:"$Sreact.fragment"
-2:I[75049,["/reflex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/reflex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"buildId":"_2UUCElP3a4K7ZK_kfkoH","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","div",null,{"className":"container mx-auto px-4 sm:px-8 lg:px-12 py-8 max-w-screen-2xl h-[100dvh] flex flex-col overflow-hidden","children":[["$","div",null,{"className":"mb-6 space-y-4 shrink-0","children":[["$","div",null,{"className":"flex items-center gap-4","children":["$","a",null,{"href":"/","className":"text-sm text-muted-foreground hover:text-foreground transition-colors","children":"← Back to Leaderboard"}]}],["$","div",null,{"children":["$","h1",null,{"className":"text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50","children":"Task"}]}]]}],["$","div",null,{"className":"relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card/90 to-background/90 px-5 pb-10 pt-6 text-center shadow-[0_0_0_1px_hsl(var(--primary)/0.18),0_28px_72px_-32px_hsl(var(--foreground)/0.45)] backdrop-blur-sm sm:px-8 sm:pb-14 sm:pt-8","children":[["$","div",null,{"className":"pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/20 blur-3xl sm:-right-14 sm:-top-14 sm:h-40 sm:w-40"}],["$","div",null,{"className":"pointer-events-none absolute -left-20 bottom-0 h-32 w-32 rounded-full bg-foreground/10 blur-3xl sm:h-36 sm:w-36"}],["$","div",null,{"className":"relative mx-auto mb-8 inline-flex items-center rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-foreground sm:text-sm sm:tracking-[0.16em]","children":"⏳ PIPELINE PENDING REVIEW"}],["$","p",null,{"className":"relative mx-auto max-w-2xl px-4 text-center text-lg font-semibold tracking-wide text-foreground sm:px-5 sm:text-xl","children":[0," sample cases generated — pending review"]}],["$","p",null,{"className":"relative mx-auto mt-2 max-w-2xl px-4 text-left text-sm leading-relaxed text-muted-foreground sm:px-5","children":"Your sample cases are ready. Before moving forward, we do a quick review together to make sure everything looks right and aligns with real-world usage."}],["$","div",null,{"className":"relative mx-auto mt-8 max-w-2xl rounded-xl bg-primary/10 px-4 py-4 text-left sm:px-5","children":[["$","p",null,{"className":"text-base font-semibold text-foreground sm:text-lg text-center","children":"Next step: join Slack for review"}],["$","p",null,{"className":"mt-1 text-sm leading-relaxed text-muted-foreground","children":"We've sent you a Slack invitation to your registered email with Zealt. Please join and we'll walk through the next step together."}],["$","p",null,{"className":"mt-3 text-xs text-muted-foreground","children":["If you don't see it, just reach out at"," ",["$","a",null,{"href":"mailto:zealtdev@tabbyml.com","className":"font-normal text-foreground underline decoration-primary/60 underline-offset-4 hover:text-primary transition-colors","children":"zealtdev@tabbyml.com"}],"."]}]]}]]}]]}]]}],[["$","script","script-0",{"src":"/reflex-benchmark/_next/static/chunks/4fac9af28c823018.js","async":true}],["$","script","script-1",{"src":"/reflex-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]],["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"loading":null,"isPartial":false}
-4:null
+2:"$Sreact.suspense"
+3:I[42654,["/reflex-benchmark/_next/static/chunks/babff0e7418ab052.js","/reflex-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","/reflex-benchmark/_next/static/chunks/4fac9af28c823018.js","/reflex-benchmark/_next/static/chunks/f9f579c42c486944.js"],"TasksPageClient"]
+c:I[75049,["/reflex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/reflex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+4:T10ea,# Multi-Client Collaborative Drawing Board (Reflex)
+
+## Background
+Build a Reflex application that powers a multi-client collaborative drawing board. Stroke segments are persisted in SQLite and pushed to every connected client via a background polling task that refreshes the in-memory state. The page renders the strokes as `<line>` elements inside an SVG using `rx.foreach`.
+
+A REST surface mounted on the Reflex FastAPI backend (via `api_transformer`) must allow external clients to create and list stroke segments. The page UI itself only needs to render the strokes; HTTP is the contract used to verify behavior.
+
+## Requirements
+- Reflex app located at `/home/user/myproject` with an SQLite database `reflex.db` in the same directory.
+- A persisted `Stroke` table (an `rx.Model` with `table=True`) holding one drawn segment per row.
+- A reactive page state that exposes `strokes: list[Stroke]` synchronized to the browser.
+- A background task (`@rx.event(background=True)`) that refreshes the state from the DB approximately every 250 ms.
+- Two REST endpoints, mounted on the backend via `api_transformer`, that create and list strokes.
+- Index page (`/`) that renders an `<svg>` containing one `<line>` per stroke through `rx.foreach`.
+
+## Implementation Hints
+- Use `uv` to manage the project: `uv init`, `uv add reflex`, `uv run reflex init --template blank`, `uv run reflex db init`, `uv run reflex db makemigrations --message ...`, `uv run reflex db migrate`.
+- Model state mutation inside background events with `async with self:` to avoid `ImmutableStateError`.
+- For SVG elements use `rx.el.svg`, `rx.el.svg.line`, etc.
+- The REST endpoints can be attached using `rx.App(api_transformer=fastapi_app)`. They run on the Reflex backend port.
+- After the app is running, leave it running for verification, but **kill every background server you started** (including `reflex run`, `next dev`, anything bound to ports 8000/3000) before reporting completion.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`.
+- Start command: `cd /home/user/myproject && uv run reflex run --backend-only --backend-port 8000 --loglevel info`.
+- Port: 8000 (backend only).
+- Database: `/home/user/myproject/reflex.db`, applied via `uv run reflex db migrate`.
+- Table `stroke` must exist with the columns (any order, any nullability that still allows inserts): `id` (integer primary key), `x1` (real/float), `y1` (real/float), `x2` (real/float), `y2` (real/float), `color` (text), `session_id` (text).
+- REST API (mounted on backend port 8000):
+  - `POST /api/strokes`
+    ```json
+    // Request body
+    {
+      "x1": number,
+      "y1": number,
+      "x2": number,
+      "y2": number,
+      "color": string,
+      "session_id": string
+    }
+    ```
+    ```json
+    // Response (HTTP 201)
+    {
+      "id": number,
+      "x1": number,
+      "y1": number,
+      "x2": number,
+      "y2": number,
+      "color": string,
+      "session_id": string
+    }
+    ```
+    Calling this endpoint must increase the row count of `stroke` by exactly 1.
+  - `GET /api/strokes`
+    ```json
+    // Response (HTTP 200) - array of stroke rows in insertion order
+    [
+      {
+        "id": number,
+        "x1": number,
+        "y1": number,
+        "x2": number,
+        "y2": number,
+        "color": string,
+        "session_id": string
+      }
+    ]
+    ```
+- Reflex internal health endpoint `GET /ping` must continue to return `"pong"` (used to detect that the backend is alive).
+- A background event handler decorated with `@rx.event(background=True)` must periodically (~every 250 ms) read the `stroke` table and update the reactive state. After the server has been running for at least 1.5 seconds while strokes are inserted, the backend log must contain no `ImmutableStateError` traceback.
+- The index page (`/`) must render an `<svg>` element that contains an `rx.foreach` over the polled stroke list, producing one `<line>` per stroke. The compiled frontend artifact must exist at `/home/user/myproject/.web/pages/index.js` (or `index.jsx`) and reference both an `svg` tag and a `line` tag.
+- No environment variables are required from the runner; all values used to seed strokes during verification are sent by the verifier.
+- After implementation, terminate every background process you started so that ports 8000 and 3000 are free.
+
+5:T204c,# Notes & Tags CRUD App with Many-to-Many Filtering (Reflex)
+
+## Background
+
+Build a Reflex application that manages notes labelled with tags. The data model is a classic **many-to-many** relationship between `Note` and `Tag`, joined by an SQLModel **link table**. The UI must support full CRUD over notes, attach/detach of tags (including creating new tags on the fly), and a `selected_tags` filter that uses `rx.foreach` + `rx.cond` to filter the displayed notes. The State must expose a cached computed var `all_tags` that publishes the union of tag names attached to at least one note.
+
+A non-Reflex CLI helper `probe.py` at the project root must expose the same data layer over stdin/stdout so the verifier can drive the schema deterministically without a browser.
+
+## Requirements
+
+- Three SQL models inside the Reflex app:
+  - A `Note` model (subclass of `rx.Model`, `table=True`) with at least an `id` primary key and a `content: str` field.
+  - A `Tag` model (subclass of `rx.Model`, `table=True`) with at least an `id` primary key and a `name: str` field whose values are unique.
+  - A separate **link table** model (subclass of `rx.Model`, `table=True`) that holds the foreign keys to `note.id` and `tag.id` and joins the two via `sqlmodel.Relationship(..., link_model=...)`. The `Note.tags` and `Tag.notes` relationships must both be configured.
+- A Reflex `State` whose synchronized base vars include at least:
+  - `notes`: the list of notes currently displayed (after filtering).
+  - `selected_tags`: the list of tag names the user is filtering by.
+- A cached computed var `all_tags` on that State that returns the union of tag names currently attached to at least one note (sorted, no duplicates).
+- An index route (`/`) UI that:
+  - Renders the list of notes via `rx.foreach`, where each note row uses `rx.cond` to decide whether to show based on `selected_tags` (a note is shown when `selected_tags` is empty, or when at least one of its tags is in `selected_tags`).
+  - Supports creating a new note with content and a list of tag names (autocomplete from existing tags is allowed but not required; typing a new tag name MUST create the corresponding `Tag` row if it does not already exist).
+  - Supports editing a note's content and replacing its full tag set.
+  - Supports deleting a note. Deleting a note must remove its link rows but MUST NOT delete the referenced tag rows.
+  - Supports toggling tags into / out of `selected_tags`.
+- A CLI helper `probe.py` at the project root that uses the **same** `rx.Model` classes and the same database file, and exposes the contract documented under `Acceptance Criteria`.
+
+## Implementation Hints
+
+- Use the project setup flow from the research plan (`uv init`, `uv add reflex`, `uv run reflex init --template blank`, `uv run reflex db init/makemigrations/migrate`). Keep all Python deps inside the `uv`-managed virtual environment; the verifier will invoke Python through `uv run`.
+- The link table is its own `rx.Model` with `table=True` and two `Field(..., foreign_key=...)` columns that together form the primary key. Wire the many-to-many with `sqlmodel.Relationship(back_populates=..., link_model=<LinkTable>)`.
+- For the filter UI, do not pre-filter on the backend just for display; perform the filter inside `rx.foreach` using `rx.cond` against `selected_tags` so the UX matches the requirements. (You may still query a sorted list of notes from the DB.)
+- For `all_tags`, use `@rx.var(cache=True)` and derive it from the same data the State already holds for notes (or read from DB) so it stays in sync after CRUD operations.
+- After you have finished developing, **kill all background servers** you started (e.g. `uv run reflex run`). The verifier starts the server itself.
+
+## Acceptance Criteria
+
+- Project path: `/home/user/myproject`
+- Start command: `cd /home/user/myproject && uv run reflex run --loglevel info`
+- Frontend port: `3000`
+- Backend port: `8000`
+- Database: SQLite at `/home/user/myproject/reflex.db`. After `uv run reflex db migrate`, the schema MUST contain:
+  - A `note` table (with at least `id` and `content` columns).
+  - A `tag` table (with at least `id` and `name` columns).
+  - A separate **link table** whose name is anything (e.g. `notetaglink`) that has exactly two columns which are FOREIGN KEYs into `note.id` and `tag.id`.
+- UI contract on `http://localhost:3000/`:
+  - The page renders without compile or runtime errors and returns valid HTML on a `GET /`.
+- CLI contract — `probe.py` at the project root, invoked as `cd /home/user/myproject && uv run python probe.py <subcommand> [args]`. Every subcommand MUST print exactly one JSON object on its own line on stdout (extra log lines are tolerated; the verifier parses the last JSON object on stdout). Exit code MUST be 0 on success and non-zero on failure.
+  - Subcommand `counts`:
+    - Returns: `{"notes": <int>, "tags": <int>, "links": <int>}` reflecting `SELECT COUNT(*)` of the note, tag, and link tables.
+  - Subcommand `ensure-tag --name <NAME>`:
+    - Creates a `Tag` row with `name == NAME` if and only if it does not already exist. Idempotent.
+    - Returns: `{"id": <int>, "name": <NAME>, "created": <bool>}`.
+  - Subcommand `create --content <TXT> --tags <T1,T2,...>`:
+    - Creates one `Note` row. For each comma-separated tag name in `--tags`, attaches that `Tag` to the new note, creating the `Tag` row only if no row with that exact `name` already exists.
+    - `--tags` is optional. If absent or empty, the note is created without tags.
+    - Returns: `{"id": <int>, "content": <TXT>, "tags": [<sorted tag names>]}`.
+  - Subcommand `list [--filter <T1,T2,...>]`:
+    - When `--filter` is missing or empty, returns all notes in ascending `id` order.
+    - When `--filter` has at least one tag, returns notes that have at least one tag in the filter (OR semantics), in ascending `id` order.
+    - Returns: `{"notes": [{"id": <int>, "content": <str>, "tags": [<sorted tag names>]}, ...]}`.
+  - Subcommand `set-tags --id <N> --tags <T1,T2,...>`:
+    - Replaces the entire tag set of the note with id `N` with the comma-separated tags. Creates missing `Tag` rows as needed. Removes link rows for tags no longer attached. Never deletes `Tag` rows.
+    - Returns: `{"id": <N>, "tags": [<sorted tag names>]}`.
+  - Subcommand `update --id <N> --content <TXT>`:
+    - Updates the `content` of the note with id `N`. Does not touch its tags.
+    - Returns: `{"id": <N>, "content": <TXT>}`.
+  - Subcommand `delete --id <N>`:
+    - Deletes the note with id `N` and all its rows in the link table. Does NOT delete any `Tag` row.
+    - Returns: `{"id": <N>, "deleted": true}`.
+  - Subcommand `all-tags`:
+    - Returns: `{"all_tags": [<sorted tag names that are attached to at least one note>]}`. Tag rows that exist in the `tag` table but are not currently attached to any note MUST NOT appear.
+- Many-to-many contract (verifier asserts via `probe.py` + sqlite):
+  - With no notes and two pre-existing tags `T1` and `T2` already inserted via `ensure-tag`, calling `create --content C --tags T1,T2` MUST add exactly 1 row to the note table, exactly 0 rows to the tag table, and exactly 2 rows to the link table — i.e. exactly **3 new rows total** across the 3 tables.
+  - With a note attached to tags `T1,T2`, calling `delete --id <N>` MUST remove the note row and both link rows for that note, but MUST leave both `Tag` rows in place.
+  - `all_tags` MUST equal the union of tag names currently attached to at least one note. After `delete`, any tag that was used only by that note is excluded; tags still used by other notes remain.
+- State / source-code contract:
+  - The Reflex app must define `selected_tags` as a base var on a State subclass, and `all_tags` as a cached computed var (`@rx.var(cache=True)` or `@rx.cached_var`) on that same State.
+  - The index page must use `rx.foreach` to render notes and `rx.cond` (anywhere within the render path) to filter them by `selected_tags`.
+  - The many-to-many MUST be implemented via an `rx.Model(table=True)` link-table class and `sqlmodel.Relationship(..., link_model=<that class>)` on both sides.
+- Background processes: After implementation, all `reflex run` (or other) background servers you started must be terminated before the verifier runs.
+
+6:T1fd1,# Debounced Multi-Filter Data Table (Reflex)
+
+## Background
+Build a Reflex web application that renders a searchable, filterable, sortable data table backed by a SQLite database. The table lists a catalog of `Product` rows that the application must seed deterministically at startup. The text-search filter must be debounced on the client (so rapid typing produces a single query), and the recomputation of filter results must run as an async background event using SQLModel `where`/`order_by` clauses against `rx.asession`.
+
+Use Astral `uv` to manage the Python environment and to drive every Reflex CLI command, per the deployment plan for this benchmark.
+
+## Requirements
+- Initialize a Reflex project named `filtered_table` at `/home/user/filtered_table` using the blank template.
+- Define a SQLModel-backed table `Product` (subclass of `rx.Model`) with at minimum these columns:
+  - `id` (auto-increment primary key)
+  - `name: str`
+  - `category: str`
+  - `sku: str`
+  - `price: float`
+  - `in_stock: bool`
+- Seed the database with EXACTLY 240 rows the first time the app starts, following the deterministic algorithm in the "Seed Algorithm" sub-section below. Subsequent starts must not duplicate rows.
+- Build a single page mounted at `/` containing the following reactive filter controls bound to State vars:
+  - Text search input wrapped in `rx.debounce_input(...)` with `debounce_timeout=300` (milliseconds).
+  - A category dropdown / select offering the literal value `All` plus each of the six category names.
+  - Two numeric inputs for `min_price` and `max_price`.
+  - A checkbox labeled "In stock only" bound to a boolean state var.
+  - A sort-column selector and a sort-direction (asc/desc) selector.
+- The State must expose at least the following synchronized base vars: `result_count: int`, `filtered: list[Product]`, and the individual filter/sort vars listed above.
+- Recomputation of `filtered` and `result_count` MUST happen inside an `@rx.event(background=True)` async handler that opens an `rx.asession()` and constructs a SQLModel `select` with `.where(...)` clauses and an `.order_by(...)` clause. All mutations to state must happen inside an `async with self:` block. The background event must be triggered whenever any filter or sort var changes.
+- The results table must be rendered with `rx.foreach` iterating over `State.filtered`, displaying at least `id`, `name`, `category`, `price`, and `in_stock` per row. Render `result_count` somewhere visible above or below the table.
+- Additionally expose a plain JSON HTTP endpoint `GET /api/filter` mounted via the Reflex `api_transformer` (a FastAPI app). This endpoint applies the exact same filter+sort semantics against the same SQLite database and returns a JSON object. The endpoint exists so that the filter logic can be exercised programmatically. See the "API Contract" sub-section.
+
+### Seed Algorithm (must be implemented exactly)
+Use this list, in this order, as the only category values:
+
+```
+CATEGORIES = ["Electronics", "Books", "Clothing", "Home", "Toys", "Sports"]
+```
+
+For each category index `c` in `0..5` (inclusive), and for each item index `i` in `0..39` (inclusive), insert a row with:
+
+- `name = f"{CATEGORIES[c]} #{i+1:02d}"`  (zero-padded width 2; e.g. `Books #07`, `Sports #40`)
+- `category = CATEGORIES[c]`
+- `sku = f"{CATEGORIES[c][:3].upper()}-{i+1:03d}"`  (e.g. `BOO-007`, `SPO-040`)
+- `price = round(5.0 + (c * 5) + (i * 1.0), 2)`  (a float; e.g. Electronics #01 = 5.0, Sports #40 = 69.0)
+- `in_stock = (i % 4) != 3`  (true for 30 of every 40 rows in each category)
+
+The insertion order MUST be category outer loop, item inner loop, so primary keys are assigned 1..240 with `Electronics #01` = id 1 and `Sports #40` = id 240. Total rows after seeding: 240.
+
+Idempotency: if the `product` table already contains rows when the application starts, do NOT re-seed.
+
+### Filter & Sort Semantics (used by both the State background event and `/api/filter`)
+- `search` (string, default ""): case-insensitive substring match against `Product.name`. Empty string means no constraint.
+- `category` (string, default "All"): when value equals `All` or empty string, no constraint; otherwise equality match against `Product.category`.
+- `min_price` (float or null, default null): when provided, `Product.price >= min_price`.
+- `max_price` (float or null, default null): when provided, `Product.price <= max_price`.
+- `in_stock_only` (bool, default false): when true, restrict to rows with `in_stock == true`.
+- `sort_by` (string, default `id`): one of `id`, `name`, `price`, `category`.
+- `sort_dir` (string, default `asc`): one of `asc`, `desc`.
+
+### API Contract for `GET /api/filter`
+Query parameters (all optional):
+- `search`: string
+- `category`: string
+- `min_price`: float
+- `max_price`: float
+- `in_stock_only`: `true` or `false` (case-insensitive)
+- `sort_by`: `id` | `name` | `price` | `category`
+- `sort_dir`: `asc` | `desc`
+
+Response: `200 OK` with JSON body shaped exactly like:
+
+```
+{
+  "result_count": <int>,
+  "filtered": [
+    {
+      "id": <int>,
+      "name": <str>,
+      "category": <str>,
+      "sku": <str>,
+      "price": <float>,
+      "in_stock": <bool>
+    },
+    ...
+  ]
+}
+```
+
+The length of `filtered` MUST equal `result_count`. Sort order in the JSON list MUST match the requested sort.
+
+## Implementation Hints
+- Per the plan, manage the Python environment with `uv`. Initialize via `uv init` and `uv add reflex`, then run `uv run reflex init --template blank` so the CLI is non-interactive.
+- Run `uv run reflex db init`, `uv run reflex db makemigrations`, and `uv run reflex db migrate` after defining the `Product` model so the schema is materialized.
+- Reflex's docs describe `rx.debounce_input` as a wrapper for fully controlled form controls; pass the `rx.input` as the child and bind `value=` plus `on_change=` for the search var.
+- Background events require `async with self:` for state mutation; do heavy DB work outside the lock to keep the UI responsive.
+- For the API endpoint, build a separate FastAPI `APIRouter` (or a `FastAPI` instance) and pass it to `rx.App(api_transformer=...)`. The endpoint may use a synchronous SQLAlchemy session or `rx.asession()`; the semantics must match the State logic.
+- Factor the SQLModel `select`/`where`/`order_by` construction into a shared helper so that the State background event and the `/api/filter` endpoint produce identical results.
+- Make sure `rxconfig.py` keeps the default `db_url="sqlite:///reflex.db"`; the verifier reads that file directly.
+
+## Acceptance Criteria
+- Project path: `/home/user/filtered_table`
+- Start command (run from the project path): `uv run reflex run --backend-port 8000 --frontend-port 3000 --loglevel info`
+- Frontend port: 3000 (the `/` page must render with HTTP 200).
+- Backend port: 8000 (the `/api/filter` endpoint is mounted here via `api_transformer`).
+- After seeding completes, the SQLite database at `/home/user/filtered_table/reflex.db` must contain exactly 240 rows in the `product` table, distributed 40 per category for the six categories listed above, with `name`, `sku`, `price`, and `in_stock` matching the Seed Algorithm.
+- Source code under `/home/user/filtered_table/filtered_table/` must contain literal occurrences of all of the following Reflex idioms (verified by `grep`):
+  - `rx.debounce_input`
+  - `debounce_timeout=300`
+  - `rx.asession`
+  - `rx.foreach`
+  - `background=True`
+  - `api_transformer`
+- `GET http://localhost:3000/` returns HTTP 200 and the rendered page body references the table heading text used in the UI.
+- `GET http://localhost:8000/api/filter` returns the JSON object described in the API Contract, with `result_count` and `filtered` shaped as specified, and the list length matching `result_count`.
+- The filter logic implements the semantics described above for arbitrary combinations of the parameters, applied against the seeded data.
+- Background server teardown: after finishing the implementation, kill every background `reflex run` (and any other background server) you started. The verifier starts its own server fresh.
+- No external environment variables are required.
+
+7:T1d2d,# Live Stock Ticker with Background-Task Streaming (Reflex)
+
+## Background
+Build a Reflex dashboard that simulates a real-time stock ticker for 5 well-known equity symbols. The price stream MUST be driven by a long-running `@rx.event(background=True)` handler that updates an in-memory price book every 500 ms using a small bounded random walk. The page must render a live table and expose Start / Stop controls. A second click on **Start** MUST NOT spawn a duplicate update loop. The task evaluates correct use of Reflex background events (with `async with self` state-mutation context), cached computed vars, and `api_transformer` for a control / observation REST surface.
+
+## Requirements
+- Implement a Reflex app named `ticker_app` whose root page renders:
+  - A table with one row per symbol containing columns: **Symbol**, **Price**, **Percent Change**.
+  - A **Start** button and a **Stop** button.
+  - A small text status showing whether the ticker is currently running.
+- The price stream MUST be implemented inside a `@rx.event(background=True)` async method on the State class. State mutations MUST happen inside `async with self:` blocks. The loop MUST update prices every 500 ms (`asyncio.sleep(0.5)`) and apply a bounded random walk: every tick each symbol's price changes by `current_price * uniform(-0.005, +0.005)` (i.e. ±0.5% per tick), clamped so that price stays strictly positive.
+- Implement an idempotency guard so that pressing **Start** while the ticker is already running does NOT spawn a second concurrent update loop. The implementation MUST track this via a backend-only state var (a `_` prefixed attribute) checked / set inside `async with self:`.
+- Implement a `percent_change` view as a `@rx.var(cache=True)` computed var on the State class. It MUST be a dict mapping `symbol -> float`, computed as `round((current_price - seed_price) / seed_price * 100.0, 4)`. The computed var MUST depend on both the live price dict and the seed price dict.
+- Mount a FastAPI sub-app onto the Reflex app via `rx.App(api_transformer=...)`. The sub-app MUST expose the following JSON endpoints under the `/api/ticker` prefix. These endpoints share state with the Reflex State by reading / writing a module-level in-memory engine. They exist so headless verification can drive the ticker without a browser; the same engine MUST be used by both the Reflex UI Start/Stop event handlers and the REST endpoints.
+  - `POST /api/ticker/start` — Start the ticker idempotently. Response JSON: `{"running": true, "started": <bool>}` where `started` is `true` only if this call actually started a new loop (i.e. previously not running), and `false` if a loop was already active.
+  - `POST /api/ticker/stop` — Stop the ticker. Response JSON: `{"running": false}`.
+  - `GET /api/ticker/snapshot` — Return a JSON object with the keys:
+    - `running` (bool)
+    - `update_count` (int) — number of completed 500 ms ticks since the most recent start
+    - `seeds` (object: symbol -> float)
+    - `prices` (object: symbol -> float)
+    - `percent_changes` (object: symbol -> float, same formula as the computed var, rounded to 4 decimal places)
+- The symbol universe and seed prices MUST be exactly:
+  - `AAPL`: 150.00
+  - `GOOG`: 2800.00
+  - `MSFT`: 300.00
+  - `AMZN`: 3300.00
+  - `TSLA`: 700.00
+- The random walk MUST be seeded deterministically inside the task code (the executor chooses any fixed seed; no environment variable is read for randomness).
+- After verification finishes, the executor MUST kill all background dev servers that were started for this task. Verification spins up its own server.
+
+## Implementation Hints
+- Use `uv` to manage the Python environment per the research plan. Initialize the project non-interactively with `uv run reflex init --template blank`.
+- The Reflex State `start` event handler should be a regular (non-background) `@rx.event` that flips a `_should_run` backend flag (under no lock, since it is a normal handler) and returns / yields the background event handler. The background event handler itself owns the loop and the idempotency guard.
+- Inside the background handler, use `async with self:` to read / set the idempotency guard (e.g. `_loop_active`) and to write base vars (`prices`, `update_count`, `running`).
+- For `api_transformer`, build a `fastapi.FastAPI()` instance and pass it to `rx.App(api_transformer=...)`. The endpoints can manipulate / read the shared engine directly; they do NOT need to go through a Reflex State token.
+- The shared in-memory engine should expose: `start()` (idempotent), `stop()`, `snapshot()`, and a coroutine `tick_once()` (or an internal asyncio task). A clean way is to give the engine its own `asyncio.Task`, and have the Reflex background event also drive (or mirror) the same engine so the UI table updates live.
+- Computed vars are cached by default. Make sure the `percent_change` computed var actually re-runs when prices change by reading both `self.prices` and `self.seeds` inside its body.
+- Avoid storing non-serializable types in any State var that is not underscore-prefixed.
+
+## Acceptance Criteria
+- Project path: `/home/user/ticker_app`
+- Start command: `uv run reflex run --backend-only --backend-port 8000 --loglevel warning`
+- Backend port: `8000`
+- Verification interacts ONLY with the backend port `8000` over HTTP using the REST endpoints listed below. The Reflex frontend (Next.js) does NOT need to be running during verification.
+- The Reflex State class MUST define:
+  - At least one method decorated with `@rx.event(background=True)` that runs the 500 ms update loop.
+  - At least one method decorated with `@rx.var(cache=True)` that exposes per-symbol percent change.
+  - At least one backend-only var (name starts with `_`) used as the idempotency guard.
+- REST endpoints under `http://localhost:8000`:
+  - `POST /api/ticker/start` → `200` with JSON `{"running": true, "started": <bool>}`.
+  - `POST /api/ticker/stop` → `200` with JSON `{"running": false}`.
+  - `GET /api/ticker/snapshot` → `200` with JSON `{"running": <bool>, "update_count": <int>, "seeds": <object>, "prices": <object>, "percent_changes": <object>}`.
+  - `seeds`, `prices`, and `percent_changes` MUST contain exactly the keys `AAPL`, `GOOG`, `MSFT`, `AMZN`, `TSLA`.
+  - `seeds` MUST equal `{"AAPL": 150.0, "GOOG": 2800.0, "MSFT": 300.0, "AMZN": 3300.0, "TSLA": 700.0}`.
+- Behavioural acceptance:
+  1. After a single `POST /api/ticker/start`, polling `GET /api/ticker/snapshot` every 500 ms for 5 seconds MUST yield at least 5 distinct values of `update_count` (the ticker is producing updates).
+  2. Calling `POST /api/ticker/start` a second time while the ticker is already running MUST respond with `"started": false`, and the observed tick rate (delta `update_count` per second) MUST NOT roughly double — it MUST stay within a small factor (≤ 1.5×) of the rate observed after the first start.
+  3. After `POST /api/ticker/stop`, the `update_count` MUST stop advancing: two snapshots taken ≥ 2 seconds apart MUST return the same `update_count`, and `running` MUST be `false`.
+  4. For every snapshot, for every symbol `s`, the relation `percent_changes[s] == round((prices[s] - seeds[s]) / seeds[s] * 100.0, 4)` MUST hold within a small floating-point tolerance.
+  5. All prices MUST stay strictly positive across the entire test run.
+- The Reflex backend dev server MUST be terminated by the executor after verification (do not leave dangling processes).
+
+8:T12a0,# Multi-Tenant Path-Based Routing with FastAPI Middleware (Reflex)
+
+## Background
+Build a Reflex web application that exposes tenant-scoped pages under `/t/[tenant_id]/...` and a tenant-aware REST endpoint mounted onto Reflex's internal FastAPI backend through `api_transformer`. The application MUST be implemented at `/home/user/myproject` using `uv` to manage the Python environment per the framework documentation.
+
+## Requirements
+- Pure-Python full-stack application built with Reflex.
+- A SQLite-backed `Tenant` table (using `rx.Model`) with the following exact seed rows. The application MUST insert these rows on startup if they do not already exist:
+  - slug=`acme`, name=`Acme Corp`
+  - slug=`globex`, name=`Globex Inc`
+  - slug=`initech`, name=`Initech LLC`
+- Two dynamic-route pages:
+  - `/t/[tenant_id]/dashboard`
+  - `/t/[tenant_id]/settings`
+  Both pages MUST resolve the tenant by reading the dynamic route segment from the Reflex router (e.g. the `tenant_id` dynamic var exposed on `rx.State`, or the equivalent value derived from `self.router`). The tenant lookup MUST happen via an on-load event handler that queries the `Tenant` table where `slug == tenant_id`.
+- When the tenant exists, the rendered page for `/t/[tenant_id]/dashboard` MUST display the literal tenant name AND the literal text `Dashboard`. The rendered page for `/t/[tenant_id]/settings` MUST display the literal tenant name AND the literal text `Settings`.
+- When the tenant does NOT exist, both pages MUST render a 404 marker. The page MUST display the case-sensitive literal text `Tenant Not Found` and MUST NOT display any of the seed tenant names. The 404 branch MUST be controlled by `rx.cond` based on whether the tenant lookup succeeded.
+- A FastAPI application MUST be mounted onto the Reflex backend through the `api_transformer` parameter of `rx.App`. The FastAPI app MUST:
+  - Register an ASGI/HTTP middleware that inspects every incoming request whose path starts with `/api/`. The middleware MUST look up the value of the request header `X-Tenant-Id` against the `Tenant` table and short-circuit with HTTP `403` and a JSON body of `{"detail": "forbidden"}` if the header is missing or does not match any known tenant slug. Requests to non-`/api/` paths MUST pass through unmodified so that Reflex's own routes (frontend assets, `/ping`, `/_event`, websocket) keep working.
+  - Expose `GET /api/me`. When the middleware allows the request through, this endpoint MUST return HTTP `200` with a JSON body `{"slug": <tenant_slug>, "name": <tenant_name>}` matching the tenant identified by the `X-Tenant-Id` header.
+
+## Implementation Hints
+- Initialize the project non-interactively with `uv` and the Reflex `blank` template, then run `reflex db init`, `reflex db makemigrations`, and `reflex db migrate` to apply the schema. Use the default Reflex SQLite database under the project directory.
+- The middleware is plain FastAPI/Starlette; it only needs to read the same SQLite database that `rx.Model` writes to (no shared Reflex state).
+- Page on-load handlers may use `rx.session()` (synchronous) to look up tenants by slug.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Start command: `cd /home/user/myproject && uv run reflex run --env prod`
+- Ports:
+  - Frontend (Next.js, browser-facing): `3000`
+  - Backend (FastAPI / Reflex websocket): `8000`
+- The verifier starts its own server using the start command above. The agent MUST shut down any background processes it started for development or testing before finishing the task.
+- Browser-visible routes (port 3000):
+  - `http://localhost:3000/t/acme/dashboard` → page displays `Acme Corp` and `Dashboard` (no `Tenant Not Found`).
+  - `http://localhost:3000/t/globex/settings` → page displays `Globex Inc` and `Settings` (no `Tenant Not Found`).
+  - `http://localhost:3000/t/initech/dashboard` → page displays `Initech LLC` and `Dashboard`.
+  - `http://localhost:3000/t/no-such-tenant/dashboard` → page displays `Tenant Not Found` and does NOT display any of `Acme Corp`, `Globex Inc`, or `Initech LLC`.
+- Backend API endpoints (port 8000):
+  - `GET http://localhost:8000/api/me` with header `X-Tenant-Id: acme` → HTTP 200, JSON body `{"slug": "acme", "name": "Acme Corp"}`.
+  - `GET http://localhost:8000/api/me` with header `X-Tenant-Id: initech` → HTTP 200, JSON body `{"slug": "initech", "name": "Initech LLC"}`.
+  - `GET http://localhost:8000/api/me` with no `X-Tenant-Id` header → HTTP 403, JSON body `{"detail": "forbidden"}`.
+  - `GET http://localhost:8000/api/me` with header `X-Tenant-Id: not-a-tenant` → HTTP 403, JSON body `{"detail": "forbidden"}`.
+- Reflex's reserved backend route MUST keep working: `GET http://localhost:8000/ping` → HTTP 200 with body `"pong"`.
+
+0:{"buildId":"L2EubtFW_U7R-j1RYFdO7","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"collaborative_drawing_canvas","instruction":"$4","trials":[{"job_name":"2026-06-13__21-28-28","trial_name":"collaborative_drawing_canvas__sgXwEG9","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":642.467,"latency_breakdown":{"env_setup":2.616,"agent_setup":13.062,"agent_exec":600.207,"verifier":10.819},"taskName":"collaborative_drawing_canvas","jobId":"sgXwEG9","exec_duration":600.207},{"job_name":"2026-06-13__20-48-17","trial_name":"collaborative_drawing_canvas__TGFSXe2","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":504.109,"latency_breakdown":{"env_setup":3.028,"agent_setup":13.23,"agent_exec":459.928,"verifier":10.026},"taskName":"collaborative_drawing_canvas","jobId":"TGFSXe2","exec_duration":459.928},{"job_name":"2026-06-13__22-14-41","trial_name":"collaborative_drawing_canvas__55N3Q2u","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":639.697,"latency_breakdown":{"env_setup":2.702,"agent_setup":13.764,"agent_exec":600.473,"verifier":5.69},"taskName":"collaborative_drawing_canvas","jobId":"55N3Q2u","exec_duration":600.473},{"job_name":"2026-06-13__19-56-07","trial_name":"collaborative_drawing_canvas__qzhBrTc","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":686.772,"latency_breakdown":{"env_setup":68.658,"agent_setup":14.515,"agent_exec":578.618,"verifier":10.273},"taskName":"collaborative_drawing_canvas","jobId":"qzhBrTc","exec_duration":578.618},{"job_name":"2026-06-13__20-34-51","trial_name":"collaborative_drawing_canvas__gCUTnGB","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":51.218,"latency_breakdown":{"env_setup":3.225,"agent_setup":17.409,"agent_exec":13.671,"verifier":2.734},"taskName":"collaborative_drawing_canvas","jobId":"gCUTnGB","exec_duration":13.671}]},{"taskName":"crud_notes_with_tags","instruction":"$5","trials":[{"job_name":"2026-06-13__21-28-28","trial_name":"crud_notes_with_tags__nUFs24L","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":653.736,"latency_breakdown":{"env_setup":2.785,"agent_setup":13.073,"agent_exec":600.382,"verifier":8.32},"taskName":"crud_notes_with_tags","jobId":"nUFs24L","exec_duration":600.382},{"job_name":"2026-06-13__20-48-17","trial_name":"crud_notes_with_tags__aBUDtN6","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":525.443,"latency_breakdown":{"env_setup":2.57,"agent_setup":14.299,"agent_exec":413.651,"verifier":68.206},"taskName":"crud_notes_with_tags","jobId":"aBUDtN6","exec_duration":413.651},{"job_name":"2026-06-13__22-14-41","trial_name":"crud_notes_with_tags__enfFjX8","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":639.253,"latency_breakdown":{"env_setup":2.781,"agent_setup":13.521,"agent_exec":600.297,"verifier":7.425},"taskName":"crud_notes_with_tags","jobId":"enfFjX8","exec_duration":600.297},{"job_name":"2026-06-13__19-56-07","trial_name":"crud_notes_with_tags__6c6FU3e","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":440.568,"latency_breakdown":{"env_setup":3.006,"agent_setup":12.773,"agent_exec":336.797,"verifier":68.138},"taskName":"crud_notes_with_tags","jobId":"6c6FU3e","exec_duration":336.797},{"job_name":"2026-06-13__20-34-51","trial_name":"crud_notes_with_tags__YHeMmLA","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":51.196,"latency_breakdown":{"env_setup":3.804,"agent_setup":16.682,"agent_exec":13.581,"verifier":1.695},"taskName":"crud_notes_with_tags","jobId":"YHeMmLA","exec_duration":13.581}]},{"taskName":"debounced_filtered_table","instruction":"$6","trials":[{"job_name":"2026-06-13__21-28-28","trial_name":"debounced_filtered_table__Egw9hQd","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":692.004,"latency_breakdown":{"env_setup":2.676,"agent_setup":14.013,"agent_exec":527.984,"verifier":128.935},"taskName":"debounced_filtered_table","jobId":"Egw9hQd","exec_duration":527.984},{"job_name":"2026-06-13__20-48-17","trial_name":"debounced_filtered_table__u7JNEF6","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":614.484,"latency_breakdown":{"env_setup":2.586,"agent_setup":13.057,"agent_exec":569.157,"verifier":8.971},"taskName":"debounced_filtered_table","jobId":"u7JNEF6","exec_duration":569.157},{"job_name":"2026-06-13__22-14-41","trial_name":"debounced_filtered_table__JALPDU8","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":935.44,"latency_breakdown":{"env_setup":2.619,"agent_setup":13.729,"agent_exec":600.475,"verifier":303.274},"taskName":"debounced_filtered_table","jobId":"JALPDU8","exec_duration":600.475},{"job_name":"2026-06-13__19-56-07","trial_name":"debounced_filtered_table__G63QjEr","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":432.922,"latency_breakdown":{"env_setup":64.482,"agent_setup":13.415,"agent_exec":329.109,"verifier":4.461},"taskName":"debounced_filtered_table","jobId":"G63QjEr","exec_duration":329.109},{"job_name":"2026-06-13__20-34-51","trial_name":"debounced_filtered_table__QxwS5nS","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":51.922,"latency_breakdown":{"env_setup":3.616,"agent_setup":17.858,"agent_exec":13.544,"verifier":2.575},"taskName":"debounced_filtered_table","jobId":"QxwS5nS","exec_duration":13.544}]},{"taskName":"live_stock_ticker_sse","instruction":"$7","trials":[{"job_name":"2026-06-13__21-28-28","trial_name":"live_stock_ticker_sse__PH9yJMn","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":474.945,"latency_breakdown":{"env_setup":2.663,"agent_setup":13.582,"agent_exec":419.564,"verifier":22.701},"taskName":"live_stock_ticker_sse","jobId":"PH9yJMn","exec_duration":419.564},{"job_name":"2026-06-13__20-48-17","trial_name":"live_stock_ticker_sse__6rG75o7","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":352.236,"latency_breakdown":{"env_setup":2.608,"agent_setup":13.722,"agent_exec":296.375,"verifier":22.713},"taskName":"live_stock_ticker_sse","jobId":"6rG75o7","exec_duration":296.375},{"job_name":"2026-06-13__22-14-41","trial_name":"live_stock_ticker_sse__6TUDSbY","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":892.713,"latency_breakdown":{"env_setup":4.849,"agent_setup":31.489,"agent_exec":600.244,"verifier":242.166},"taskName":"live_stock_ticker_sse","jobId":"6TUDSbY","exec_duration":600.244},{"job_name":"2026-06-13__19-56-07","trial_name":"live_stock_ticker_sse__7n2qGmS","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":351.976,"latency_breakdown":{"env_setup":99.998,"agent_setup":12.91,"agent_exec":204.439,"verifier":20.638},"taskName":"live_stock_ticker_sse","jobId":"7n2qGmS","exec_duration":204.439},{"job_name":"2026-06-13__20-34-51","trial_name":"live_stock_ticker_sse__svW8vLc","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":49.357,"latency_breakdown":{"env_setup":3.265,"agent_setup":15.594,"agent_exec":13.08,"verifier":1.338},"taskName":"live_stock_ticker_sse","jobId":"svW8vLc","exec_duration":13.08}]},{"taskName":"tenant_subdomain_routing","instruction":"$8","trials":[{"job_name":"2026-06-13__21-28-28","trial_name":"tenant_subdomain_routing__w6fFZ4e","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":886.517,"latency_breakdown":{"env_setup":2.704,"agent_setup":14.515,"agent_exec":548.618,"verifier":301.832},"taskName":"tenant_subdomain_routing","jobId":"w6fFZ4e","exec_duration":548.618},{"job_name":"2026-06-13__20-48-17","trial_name":"tenant_subdomain_routing__F8VgRc7","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":729.657,"latency_breakdown":{"env_setup":4.28,"agent_setup":25.186,"agent_exec":378.894,"verifier":301.747},"taskName":"tenant_subdomain_routing","jobId":"F8VgRc7","exec_duration":378.894},{"job_name":"2026-06-13__22-14-41","trial_name":"tenant_subdomain_routing__wWncTof","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":943.574,"latency_breakdown":{"env_setup":2.716,"agent_setup":13.256,"agent_exec":600.388,"verifier":303.177},"taskName":"tenant_subdomain_routing","jobId":"wWncTof","exec_duration":600.388},{"job_name":"2026-06-13__19-56-07","trial_name":"tenant_subdomain_routing__rCDpaKF","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":998.371,"latency_breakdown":{"env_setup":120.653,"agent_setup":13.757,"agent_exec":600.199,"verifier":245.576},"taskName":"tenant_subdomain_routing","jobId":"rCDpaKF","exec_duration":600.199},{"job_name":"2026-06-13__20-34-51","trial_name":"tenant_subdomain_routing__3Qfphfb","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":347.496,"latency_breakdown":{"env_setup":2.969,"agent_setup":14.576,"agent_exec":13.919,"verifier":301.973},"taskName":"tenant_subdomain_routing","jobId":"3Qfphfb","exec_duration":13.919}]}]}]}]]}],["$L9","$La"],"$Lb"]}],"loading":null,"isPartial":false}
+9:["$","script","script-0",{"src":"/reflex-benchmark/_next/static/chunks/4fac9af28c823018.js","async":true}]
+a:["$","script","script-1",{"src":"/reflex-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]
+b:["$","$Lc",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@d"}]}]
+d:null
