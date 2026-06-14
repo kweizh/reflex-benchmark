@@ -1,0 +1,89 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:36:27.806825+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 0,
+            "failed": 6,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781382986171,
+            "stop": 1781382987806
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_database_file_exists",
+                "status": "failed",
+                "duration": 1124,
+                "start": 1781382986613,
+                "stop": 1781382987737,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _prepare_environment():\n        \"\"\"Run uv sync + db migrate exactly once before the backend is started.\"\"\"\n        assert os.path.isdir(PROJECT_DIR), (\n            f\"Expected project directory {PROJECT_DIR} to exist.\"\n        )\n    \n        _kill_stale_servers()\n    \n        # Remove any old backend log to make assertions deterministic.\n        if os.path.exists(LOG_PATH):\n            os.remove(LOG_PATH)\n    \n        sync = subprocess.run(\n            [\"uv\", \"sync\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=600,\n        )\n>       assert sync.returncode == 0, (\n            f\"`uv sync` failed in {PROJECT_DIR}: \"\n            f\"stdout={sync.stdout!r} stderr={sync.stderr!r}\"\n        )\nE       AssertionError: `uv sync` failed in /home/user/myproject: stdout='' stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n'\nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['uv', 'sync'], returncode=2, stdout='', stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n').returncode\n\ntests/test_final_state.py:92: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_stroke_table_schema",
+                "status": "failed",
+                "duration": 14,
+                "start": 1781382987738,
+                "stop": 1781382987752,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _prepare_environment():\n        \"\"\"Run uv sync + db migrate exactly once before the backend is started.\"\"\"\n        assert os.path.isdir(PROJECT_DIR), (\n            f\"Expected project directory {PROJECT_DIR} to exist.\"\n        )\n    \n        _kill_stale_servers()\n    \n        # Remove any old backend log to make assertions deterministic.\n        if os.path.exists(LOG_PATH):\n            os.remove(LOG_PATH)\n    \n        sync = subprocess.run(\n            [\"uv\", \"sync\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=600,\n        )\n>       assert sync.returncode == 0, (\n            f\"`uv sync` failed in {PROJECT_DIR}: \"\n            f\"stdout={sync.stdout!r} stderr={sync.stderr!r}\"\n        )\nE       AssertionError: `uv sync` failed in /home/user/myproject: stdout='' stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n'\nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['uv', 'sync'], returncode=2, stdout='', stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n').returncode\n\ntests/test_final_state.py:92: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_ping_endpoint",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781382987752,
+                "stop": 1781382987762,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _prepare_environment():\n        \"\"\"Run uv sync + db migrate exactly once before the backend is started.\"\"\"\n        assert os.path.isdir(PROJECT_DIR), (\n            f\"Expected project directory {PROJECT_DIR} to exist.\"\n        )\n    \n        _kill_stale_servers()\n    \n        # Remove any old backend log to make assertions deterministic.\n        if os.path.exists(LOG_PATH):\n            os.remove(LOG_PATH)\n    \n        sync = subprocess.run(\n            [\"uv\", \"sync\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=600,\n        )\n>       assert sync.returncode == 0, (\n            f\"`uv sync` failed in {PROJECT_DIR}: \"\n            f\"stdout={sync.stdout!r} stderr={sync.stderr!r}\"\n        )\nE       AssertionError: `uv sync` failed in /home/user/myproject: stdout='' stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n'\nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['uv', 'sync'], returncode=2, stdout='', stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n').returncode\n\ntests/test_final_state.py:92: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_strokes_crud_contract",
+                "status": "failed",
+                "duration": 13,
+                "start": 1781382987762,
+                "stop": 1781382987775,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _prepare_environment():\n        \"\"\"Run uv sync + db migrate exactly once before the backend is started.\"\"\"\n        assert os.path.isdir(PROJECT_DIR), (\n            f\"Expected project directory {PROJECT_DIR} to exist.\"\n        )\n    \n        _kill_stale_servers()\n    \n        # Remove any old backend log to make assertions deterministic.\n        if os.path.exists(LOG_PATH):\n            os.remove(LOG_PATH)\n    \n        sync = subprocess.run(\n            [\"uv\", \"sync\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=600,\n        )\n>       assert sync.returncode == 0, (\n            f\"`uv sync` failed in {PROJECT_DIR}: \"\n            f\"stdout={sync.stdout!r} stderr={sync.stderr!r}\"\n        )\nE       AssertionError: `uv sync` failed in /home/user/myproject: stdout='' stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n'\nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['uv', 'sync'], returncode=2, stdout='', stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n').returncode\n\ntests/test_final_state.py:92: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_background_poller_no_immutable_state_error",
+                "status": "failed",
+                "duration": 15,
+                "start": 1781382987776,
+                "stop": 1781382987791,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _prepare_environment():\n        \"\"\"Run uv sync + db migrate exactly once before the backend is started.\"\"\"\n        assert os.path.isdir(PROJECT_DIR), (\n            f\"Expected project directory {PROJECT_DIR} to exist.\"\n        )\n    \n        _kill_stale_servers()\n    \n        # Remove any old backend log to make assertions deterministic.\n        if os.path.exists(LOG_PATH):\n            os.remove(LOG_PATH)\n    \n        sync = subprocess.run(\n            [\"uv\", \"sync\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=600,\n        )\n>       assert sync.returncode == 0, (\n            f\"`uv sync` failed in {PROJECT_DIR}: \"\n            f\"stdout={sync.stdout!r} stderr={sync.stderr!r}\"\n        )\nE       AssertionError: `uv sync` failed in /home/user/myproject: stdout='' stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n'\nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['uv', 'sync'], returncode=2, stdout='', stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n').returncode\n\ntests/test_final_state.py:92: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_frontend_has_svg_foreach",
+                "status": "failed",
+                "duration": 14,
+                "start": 1781382987791,
+                "stop": 1781382987805,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _prepare_environment():\n        \"\"\"Run uv sync + db migrate exactly once before the backend is started.\"\"\"\n        assert os.path.isdir(PROJECT_DIR), (\n            f\"Expected project directory {PROJECT_DIR} to exist.\"\n        )\n    \n        _kill_stale_servers()\n    \n        # Remove any old backend log to make assertions deterministic.\n        if os.path.exists(LOG_PATH):\n            os.remove(LOG_PATH)\n    \n        sync = subprocess.run(\n            [\"uv\", \"sync\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=600,\n        )\n>       assert sync.returncode == 0, (\n            f\"`uv sync` failed in {PROJECT_DIR}: \"\n            f\"stdout={sync.stdout!r} stderr={sync.stderr!r}\"\n        )\nE       AssertionError: `uv sync` failed in /home/user/myproject: stdout='' stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n'\nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['uv', 'sync'], returncode=2, stdout='', stderr='error: No `pyproject.toml` found in current directory or any parent directory\\n').returncode\n\ntests/test_final_state.py:92: AssertionError"
+            }
+        ]
+    }
+}

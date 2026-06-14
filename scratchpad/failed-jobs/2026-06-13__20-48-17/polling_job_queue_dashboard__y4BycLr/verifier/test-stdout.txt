@@ -1,0 +1,192 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py ....FFFF...                                    [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_single_job_lifecycle ___________________________
+
+reflex_server = None
+
+    def test_single_job_lifecycle(reflex_server):
+        # 1. Submit one job via the API.
+        r = requests.post(f"{API_BASE}/api/jobs", json={"name": "alpha-job"}, timeout=15)
+        assert r.status_code in (200, 201), (
+            f"POST /api/jobs returned HTTP {r.status_code}: {r.text!r}"
+        )
+        body = r.json()
+        assert "id" in body and isinstance(body["id"], int), (
+            f"POST /api/jobs response missing integer 'id': {body!r}"
+        )
+        assert body.get("name") == "alpha-job", (
+            f"POST /api/jobs response 'name' mismatch: {body!r}"
+        )
+        assert body.get("status") == "PENDING", (
+            f"POST /api/jobs response 'status' must be PENDING, got: {body!r}"
+        )
+        assert body.get("progress") == 0, (
+            f"POST /api/jobs response 'progress' must be 0, got: {body!r}"
+        )
+        alpha_id = body["id"]
+    
+        # 2. Poll SQLite directly and record every distinct (status, progress) tuple.
+        observed = []
+        deadline = time.time() + SINGLE_JOB_TIMEOUT_SEC
+        last_tuple = None
+        last_progress = -1
+        saw_running = False
+        while time.time() < deadline:
+            row = _sqlite_get_job(alpha_id)
+            if row is not None:
+                tup = (row["status"], row["progress"])
+                if tup != last_tuple:
+                    observed.append(tup)
+                    last_tuple = tup
+                assert row["progress"] >= last_progress, (
+                    f"progress regressed from {last_progress} to {row['progress']} "
+                    f"for job id={alpha_id}. Observation log: {observed!r}"
+                )
+                last_progress = row["progress"]
+                if row["status"] == "RUNNING":
+                    saw_running = True
+                if row["status"] == "COMPLETED" and row["progress"] == 100:
+                    break
+            time.sleep(0.1)
+    
+        final = _sqlite_get_job(alpha_id)
+        assert final is not None, f"Job id={alpha_id} disappeared from DB."
+>       assert final["status"] == "COMPLETED" and final["progress"] == 100, (
+            f"Job id={alpha_id} did not reach (COMPLETED, 100) within "
+            f"{SINGLE_JOB_TIMEOUT_SEC}s. Final row: {final!r}. "
+            f"Observation log: {observed!r}"
+        )
+E       AssertionError: Job id=1 did not reach (COMPLETED, 100) within 30s. Final row: {'id': 1, 'name': 'alpha-job', 'status': 'PENDING', 'progress': 0}. Observation log: [('PENDING', 0)]
+E       assert ('PENDING' == 'COMPLETED'
+E         - COMPLETED
+E         + PENDING)
+
+tests/test_final_state.py:281: AssertionError
+_____________________ test_counts_after_single_completion ______________________
+
+reflex_server = None
+
+    def test_counts_after_single_completion(reflex_server):
+        api_resp = requests.get(f"{API_BASE}/api/jobs/counts", timeout=15)
+        assert api_resp.status_code == 200, (
+            f"GET /api/jobs/counts returned HTTP {api_resp.status_code}: {api_resp.text!r}"
+        )
+        api_counts = api_resp.json()
+    
+        db_counts = _sqlite_count_by_status()
+        for status in ("PENDING", "RUNNING", "COMPLETED"):
+            assert api_counts.get(status, 0) == db_counts.get(status, 0), (
+                f"Count mismatch for status={status!r}: API said "
+                f"{api_counts.get(status)}, DB said {db_counts.get(status)}. "
+                f"Full API counts: {api_counts!r}, DB counts: {db_counts!r}"
+            )
+>       assert api_counts.get("COMPLETED", 0) == 1, (
+            f"Expected exactly 1 COMPLETED job after the single-job lifecycle test, "
+            f"got {api_counts!r}"
+        )
+E       AssertionError: Expected exactly 1 COMPLETED job after the single-job lifecycle test, got {'PENDING': 1, 'RUNNING': 0, 'COMPLETED': 0}
+E       assert 0 == 1
+E        +  where 0 = <built-in method get of dict object at 0x7f144d370f00>('COMPLETED', 0)
+E        +    where <built-in method get of dict object at 0x7f144d370f00> = {'COMPLETED': 0, 'PENDING': 1, 'RUNNING': 0}.get
+
+tests/test_final_state.py:341: AssertionError
+______________________ test_get_jobs_reflects_completion _______________________
+
+reflex_server = None
+
+    def test_get_jobs_reflects_completion(reflex_server):
+        r = requests.get(f"{API_BASE}/api/jobs", timeout=15)
+        assert r.status_code == 200, (
+            f"GET /api/jobs returned HTTP {r.status_code}: {r.text!r}"
+        )
+        data = r.json()
+        assert isinstance(data, list) and len(data) == 1, (
+            f"Expected exactly 1 job in GET /api/jobs after single-job lifecycle, "
+            f"got: {data!r}"
+        )
+        job = data[0]
+        assert job.get("name") == "alpha-job", (
+            f"Expected the single job name to be 'alpha-job', got: {job!r}"
+        )
+>       assert job.get("status") == "COMPLETED", (
+            f"Expected the single job status to be 'COMPLETED', got: {job!r}"
+        )
+E       AssertionError: Expected the single job status to be 'COMPLETED', got: {'id': 1, 'name': 'alpha-job', 'status': 'PENDING', 'progress': 0}
+E       assert 'PENDING' == 'COMPLETED'
+E         - COMPLETED
+E         + PENDING
+
+tests/test_final_state.py:361: AssertionError
+_______________________ test_bulk_submission_consistency _______________________
+
+reflex_server = None
+
+    def test_bulk_submission_consistency(reflex_server):
+        # Submit three more jobs in close succession.
+        for name in ("beta-1", "beta-2", "beta-3"):
+            r = requests.post(f"{API_BASE}/api/jobs", json={"name": name}, timeout=15)
+            assert r.status_code in (200, 201), (
+                f"POST /api/jobs for name={name!r} returned HTTP {r.status_code}: "
+                f"{r.text!r}"
+            )
+    
+        # While the batch is processing, sample counts repeatedly to verify
+        # invariants (RUNNING <= 1, and counts sum equals total DB rows).
+        deadline = time.time() + BULK_TIMEOUT_SEC
+        completed_count = 0
+        while time.time() < deadline:
+            r = requests.get(f"{API_BASE}/api/jobs/counts", timeout=15)
+            assert r.status_code == 200, (
+                f"GET /api/jobs/counts returned HTTP {r.status_code}: {r.text!r}"
+            )
+            counts = r.json()
+            running = counts.get("RUNNING", 0)
+            pending = counts.get("PENDING", 0)
+            completed = counts.get("COMPLETED", 0)
+            assert running <= 1, (
+                f"Expected at most 1 RUNNING job at any moment (worker is "
+                f"single-threaded), saw RUNNING={running} in {counts!r}"
+            )
+            db_total = sum(_sqlite_count_by_status().values())
+            assert (pending + running + completed) == db_total, (
+                f"Counts API ({counts!r}) sum does not equal DB total row count "
+                f"({db_total}). Counts must mirror the database exactly."
+            )
+            if completed >= 4:
+                completed_count = completed
+                break
+            time.sleep(0.5)
+        else:
+>           raise AssertionError(
+                f"Bulk batch did not complete within {BULK_TIMEOUT_SEC}s. "
+                f"Final counts: {counts!r}"
+            )
+E           AssertionError: Bulk batch did not complete within 60s. Final counts: {'PENDING': 4, 'RUNNING': 0, 'COMPLETED': 0}
+
+tests/test_final_state.py:405: AssertionError
+==================================== PASSES ====================================
+__________________________ test_empty_counts_endpoint __________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_server$ uv run reflex run --loglevel info
+process 'reflex_server' started pid=2213
+reflex_server process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_job_table_exists_and_empty
+PASSED tests/test_final_state.py::test_empty_counts_endpoint
+PASSED tests/test_final_state.py::test_empty_jobs_endpoint
+PASSED tests/test_final_state.py::test_rejects_empty_name
+PASSED tests/test_final_state.py::test_frontend_reachable
+PASSED tests/test_final_state.py::test_no_immutable_state_error_in_logs
+PASSED tests/test_final_state.py::test_source_uses_required_reflex_primitives
+FAILED tests/test_final_state.py::test_single_job_lifecycle - AssertionError:...
+FAILED tests/test_final_state.py::test_counts_after_single_completion - Asser...
+FAILED tests/test_final_state.py::test_get_jobs_reflects_completion - Asserti...
+FAILED tests/test_final_state.py::test_bulk_submission_consistency - Assertio...
+=================== 4 failed, 7 passed in 108.99s (0:01:48) ====================

@@ -1,0 +1,99 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:37:16.586115+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781383036254,
+            "stop": 1781383036585
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_snapshot_shape_and_seeds",
+                "status": "failed",
+                "duration": 46,
+                "start": 1781383036468,
+                "stop": 1781383036514,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>\n_kill_stale_backend = None\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_backend(xprocess, _kill_stale_backend):\n        \"\"\"Start the Reflex backend in `--backend-only` mode and wait for readiness.\"\"\"\n    \n        if not os.path.isdir(PROJECT_DIR):\n>           pytest.fail(\n                f\"Project directory {PROJECT_DIR} does not exist. The executor \"\n                f\"must create the Reflex app at this path.\"\n            )\nE           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.\n\ntests/test_final_state.py:80: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_idempotent_start_first_call_returns_started_true",
+                "status": "failed",
+                "duration": 12,
+                "start": 1781383036515,
+                "stop": 1781383036527,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>\n_kill_stale_backend = None\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_backend(xprocess, _kill_stale_backend):\n        \"\"\"Start the Reflex backend in `--backend-only` mode and wait for readiness.\"\"\"\n    \n        if not os.path.isdir(PROJECT_DIR):\n>           pytest.fail(\n                f\"Project directory {PROJECT_DIR} does not exist. The executor \"\n                f\"must create the Reflex app at this path.\"\n            )\nE           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.\n\ntests/test_final_state.py:80: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_at_least_five_distinct_updates_in_five_seconds",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781383036528,
+                "stop": 1781383036538,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>\n_kill_stale_backend = None\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_backend(xprocess, _kill_stale_backend):\n        \"\"\"Start the Reflex backend in `--backend-only` mode and wait for readiness.\"\"\"\n    \n        if not os.path.isdir(PROJECT_DIR):\n>           pytest.fail(\n                f\"Project directory {PROJECT_DIR} does not exist. The executor \"\n                f\"must create the Reflex app at this path.\"\n            )\nE           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.\n\ntests/test_final_state.py:80: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_idempotent_start_does_not_double_rate",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781383036539,
+                "stop": 1781383036548,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>\n_kill_stale_backend = None\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_backend(xprocess, _kill_stale_backend):\n        \"\"\"Start the Reflex backend in `--backend-only` mode and wait for readiness.\"\"\"\n    \n        if not os.path.isdir(PROJECT_DIR):\n>           pytest.fail(\n                f\"Project directory {PROJECT_DIR} does not exist. The executor \"\n                f\"must create the Reflex app at this path.\"\n            )\nE           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.\n\ntests/test_final_state.py:80: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_percent_change_correctness",
+                "status": "failed",
+                "duration": 14,
+                "start": 1781383036548,
+                "stop": 1781383036562,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>\n_kill_stale_backend = None\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_backend(xprocess, _kill_stale_backend):\n        \"\"\"Start the Reflex backend in `--backend-only` mode and wait for readiness.\"\"\"\n    \n        if not os.path.isdir(PROJECT_DIR):\n>           pytest.fail(\n                f\"Project directory {PROJECT_DIR} does not exist. The executor \"\n                f\"must create the Reflex app at this path.\"\n            )\nE           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.\n\ntests/test_final_state.py:80: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_stop_halts_updates",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781383036562,
+                "stop": 1781383036573,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>\n_kill_stale_backend = None\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_backend(xprocess, _kill_stale_backend):\n        \"\"\"Start the Reflex backend in `--backend-only` mode and wait for readiness.\"\"\"\n    \n        if not os.path.isdir(PROJECT_DIR):\n>           pytest.fail(\n                f\"Project directory {PROJECT_DIR} does not exist. The executor \"\n                f\"must create the Reflex app at this path.\"\n            )\nE           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.\n\ntests/test_final_state.py:80: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_all_prices_stay_positive",
+                "status": "failed",
+                "duration": 12,
+                "start": 1781383036573,
+                "stop": 1781383036585,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>\n_kill_stale_backend = None\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_backend(xprocess, _kill_stale_backend):\n        \"\"\"Start the Reflex backend in `--backend-only` mode and wait for readiness.\"\"\"\n    \n        if not os.path.isdir(PROJECT_DIR):\n>           pytest.fail(\n                f\"Project directory {PROJECT_DIR} does not exist. The executor \"\n                f\"must create the Reflex app at this path.\"\n            )\nE           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.\n\ntests/test_final_state.py:80: Failed"
+            }
+        ]
+    }
+}

@@ -1,0 +1,155 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T21:39:17.490748+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 2,
+            "failed": 8,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781386745102,
+            "stop": 1781386757490
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_step_routes_render_step_indicator",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 9819,
+                "start": 1781386745697,
+                "stop": 1781386755516,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::('path', 'expected_text')::[('/wizard/profile', 'Step 1 of 4'), ('/wizard/address', 'Step 2 of 4'), ('/wizard/preferences', 'Step 3 of 4'), ('/wizard/review', 'Step 4 of 4')]"
+                ],
+                "trace": "start_reflex_app = None, path = '/wizard/profile', expected_text = 'Step 1 of 4'\n\n    @pytest.mark.parametrize(\n        (\"path\", \"expected_text\"),\n        [\n            (\"/wizard/profile\", \"Step 1 of 4\"),\n            (\"/wizard/address\", \"Step 2 of 4\"),\n            (\"/wizard/preferences\", \"Step 3 of 4\"),\n            (\"/wizard/review\", \"Step 4 of 4\"),\n        ],\n    )\n    def test_step_routes_render_step_indicator(start_reflex_app, path, expected_text):\n        url = f\"{FRONTEND_URL}{path}\"\n        resp = requests.get(url, timeout=30)\n        assert resp.status_code == 200, (\n            f\"Expected HTTP 200 from {url}, got {resp.status_code}. Body: {resp.text[:500]!r}\"\n        )\n>       assert expected_text in resp.text, (\n            f\"Expected step indicator '{expected_text}' to be present in the response body \"\n            f\"for {url}, but it was not found. First 500 bytes: {resp.text[:500]!r}\"\n        )\nE       AssertionError: Expected step indicator 'Step 1 of 4' to be present in the response body for http://localhost:3000/wizard/profile, but it was not found. First 500 bytes: '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=\"viewport\"/><link rel=\"modulepreload\" href=\"/@id/__x00__virtual:react-router/browser-manifest\"/><link rel=\"modulepreload\" href=\"/app/entry.client.js\"/><link rel=\"modulepreload\" href=\"/app/root.jsx\"/><script>\\n// Only run in browser environment, not during SSR\\nif (typeof document !== \\'undefined\\') {\\n    try {\\n        const theme = localStorage.getItem(\"theme\") || \"system\";\\n        co'\nE       assert 'Step 1 of 4' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\nE        +  where '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>' = <Response [200]>.text\n\ntests/test_final_state.py:85: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_step_routes_render_step_indicator",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 64,
+                "start": 1781386755517,
+                "stop": 1781386755581,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::('path', 'expected_text')::[('/wizard/profile', 'Step 1 of 4'), ('/wizard/address', 'Step 2 of 4'), ('/wizard/preferences', 'Step 3 of 4'), ('/wizard/review', 'Step 4 of 4')]"
+                ],
+                "trace": "start_reflex_app = None, path = '/wizard/address', expected_text = 'Step 2 of 4'\n\n    @pytest.mark.parametrize(\n        (\"path\", \"expected_text\"),\n        [\n            (\"/wizard/profile\", \"Step 1 of 4\"),\n            (\"/wizard/address\", \"Step 2 of 4\"),\n            (\"/wizard/preferences\", \"Step 3 of 4\"),\n            (\"/wizard/review\", \"Step 4 of 4\"),\n        ],\n    )\n    def test_step_routes_render_step_indicator(start_reflex_app, path, expected_text):\n        url = f\"{FRONTEND_URL}{path}\"\n        resp = requests.get(url, timeout=30)\n        assert resp.status_code == 200, (\n            f\"Expected HTTP 200 from {url}, got {resp.status_code}. Body: {resp.text[:500]!r}\"\n        )\n>       assert expected_text in resp.text, (\n            f\"Expected step indicator '{expected_text}' to be present in the response body \"\n            f\"for {url}, but it was not found. First 500 bytes: {resp.text[:500]!r}\"\n        )\nE       AssertionError: Expected step indicator 'Step 2 of 4' to be present in the response body for http://localhost:3000/wizard/address, but it was not found. First 500 bytes: '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=\"viewport\"/><link rel=\"modulepreload\" href=\"/@id/__x00__virtual:react-router/browser-manifest\"/><link rel=\"modulepreload\" href=\"/app/entry.client.js\"/><link rel=\"modulepreload\" href=\"/app/root.jsx\"/><script>\\n// Only run in browser environment, not during SSR\\nif (typeof document !== \\'undefined\\') {\\n    try {\\n        const theme = localStorage.getItem(\"theme\") || \"system\";\\n        co'\nE       assert 'Step 2 of 4' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\nE        +  where '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>' = <Response [200]>.text\n\ntests/test_final_state.py:85: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_step_routes_render_step_indicator",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 68,
+                "start": 1781386755582,
+                "stop": 1781386755650,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::('path', 'expected_text')::[('/wizard/profile', 'Step 1 of 4'), ('/wizard/address', 'Step 2 of 4'), ('/wizard/preferences', 'Step 3 of 4'), ('/wizard/review', 'Step 4 of 4')]"
+                ],
+                "trace": "start_reflex_app = None, path = '/wizard/preferences'\nexpected_text = 'Step 3 of 4'\n\n    @pytest.mark.parametrize(\n        (\"path\", \"expected_text\"),\n        [\n            (\"/wizard/profile\", \"Step 1 of 4\"),\n            (\"/wizard/address\", \"Step 2 of 4\"),\n            (\"/wizard/preferences\", \"Step 3 of 4\"),\n            (\"/wizard/review\", \"Step 4 of 4\"),\n        ],\n    )\n    def test_step_routes_render_step_indicator(start_reflex_app, path, expected_text):\n        url = f\"{FRONTEND_URL}{path}\"\n        resp = requests.get(url, timeout=30)\n        assert resp.status_code == 200, (\n            f\"Expected HTTP 200 from {url}, got {resp.status_code}. Body: {resp.text[:500]!r}\"\n        )\n>       assert expected_text in resp.text, (\n            f\"Expected step indicator '{expected_text}' to be present in the response body \"\n            f\"for {url}, but it was not found. First 500 bytes: {resp.text[:500]!r}\"\n        )\nE       AssertionError: Expected step indicator 'Step 3 of 4' to be present in the response body for http://localhost:3000/wizard/preferences, but it was not found. First 500 bytes: '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=\"viewport\"/><link rel=\"modulepreload\" href=\"/@id/__x00__virtual:react-router/browser-manifest\"/><link rel=\"modulepreload\" href=\"/app/entry.client.js\"/><link rel=\"modulepreload\" href=\"/app/root.jsx\"/><script>\\n// Only run in browser environment, not during SSR\\nif (typeof document !== \\'undefined\\') {\\n    try {\\n        const theme = localStorage.getItem(\"theme\") || \"system\";\\n        co'\nE       assert 'Step 3 of 4' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\nE        +  where '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>' = <Response [200]>.text\n\ntests/test_final_state.py:85: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_step_routes_render_step_indicator",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 74,
+                "start": 1781386755651,
+                "stop": 1781386755725,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::('path', 'expected_text')::[('/wizard/profile', 'Step 1 of 4'), ('/wizard/address', 'Step 2 of 4'), ('/wizard/preferences', 'Step 3 of 4'), ('/wizard/review', 'Step 4 of 4')]"
+                ],
+                "trace": "start_reflex_app = None, path = '/wizard/review', expected_text = 'Step 4 of 4'\n\n    @pytest.mark.parametrize(\n        (\"path\", \"expected_text\"),\n        [\n            (\"/wizard/profile\", \"Step 1 of 4\"),\n            (\"/wizard/address\", \"Step 2 of 4\"),\n            (\"/wizard/preferences\", \"Step 3 of 4\"),\n            (\"/wizard/review\", \"Step 4 of 4\"),\n        ],\n    )\n    def test_step_routes_render_step_indicator(start_reflex_app, path, expected_text):\n        url = f\"{FRONTEND_URL}{path}\"\n        resp = requests.get(url, timeout=30)\n        assert resp.status_code == 200, (\n            f\"Expected HTTP 200 from {url}, got {resp.status_code}. Body: {resp.text[:500]!r}\"\n        )\n>       assert expected_text in resp.text, (\n            f\"Expected step indicator '{expected_text}' to be present in the response body \"\n            f\"for {url}, but it was not found. First 500 bytes: {resp.text[:500]!r}\"\n        )\nE       AssertionError: Expected step indicator 'Step 4 of 4' to be present in the response body for http://localhost:3000/wizard/review, but it was not found. First 500 bytes: '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=\"viewport\"/><link rel=\"modulepreload\" href=\"/@id/__x00__virtual:react-router/browser-manifest\"/><link rel=\"modulepreload\" href=\"/app/entry.client.js\"/><link rel=\"modulepreload\" href=\"/app/root.jsx\"/><script>\\n// Only run in browser environment, not during SSR\\nif (typeof document !== \\'undefined\\') {\\n    try {\\n        const theme = localStorage.getItem(\"theme\") || \"system\";\\n        co'\nE       assert 'Step 4 of 4' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\nE        +  where '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>' = <Response [200]>.text\n\ntests/test_final_state.py:85: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_localstorage_key_declared_in_source",
+                "status": "passed",
+                "duration": 262,
+                "start": 1781386755726,
+                "stop": 1781386755988,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_localstorage_key_present_in_compiled_bundle",
+                "status": "passed",
+                "duration": 736,
+                "start": 1781386755989,
+                "stop": 1781386756725,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_email_rejected",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 24,
+                "start": 1781386756726,
+                "stop": 1781386756750,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_reflex_app = None\n\n    def test_invalid_email_rejected(start_reflex_app):\n        payload = {\n            \"full_name\": \"Ada Lovelace\",\n            \"email\": \"not-an-email\",\n            \"street\": \"1 Analytical Engine Way\",\n            \"city\": \"London\",\n            \"postal_code\": \"12345\",\n            \"newsletter\": True,\n            \"theme\": \"light\",\n            \"language\": \"en\",\n        }\n        resp = requests.post(SUBMIT_URL, json=payload, timeout=30)\n>       assert resp.status_code == 400, (\n            f\"Expected HTTP 400 for invalid email, got {resp.status_code}. \"\n            f\"Body: {resp.text[:500]!r}\"\n        )\nE       AssertionError: Expected HTTP 400 for invalid email, got 404. Body: 'Not Found'\nE       assert 404 == 400\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:148: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_postal_code_rejected",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 18,
+                "start": 1781386756751,
+                "stop": 1781386756769,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_reflex_app = None\n\n    def test_invalid_postal_code_rejected(start_reflex_app):\n        payload = {\n            \"full_name\": \"Grace Hopper\",\n            \"email\": \"grace@example.com\",\n            \"street\": \"123 Main St\",\n            \"city\": \"Arlington\",\n            \"postal_code\": \"ABCDE\",\n            \"newsletter\": False,\n            \"theme\": \"dark\",\n            \"language\": \"en\",\n        }\n        resp = requests.post(SUBMIT_URL, json=payload, timeout=30)\n>       assert resp.status_code == 400, (\n            f\"Expected HTTP 400 for invalid postal code, got {resp.status_code}. \"\n            f\"Body: {resp.text[:500]!r}\"\n        )\nE       AssertionError: Expected HTTP 400 for invalid postal code, got 404. Body: 'Not Found'\nE       assert 404 == 400\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:173: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_theme_and_language_rejected",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 18,
+                "start": 1781386756770,
+                "stop": 1781386756788,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_reflex_app = None\n\n    def test_invalid_theme_and_language_rejected(start_reflex_app):\n        payload = {\n            \"full_name\": \"Linus Torvalds\",\n            \"email\": \"linus@example.com\",\n            \"street\": \"1 Kernel Way\",\n            \"city\": \"Helsinki\",\n            \"postal_code\": \"00100\",\n            \"newsletter\": True,\n            \"theme\": \"neon\",\n            \"language\": \"EN\",\n        }\n        resp = requests.post(SUBMIT_URL, json=payload, timeout=30)\n>       assert resp.status_code == 400, (\n            f\"Expected HTTP 400 for invalid theme/language, got {resp.status_code}. \"\n            f\"Body: {resp.text[:500]!r}\"\n        )\nE       AssertionError: Expected HTTP 400 for invalid theme/language, got 404. Body: 'Not Found'\nE       assert 404 == 400\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:198: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_successful_submission_writes_sqlite_row",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 700,
+                "start": 1781386756789,
+                "stop": 1781386757489,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_reflex_app = None\n\n    def test_successful_submission_writes_sqlite_row(start_reflex_app):\n        payload = {\n            \"full_name\": \"Margaret Hamilton\",\n            \"email\": \"margaret@apollo.example.com\",\n            \"street\": \"500 Tech Square\",\n            \"city\": \"Cambridge\",\n            \"postal_code\": \"02139\",\n            \"newsletter\": True,\n            \"theme\": \"dark\",\n            \"language\": \"en\",\n        }\n        resp = requests.post(SUBMIT_URL, json=payload, timeout=30)\n>       assert resp.status_code == 200, (\n            f\"Expected HTTP 200 for a valid submission, got {resp.status_code}. \"\n            f\"Body: {resp.text[:500]!r}\"\n        )\nE       AssertionError: Expected HTTP 200 for a valid submission, got 404. Body: 'Not Found'\nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:230: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

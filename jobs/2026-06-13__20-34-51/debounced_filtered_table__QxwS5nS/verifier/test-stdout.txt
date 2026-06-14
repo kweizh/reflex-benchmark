@@ -1,0 +1,2411 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 24 items
+
+tests/test_final_state.py FFFFFFFFFFFFFFFEEEEEEEEE                       [100%]
+
+==================================== ERRORS ====================================
+_________________ ERROR at setup of test_frontend_page_renders _________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f6d62ba97f0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:264: in ensure
+    xresource.popen = Popen(args, **popen_kwargs, **kwargs)
+usr/lib/python3.12/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['uv', 'run', 'reflex', 'run', '--backend-port...>
+args = ['uv', 'run', 'reflex', 'run', '--backend-port', '8000', ...]
+executable = b'uv', preexec_fn = <built-in function setpgrp>, close_fds = True
+pass_fds = (), cwd = '/home/user/filtered_table'
+env = {'HOME': '/root', 'HOSTNAME': 'c1c1829f94c0', 'LC_CTYPE': 'C.UTF-8', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', ...}
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = -1, c2pwrite = 11, errread = -1, errwrite = 11
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/filtered_table'
+
+usr/lib/python3.12/subprocess.py:1955: FileNotFoundError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_filtered_table$ uv run reflex run --backend-port 8000 --frontend-port 3000 --loglevel info
+____________ ERROR at setup of test_filter_no_filters_default_sort _____________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f6d62ba97f0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:264: in ensure
+    xresource.popen = Popen(args, **popen_kwargs, **kwargs)
+usr/lib/python3.12/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['uv', 'run', 'reflex', 'run', '--backend-port...>
+args = ['uv', 'run', 'reflex', 'run', '--backend-port', '8000', ...]
+executable = b'uv', preexec_fn = <built-in function setpgrp>, close_fds = True
+pass_fds = (), cwd = '/home/user/filtered_table'
+env = {'HOME': '/root', 'HOSTNAME': 'c1c1829f94c0', 'LC_CTYPE': 'C.UTF-8', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', ...}
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = -1, c2pwrite = 11, errread = -1, errwrite = 11
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/filtered_table'
+
+usr/lib/python3.12/subprocess.py:1955: FileNotFoundError
+_________________ ERROR at setup of test_filter_category_books _________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f6d62ba97f0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:264: in ensure
+    xresource.popen = Popen(args, **popen_kwargs, **kwargs)
+usr/lib/python3.12/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['uv', 'run', 'reflex', 'run', '--backend-port...>
+args = ['uv', 'run', 'reflex', 'run', '--backend-port', '8000', ...]
+executable = b'uv', preexec_fn = <built-in function setpgrp>, close_fds = True
+pass_fds = (), cwd = '/home/user/filtered_table'
+env = {'HOME': '/root', 'HOSTNAME': 'c1c1829f94c0', 'LC_CTYPE': 'C.UTF-8', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', ...}
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = -1, c2pwrite = 11, errread = -1, errwrite = 11
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/filtered_table'
+
+usr/lib/python3.12/subprocess.py:1955: FileNotFoundError
+______________ ERROR at setup of test_filter_books_in_stock_only _______________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f6d62ba97f0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:264: in ensure
+    xresource.popen = Popen(args, **popen_kwargs, **kwargs)
+usr/lib/python3.12/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['uv', 'run', 'reflex', 'run', '--backend-port...>
+args = ['uv', 'run', 'reflex', 'run', '--backend-port', '8000', ...]
+executable = b'uv', preexec_fn = <built-in function setpgrp>, close_fds = True
+pass_fds = (), cwd = '/home/user/filtered_table'
+env = {'HOME': '/root', 'HOSTNAME': 'c1c1829f94c0', 'LC_CTYPE': 'C.UTF-8', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', ...}
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = -1, c2pwrite = 11, errread = -1, errwrite = 11
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/filtered_table'
+
+usr/lib/python3.12/subprocess.py:1955: FileNotFoundError
+_____________ ERROR at setup of test_filter_price_window_20_to_30 ______________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f6d62ba97f0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:264: in ensure
+    xresource.popen = Popen(args, **popen_kwargs, **kwargs)
+usr/lib/python3.12/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['uv', 'run', 'reflex', 'run', '--backend-port...>
+args = ['uv', 'run', 'reflex', 'run', '--backend-port', '8000', ...]
+executable = b'uv', preexec_fn = <built-in function setpgrp>, close_fds = True
+pass_fds = (), cwd = '/home/user/filtered_table'
+env = {'HOME': '/root', 'HOSTNAME': 'c1c1829f94c0', 'LC_CTYPE': 'C.UTF-8', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', ...}
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = -1, c2pwrite = 11, errread = -1, errwrite = 11
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/filtered_table'
+
+usr/lib/python3.12/subprocess.py:1955: FileNotFoundError
+___________ ERROR at setup of test_filter_text_search_books_hash_one ___________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f6d62ba97f0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:264: in ensure
+    xresource.popen = Popen(args, **popen_kwargs, **kwargs)
+usr/lib/python3.12/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['uv', 'run', 'reflex', 'run', '--backend-port...>
+args = ['uv', 'run', 'reflex', 'run', '--backend-port', '8000', ...]
+executable = b'uv', preexec_fn = <built-in function setpgrp>, close_fds = True
+pass_fds = (), cwd = '/home/user/filtered_table'
+env = {'HOME': '/root', 'HOSTNAME': 'c1c1829f94c0', 'LC_CTYPE': 'C.UTF-8', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', ...}
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = -1, c2pwrite = 11, errread = -1, errwrite = 11
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/filtered_table'
+
+usr/lib/python3.12/subprocess.py:1955: FileNotFoundError
+________________ ERROR at setup of test_filter_sort_price_desc _________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f6d62ba97f0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:264: in ensure
+    xresource.popen = Popen(args, **popen_kwargs, **kwargs)
+usr/lib/python3.12/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['uv', 'run', 'reflex', 'run', '--backend-port...>
+args = ['uv', 'run', 'reflex', 'run', '--backend-port', '8000', ...]
+executable = b'uv', preexec_fn = <built-in function setpgrp>, close_fds = True
+pass_fds = (), cwd = '/home/user/filtered_table'
+env = {'HOME': '/root', 'HOSTNAME': 'c1c1829f94c0', 'LC_CTYPE': 'C.UTF-8', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', ...}
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = -1, c2pwrite = 11, errread = -1, errwrite = 11
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/filtered_table'
+
+usr/lib/python3.12/subprocess.py:1955: FileNotFoundError
+__________ ERROR at setup of test_filter_in_stock_only_sort_name_asc ___________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f6d62ba97f0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:264: in ensure
+    xresource.popen = Popen(args, **popen_kwargs, **kwargs)
+usr/lib/python3.12/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['uv', 'run', 'reflex', 'run', '--backend-port...>
+args = ['uv', 'run', 'reflex', 'run', '--backend-port', '8000', ...]
+executable = b'uv', preexec_fn = <built-in function setpgrp>, close_fds = True
+pass_fds = (), cwd = '/home/user/filtered_table'
+env = {'HOME': '/root', 'HOSTNAME': 'c1c1829f94c0', 'LC_CTYPE': 'C.UTF-8', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', ...}
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = -1, c2pwrite = 11, errread = -1, errwrite = 11
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/filtered_table'
+
+usr/lib/python3.12/subprocess.py:1955: FileNotFoundError
+_____ ERROR at setup of test_filter_combined_electronics_under_20_in_stock _____
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f6d62ba97f0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:264: in ensure
+    xresource.popen = Popen(args, **popen_kwargs, **kwargs)
+usr/lib/python3.12/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['uv', 'run', 'reflex', 'run', '--backend-port...>
+args = ['uv', 'run', 'reflex', 'run', '--backend-port', '8000', ...]
+executable = b'uv', preexec_fn = <built-in function setpgrp>, close_fds = True
+pass_fds = (), cwd = '/home/user/filtered_table'
+env = {'HOME': '/root', 'HOSTNAME': 'c1c1829f94c0', 'LC_CTYPE': 'C.UTF-8', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', ...}
+startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+p2cwrite = -1, c2pread = -1, c2pwrite = 11, errread = -1, errwrite = 11
+restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/filtered_table'
+
+usr/lib/python3.12/subprocess.py:1955: FileNotFoundError
+=================================== FAILURES ===================================
+________________________ test_project_directory_exists _________________________
+
+    def test_project_directory_exists():
+>       assert os.path.isdir(PROJECT_DIR), (
+            f"Reflex project directory missing at {PROJECT_DIR}."
+        )
+E       AssertionError: Reflex project directory missing at /home/user/filtered_table.
+E       assert False
+E        +  where False = <function isdir at 0x7f6d643882c0>('/home/user/filtered_table')
+E        +    where <function isdir at 0x7f6d643882c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:96: AssertionError
+____________________________ test_rxconfig_present _____________________________
+
+    def test_rxconfig_present():
+        rxconfig = os.path.join(PROJECT_DIR, "rxconfig.py")
+>       assert os.path.isfile(rxconfig), (
+            f"rxconfig.py not found at {rxconfig}; reflex project may not be initialized."
+        )
+E       AssertionError: rxconfig.py not found at /home/user/filtered_table/rxconfig.py; reflex project may not be initialized.
+E       assert False
+E        +  where False = <function isfile at 0x7f6d64388220>('/home/user/filtered_table/rxconfig.py')
+E        +    where <function isfile at 0x7f6d64388220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:103: AssertionError
+__________________________ test_reflex_db_file_exists __________________________
+
+    def test_reflex_db_file_exists():
+>       assert os.path.isfile(DB_PATH), (
+            f"SQLite database not found at {DB_PATH}; the executor must seed it during setup."
+        )
+E       AssertionError: SQLite database not found at /home/user/filtered_table/reflex.db; the executor must seed it during setup.
+E       assert False
+E        +  where False = <function isfile at 0x7f6d64388220>('/home/user/filtered_table/reflex.db')
+E        +    where <function isfile at 0x7f6d64388220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:109: AssertionError
+____________ test_source_contains_required_idiom[rx.debounce_input] ____________
+
+needle = 'rx.debounce_input'
+
+    @pytest.mark.parametrize(
+        "needle",
+        [
+            "rx.debounce_input",
+            "debounce_timeout=300",
+            "rx.asession",
+            "rx.foreach",
+            "background=True",
+            "api_transformer",
+        ],
+    )
+    def test_source_contains_required_idiom(needle: str):
+        """grep the project source tree for required Reflex idioms."""
+        result = subprocess.run(
+            [
+                "grep",
+                "-R",
+                "-F",
+                "--include=*.py",
+                needle,
+                PROJECT_DIR,
+            ],
+            capture_output=True,
+            text=True,
+        )
+>       assert result.returncode == 0 and result.stdout.strip(), (
+            f"Expected the literal idiom {needle!r} to appear in the project source under "
+            f"{PROJECT_DIR}. grep stdout was: {result.stdout!r}"
+        )
+E       AssertionError: Expected the literal idiom 'rx.debounce_input' to appear in the project source under /home/user/filtered_table. grep stdout was: ''
+E       assert (2 == 0)
+E        +  where 2 = CompletedProcess(args=['grep', '-R', '-F', '--include=*.py', 'rx.debounce_input', '/home/user/filtered_table'], returncode=2, stdout='', stderr='grep: /home/user/filtered_table: No such file or directory\n').returncode
+
+tests/test_final_state.py:139: AssertionError
+__________ test_source_contains_required_idiom[debounce_timeout=300] ___________
+
+needle = 'debounce_timeout=300'
+
+    @pytest.mark.parametrize(
+        "needle",
+        [
+            "rx.debounce_input",
+            "debounce_timeout=300",
+            "rx.asession",
+            "rx.foreach",
+            "background=True",
+            "api_transformer",
+        ],
+    )
+    def test_source_contains_required_idiom(needle: str):
+        """grep the project source tree for required Reflex idioms."""
+        result = subprocess.run(
+            [
+                "grep",
+                "-R",
+                "-F",
+                "--include=*.py",
+                needle,
+                PROJECT_DIR,
+            ],
+            capture_output=True,
+            text=True,
+        )
+>       assert result.returncode == 0 and result.stdout.strip(), (
+            f"Expected the literal idiom {needle!r} to appear in the project source under "
+            f"{PROJECT_DIR}. grep stdout was: {result.stdout!r}"
+        )
+E       AssertionError: Expected the literal idiom 'debounce_timeout=300' to appear in the project source under /home/user/filtered_table. grep stdout was: ''
+E       assert (2 == 0)
+E        +  where 2 = CompletedProcess(args=['grep', '-R', '-F', '--include=*.py', 'debounce_timeout=300', '/home/user/filtered_table'], returncode=2, stdout='', stderr='grep: /home/user/filtered_table: No such file or directory\n').returncode
+
+tests/test_final_state.py:139: AssertionError
+_______________ test_source_contains_required_idiom[rx.asession] _______________
+
+needle = 'rx.asession'
+
+    @pytest.mark.parametrize(
+        "needle",
+        [
+            "rx.debounce_input",
+            "debounce_timeout=300",
+            "rx.asession",
+            "rx.foreach",
+            "background=True",
+            "api_transformer",
+        ],
+    )
+    def test_source_contains_required_idiom(needle: str):
+        """grep the project source tree for required Reflex idioms."""
+        result = subprocess.run(
+            [
+                "grep",
+                "-R",
+                "-F",
+                "--include=*.py",
+                needle,
+                PROJECT_DIR,
+            ],
+            capture_output=True,
+            text=True,
+        )
+>       assert result.returncode == 0 and result.stdout.strip(), (
+            f"Expected the literal idiom {needle!r} to appear in the project source under "
+            f"{PROJECT_DIR}. grep stdout was: {result.stdout!r}"
+        )
+E       AssertionError: Expected the literal idiom 'rx.asession' to appear in the project source under /home/user/filtered_table. grep stdout was: ''
+E       assert (2 == 0)
+E        +  where 2 = CompletedProcess(args=['grep', '-R', '-F', '--include=*.py', 'rx.asession', '/home/user/filtered_table'], returncode=2, stdout='', stderr='grep: /home/user/filtered_table: No such file or directory\n').returncode
+
+tests/test_final_state.py:139: AssertionError
+_______________ test_source_contains_required_idiom[rx.foreach] ________________
+
+needle = 'rx.foreach'
+
+    @pytest.mark.parametrize(
+        "needle",
+        [
+            "rx.debounce_input",
+            "debounce_timeout=300",
+            "rx.asession",
+            "rx.foreach",
+            "background=True",
+            "api_transformer",
+        ],
+    )
+    def test_source_contains_required_idiom(needle: str):
+        """grep the project source tree for required Reflex idioms."""
+        result = subprocess.run(
+            [
+                "grep",
+                "-R",
+                "-F",
+                "--include=*.py",
+                needle,
+                PROJECT_DIR,
+            ],
+            capture_output=True,
+            text=True,
+        )
+>       assert result.returncode == 0 and result.stdout.strip(), (
+            f"Expected the literal idiom {needle!r} to appear in the project source under "
+            f"{PROJECT_DIR}. grep stdout was: {result.stdout!r}"
+        )
+E       AssertionError: Expected the literal idiom 'rx.foreach' to appear in the project source under /home/user/filtered_table. grep stdout was: ''
+E       assert (2 == 0)
+E        +  where 2 = CompletedProcess(args=['grep', '-R', '-F', '--include=*.py', 'rx.foreach', '/home/user/filtered_table'], returncode=2, stdout='', stderr='grep: /home/user/filtered_table: No such file or directory\n').returncode
+
+tests/test_final_state.py:139: AssertionError
+_____________ test_source_contains_required_idiom[background=True] _____________
+
+needle = 'background=True'
+
+    @pytest.mark.parametrize(
+        "needle",
+        [
+            "rx.debounce_input",
+            "debounce_timeout=300",
+            "rx.asession",
+            "rx.foreach",
+            "background=True",
+            "api_transformer",
+        ],
+    )
+    def test_source_contains_required_idiom(needle: str):
+        """grep the project source tree for required Reflex idioms."""
+        result = subprocess.run(
+            [
+                "grep",
+                "-R",
+                "-F",
+                "--include=*.py",
+                needle,
+                PROJECT_DIR,
+            ],
+            capture_output=True,
+            text=True,
+        )
+>       assert result.returncode == 0 and result.stdout.strip(), (
+            f"Expected the literal idiom {needle!r} to appear in the project source under "
+            f"{PROJECT_DIR}. grep stdout was: {result.stdout!r}"
+        )
+E       AssertionError: Expected the literal idiom 'background=True' to appear in the project source under /home/user/filtered_table. grep stdout was: ''
+E       assert (2 == 0)
+E        +  where 2 = CompletedProcess(args=['grep', '-R', '-F', '--include=*.py', 'background=True', '/home/user/filtered_table'], returncode=2, stdout='', stderr='grep: /home/user/filtered_table: No such file or directory\n').returncode
+
+tests/test_final_state.py:139: AssertionError
+_____________ test_source_contains_required_idiom[api_transformer] _____________
+
+needle = 'api_transformer'
+
+    @pytest.mark.parametrize(
+        "needle",
+        [
+            "rx.debounce_input",
+            "debounce_timeout=300",
+            "rx.asession",
+            "rx.foreach",
+            "background=True",
+            "api_transformer",
+        ],
+    )
+    def test_source_contains_required_idiom(needle: str):
+        """grep the project source tree for required Reflex idioms."""
+        result = subprocess.run(
+            [
+                "grep",
+                "-R",
+                "-F",
+                "--include=*.py",
+                needle,
+                PROJECT_DIR,
+            ],
+            capture_output=True,
+            text=True,
+        )
+>       assert result.returncode == 0 and result.stdout.strip(), (
+            f"Expected the literal idiom {needle!r} to appear in the project source under "
+            f"{PROJECT_DIR}. grep stdout was: {result.stdout!r}"
+        )
+E       AssertionError: Expected the literal idiom 'api_transformer' to appear in the project source under /home/user/filtered_table. grep stdout was: ''
+E       assert (2 == 0)
+E        +  where 2 = CompletedProcess(args=['grep', '-R', '-F', '--include=*.py', 'api_transformer', '/home/user/filtered_table'], returncode=2, stdout='', stderr='grep: /home/user/filtered_table: No such file or directory\n').returncode
+
+tests/test_final_state.py:139: AssertionError
+__________________________ test_seed_total_row_count ___________________________
+
+    def test_seed_total_row_count():
+>       rows = _query("SELECT COUNT(*) FROM product")
+
+tests/test_final_state.py:157: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+sql = 'SELECT COUNT(*) FROM product', params = ()
+
+    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper
+>       with sqlite3.connect(DB_PATH) as conn:
+E       sqlite3.OperationalError: unable to open database file
+
+tests/test_final_state.py:151: OperationalError
+________________________ test_seed_per_category_counts _________________________
+
+    def test_seed_per_category_counts():
+>       rows = _query(
+            "SELECT category, COUNT(*) FROM product GROUP BY category ORDER BY category"
+        )
+
+tests/test_final_state.py:164: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+sql = 'SELECT category, COUNT(*) FROM product GROUP BY category ORDER BY category'
+params = ()
+
+    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper
+>       with sqlite3.connect(DB_PATH) as conn:
+E       sqlite3.OperationalError: unable to open database file
+
+tests/test_final_state.py:151: OperationalError
+___________________________ test_seed_in_stock_count ___________________________
+
+    def test_seed_in_stock_count():
+>       rows = _query("SELECT COUNT(*) FROM product WHERE in_stock = 1")
+
+tests/test_final_state.py:175: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+sql = 'SELECT COUNT(*) FROM product WHERE in_stock = 1', params = ()
+
+    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper
+>       with sqlite3.connect(DB_PATH) as conn:
+E       sqlite3.OperationalError: unable to open database file
+
+tests/test_final_state.py:151: OperationalError
+_____________________________ test_seed_first_row ______________________________
+
+    def test_seed_first_row():
+>       rows = _query(
+            "SELECT name, sku, price, in_stock FROM product WHERE id = 1"
+        )
+
+tests/test_final_state.py:182: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+sql = 'SELECT name, sku, price, in_stock FROM product WHERE id = 1', params = ()
+
+    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper
+>       with sqlite3.connect(DB_PATH) as conn:
+E       sqlite3.OperationalError: unable to open database file
+
+tests/test_final_state.py:151: OperationalError
+______________________________ test_seed_last_row ______________________________
+
+    def test_seed_last_row():
+>       rows = _query(
+            "SELECT name, sku, price, in_stock FROM product WHERE id = 240"
+        )
+
+tests/test_final_state.py:200: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+sql = 'SELECT name, sku, price, in_stock FROM product WHERE id = 240'
+params = ()
+
+    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper
+>       with sqlite3.connect(DB_PATH) as conn:
+E       sqlite3.OperationalError: unable to open database file
+
+tests/test_final_state.py:151: OperationalError
+__________________________ test_seed_books_second_row __________________________
+
+    def test_seed_books_second_row():
+>       rows = _query("SELECT name, price FROM product WHERE id = 42")
+
+tests/test_final_state.py:218: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+sql = 'SELECT name, price FROM product WHERE id = 42', params = ()
+
+    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper
+>       with sqlite3.connect(DB_PATH) as conn:
+E       sqlite3.OperationalError: unable to open database file
+
+tests/test_final_state.py:151: OperationalError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_frontend_page_renders - FileNotFoundErr...
+ERROR tests/test_final_state.py::test_filter_no_filters_default_sort - FileNo...
+ERROR tests/test_final_state.py::test_filter_category_books - FileNotFoundErr...
+ERROR tests/test_final_state.py::test_filter_books_in_stock_only - FileNotFou...
+ERROR tests/test_final_state.py::test_filter_price_window_20_to_30 - FileNotF...
+ERROR tests/test_final_state.py::test_filter_text_search_books_hash_one - Fil...
+ERROR tests/test_final_state.py::test_filter_sort_price_desc - FileNotFoundEr...
+ERROR tests/test_final_state.py::test_filter_in_stock_only_sort_name_asc - Fi...
+ERROR tests/test_final_state.py::test_filter_combined_electronics_under_20_in_stock
+FAILED tests/test_final_state.py::test_project_directory_exists - AssertionEr...
+FAILED tests/test_final_state.py::test_rxconfig_present - AssertionError: rxc...
+FAILED tests/test_final_state.py::test_reflex_db_file_exists - AssertionError...
+FAILED tests/test_final_state.py::test_source_contains_required_idiom[rx.debounce_input]
+FAILED tests/test_final_state.py::test_source_contains_required_idiom[debounce_timeout=300]
+FAILED tests/test_final_state.py::test_source_contains_required_idiom[rx.asession]
+FAILED tests/test_final_state.py::test_source_contains_required_idiom[rx.foreach]
+FAILED tests/test_final_state.py::test_source_contains_required_idiom[background=True]
+FAILED tests/test_final_state.py::test_source_contains_required_idiom[api_transformer]
+FAILED tests/test_final_state.py::test_seed_total_row_count - sqlite3.Operati...
+FAILED tests/test_final_state.py::test_seed_per_category_counts - sqlite3.Ope...
+FAILED tests/test_final_state.py::test_seed_in_stock_count - sqlite3.Operatio...
+FAILED tests/test_final_state.py::test_seed_first_row - sqlite3.OperationalEr...
+FAILED tests/test_final_state.py::test_seed_last_row - sqlite3.OperationalErr...
+FAILED tests/test_final_state.py::test_seed_books_second_row - sqlite3.Operat...
+========================= 15 failed, 9 errors in 1.60s =========================

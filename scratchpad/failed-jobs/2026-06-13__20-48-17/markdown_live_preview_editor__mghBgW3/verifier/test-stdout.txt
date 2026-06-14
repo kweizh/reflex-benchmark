@@ -1,0 +1,334 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 9 items
+
+tests/test_final_state.py ....EEEEE                                      [100%]
+
+==================================== ERRORS ====================================
+__________ ERROR at setup of test_page_loads_with_required_dom_hooks ___________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fa8e02508c0>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        # Best-effort: kill any straggler reflex/next processes from a prior run so we get
+        # a clean bind on ports 3000/8000.
+        for cmd in (
+            ["pkill", "-f", "reflex run"],
+            ["pkill", "-f", "next-server"],
+            ["pkill", "-f", "uvicorn"],
+        ):
+            subprocess.run(cmd, capture_output=True, check=False)
+    
+        class Starter(ProcessStarter):
+            name = "reflex_app"
+            args = ["uv", "run", "reflex", "run", "--env", "prod", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 600  # The first `reflex run` compiles the Next.js frontend; allow time.
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                # Both the backend (8000) and the frontend (3000) must be listening before
+                # the app is usable. Wait for both.
+                return _port_open(FRONTEND_PORT) and _port_open(BACKEND_PORT)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7fa8e012bd40>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 600                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run --env prod --loglevel info
+process 'reflex_app' started pid=1917
+_ ERROR at setup of test_counter_displays_correctly_for_empty_and_known_input __
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fa8e02508c0>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        # Best-effort: kill any straggler reflex/next processes from a prior run so we get
+        # a clean bind on ports 3000/8000.
+        for cmd in (
+            ["pkill", "-f", "reflex run"],
+            ["pkill", "-f", "next-server"],
+            ["pkill", "-f", "uvicorn"],
+        ):
+            subprocess.run(cmd, capture_output=True, check=False)
+    
+        class Starter(ProcessStarter):
+            name = "reflex_app"
+            args = ["uv", "run", "reflex", "run", "--env", "prod", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 600  # The first `reflex run` compiles the Next.js frontend; allow time.
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                # Both the backend (8000) and the frontend (3000) must be listening before
+                # the app is usable. Wait for both.
+                return _port_open(FRONTEND_PORT) and _port_open(BACKEND_PORT)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7fa8e012bd40>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 600                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+________ ERROR at setup of test_markdown_preview_renders_expected_html _________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fa8e02508c0>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        # Best-effort: kill any straggler reflex/next processes from a prior run so we get
+        # a clean bind on ports 3000/8000.
+        for cmd in (
+            ["pkill", "-f", "reflex run"],
+            ["pkill", "-f", "next-server"],
+            ["pkill", "-f", "uvicorn"],
+        ):
+            subprocess.run(cmd, capture_output=True, check=False)
+    
+        class Starter(ProcessStarter):
+            name = "reflex_app"
+            args = ["uv", "run", "reflex", "run", "--env", "prod", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 600  # The first `reflex run` compiles the Next.js frontend; allow time.
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                # Both the backend (8000) and the frontend (3000) must be listening before
+                # the app is usable. Wait for both.
+                return _port_open(FRONTEND_PORT) and _port_open(BACKEND_PORT)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7fa8e012bd40>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 600                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+_____ ERROR at setup of test_toolbar_wraps_selection_with_markdown_markers _____
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fa8e02508c0>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        # Best-effort: kill any straggler reflex/next processes from a prior run so we get
+        # a clean bind on ports 3000/8000.
+        for cmd in (
+            ["pkill", "-f", "reflex run"],
+            ["pkill", "-f", "next-server"],
+            ["pkill", "-f", "uvicorn"],
+        ):
+            subprocess.run(cmd, capture_output=True, check=False)
+    
+        class Starter(ProcessStarter):
+            name = "reflex_app"
+            args = ["uv", "run", "reflex", "run", "--env", "prod", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 600  # The first `reflex run` compiles the Next.js frontend; allow time.
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                # Both the backend (8000) and the frontend (3000) must be listening before
+                # the app is usable. Wait for both.
+                return _port_open(FRONTEND_PORT) and _port_open(BACKEND_PORT)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7fa8e012bd40>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 600                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+___ ERROR at setup of test_preview_html_is_cached_against_selection_changes ____
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fa8e02508c0>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        # Best-effort: kill any straggler reflex/next processes from a prior run so we get
+        # a clean bind on ports 3000/8000.
+        for cmd in (
+            ["pkill", "-f", "reflex run"],
+            ["pkill", "-f", "next-server"],
+            ["pkill", "-f", "uvicorn"],
+        ):
+            subprocess.run(cmd, capture_output=True, check=False)
+    
+        class Starter(ProcessStarter):
+            name = "reflex_app"
+            args = ["uv", "run", "reflex", "run", "--env", "prod", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 600  # The first `reflex run` compiles the Next.js frontend; allow time.
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                # Both the backend (8000) and the frontend (3000) must be listening before
+                # the app is usable. Wait for both.
+                return _port_open(FRONTEND_PORT) and _port_open(BACKEND_PORT)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7fa8e012bd40>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 600                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_exists
+PASSED tests/test_final_state.py::test_reflex_project_initialized
+PASSED tests/test_final_state.py::test_markdown_it_py_declared_as_dependency
+PASSED tests/test_final_state.py::test_cached_computed_var_used_for_markdown_conversion
+ERROR tests/test_final_state.py::test_page_loads_with_required_dom_hooks - Ti...
+ERROR tests/test_final_state.py::test_counter_displays_correctly_for_empty_and_known_input
+ERROR tests/test_final_state.py::test_markdown_preview_renders_expected_html
+ERROR tests/test_final_state.py::test_toolbar_wraps_selection_with_markdown_markers
+ERROR tests/test_final_state.py::test_preview_html_is_cached_against_selection_changes
+=================== 4 passed, 5 errors in 600.28s (0:10:00) ====================

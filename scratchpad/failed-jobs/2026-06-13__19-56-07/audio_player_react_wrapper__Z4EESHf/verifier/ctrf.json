@@ -1,0 +1,203 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:29:15.442684+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 18,
+            "passed": 17,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781382546772,
+            "stop": 1781382555442
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_rxconfig_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781382546826,
+                "stop": 1781382546827,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_requirements_lists_reflex",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781382546827,
+                "stop": 1781382546829,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ports_free_before_checks",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781382546829,
+                "stop": 1781382546830,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_wrapper_library_is_react_h5_audio_player",
+                "status": "passed",
+                "duration": 224,
+                "start": 1781382546830,
+                "stop": 1781382547054,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_wrapper_has_tag",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781382547054,
+                "stop": 1781382547055,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_wrapper_is_default",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781382547055,
+                "stop": 1781382547057,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_wrapper_declares_src_var",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781382547057,
+                "stop": 1781382547059,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_wrapper_declares_autoplay_var",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781382547059,
+                "stop": 1781382547060,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_wrapper_event_trigger_zero_arg_serializer",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781382547061,
+                "stop": 1781382547062,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::event_name::['on_play', 'on_pause', 'on_ended']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_wrapper_event_trigger_zero_arg_serializer",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781382547062,
+                "stop": 1781382547063,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::event_name::['on_play', 'on_pause', 'on_ended']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_wrapper_event_trigger_zero_arg_serializer",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781382547064,
+                "stop": 1781382547064,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::event_name::['on_play', 'on_pause', 'on_ended']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_state_current_index_defaults_to_zero",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781382547065,
+                "stop": 1781382547066,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_three_track_list",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781382547067,
+                "stop": 1781382547067,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_click_handler_setting_current_index",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781382547068,
+                "stop": 1781382547069,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_on_ended_handler_with_modulo_three",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781382547069,
+                "stop": 1781382547070,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_behavior_via_uv_run_python",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1179,
+                "start": 1781382547071,
+                "stop": 1781382548250,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "state_class = <ast.ClassDef object at 0x7f6fefa52e50>\n\n    def test_state_behavior_via_uv_run_python(state_class: ast.ClassDef):\n        \"\"\"Drive the State class via `uv run python -c ...` to verify wraparound.\"\"\"\n        state_name = state_class.name\n    \n        script = textwrap.dedent(\n            f\"\"\"\n            import sys, os, importlib, pkgutil, inspect, pathlib\n    \n            project_root = pathlib.Path(\"/home/user/audio_app\").resolve()\n            sys.path.insert(0, str(project_root))\n    \n            # Discover the app package: a directory that contains an __init__.py and\n            # is not .web/.venv/etc.\n            skip = {{\".web\", \".venv\", \"venv\", \"__pycache__\", \".git\", \"node_modules\", \"alembic\"}}\n            candidate_pkgs = []\n            for child in project_root.iterdir():\n                if child.is_dir() and child.name not in skip and (child / \"__init__.py\").exists():\n                    candidate_pkgs.append(child.name)\n    \n            StateCls = None\n            for pkg in candidate_pkgs:\n                try:\n                    mod = importlib.import_module(pkg)\n                except Exception:\n                    continue\n                # walk submodules\n                for sub in pkgutil.walk_packages(mod.__path__, prefix=pkg + \".\"):\n                    try:\n                        submod = importlib.import_module(sub.name)\n                    except Exception:\n                        continue\n                    for name, obj in inspect.getmembers(submod, inspect.isclass):\n                        if name == {state_name!r} and obj.__module__.startswith(pkg):\n                            StateCls = obj\n                            break\n                    if StateCls is not None:\n                        break\n                if StateCls is None:\n                    # Maybe the class lives in the package's __init__ itself.\n                    for name, obj in inspect.getmembers(mod, inspect.isclass):\n                        if name == {state_name!r}:\n                            StateCls = obj\n                            break\n                if StateCls is not None:\n                    break\n    \n            if StateCls is None:\n                print(\"FAIL: could not import State class\", {state_name!r}, file=sys.stderr)\n                sys.exit(2)\n    \n            instance = StateCls()\n    \n            # Locate handler that takes an int and assigns to current_index without modulo.\n            click_handler_name = None\n            ended_handler_name = None\n            import ast as _ast, textwrap as _tw\n            for attr_name in dir(StateCls):\n                if attr_name.startswith(\"_\"):\n                    continue\n                attr = getattr(StateCls, attr_name, None)\n                if not callable(attr):\n                    continue\n                try:\n                    src = _tw.dedent(inspect.getsource(attr))\n                except Exception:\n                    continue\n                try:\n                    tree = _ast.parse(src)\n                except Exception:\n                    continue\n                for node in _ast.walk(tree):\n                    if isinstance(node, _ast.Assign):\n                        for target in node.targets:\n                            if (isinstance(target, _ast.Attribute) and target.attr == \"current_index\"\n                                    and isinstance(target.value, _ast.Name) and target.value.id == \"self\"):\n                                if isinstance(node.value, _ast.BinOp) and isinstance(node.value.op, _ast.Mod):\n                                    ended_handler_name = ended_handler_name or attr_name\n                                else:\n                                    click_handler_name = click_handler_name or attr_name\n    \n            if click_handler_name is None or ended_handler_name is None:\n                print(\n                    \"FAIL: could not locate click/ended handlers; click=\",\n                    click_handler_name, \"ended=\", ended_handler_name,\n                    file=sys.stderr,\n                )\n                sys.exit(3)\n    \n            # Reflex wraps event handlers in EventHandler descriptors; the raw callable\n            # is on the class. We resolve it via instance __class__.__dict__ if needed.\n            def _raw(name):\n                attr = StateCls.__dict__.get(name) or getattr(StateCls, name)\n                fn = getattr(attr, \"fn\", None) or getattr(attr, \"func\", None) or attr\n                return fn\n    \n            click_fn = _raw(click_handler_name)\n            ended_fn = _raw(ended_handler_name)\n    \n            # Click on index 2\n            try:\n                click_fn(instance, 2)\n            except TypeError:\n                click_fn(instance, index=2)\n            assert instance.current_index == 2, f\"after click_fn(2), current_index={{instance.current_index}}\"\n    \n            seq = []\n            for _ in range(3):\n                ended_fn(instance)\n                seq.append(instance.current_index)\n    \n            expected = [0, 1, 2]\n            assert seq == expected, f\"on_ended sequence wrong: got {{seq}}, expected {{expected}}\"\n    \n            print(\"OK\")\n            \"\"\"\n        )\n    \n        proc = subprocess.run(\n            [\"uv\", \"run\", \"python\", \"-c\", script],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=300,\n        )\n>       assert proc.returncode == 0, (\n            f\"State behaviour smoke test failed (exit={proc.returncode}).\\n\"\n            f\"--- stdout ---\\n{proc.stdout}\\n--- stderr ---\\n{proc.stderr}\"\n        )\nE       AssertionError: State behaviour smoke test failed (exit=3).\nE         --- stdout ---\nE         \nE         --- stderr ---\nE         FAIL: could not locate click/ended handlers; click= None ended= None\nE         \nE       assert 3 == 0\nE        +  where 3 = CompletedProcess(args=['uv', 'run', 'python', '-c', '\\nimport sys, os, importlib, pkgutil, inspect, pathlib\\n\\nproject...nt(\"OK\")\\n'], returncode=3, stdout='', stderr='FAIL: could not locate click/ended handlers; click= None ended= None\\n').returncode\n\ntests/test_final_state.py:482: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_export_references_react_h5_audio_player",
+                "status": "passed",
+                "duration": 7189,
+                "start": 1781382548251,
+                "stop": 1781382555440,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_lingering_processes_on_reflex_ports",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781382555440,
+                "stop": 1781382555442,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

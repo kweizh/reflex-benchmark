@@ -1,0 +1,95 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T21:12:35.527386+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 6,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781385145999,
+            "stop": 1781385155527
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_state_var_typed_as_ndarray",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781385146287,
+                "stop": 1781385146289,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_serializer_registered_for_ndarray",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781385146289,
+                "stop": 1781385146291,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_backend_ping_returns_pong",
+                "status": "passed",
+                "duration": 7663,
+                "start": 1781385146291,
+                "stop": 1781385153954,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_renders_without_vartypeerror",
+                "status": "passed",
+                "duration": 172,
+                "start": 1781385153955,
+                "stop": 1781385154127,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_regenerate_button_visible_on_page",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 102,
+                "start": 1781385154128,
+                "stop": 1781385154230,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_app = None\n\n    def test_regenerate_button_visible_on_page(reflex_app):\n        r = requests.get(f\"{FRONTEND_URL}/\", timeout=30)\n        assert r.status_code == 200, f\"GET {FRONTEND_URL}/ failed with {r.status_code}\"\n        # Next.js dev mode inlines the compiled component source for the page; the\n        # button label string should appear verbatim in the HTML.\n>       assert \"Regenerate\" in r.text, (\n            \"Could not find the 'Regenerate' button label in the rendered HTML at /.\"\n        )\nE       AssertionError: Could not find the 'Regenerate' button label in the rendered HTML at /.\nE       assert 'Regenerate' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\nE        +  where '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>' = <Response [200]>.text\n\ntests/test_final_state.py:228: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_points_endpoint_shape",
+                "status": "passed",
+                "duration": 8,
+                "start": 1781385154230,
+                "stop": 1781385154238,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_points_endpoint_regenerates_fresh_data",
+                "status": "passed",
+                "duration": 1288,
+                "start": 1781385154238,
+                "stop": 1781385155526,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

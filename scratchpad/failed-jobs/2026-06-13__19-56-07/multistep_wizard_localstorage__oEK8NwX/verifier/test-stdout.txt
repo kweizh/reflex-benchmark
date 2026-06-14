@@ -1,0 +1,554 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 10 items
+
+tests/test_final_state.py EEEEEEEEEE                                     [100%]
+
+==================================== ERRORS ====================================
+_ ERROR at setup of test_step_routes_render_step_indicator[/wizard/profile-Step 1 of 4] _
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7621051c70>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        """Start the Reflex application in the background and wait for both ports."""
+    
+        class Starter(ProcessStarter):
+            name = "wizard_reflex_app"
+            args = ["uv", "run", "reflex", "run", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("127.0.0.1", 3000) and _port_open("127.0.0.1", 8000)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7f7620401700>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/wizard_reflex_app$ uv run reflex run --loglevel info
+process 'wizard_reflex_app' started pid=1696
+_ ERROR at setup of test_step_routes_render_step_indicator[/wizard/address-Step 2 of 4] _
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7621051c70>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        """Start the Reflex application in the background and wait for both ports."""
+    
+        class Starter(ProcessStarter):
+            name = "wizard_reflex_app"
+            args = ["uv", "run", "reflex", "run", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("127.0.0.1", 3000) and _port_open("127.0.0.1", 8000)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7f7620401700>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+_ ERROR at setup of test_step_routes_render_step_indicator[/wizard/preferences-Step 3 of 4] _
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7621051c70>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        """Start the Reflex application in the background and wait for both ports."""
+    
+        class Starter(ProcessStarter):
+            name = "wizard_reflex_app"
+            args = ["uv", "run", "reflex", "run", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("127.0.0.1", 3000) and _port_open("127.0.0.1", 8000)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7f7620401700>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+_ ERROR at setup of test_step_routes_render_step_indicator[/wizard/review-Step 4 of 4] _
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7621051c70>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        """Start the Reflex application in the background and wait for both ports."""
+    
+        class Starter(ProcessStarter):
+            name = "wizard_reflex_app"
+            args = ["uv", "run", "reflex", "run", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("127.0.0.1", 3000) and _port_open("127.0.0.1", 8000)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7f7620401700>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+__________ ERROR at setup of test_localstorage_key_declared_in_source __________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7621051c70>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        """Start the Reflex application in the background and wait for both ports."""
+    
+        class Starter(ProcessStarter):
+            name = "wizard_reflex_app"
+            args = ["uv", "run", "reflex", "run", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("127.0.0.1", 3000) and _port_open("127.0.0.1", 8000)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7f7620401700>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+______ ERROR at setup of test_localstorage_key_present_in_compiled_bundle ______
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7621051c70>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        """Start the Reflex application in the background and wait for both ports."""
+    
+        class Starter(ProcessStarter):
+            name = "wizard_reflex_app"
+            args = ["uv", "run", "reflex", "run", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("127.0.0.1", 3000) and _port_open("127.0.0.1", 8000)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7f7620401700>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+________________ ERROR at setup of test_invalid_email_rejected _________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7621051c70>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        """Start the Reflex application in the background and wait for both ports."""
+    
+        class Starter(ProcessStarter):
+            name = "wizard_reflex_app"
+            args = ["uv", "run", "reflex", "run", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("127.0.0.1", 3000) and _port_open("127.0.0.1", 8000)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7f7620401700>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+_____________ ERROR at setup of test_invalid_postal_code_rejected ______________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7621051c70>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        """Start the Reflex application in the background and wait for both ports."""
+    
+        class Starter(ProcessStarter):
+            name = "wizard_reflex_app"
+            args = ["uv", "run", "reflex", "run", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("127.0.0.1", 3000) and _port_open("127.0.0.1", 8000)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7f7620401700>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+__________ ERROR at setup of test_invalid_theme_and_language_rejected __________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7621051c70>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        """Start the Reflex application in the background and wait for both ports."""
+    
+        class Starter(ProcessStarter):
+            name = "wizard_reflex_app"
+            args = ["uv", "run", "reflex", "run", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("127.0.0.1", 3000) and _port_open("127.0.0.1", 8000)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7f7620401700>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+________ ERROR at setup of test_successful_submission_writes_sqlite_row ________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7621051c70>
+
+    @pytest.fixture(scope="session")
+    def start_reflex_app(xprocess):
+        """Start the Reflex application in the background and wait for both ports."""
+    
+        class Starter(ProcessStarter):
+            name = "wizard_reflex_app"
+            args = ["uv", "run", "reflex", "run", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("127.0.0.1", 3000) and _port_open("127.0.0.1", 8000)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_reflex_app.<locals>.Starter object at 0x7f7620401700>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_step_routes_render_step_indicator[/wizard/profile-Step 1 of 4]
+ERROR tests/test_final_state.py::test_step_routes_render_step_indicator[/wizard/address-Step 2 of 4]
+ERROR tests/test_final_state.py::test_step_routes_render_step_indicator[/wizard/preferences-Step 3 of 4]
+ERROR tests/test_final_state.py::test_step_routes_render_step_indicator[/wizard/review-Step 4 of 4]
+ERROR tests/test_final_state.py::test_localstorage_key_declared_in_source - T...
+ERROR tests/test_final_state.py::test_localstorage_key_present_in_compiled_bundle
+ERROR tests/test_final_state.py::test_invalid_email_rejected - TimeoutError: ...
+ERROR tests/test_final_state.py::test_invalid_postal_code_rejected - TimeoutE...
+ERROR tests/test_final_state.py::test_invalid_theme_and_language_rejected - T...
+ERROR tests/test_final_state.py::test_successful_submission_writes_sqlite_row
+======================== 10 errors in 300.60s (0:05:00) ========================

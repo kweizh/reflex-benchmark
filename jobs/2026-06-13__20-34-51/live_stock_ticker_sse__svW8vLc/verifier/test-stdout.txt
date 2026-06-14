@@ -1,0 +1,137 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py EEEEEEE                                        [100%]
+
+==================================== ERRORS ====================================
+_______________ ERROR at setup of test_snapshot_shape_and_seeds ________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+>           pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+E           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.
+
+tests/test_final_state.py:80: Failed
+___ ERROR at setup of test_idempotent_start_first_call_returns_started_true ____
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+>           pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+E           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.
+
+tests/test_final_state.py:80: Failed
+____ ERROR at setup of test_at_least_five_distinct_updates_in_five_seconds _____
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+>           pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+E           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.
+
+tests/test_final_state.py:80: Failed
+_________ ERROR at setup of test_idempotent_start_does_not_double_rate _________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+>           pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+E           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.
+
+tests/test_final_state.py:80: Failed
+______________ ERROR at setup of test_percent_change_correctness _______________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+>           pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+E           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.
+
+tests/test_final_state.py:80: Failed
+__________________ ERROR at setup of test_stop_halts_updates ___________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+>           pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+E           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.
+
+tests/test_final_state.py:80: Failed
+_______________ ERROR at setup of test_all_prices_stay_positive ________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7288cedf10>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+>           pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+E           Failed: Project directory /home/user/ticker_app does not exist. The executor must create the Reflex app at this path.
+
+tests/test_final_state.py:80: Failed
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_snapshot_shape_and_seeds - Failed: Proj...
+ERROR tests/test_final_state.py::test_idempotent_start_first_call_returns_started_true
+ERROR tests/test_final_state.py::test_at_least_five_distinct_updates_in_five_seconds
+ERROR tests/test_final_state.py::test_idempotent_start_does_not_double_rate
+ERROR tests/test_final_state.py::test_percent_change_correctness - Failed: Pr...
+ERROR tests/test_final_state.py::test_stop_halts_updates - Failed: Project di...
+ERROR tests/test_final_state.py::test_all_prices_stay_positive - Failed: Proj...
+============================== 7 errors in 0.33s ===============================

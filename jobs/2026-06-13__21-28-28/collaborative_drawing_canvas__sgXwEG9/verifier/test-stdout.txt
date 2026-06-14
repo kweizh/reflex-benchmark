@@ -1,0 +1,43 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 6 items
+
+tests/test_final_state.py .....F                                         [100%]
+
+=================================== FAILURES ===================================
+____________________ test_compiled_frontend_has_svg_foreach ____________________
+
+    def test_compiled_frontend_has_svg_foreach():
+        web_pages = os.path.join(PROJECT_DIR, ".web", "pages")
+>       assert os.path.isdir(web_pages), (
+            f"Expected compiled frontend directory at {web_pages}. "
+            "Did `reflex run` complete compilation?"
+        )
+E       AssertionError: Expected compiled frontend directory at /home/user/myproject/.web/pages. Did `reflex run` complete compilation?
+E       assert False
+E        +  where False = <function isdir at 0x7f08e7b442c0>('/home/user/myproject/.web/pages')
+E        +    where <function isdir at 0x7f08e7b442c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:322: AssertionError
+==================================== PASSES ====================================
+__________________________ test_database_file_exists ___________________________
+---------------------------- Captured stdout setup -----------------------------
+  2647
+---------------------------- Captured stderr setup -----------------------------
+8000/tcp:           
+______________________________ test_ping_endpoint ______________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_backend$ uv run reflex run --backend-only --backend-port 8000 --loglevel info
+process 'reflex_backend' started pid=3452
+reflex_backend process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_database_file_exists
+PASSED tests/test_final_state.py::test_stroke_table_schema
+PASSED tests/test_final_state.py::test_ping_endpoint
+PASSED tests/test_final_state.py::test_strokes_crud_contract
+PASSED tests/test_final_state.py::test_background_poller_no_immutable_state_error
+FAILED tests/test_final_state.py::test_compiled_frontend_has_svg_foreach - As...
+========================= 1 failed, 5 passed in 9.92s ==========================

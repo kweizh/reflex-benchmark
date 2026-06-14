@@ -1,0 +1,305 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:13:38.796518+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 24,
+            "passed": 10,
+            "failed": 14,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781381615469,
+            "stop": 1781381618796
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781381615867,
+                "stop": 1781381615868,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rxconfig_present",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781381615869,
+                "stop": 1781381615871,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_db_file_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781381615871,
+                "stop": 1781381615873,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 209,
+                "start": 1781381615873,
+                "stop": 1781381616082,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 179,
+                "start": 1781381616082,
+                "stop": 1781381616261,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 209,
+                "start": 1781381616261,
+                "stop": 1781381616470,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 193,
+                "start": 1781381616470,
+                "stop": 1781381616663,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 197,
+                "start": 1781381616664,
+                "stop": 1781381616861,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 189,
+                "start": 1781381616861,
+                "stop": 1781381617050,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_seed_total_row_count",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 40,
+                "start": 1781381617051,
+                "stop": 1781381617091,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_total_row_count():\n        rows = _query(\"SELECT COUNT(*) FROM product\")\n>       assert rows[0][0] == 240, (\n            f\"Expected exactly 240 rows in the product table, found {rows[0][0]}.\"\n        )\nE       AssertionError: Expected exactly 240 rows in the product table, found 0.\nE       assert 0 == 240\n\ntests/test_final_state.py:158: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_seed_per_category_counts",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 12,
+                "start": 1781381617092,
+                "stop": 1781381617104,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_per_category_counts():\n        rows = _query(\n            \"SELECT category, COUNT(*) FROM product GROUP BY category ORDER BY category\"\n        )\n        actual = dict(rows)\n        expected = {c: 40 for c in CATEGORIES}\n>       assert actual == expected, (\n            f\"Expected 40 rows per category {sorted(CATEGORIES)}, got {actual}.\"\n        )\nE       AssertionError: Expected 40 rows per category ['Books', 'Clothing', 'Electronics', 'Home', 'Sports', 'Toys'], got {}.\nE       assert {} == {'Books': 40,...ome': 40, ...}\nE         Right contains 6 more items:\nE         {'Books': 40,\nE          'Clothing': 40,\nE          'Electronics': 40,\nE          'Home': 40,\nE          'Sports': 40,\nE          'Toys': 40}\nE         Use -v to get more diff\n\ntests/test_final_state.py:169: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_seed_in_stock_count",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1781381617104,
+                "stop": 1781381617115,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_in_stock_count():\n        rows = _query(\"SELECT COUNT(*) FROM product WHERE in_stock = 1\")\n>       assert rows[0][0] == 180, (\n            f\"Expected 180 in-stock rows (30 per category x 6), got {rows[0][0]}.\"\n        )\nE       AssertionError: Expected 180 in-stock rows (30 per category x 6), got 0.\nE       assert 0 == 180\n\ntests/test_final_state.py:176: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_seed_first_row",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1781381617116,
+                "stop": 1781381617127,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_first_row():\n        rows = _query(\n            \"SELECT name, sku, price, in_stock FROM product WHERE id = 1\"\n        )\n>       assert rows, \"No row with id=1; insertion order may be wrong.\"\nE       AssertionError: No row with id=1; insertion order may be wrong.\nE       assert []\n\ntests/test_final_state.py:185: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_seed_last_row",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1781381617127,
+                "stop": 1781381617138,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_last_row():\n        rows = _query(\n            \"SELECT name, sku, price, in_stock FROM product WHERE id = 240\"\n        )\n>       assert rows, \"No row with id=240; insertion order may be wrong.\"\nE       AssertionError: No row with id=240; insertion order may be wrong.\nE       assert []\n\ntests/test_final_state.py:203: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_seed_books_second_row",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1781381617138,
+                "stop": 1781381617149,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_books_second_row():\n        rows = _query(\"SELECT name, price FROM product WHERE id = 42\")\n>       assert rows, \"No row with id=42; insertion order may be wrong.\"\nE       AssertionError: No row with id=42; insertion order may be wrong.\nE       assert []\n\ntests/test_final_state.py:219: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_page_renders",
+                "status": "passed",
+                "duration": 1436,
+                "start": 1781381617150,
+                "stop": 1781381618586,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_no_filters_default_sort",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 28,
+                "start": 1781381618587,
+                "stop": 1781381618615,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_filter_no_filters_default_sort(reflex_server):\n        data = _filter({\"sort_by\": \"id\", \"sort_dir\": \"asc\"})\n>       assert data[\"result_count\"] == 240, (\n            f\"Unfiltered query should return all 240 rows, got {data['result_count']}.\"\n        )\nE       AssertionError: Unfiltered query should return all 240 rows, got 0.\nE       assert 0 == 240\n\ntests/test_final_state.py:267: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_filter_category_books",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 24,
+                "start": 1781381618615,
+                "stop": 1781381618639,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_filter_category_books(reflex_server):\n        data = _filter({\"category\": \"Books\"})\n>       assert data[\"result_count\"] == 40, (\n            f\"category=Books should return 40 rows, got {data['result_count']}.\"\n        )\nE       AssertionError: category=Books should return 40 rows, got 0.\nE       assert 0 == 40\n\ntests/test_final_state.py:282: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_filter_books_in_stock_only",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 18,
+                "start": 1781381618639,
+                "stop": 1781381618657,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_filter_books_in_stock_only(reflex_server):\n        data = _filter({\"category\": \"Books\", \"in_stock_only\": \"true\"})\n>       assert data[\"result_count\"] == 30, (\n            f\"category=Books & in_stock_only should return 30 rows, got {data['result_count']}.\"\n        )\nE       AssertionError: category=Books & in_stock_only should return 30 rows, got 0.\nE       assert 0 == 30\n\ntests/test_final_state.py:293: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_filter_price_window_20_to_30",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 19,
+                "start": 1781381618658,
+                "stop": 1781381618677,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_filter_price_window_20_to_30(reflex_server):\n        data = _filter({\"min_price\": 20, \"max_price\": 30})\n>       assert data[\"result_count\"] == 51, (\n            f\"min_price=20 & max_price=30 should return 51 rows, got {data['result_count']}.\"\n        )\nE       AssertionError: min_price=20 & max_price=30 should return 51 rows, got 0.\nE       assert 0 == 51\n\ntests/test_final_state.py:305: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_filter_text_search_books_hash_one",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 18,
+                "start": 1781381618677,
+                "stop": 1781381618695,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_filter_text_search_books_hash_one(reflex_server):\n        data = _filter({\"search\": \"Books #1\"})\n>       assert data[\"result_count\"] == 10, (\n            f\"search='Books #1' should return 10 rows (Books #10 - Books #19), \"\n            f\"got {data['result_count']}.\"\n        )\nE       AssertionError: search='Books #1' should return 10 rows (Books #10 - Books #19), got 0.\nE       assert 0 == 10\n\ntests/test_final_state.py:316: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_filter_sort_price_desc",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 25,
+                "start": 1781381618695,
+                "stop": 1781381618720,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_filter_sort_price_desc(reflex_server):\n        data = _filter({\"sort_by\": \"price\", \"sort_dir\": \"desc\"})\n>       assert data[\"result_count\"] == 240, (\n            f\"Unfiltered sort-by-price-desc should return 240 rows, got {data['result_count']}.\"\n        )\nE       AssertionError: Unfiltered sort-by-price-desc should return 240 rows, got 0.\nE       assert 0 == 240\n\ntests/test_final_state.py:328: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_filter_in_stock_only_sort_name_asc",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 30,
+                "start": 1781381618721,
+                "stop": 1781381618751,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_filter_in_stock_only_sort_name_asc(reflex_server):\n        data = _filter({\"in_stock_only\": \"true\", \"sort_by\": \"name\", \"sort_dir\": \"asc\"})\n>       assert data[\"result_count\"] == 180, (\n            f\"in_stock_only should return 180 rows, got {data['result_count']}.\"\n        )\nE       AssertionError: in_stock_only should return 180 rows, got 0.\nE       assert 0 == 180\n\ntests/test_final_state.py:345: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_filter_combined_electronics_under_20_in_stock",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 42,
+                "start": 1781381618753,
+                "stop": 1781381618795,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_filter_combined_electronics_under_20_in_stock(reflex_server):\n        data = _filter(\n            {\n                \"category\": \"Electronics\",\n                \"max_price\": 20,\n                \"in_stock_only\": \"true\",\n                \"sort_by\": \"price\",\n                \"sort_dir\": \"asc\",\n            }\n        )\n>       assert data[\"result_count\"] == 12, (\n            f\"Electronics & price<=20 & in_stock_only should return 12 rows, \"\n            f\"got {data['result_count']}.\"\n        )\nE       AssertionError: Electronics & price<=20 & in_stock_only should return 12 rows, got 0.\nE       assert 0 == 12\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

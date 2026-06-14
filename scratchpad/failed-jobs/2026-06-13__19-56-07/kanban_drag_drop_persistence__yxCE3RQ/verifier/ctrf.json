@@ -1,0 +1,152 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:17:35.347824+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 3,
+            "failed": 8,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781381846897,
+            "stop": 1781381855347
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_backend_ping_route_alive",
+                "status": "passed",
+                "duration": 7445,
+                "start": 1781381847071,
+                "stop": 1781381854516,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sqlite_db_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781381854517,
+                "stop": 1781381854518,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_seed_data_present",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 58,
+                "start": 1781381854519,
+                "stop": 1781381854577,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_seed_data_present(reflex_server):\n        \"\"\"The DB must contain the exact 9 seeded cards described in the task.\"\"\"\n        rows = _fetch_all_cards()\n        triples = {(col, pos, ttl) for (_cid, col, pos, ttl) in rows}\n>       assert triples == EXPECTED_SEED, (\n            f\"DB seed contents do not match expectations.\\nGot:      {sorted(triples)!r}\\n\"\n            f\"Expected: {sorted(EXPECTED_SEED)!r}\"\n        )\nE       AssertionError: DB seed contents do not match expectations.\nE         Got:      []\nE         Expected: [('DOING', 0, 'Build UI'), ('DOING', 1, 'Wire DB'), ('DOING', 2, 'Add tests'), ('DONE', 0, 'Setup repo'), ('DONE', 1, 'Pick stack'), ('DONE', 2, 'Kickoff'), ('TODO', 0, 'Write spec'), ('TODO', 1, 'Draft API'), ('TODO', 2, 'Review PR')]\nE       assert set() == {('DOING', 0,...ickoff'), ...}\nE         Extra items in the right set:\nE         ('TODO', 0, 'Write spec')\nE         ('DONE', 0, 'Setup repo')\nE         ('TODO', 2, 'Review PR')\nE         ('DOING', 2, 'Add tests')\nE         ('DONE', 1, 'Pick stack')\nE         ('DONE', 2, 'Kickoff')...\nE         \nE         ...Full output truncated (4 lines hidden), use '-vv' to show\n\ntests/test_final_state.py:191: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_root_renders_columns_and_titles",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 94,
+                "start": 1781381854578,
+                "stop": 1781381854672,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_frontend_root_renders_columns_and_titles(reflex_server):\n        \"\"\"The root page must contain all column labels and all seeded card titles.\"\"\"\n        response = requests.get(f\"{FRONTEND_URL}/\", timeout=15)\n        assert response.status_code == 200, (\n            f\"Expected 200 from {FRONTEND_URL}/, got {response.status_code}\"\n        )\n        html = response.text\n        for column in (\"TODO\", \"DOING\", \"DONE\"):\n>           assert column in html, (\n                f\"Expected column label {column!r} in the rendered root page HTML.\"\n            )\nE           AssertionError: Expected column label 'TODO' in the rendered root page HTML.\nE           assert 'TODO' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\n\ntests/test_final_state.py:206: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_move_todo_head_to_done_tail",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 18,
+                "start": 1781381854673,
+                "stop": 1781381854691,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_move_todo_head_to_done_tail(reflex_server):\n        \"\"\"Moving TODO[0] 'Write spec' to DONE[2] yields the exact post-state.\"\"\"\n>       card_id = _find_card_id(\"TODO\", 0, \"Write spec\")\n\ntests/test_final_state.py:217: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ncolumn = 'TODO', position = 0, title = 'Write spec'\n\n    def _find_card_id(column: str, position: int, title: str) -> int:\n        cards = _fetch_all_cards()\n        for cid, col, pos, ttl in cards:\n            if col == column and pos == position and ttl == title:\n                return cid\n>       raise AssertionError(\n            f\"Card not found in DB: expected (column={column!r}, position={position!r}, \"\n            f\"title={title!r}). Current rows: {cards!r}\"\n        )\nE       AssertionError: Card not found in DB: expected (column='TODO', position=0, title='Write spec'). Current rows: []\n\ntests/test_final_state.py:77: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_move_doing_to_todo_head",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1781381854692,
+                "stop": 1781381854705,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_move_doing_to_todo_head(reflex_server):\n        \"\"\"Moving the current DOING[1] 'Wire DB' to TODO[0] inserts at head and renumbers.\"\"\"\n>       card_id = _find_card_id(\"DOING\", 1, \"Wire DB\")\n\ntests/test_final_state.py:259: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ncolumn = 'DOING', position = 1, title = 'Wire DB'\n\n    def _find_card_id(column: str, position: int, title: str) -> int:\n        cards = _fetch_all_cards()\n        for cid, col, pos, ttl in cards:\n            if col == column and pos == position and ttl == title:\n                return cid\n>       raise AssertionError(\n            f\"Card not found in DB: expected (column={column!r}, position={position!r}, \"\n            f\"title={title!r}). Current rows: {cards!r}\"\n        )\nE       AssertionError: Card not found in DB: expected (column='DOING', position=1, title='Wire DB'). Current rows: []\n\ntests/test_final_state.py:77: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_same_column_reorder_collapses_gaps",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 19,
+                "start": 1781381854706,
+                "stop": 1781381854725,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_same_column_reorder_collapses_gaps(reflex_server):\n        \"\"\"Moving DONE[0] 'Setup repo' to the end of DONE renumbers the column densely.\"\"\"\n>       card_id = _find_card_id(\"DONE\", 0, \"Setup repo\")\n\ntests/test_final_state.py:287: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ncolumn = 'DONE', position = 0, title = 'Setup repo'\n\n    def _find_card_id(column: str, position: int, title: str) -> int:\n        cards = _fetch_all_cards()\n        for cid, col, pos, ttl in cards:\n            if col == column and pos == position and ttl == title:\n                return cid\n>       raise AssertionError(\n            f\"Card not found in DB: expected (column={column!r}, position={position!r}, \"\n            f\"title={title!r}). Current rows: {cards!r}\"\n        )\nE       AssertionError: Card not found in DB: expected (column='DONE', position=0, title='Setup repo'). Current rows: []\n\ntests/test_final_state.py:77: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_position_clamping_when_target_exceeds_column_size",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1781381854725,
+                "stop": 1781381854738,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_position_clamping_when_target_exceeds_column_size(reflex_server):\n        \"\"\"Moving 'Add tests' to TODO with target_position=999 must land at the tail.\"\"\"\n>       card_id = _find_card_id_by_title(\"Add tests\")\n\ntests/test_final_state.py:307: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntitle = 'Add tests'\n\n    def _find_card_id_by_title(title: str) -> int:\n        cards = _fetch_all_cards()\n        for cid, _col, _pos, ttl in cards:\n            if ttl == title:\n                return cid\n>       raise AssertionError(\n            f\"Card with title={title!r} not found. Current rows: {cards!r}\"\n        )\nE       AssertionError: Card with title='Add tests' not found. Current rows: []\n\ntests/test_final_state.py:88: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_card_id_returns_404",
+                "status": "passed",
+                "duration": 35,
+                "start": 1781381854738,
+                "stop": 1781381854773,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_target_column_returns_400",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 12,
+                "start": 1781381854773,
+                "stop": 1781381854785,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_invalid_target_column_returns_400(reflex_server):\n        \"\"\"POST /api/cards/move with an invalid target_column returns HTTP 400.\"\"\"\n        cards = _fetch_all_cards()\n>       assert cards, \"DB is empty; cannot pick a card_id for the bad-column test.\"\nE       AssertionError: DB is empty; cannot pick a card_id for the bad-column test.\nE       assert []\n\ntests/test_final_state.py:342: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_page_still_renders_all_titles_after_moves",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 562,
+                "start": 1781381854785,
+                "stop": 1781381855347,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_page_still_renders_all_titles_after_moves(reflex_server):\n        \"\"\"After several moves, all nine card titles must still be present on the root page.\"\"\"\n        response = requests.get(f\"{FRONTEND_URL}/\", timeout=15)\n        assert response.status_code == 200, (\n            f\"Expected 200 from {FRONTEND_URL}/, got {response.status_code}\"\n        )\n        html = response.text\n        for title in ALL_TITLES:\n>           assert title in html, (\n                f\"Expected card title {title!r} to still appear in the rendered root page \"\n                \"HTML after move operations (page must reflect current DB state).\"\n            )\nE           AssertionError: Expected card title 'Add tests' to still appear in the rendered root page HTML after move operations (page must reflect current DB state).\nE           assert 'Add tests' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\n\ntests/test_final_state.py:363: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

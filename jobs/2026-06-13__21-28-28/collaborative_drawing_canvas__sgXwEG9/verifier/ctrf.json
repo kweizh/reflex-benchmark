@@ -1,0 +1,86 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T21:45:42.190354+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 5,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781387132265,
+            "stop": 1781387142190
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_database_file_exists",
+                "status": "passed",
+                "duration": 3424,
+                "start": 1781387132608,
+                "stop": 1781387136032,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_stroke_table_schema",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781387136033,
+                "stop": 1781387136036,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ping_endpoint",
+                "status": "passed",
+                "duration": 2848,
+                "start": 1781387136036,
+                "stop": 1781387138884,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_strokes_crud_contract",
+                "status": "passed",
+                "duration": 1614,
+                "start": 1781387138885,
+                "stop": 1781387140499,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_background_poller_no_immutable_state_error",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781387140500,
+                "stop": 1781387140501,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_frontend_has_svg_foreach",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1687,
+                "start": 1781387140502,
+                "stop": 1781387142189,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_compiled_frontend_has_svg_foreach():\n        web_pages = os.path.join(PROJECT_DIR, \".web\", \"pages\")\n>       assert os.path.isdir(web_pages), (\n            f\"Expected compiled frontend directory at {web_pages}. \"\n            \"Did `reflex run` complete compilation?\"\n        )\nE       AssertionError: Expected compiled frontend directory at /home/user/myproject/.web/pages. Did `reflex run` complete compilation?\nE       assert False\nE        +  where False = <function isdir at 0x7f08e7b442c0>('/home/user/myproject/.web/pages')\nE        +    where <function isdir at 0x7f08e7b442c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:322: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

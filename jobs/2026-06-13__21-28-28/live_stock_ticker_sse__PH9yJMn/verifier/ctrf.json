@@ -1,0 +1,92 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T22:02:54.896162+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781388153320,
+            "stop": 1781388174895
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_snapshot_shape_and_seeds",
+                "status": "passed",
+                "duration": 4277,
+                "start": 1781388153669,
+                "stop": 1781388157946,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_idempotent_start_first_call_returns_started_true",
+                "status": "passed",
+                "duration": 1010,
+                "start": 1781388157947,
+                "stop": 1781388158957,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_at_least_five_distinct_updates_in_five_seconds",
+                "status": "passed",
+                "duration": 6551,
+                "start": 1781388158957,
+                "stop": 1781388165508,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_idempotent_start_does_not_double_rate",
+                "status": "passed",
+                "duration": 6020,
+                "start": 1781388165509,
+                "stop": 1781388171529,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_percent_change_correctness",
+                "status": "passed",
+                "duration": 5,
+                "start": 1781388171530,
+                "stop": 1781388171535,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_stop_halts_updates",
+                "status": "passed",
+                "duration": 3015,
+                "start": 1781388171536,
+                "stop": 1781388174551,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_all_prices_stay_positive",
+                "status": "passed",
+                "duration": 344,
+                "start": 1781388174551,
+                "stop": 1781388174895,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,14 @@
+[project]
+name = "oauth-app"
+version = "0.1.0"
+description = "Reflex app with OAuth2 PKCE login"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.136.3",
+    "reflex>=0.9.5.post2",
+    "httpx>=0.28.1",
+]
+
+[project.scripts]
+oauth-app = "oauth_app.oauth_app:main"

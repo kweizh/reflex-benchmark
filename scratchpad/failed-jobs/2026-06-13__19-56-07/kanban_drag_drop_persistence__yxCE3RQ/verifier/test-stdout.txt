@@ -1,0 +1,205 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py ..FFFFFF.FF                                    [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_seed_data_present ____________________________
+
+reflex_server = None
+
+    def test_seed_data_present(reflex_server):
+        """The DB must contain the exact 9 seeded cards described in the task."""
+        rows = _fetch_all_cards()
+        triples = {(col, pos, ttl) for (_cid, col, pos, ttl) in rows}
+>       assert triples == EXPECTED_SEED, (
+            f"DB seed contents do not match expectations.\nGot:      {sorted(triples)!r}\n"
+            f"Expected: {sorted(EXPECTED_SEED)!r}"
+        )
+E       AssertionError: DB seed contents do not match expectations.
+E         Got:      []
+E         Expected: [('DOING', 0, 'Build UI'), ('DOING', 1, 'Wire DB'), ('DOING', 2, 'Add tests'), ('DONE', 0, 'Setup repo'), ('DONE', 1, 'Pick stack'), ('DONE', 2, 'Kickoff'), ('TODO', 0, 'Write spec'), ('TODO', 1, 'Draft API'), ('TODO', 2, 'Review PR')]
+E       assert set() == {('DOING', 0,...ickoff'), ...}
+E         Extra items in the right set:
+E         ('TODO', 0, 'Write spec')
+E         ('DONE', 0, 'Setup repo')
+E         ('TODO', 2, 'Review PR')
+E         ('DOING', 2, 'Add tests')
+E         ('DONE', 1, 'Pick stack')
+E         ('DONE', 2, 'Kickoff')...
+E         
+E         ...Full output truncated (4 lines hidden), use '-vv' to show
+
+tests/test_final_state.py:191: AssertionError
+________________ test_frontend_root_renders_columns_and_titles _________________
+
+reflex_server = None
+
+    def test_frontend_root_renders_columns_and_titles(reflex_server):
+        """The root page must contain all column labels and all seeded card titles."""
+        response = requests.get(f"{FRONTEND_URL}/", timeout=15)
+        assert response.status_code == 200, (
+            f"Expected 200 from {FRONTEND_URL}/, got {response.status_code}"
+        )
+        html = response.text
+        for column in ("TODO", "DOING", "DONE"):
+>           assert column in html, (
+                f"Expected column label {column!r} in the rendered root page HTML."
+            )
+E           AssertionError: Expected column label 'TODO' in the rendered root page HTML.
+E           assert 'TODO' in '<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'
+
+tests/test_final_state.py:206: AssertionError
+_______________________ test_move_todo_head_to_done_tail _______________________
+
+reflex_server = None
+
+    def test_move_todo_head_to_done_tail(reflex_server):
+        """Moving TODO[0] 'Write spec' to DONE[2] yields the exact post-state."""
+>       card_id = _find_card_id("TODO", 0, "Write spec")
+
+tests/test_final_state.py:217: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'TODO', position = 0, title = 'Write spec'
+
+    def _find_card_id(column: str, position: int, title: str) -> int:
+        cards = _fetch_all_cards()
+        for cid, col, pos, ttl in cards:
+            if col == column and pos == position and ttl == title:
+                return cid
+>       raise AssertionError(
+            f"Card not found in DB: expected (column={column!r}, position={position!r}, "
+            f"title={title!r}). Current rows: {cards!r}"
+        )
+E       AssertionError: Card not found in DB: expected (column='TODO', position=0, title='Write spec'). Current rows: []
+
+tests/test_final_state.py:77: AssertionError
+_________________________ test_move_doing_to_todo_head _________________________
+
+reflex_server = None
+
+    def test_move_doing_to_todo_head(reflex_server):
+        """Moving the current DOING[1] 'Wire DB' to TODO[0] inserts at head and renumbers."""
+>       card_id = _find_card_id("DOING", 1, "Wire DB")
+
+tests/test_final_state.py:259: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'DOING', position = 1, title = 'Wire DB'
+
+    def _find_card_id(column: str, position: int, title: str) -> int:
+        cards = _fetch_all_cards()
+        for cid, col, pos, ttl in cards:
+            if col == column and pos == position and ttl == title:
+                return cid
+>       raise AssertionError(
+            f"Card not found in DB: expected (column={column!r}, position={position!r}, "
+            f"title={title!r}). Current rows: {cards!r}"
+        )
+E       AssertionError: Card not found in DB: expected (column='DOING', position=1, title='Wire DB'). Current rows: []
+
+tests/test_final_state.py:77: AssertionError
+___________________ test_same_column_reorder_collapses_gaps ____________________
+
+reflex_server = None
+
+    def test_same_column_reorder_collapses_gaps(reflex_server):
+        """Moving DONE[0] 'Setup repo' to the end of DONE renumbers the column densely."""
+>       card_id = _find_card_id("DONE", 0, "Setup repo")
+
+tests/test_final_state.py:287: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'DONE', position = 0, title = 'Setup repo'
+
+    def _find_card_id(column: str, position: int, title: str) -> int:
+        cards = _fetch_all_cards()
+        for cid, col, pos, ttl in cards:
+            if col == column and pos == position and ttl == title:
+                return cid
+>       raise AssertionError(
+            f"Card not found in DB: expected (column={column!r}, position={position!r}, "
+            f"title={title!r}). Current rows: {cards!r}"
+        )
+E       AssertionError: Card not found in DB: expected (column='DONE', position=0, title='Setup repo'). Current rows: []
+
+tests/test_final_state.py:77: AssertionError
+____________ test_position_clamping_when_target_exceeds_column_size ____________
+
+reflex_server = None
+
+    def test_position_clamping_when_target_exceeds_column_size(reflex_server):
+        """Moving 'Add tests' to TODO with target_position=999 must land at the tail."""
+>       card_id = _find_card_id_by_title("Add tests")
+
+tests/test_final_state.py:307: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+title = 'Add tests'
+
+    def _find_card_id_by_title(title: str) -> int:
+        cards = _fetch_all_cards()
+        for cid, _col, _pos, ttl in cards:
+            if ttl == title:
+                return cid
+>       raise AssertionError(
+            f"Card with title={title!r} not found. Current rows: {cards!r}"
+        )
+E       AssertionError: Card with title='Add tests' not found. Current rows: []
+
+tests/test_final_state.py:88: AssertionError
+____________________ test_invalid_target_column_returns_400 ____________________
+
+reflex_server = None
+
+    def test_invalid_target_column_returns_400(reflex_server):
+        """POST /api/cards/move with an invalid target_column returns HTTP 400."""
+        cards = _fetch_all_cards()
+>       assert cards, "DB is empty; cannot pick a card_id for the bad-column test."
+E       AssertionError: DB is empty; cannot pick a card_id for the bad-column test.
+E       assert []
+
+tests/test_final_state.py:342: AssertionError
+________________ test_page_still_renders_all_titles_after_moves ________________
+
+reflex_server = None
+
+    def test_page_still_renders_all_titles_after_moves(reflex_server):
+        """After several moves, all nine card titles must still be present on the root page."""
+        response = requests.get(f"{FRONTEND_URL}/", timeout=15)
+        assert response.status_code == 200, (
+            f"Expected 200 from {FRONTEND_URL}/, got {response.status_code}"
+        )
+        html = response.text
+        for title in ALL_TITLES:
+>           assert title in html, (
+                f"Expected card title {title!r} to still appear in the rendered root page "
+                "HTML after move operations (page must reflect current DB state)."
+            )
+E           AssertionError: Expected card title 'Add tests' to still appear in the rendered root page HTML after move operations (page must reflect current DB state).
+E           assert 'Add tests' in '<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'
+
+tests/test_final_state.py:363: AssertionError
+==================================== PASSES ====================================
+________________________ test_backend_ping_route_alive _________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_kanban_app$ uv run reflex run --loglevel info
+process 'reflex_kanban_app' started pid=1577
+reflex_kanban_app process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_backend_ping_route_alive
+PASSED tests/test_final_state.py::test_sqlite_db_file_exists
+PASSED tests/test_final_state.py::test_invalid_card_id_returns_404
+FAILED tests/test_final_state.py::test_seed_data_present - AssertionError: DB...
+FAILED tests/test_final_state.py::test_frontend_root_renders_columns_and_titles
+FAILED tests/test_final_state.py::test_move_todo_head_to_done_tail - Assertio...
+FAILED tests/test_final_state.py::test_move_doing_to_todo_head - AssertionErr...
+FAILED tests/test_final_state.py::test_same_column_reorder_collapses_gaps - A...
+FAILED tests/test_final_state.py::test_position_clamping_when_target_exceeds_column_size
+FAILED tests/test_final_state.py::test_invalid_target_column_returns_400 - As...
+FAILED tests/test_final_state.py::test_page_still_renders_all_titles_after_moves
+========================= 8 failed, 3 passed in 8.45s ==========================

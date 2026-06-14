@@ -1,0 +1,263 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T21:05:52.199438+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 24,
+            "passed": 24,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781384744217,
+            "stop": 1781384752199
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781384744562,
+                "stop": 1781384744564,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rxconfig_present",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781384744564,
+                "stop": 1781384744565,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_db_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781384744565,
+                "stop": 1781384744566,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 182,
+                "start": 1781384744567,
+                "stop": 1781384744749,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 165,
+                "start": 1781384744749,
+                "stop": 1781384744914,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 195,
+                "start": 1781384744914,
+                "stop": 1781384745109,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 182,
+                "start": 1781384745110,
+                "stop": 1781384745292,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 212,
+                "start": 1781384745292,
+                "stop": 1781384745504,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 188,
+                "start": 1781384745504,
+                "stop": 1781384745692,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_seed_total_row_count",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781384745692,
+                "stop": 1781384745694,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_seed_per_category_counts",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781384745694,
+                "stop": 1781384745696,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_seed_in_stock_count",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781384745696,
+                "stop": 1781384745697,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_seed_first_row",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781384745697,
+                "stop": 1781384745699,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_seed_last_row",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781384745699,
+                "stop": 1781384745700,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_seed_books_second_row",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781384745701,
+                "stop": 1781384745702,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_page_renders",
+                "status": "passed",
+                "duration": 5897,
+                "start": 1781384745702,
+                "stop": 1781384751599,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_no_filters_default_sort",
+                "status": "passed",
+                "duration": 20,
+                "start": 1781384751600,
+                "stop": 1781384751620,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_category_books",
+                "status": "passed",
+                "duration": 12,
+                "start": 1781384751621,
+                "stop": 1781384751633,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_books_in_stock_only",
+                "status": "passed",
+                "duration": 10,
+                "start": 1781384751634,
+                "stop": 1781384751644,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_price_window_20_to_30",
+                "status": "passed",
+                "duration": 12,
+                "start": 1781384751644,
+                "stop": 1781384751656,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_text_search_books_hash_one",
+                "status": "passed",
+                "duration": 10,
+                "start": 1781384751656,
+                "stop": 1781384751666,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_sort_price_desc",
+                "status": "passed",
+                "duration": 20,
+                "start": 1781384751666,
+                "stop": 1781384751686,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_in_stock_only_sort_name_asc",
+                "status": "passed",
+                "duration": 15,
+                "start": 1781384751687,
+                "stop": 1781384751702,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_combined_electronics_under_20_in_stock",
+                "status": "passed",
+                "duration": 496,
+                "start": 1781384751702,
+                "stop": 1781384752198,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,164 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:19:53.647248+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 14,
+            "passed": 11,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781381967441,
+            "stop": 1781381993647
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_present",
+                "status": "passed",
+                "duration": 2031,
+                "start": 1781381967488,
+                "stop": 1781381969519,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pyproject_lists_reflex",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781381969519,
+                "stop": 1781381969520,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_ssr_component_subclass_exists",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781381969521,
+                "stop": 1781381969524,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_component_library_attribute_is_react_colorful",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781381969524,
+                "stop": 1781381969527,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_component_tag_attribute_is_hex_color_picker",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781381969527,
+                "stop": 1781381969530,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_component_color_prop_annotation",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781381969530,
+                "stop": 1781381969533,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_component_on_change_event_handler",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781381969533,
+                "stop": 1781381969536,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_holds_hex_color_string",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781381969536,
+                "stop": 1781381969539,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_index_page_uses_wrapped_component_and_text",
+                "status": "passed",
+                "duration": 5,
+                "start": 1781381969539,
+                "stop": 1781381969544,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_export_exits_zero",
+                "status": "passed",
+                "duration": 12211,
+                "start": 1781381969545,
+                "stop": 1781381981756,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_static_directory_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 29,
+                "start": 1781381981757,
+                "stop": 1781381981786,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_export = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500...\u2501\u2501\u2501 100% 17/16 0:00:00\\nCreating Production Build:  \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 100% 4/4 0:00:09\\n', stderr='')\n\n    def test_static_directory_exists(reflex_export):\n        static_dir = os.path.join(PROJECT_DIR, \".web\", \"_static\")\n>       assert os.path.isdir(static_dir), (\n            f\"Expected exported static assets at {static_dir} after running reflex export.\"\n        )\nE       AssertionError: Expected exported static assets at /home/user/myproject/.web/_static after running reflex export.\nE       assert False\nE        +  where False = <function isdir at 0x7fd0d5d082c0>('/home/user/myproject/.web/_static')\nE        +    where <function isdir at 0x7fd0d5d082c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:417: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_bundle_references_react_colorful",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 15,
+                "start": 1781381981787,
+                "stop": 1781381981802,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_export = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500...\u2501\u2501\u2501 100% 17/16 0:00:00\\nCreating Production Build:  \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 100% 4/4 0:00:09\\n', stderr='')\n\n    def test_bundle_references_react_colorful(reflex_export):\n        static_dir = os.path.join(PROJECT_DIR, \".web\", \"_static\")\n>       assert os.path.isdir(static_dir), f\"{static_dir} missing.\"\nE       AssertionError: /home/user/myproject/.web/_static missing.\nE       assert False\nE        +  where False = <function isdir at 0x7fd0d5d082c0>('/home/user/myproject/.web/_static')\nE        +    where <function isdir at 0x7fd0d5d082c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:430: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_app_starts_and_serves_index",
+                "status": "passed",
+                "duration": 3736,
+                "start": 1781381981802,
+                "stop": 1781381985538,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_lingering_reflex_processes",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 8107,
+                "start": 1781381985539,
+                "stop": 1781381993646,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "running_reflex_app = {'log': '/tmp/reflex_run.log', 'proc': <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--env', 'dev'...>, 'ready': True}\n\n    def test_no_lingering_reflex_processes(running_reflex_app):\n        \"\"\"After the running_reflex_app fixture tears down, no reflex servers should remain.\"\"\"\n        # The fixture teardown happens at session end; here we only confirm that\n        # the fixture itself did not leave the server bound after we explicitly\n        # asked for cleanup at the end of the test session.\n        # We additionally force kill and check the ports are free.\n        _kill_reflex_processes()\n        time.sleep(2)\n>       assert not _port_open(\"127.0.0.1\", FRONTEND_PORT, timeout=1.0), (\n            f\"Port {FRONTEND_PORT} is still bound after cleanup; a Reflex server is still running.\"\n        )\nE       AssertionError: Port 3000 is still bound after cleanup; a Reflex server is still running.\nE       assert not True\nE        +  where True = _port_open('127.0.0.1', 3000, timeout=1.0)\n\ntests/test_final_state.py:518: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

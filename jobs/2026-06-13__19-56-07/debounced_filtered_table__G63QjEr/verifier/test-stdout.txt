@@ -1,0 +1,231 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 24 items
+
+tests/test_final_state.py .........FFFFFF.FFFFFFFF                       [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_seed_total_row_count ___________________________
+
+    def test_seed_total_row_count():
+        rows = _query("SELECT COUNT(*) FROM product")
+>       assert rows[0][0] == 240, (
+            f"Expected exactly 240 rows in the product table, found {rows[0][0]}."
+        )
+E       AssertionError: Expected exactly 240 rows in the product table, found 0.
+E       assert 0 == 240
+
+tests/test_final_state.py:158: AssertionError
+________________________ test_seed_per_category_counts _________________________
+
+    def test_seed_per_category_counts():
+        rows = _query(
+            "SELECT category, COUNT(*) FROM product GROUP BY category ORDER BY category"
+        )
+        actual = dict(rows)
+        expected = {c: 40 for c in CATEGORIES}
+>       assert actual == expected, (
+            f"Expected 40 rows per category {sorted(CATEGORIES)}, got {actual}."
+        )
+E       AssertionError: Expected 40 rows per category ['Books', 'Clothing', 'Electronics', 'Home', 'Sports', 'Toys'], got {}.
+E       assert {} == {'Books': 40,...ome': 40, ...}
+E         Right contains 6 more items:
+E         {'Books': 40,
+E          'Clothing': 40,
+E          'Electronics': 40,
+E          'Home': 40,
+E          'Sports': 40,
+E          'Toys': 40}
+E         Use -v to get more diff
+
+tests/test_final_state.py:169: AssertionError
+___________________________ test_seed_in_stock_count ___________________________
+
+    def test_seed_in_stock_count():
+        rows = _query("SELECT COUNT(*) FROM product WHERE in_stock = 1")
+>       assert rows[0][0] == 180, (
+            f"Expected 180 in-stock rows (30 per category x 6), got {rows[0][0]}."
+        )
+E       AssertionError: Expected 180 in-stock rows (30 per category x 6), got 0.
+E       assert 0 == 180
+
+tests/test_final_state.py:176: AssertionError
+_____________________________ test_seed_first_row ______________________________
+
+    def test_seed_first_row():
+        rows = _query(
+            "SELECT name, sku, price, in_stock FROM product WHERE id = 1"
+        )
+>       assert rows, "No row with id=1; insertion order may be wrong."
+E       AssertionError: No row with id=1; insertion order may be wrong.
+E       assert []
+
+tests/test_final_state.py:185: AssertionError
+______________________________ test_seed_last_row ______________________________
+
+    def test_seed_last_row():
+        rows = _query(
+            "SELECT name, sku, price, in_stock FROM product WHERE id = 240"
+        )
+>       assert rows, "No row with id=240; insertion order may be wrong."
+E       AssertionError: No row with id=240; insertion order may be wrong.
+E       assert []
+
+tests/test_final_state.py:203: AssertionError
+__________________________ test_seed_books_second_row __________________________
+
+    def test_seed_books_second_row():
+        rows = _query("SELECT name, price FROM product WHERE id = 42")
+>       assert rows, "No row with id=42; insertion order may be wrong."
+E       AssertionError: No row with id=42; insertion order may be wrong.
+E       assert []
+
+tests/test_final_state.py:219: AssertionError
+_____________________ test_filter_no_filters_default_sort ______________________
+
+reflex_server = None
+
+    def test_filter_no_filters_default_sort(reflex_server):
+        data = _filter({"sort_by": "id", "sort_dir": "asc"})
+>       assert data["result_count"] == 240, (
+            f"Unfiltered query should return all 240 rows, got {data['result_count']}."
+        )
+E       AssertionError: Unfiltered query should return all 240 rows, got 0.
+E       assert 0 == 240
+
+tests/test_final_state.py:267: AssertionError
+__________________________ test_filter_category_books __________________________
+
+reflex_server = None
+
+    def test_filter_category_books(reflex_server):
+        data = _filter({"category": "Books"})
+>       assert data["result_count"] == 40, (
+            f"category=Books should return 40 rows, got {data['result_count']}."
+        )
+E       AssertionError: category=Books should return 40 rows, got 0.
+E       assert 0 == 40
+
+tests/test_final_state.py:282: AssertionError
+_______________________ test_filter_books_in_stock_only ________________________
+
+reflex_server = None
+
+    def test_filter_books_in_stock_only(reflex_server):
+        data = _filter({"category": "Books", "in_stock_only": "true"})
+>       assert data["result_count"] == 30, (
+            f"category=Books & in_stock_only should return 30 rows, got {data['result_count']}."
+        )
+E       AssertionError: category=Books & in_stock_only should return 30 rows, got 0.
+E       assert 0 == 30
+
+tests/test_final_state.py:293: AssertionError
+______________________ test_filter_price_window_20_to_30 _______________________
+
+reflex_server = None
+
+    def test_filter_price_window_20_to_30(reflex_server):
+        data = _filter({"min_price": 20, "max_price": 30})
+>       assert data["result_count"] == 51, (
+            f"min_price=20 & max_price=30 should return 51 rows, got {data['result_count']}."
+        )
+E       AssertionError: min_price=20 & max_price=30 should return 51 rows, got 0.
+E       assert 0 == 51
+
+tests/test_final_state.py:305: AssertionError
+____________________ test_filter_text_search_books_hash_one ____________________
+
+reflex_server = None
+
+    def test_filter_text_search_books_hash_one(reflex_server):
+        data = _filter({"search": "Books #1"})
+>       assert data["result_count"] == 10, (
+            f"search='Books #1' should return 10 rows (Books #10 - Books #19), "
+            f"got {data['result_count']}."
+        )
+E       AssertionError: search='Books #1' should return 10 rows (Books #10 - Books #19), got 0.
+E       assert 0 == 10
+
+tests/test_final_state.py:316: AssertionError
+_________________________ test_filter_sort_price_desc __________________________
+
+reflex_server = None
+
+    def test_filter_sort_price_desc(reflex_server):
+        data = _filter({"sort_by": "price", "sort_dir": "desc"})
+>       assert data["result_count"] == 240, (
+            f"Unfiltered sort-by-price-desc should return 240 rows, got {data['result_count']}."
+        )
+E       AssertionError: Unfiltered sort-by-price-desc should return 240 rows, got 0.
+E       assert 0 == 240
+
+tests/test_final_state.py:328: AssertionError
+___________________ test_filter_in_stock_only_sort_name_asc ____________________
+
+reflex_server = None
+
+    def test_filter_in_stock_only_sort_name_asc(reflex_server):
+        data = _filter({"in_stock_only": "true", "sort_by": "name", "sort_dir": "asc"})
+>       assert data["result_count"] == 180, (
+            f"in_stock_only should return 180 rows, got {data['result_count']}."
+        )
+E       AssertionError: in_stock_only should return 180 rows, got 0.
+E       assert 0 == 180
+
+tests/test_final_state.py:345: AssertionError
+______________ test_filter_combined_electronics_under_20_in_stock ______________
+
+reflex_server = None
+
+    def test_filter_combined_electronics_under_20_in_stock(reflex_server):
+        data = _filter(
+            {
+                "category": "Electronics",
+                "max_price": 20,
+                "in_stock_only": "true",
+                "sort_by": "price",
+                "sort_dir": "asc",
+            }
+        )
+>       assert data["result_count"] == 12, (
+            f"Electronics & price<=20 & in_stock_only should return 12 rows, "
+            f"got {data['result_count']}."
+        )
+E       AssertionError: Electronics & price<=20 & in_stock_only should return 12 rows, got 0.
+E       assert 0 == 12
+
+tests/test_final_state.py:364: AssertionError
+==================================== PASSES ====================================
+__________________________ test_frontend_page_renders __________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_filtered_table$ uv run reflex run --backend-port 8000 --frontend-port 3000 --loglevel info
+process 'reflex_filtered_table' started pid=1606
+reflex_filtered_table process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_exists
+PASSED tests/test_final_state.py::test_rxconfig_present
+PASSED tests/test_final_state.py::test_reflex_db_file_exists
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[rx.debounce_input]
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[debounce_timeout=300]
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[rx.asession]
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[rx.foreach]
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[background=True]
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[api_transformer]
+PASSED tests/test_final_state.py::test_frontend_page_renders
+FAILED tests/test_final_state.py::test_seed_total_row_count - AssertionError:...
+FAILED tests/test_final_state.py::test_seed_per_category_counts - AssertionEr...
+FAILED tests/test_final_state.py::test_seed_in_stock_count - AssertionError: ...
+FAILED tests/test_final_state.py::test_seed_first_row - AssertionError: No ro...
+FAILED tests/test_final_state.py::test_seed_last_row - AssertionError: No row...
+FAILED tests/test_final_state.py::test_seed_books_second_row - AssertionError...
+FAILED tests/test_final_state.py::test_filter_no_filters_default_sort - Asser...
+FAILED tests/test_final_state.py::test_filter_category_books - AssertionError...
+FAILED tests/test_final_state.py::test_filter_books_in_stock_only - Assertion...
+FAILED tests/test_final_state.py::test_filter_price_window_20_to_30 - Asserti...
+FAILED tests/test_final_state.py::test_filter_text_search_books_hash_one - As...
+FAILED tests/test_final_state.py::test_filter_sort_price_desc - AssertionErro...
+FAILED tests/test_final_state.py::test_filter_in_stock_only_sort_name_asc - A...
+FAILED tests/test_final_state.py::test_filter_combined_electronics_under_20_in_stock
+======================== 14 failed, 10 passed in 3.33s =========================

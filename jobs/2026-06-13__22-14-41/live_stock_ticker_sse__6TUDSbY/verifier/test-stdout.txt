@@ -1,0 +1,511 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py EEEEEEE                                        [100%]
+
+==================================== ERRORS ====================================
+_______________ ERROR at setup of test_snapshot_shape_and_seeds ________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fbedadd4260>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+            pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+    
+        class Starter(ProcessStarter):
+            name = "reflex_backend"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-only",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--loglevel",
+                "warning",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 240
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _wait_for_snapshot(timeout=2.0)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_backend.<locals>.Starter object at 0x7fbedadd4560>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 240                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_backend$ uv run reflex run --backend-only --backend-port 8000 --loglevel warning
+process 'reflex_backend' started pid=1264
+___ ERROR at setup of test_idempotent_start_first_call_returns_started_true ____
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fbedadd4260>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+            pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+    
+        class Starter(ProcessStarter):
+            name = "reflex_backend"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-only",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--loglevel",
+                "warning",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 240
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _wait_for_snapshot(timeout=2.0)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_backend.<locals>.Starter object at 0x7fbedadd4560>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 240                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+____ ERROR at setup of test_at_least_five_distinct_updates_in_five_seconds _____
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fbedadd4260>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+            pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+    
+        class Starter(ProcessStarter):
+            name = "reflex_backend"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-only",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--loglevel",
+                "warning",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 240
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _wait_for_snapshot(timeout=2.0)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_backend.<locals>.Starter object at 0x7fbedadd4560>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 240                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+_________ ERROR at setup of test_idempotent_start_does_not_double_rate _________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fbedadd4260>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+            pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+    
+        class Starter(ProcessStarter):
+            name = "reflex_backend"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-only",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--loglevel",
+                "warning",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 240
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _wait_for_snapshot(timeout=2.0)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_backend.<locals>.Starter object at 0x7fbedadd4560>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 240                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+______________ ERROR at setup of test_percent_change_correctness _______________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fbedadd4260>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+            pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+    
+        class Starter(ProcessStarter):
+            name = "reflex_backend"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-only",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--loglevel",
+                "warning",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 240
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _wait_for_snapshot(timeout=2.0)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_backend.<locals>.Starter object at 0x7fbedadd4560>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 240                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+__________________ ERROR at setup of test_stop_halts_updates ___________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fbedadd4260>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+            pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+    
+        class Starter(ProcessStarter):
+            name = "reflex_backend"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-only",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--loglevel",
+                "warning",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 240
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _wait_for_snapshot(timeout=2.0)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_backend.<locals>.Starter object at 0x7fbedadd4560>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 240                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+_______________ ERROR at setup of test_all_prices_stay_positive ________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fbedadd4260>
+_kill_stale_backend = None
+
+    @pytest.fixture(scope="session")
+    def reflex_backend(xprocess, _kill_stale_backend):
+        """Start the Reflex backend in `--backend-only` mode and wait for readiness."""
+    
+        if not os.path.isdir(PROJECT_DIR):
+            pytest.fail(
+                f"Project directory {PROJECT_DIR} does not exist. The executor "
+                f"must create the Reflex app at this path."
+            )
+    
+        class Starter(ProcessStarter):
+            name = "reflex_backend"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-only",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--loglevel",
+                "warning",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 240
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _wait_for_snapshot(timeout=2.0)
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_backend.<locals>.Starter object at 0x7fbedadd4560>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 240                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_snapshot_shape_and_seeds - TimeoutError...
+ERROR tests/test_final_state.py::test_idempotent_start_first_call_returns_started_true
+ERROR tests/test_final_state.py::test_at_least_five_distinct_updates_in_five_seconds
+ERROR tests/test_final_state.py::test_idempotent_start_does_not_double_rate
+ERROR tests/test_final_state.py::test_percent_change_correctness - TimeoutErr...
+ERROR tests/test_final_state.py::test_stop_halts_updates - TimeoutError: The ...
+ERROR tests/test_final_state.py::test_all_prices_stay_positive - TimeoutError...
+======================== 7 errors in 241.06s (0:04:01) =========================

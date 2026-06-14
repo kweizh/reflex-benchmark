@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py .......                                        [100%]
+
+==================================== PASSES ====================================
+________________________ test_snapshot_shape_and_seeds _________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_backend$ uv run reflex run --backend-only --backend-port 8000 --loglevel warning
+process 'reflex_backend' started pid=1193
+reflex_backend process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_snapshot_shape_and_seeds
+PASSED tests/test_final_state.py::test_idempotent_start_first_call_returns_started_true
+PASSED tests/test_final_state.py::test_at_least_five_distinct_updates_in_five_seconds
+PASSED tests/test_final_state.py::test_idempotent_start_does_not_double_rate
+PASSED tests/test_final_state.py::test_percent_change_correctness
+PASSED tests/test_final_state.py::test_stop_halts_updates
+PASSED tests/test_final_state.py::test_all_prices_stay_positive
+============================== 7 passed in 21.57s ==============================

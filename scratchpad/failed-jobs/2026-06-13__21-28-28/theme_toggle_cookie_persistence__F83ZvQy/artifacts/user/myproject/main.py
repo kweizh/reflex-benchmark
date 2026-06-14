@@ -1,0 +1,1 @@
+from myproject.myproject import app  # noqa: F401

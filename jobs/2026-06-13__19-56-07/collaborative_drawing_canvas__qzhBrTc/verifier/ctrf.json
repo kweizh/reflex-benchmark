@@ -1,0 +1,83 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:12:58.181686+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781381568913,
+            "stop": 1781381578181
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_database_file_exists",
+                "status": "passed",
+                "duration": 3390,
+                "start": 1781381569266,
+                "stop": 1781381572656,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_stroke_table_schema",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781381572657,
+                "stop": 1781381572658,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ping_endpoint",
+                "status": "passed",
+                "duration": 2346,
+                "start": 1781381572659,
+                "stop": 1781381575005,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_strokes_crud_contract",
+                "status": "passed",
+                "duration": 1580,
+                "start": 1781381575006,
+                "stop": 1781381576586,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_background_poller_no_immutable_state_error",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781381576586,
+                "stop": 1781381576587,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_frontend_has_svg_foreach",
+                "status": "passed",
+                "duration": 1593,
+                "start": 1781381576587,
+                "stop": 1781381578180,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

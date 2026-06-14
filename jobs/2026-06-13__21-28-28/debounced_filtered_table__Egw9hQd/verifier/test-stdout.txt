@@ -1,0 +1,531 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 24 items
+
+tests/test_final_state.py .........FFFFFFEEEEEEEEE                       [100%]
+
+==================================== ERRORS ====================================
+_________________ ERROR at setup of test_frontend_page_renders _________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7b9b08eab0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+        xprocess.ensure(Starter.name, Starter)
+    
+        # Give frontend a moment to finish first compile after socket is open.
+>       assert _wait_for_http(f"{BACKEND_URL}/api/filter", timeout=120), (
+            "Backend /api/filter endpoint did not become reachable in time."
+        )
+E       AssertionError: Backend /api/filter endpoint did not become reachable in time.
+E       assert False
+E        +  where False = _wait_for_http('http://localhost:8000/api/filter', timeout=120)
+
+tests/test_final_state.py:77: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_filtered_table$ uv run reflex run --backend-port 8000 --frontend-port 3000 --loglevel info
+process 'reflex_filtered_table' started pid=2406
+reflex_filtered_table process startup detected
+____________ ERROR at setup of test_filter_no_filters_default_sort _____________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7b9b08eab0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+        xprocess.ensure(Starter.name, Starter)
+    
+        # Give frontend a moment to finish first compile after socket is open.
+>       assert _wait_for_http(f"{BACKEND_URL}/api/filter", timeout=120), (
+            "Backend /api/filter endpoint did not become reachable in time."
+        )
+E       AssertionError: Backend /api/filter endpoint did not become reachable in time.
+E       assert False
+E        +  where False = _wait_for_http('http://localhost:8000/api/filter', timeout=120)
+
+tests/test_final_state.py:77: AssertionError
+_________________ ERROR at setup of test_filter_category_books _________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7b9b08eab0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+        xprocess.ensure(Starter.name, Starter)
+    
+        # Give frontend a moment to finish first compile after socket is open.
+>       assert _wait_for_http(f"{BACKEND_URL}/api/filter", timeout=120), (
+            "Backend /api/filter endpoint did not become reachable in time."
+        )
+E       AssertionError: Backend /api/filter endpoint did not become reachable in time.
+E       assert False
+E        +  where False = _wait_for_http('http://localhost:8000/api/filter', timeout=120)
+
+tests/test_final_state.py:77: AssertionError
+______________ ERROR at setup of test_filter_books_in_stock_only _______________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7b9b08eab0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+        xprocess.ensure(Starter.name, Starter)
+    
+        # Give frontend a moment to finish first compile after socket is open.
+>       assert _wait_for_http(f"{BACKEND_URL}/api/filter", timeout=120), (
+            "Backend /api/filter endpoint did not become reachable in time."
+        )
+E       AssertionError: Backend /api/filter endpoint did not become reachable in time.
+E       assert False
+E        +  where False = _wait_for_http('http://localhost:8000/api/filter', timeout=120)
+
+tests/test_final_state.py:77: AssertionError
+_____________ ERROR at setup of test_filter_price_window_20_to_30 ______________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7b9b08eab0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+        xprocess.ensure(Starter.name, Starter)
+    
+        # Give frontend a moment to finish first compile after socket is open.
+>       assert _wait_for_http(f"{BACKEND_URL}/api/filter", timeout=120), (
+            "Backend /api/filter endpoint did not become reachable in time."
+        )
+E       AssertionError: Backend /api/filter endpoint did not become reachable in time.
+E       assert False
+E        +  where False = _wait_for_http('http://localhost:8000/api/filter', timeout=120)
+
+tests/test_final_state.py:77: AssertionError
+___________ ERROR at setup of test_filter_text_search_books_hash_one ___________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7b9b08eab0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+        xprocess.ensure(Starter.name, Starter)
+    
+        # Give frontend a moment to finish first compile after socket is open.
+>       assert _wait_for_http(f"{BACKEND_URL}/api/filter", timeout=120), (
+            "Backend /api/filter endpoint did not become reachable in time."
+        )
+E       AssertionError: Backend /api/filter endpoint did not become reachable in time.
+E       assert False
+E        +  where False = _wait_for_http('http://localhost:8000/api/filter', timeout=120)
+
+tests/test_final_state.py:77: AssertionError
+________________ ERROR at setup of test_filter_sort_price_desc _________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7b9b08eab0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+        xprocess.ensure(Starter.name, Starter)
+    
+        # Give frontend a moment to finish first compile after socket is open.
+>       assert _wait_for_http(f"{BACKEND_URL}/api/filter", timeout=120), (
+            "Backend /api/filter endpoint did not become reachable in time."
+        )
+E       AssertionError: Backend /api/filter endpoint did not become reachable in time.
+E       assert False
+E        +  where False = _wait_for_http('http://localhost:8000/api/filter', timeout=120)
+
+tests/test_final_state.py:77: AssertionError
+__________ ERROR at setup of test_filter_in_stock_only_sort_name_asc ___________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7b9b08eab0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+        xprocess.ensure(Starter.name, Starter)
+    
+        # Give frontend a moment to finish first compile after socket is open.
+>       assert _wait_for_http(f"{BACKEND_URL}/api/filter", timeout=120), (
+            "Backend /api/filter endpoint did not become reachable in time."
+        )
+E       AssertionError: Backend /api/filter endpoint did not become reachable in time.
+E       assert False
+E        +  where False = _wait_for_http('http://localhost:8000/api/filter', timeout=120)
+
+tests/test_final_state.py:77: AssertionError
+_____ ERROR at setup of test_filter_combined_electronics_under_20_in_stock _____
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f7b9b08eab0>
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess):
+        """Start the reflex server fresh and wait for both ports to be ready."""
+    
+        class Starter(ProcessStarter):
+            name = "reflex_filtered_table"
+            args = [
+                "uv",
+                "run",
+                "reflex",
+                "run",
+                "--backend-port",
+                str(BACKEND_PORT),
+                "--frontend-port",
+                str(FRONTEND_PORT),
+                "--loglevel",
+                "info",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 300
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                return _port_open("localhost", BACKEND_PORT) and _port_open(
+                    "localhost", FRONTEND_PORT
+                )
+    
+        xprocess.ensure(Starter.name, Starter)
+    
+        # Give frontend a moment to finish first compile after socket is open.
+>       assert _wait_for_http(f"{BACKEND_URL}/api/filter", timeout=120), (
+            "Backend /api/filter endpoint did not become reachable in time."
+        )
+E       AssertionError: Backend /api/filter endpoint did not become reachable in time.
+E       assert False
+E        +  where False = _wait_for_http('http://localhost:8000/api/filter', timeout=120)
+
+tests/test_final_state.py:77: AssertionError
+=================================== FAILURES ===================================
+__________________________ test_seed_total_row_count ___________________________
+
+    def test_seed_total_row_count():
+        rows = _query("SELECT COUNT(*) FROM product")
+>       assert rows[0][0] == 240, (
+            f"Expected exactly 240 rows in the product table, found {rows[0][0]}."
+        )
+E       AssertionError: Expected exactly 240 rows in the product table, found 0.
+E       assert 0 == 240
+
+tests/test_final_state.py:158: AssertionError
+________________________ test_seed_per_category_counts _________________________
+
+    def test_seed_per_category_counts():
+        rows = _query(
+            "SELECT category, COUNT(*) FROM product GROUP BY category ORDER BY category"
+        )
+        actual = dict(rows)
+        expected = {c: 40 for c in CATEGORIES}
+>       assert actual == expected, (
+            f"Expected 40 rows per category {sorted(CATEGORIES)}, got {actual}."
+        )
+E       AssertionError: Expected 40 rows per category ['Books', 'Clothing', 'Electronics', 'Home', 'Sports', 'Toys'], got {}.
+E       assert {} == {'Books': 40,...ome': 40, ...}
+E         Right contains 6 more items:
+E         {'Books': 40,
+E          'Clothing': 40,
+E          'Electronics': 40,
+E          'Home': 40,
+E          'Sports': 40,
+E          'Toys': 40}
+E         Use -v to get more diff
+
+tests/test_final_state.py:169: AssertionError
+___________________________ test_seed_in_stock_count ___________________________
+
+    def test_seed_in_stock_count():
+        rows = _query("SELECT COUNT(*) FROM product WHERE in_stock = 1")
+>       assert rows[0][0] == 180, (
+            f"Expected 180 in-stock rows (30 per category x 6), got {rows[0][0]}."
+        )
+E       AssertionError: Expected 180 in-stock rows (30 per category x 6), got 0.
+E       assert 0 == 180
+
+tests/test_final_state.py:176: AssertionError
+_____________________________ test_seed_first_row ______________________________
+
+    def test_seed_first_row():
+        rows = _query(
+            "SELECT name, sku, price, in_stock FROM product WHERE id = 1"
+        )
+>       assert rows, "No row with id=1; insertion order may be wrong."
+E       AssertionError: No row with id=1; insertion order may be wrong.
+E       assert []
+
+tests/test_final_state.py:185: AssertionError
+______________________________ test_seed_last_row ______________________________
+
+    def test_seed_last_row():
+        rows = _query(
+            "SELECT name, sku, price, in_stock FROM product WHERE id = 240"
+        )
+>       assert rows, "No row with id=240; insertion order may be wrong."
+E       AssertionError: No row with id=240; insertion order may be wrong.
+E       assert []
+
+tests/test_final_state.py:203: AssertionError
+__________________________ test_seed_books_second_row __________________________
+
+    def test_seed_books_second_row():
+        rows = _query("SELECT name, price FROM product WHERE id = 42")
+>       assert rows, "No row with id=42; insertion order may be wrong."
+E       AssertionError: No row with id=42; insertion order may be wrong.
+E       assert []
+
+tests/test_final_state.py:219: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_exists
+PASSED tests/test_final_state.py::test_rxconfig_present
+PASSED tests/test_final_state.py::test_reflex_db_file_exists
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[rx.debounce_input]
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[debounce_timeout=300]
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[rx.asession]
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[rx.foreach]
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[background=True]
+PASSED tests/test_final_state.py::test_source_contains_required_idiom[api_transformer]
+ERROR tests/test_final_state.py::test_frontend_page_renders - AssertionError:...
+ERROR tests/test_final_state.py::test_filter_no_filters_default_sort - Assert...
+ERROR tests/test_final_state.py::test_filter_category_books - AssertionError:...
+ERROR tests/test_final_state.py::test_filter_books_in_stock_only - AssertionE...
+ERROR tests/test_final_state.py::test_filter_price_window_20_to_30 - Assertio...
+ERROR tests/test_final_state.py::test_filter_text_search_books_hash_one - Ass...
+ERROR tests/test_final_state.py::test_filter_sort_price_desc - AssertionError...
+ERROR tests/test_final_state.py::test_filter_in_stock_only_sort_name_asc - As...
+ERROR tests/test_final_state.py::test_filter_combined_electronics_under_20_in_stock
+FAILED tests/test_final_state.py::test_seed_total_row_count - AssertionError:...
+FAILED tests/test_final_state.py::test_seed_per_category_counts - AssertionEr...
+FAILED tests/test_final_state.py::test_seed_in_stock_count - AssertionError: ...
+FAILED tests/test_final_state.py::test_seed_first_row - AssertionError: No ro...
+FAILED tests/test_final_state.py::test_seed_last_row - AssertionError: No row...
+FAILED tests/test_final_state.py::test_seed_books_second_row - AssertionError...
+============== 6 failed, 9 passed, 9 errors in 127.97s (0:02:07) ===============

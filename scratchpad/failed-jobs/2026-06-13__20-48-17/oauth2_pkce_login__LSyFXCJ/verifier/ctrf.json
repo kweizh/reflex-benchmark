@@ -1,0 +1,122 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T21:08:55.634470+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 9,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781384931383,
+            "stop": 1781384935634
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_credentials_file_present_and_valid",
+                "status": "passed",
+                "duration": 2988,
+                "start": 1781384931478,
+                "stop": 1781384934466,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_authorize_happy_path_redirects_with_code",
+                "status": "passed",
+                "duration": 44,
+                "start": 1781384934466,
+                "stop": 1781384934510,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_authorize_rejects_non_s256_challenge_method",
+                "status": "passed",
+                "duration": 63,
+                "start": 1781384934511,
+                "stop": 1781384934574,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_token_rejects_wrong_verifier",
+                "status": "passed",
+                "duration": 94,
+                "start": 1781384934574,
+                "stop": 1781384934668,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_token_happy_path_returns_bearer_token",
+                "status": "passed",
+                "duration": 79,
+                "start": 1781384934668,
+                "stop": 1781384934747,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_api_me_requires_bearer_token",
+                "status": "passed",
+                "duration": 260,
+                "start": 1781384934747,
+                "stop": 1781384935007,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_auth_start_redirects_to_authorize_with_s256",
+                "status": "passed",
+                "duration": 39,
+                "start": 1781384935007,
+                "stop": 1781384935046,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_full_flow_sets_access_token_cookie",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 132,
+                "start": 1781384935046,
+                "stop": 1781384935178,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "credentials = {'client_id': '0bvW2ahfjZ4zA4OUpRRD4g', 'client_secret': 'q-yPpRWnsiuqbfx30kjboKc7cpf24a-rB78bExmKT_8', 'redirect_uri': 'http://localhost:8000/auth/callback', 'username': 'demo_user_ead44f1e'}\n\n    def test_full_flow_sets_access_token_cookie(credentials):\n        \"\"\"End-to-end: /auth/start -> /auth/authorize -> /auth/callback -> /,\n        and the final cookie jar contains a non-HttpOnly `access_token` cookie.\"\"\"\n        with httpx.Client(\n            follow_redirects=True, timeout=15.0, base_url=BACKEND_BASE\n        ) as client:\n            final = client.get(\"/auth/start\")\n>           assert final.status_code == 200, (\n                f\"End-to-end flow final status expected 200, got {final.status_code} \"\n                f\"url={final.url!s}\"\n            )\nE           AssertionError: End-to-end flow final status expected 200, got 404 url=http://localhost:8000/\nE           assert 404 == 200\nE            +  where 404 = <Response [404 Not Found]>.status_code\n\ntests/test_final_state.py:381: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_backend_is_alive",
+                "status": "passed",
+                "duration": 38,
+                "start": 1781384935178,
+                "stop": 1781384935216,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_design_has_cookie_and_backend_only_var",
+                "status": "passed",
+                "duration": 417,
+                "start": 1781384935216,
+                "stop": 1781384935633,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

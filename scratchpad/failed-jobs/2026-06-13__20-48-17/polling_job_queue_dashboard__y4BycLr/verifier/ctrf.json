@@ -1,0 +1,140 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T21:28:13.148068+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 7,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781385984151,
+            "stop": 1781386093147
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_job_table_exists_and_empty",
+                "status": "passed",
+                "duration": 4533,
+                "start": 1781385984489,
+                "stop": 1781385989022,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_empty_counts_endpoint",
+                "status": "passed",
+                "duration": 12831,
+                "start": 1781385989023,
+                "stop": 1781386001854,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_empty_jobs_endpoint",
+                "status": "passed",
+                "duration": 23,
+                "start": 1781386001856,
+                "stop": 1781386001879,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rejects_empty_name",
+                "status": "passed",
+                "duration": 18,
+                "start": 1781386001881,
+                "stop": 1781386001899,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_single_job_lifecycle",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 30136,
+                "start": 1781386001901,
+                "stop": 1781386032037,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_single_job_lifecycle(reflex_server):\n        # 1. Submit one job via the API.\n        r = requests.post(f\"{API_BASE}/api/jobs\", json={\"name\": \"alpha-job\"}, timeout=15)\n        assert r.status_code in (200, 201), (\n            f\"POST /api/jobs returned HTTP {r.status_code}: {r.text!r}\"\n        )\n        body = r.json()\n        assert \"id\" in body and isinstance(body[\"id\"], int), (\n            f\"POST /api/jobs response missing integer 'id': {body!r}\"\n        )\n        assert body.get(\"name\") == \"alpha-job\", (\n            f\"POST /api/jobs response 'name' mismatch: {body!r}\"\n        )\n        assert body.get(\"status\") == \"PENDING\", (\n            f\"POST /api/jobs response 'status' must be PENDING, got: {body!r}\"\n        )\n        assert body.get(\"progress\") == 0, (\n            f\"POST /api/jobs response 'progress' must be 0, got: {body!r}\"\n        )\n        alpha_id = body[\"id\"]\n    \n        # 2. Poll SQLite directly and record every distinct (status, progress) tuple.\n        observed = []\n        deadline = time.time() + SINGLE_JOB_TIMEOUT_SEC\n        last_tuple = None\n        last_progress = -1\n        saw_running = False\n        while time.time() < deadline:\n            row = _sqlite_get_job(alpha_id)\n            if row is not None:\n                tup = (row[\"status\"], row[\"progress\"])\n                if tup != last_tuple:\n                    observed.append(tup)\n                    last_tuple = tup\n                assert row[\"progress\"] >= last_progress, (\n                    f\"progress regressed from {last_progress} to {row['progress']} \"\n                    f\"for job id={alpha_id}. Observation log: {observed!r}\"\n                )\n                last_progress = row[\"progress\"]\n                if row[\"status\"] == \"RUNNING\":\n                    saw_running = True\n                if row[\"status\"] == \"COMPLETED\" and row[\"progress\"] == 100:\n                    break\n            time.sleep(0.1)\n    \n        final = _sqlite_get_job(alpha_id)\n        assert final is not None, f\"Job id={alpha_id} disappeared from DB.\"\n>       assert final[\"status\"] == \"COMPLETED\" and final[\"progress\"] == 100, (\n            f\"Job id={alpha_id} did not reach (COMPLETED, 100) within \"\n            f\"{SINGLE_JOB_TIMEOUT_SEC}s. Final row: {final!r}. \"\n            f\"Observation log: {observed!r}\"\n        )\nE       AssertionError: Job id=1 did not reach (COMPLETED, 100) within 30s. Final row: {'id': 1, 'name': 'alpha-job', 'status': 'PENDING', 'progress': 0}. Observation log: [('PENDING', 0)]\nE       assert ('PENDING' == 'COMPLETED'\nE         - COMPLETED\nE         + PENDING)\n\ntests/test_final_state.py:281: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_counts_after_single_completion",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 38,
+                "start": 1781386032038,
+                "stop": 1781386032076,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_counts_after_single_completion(reflex_server):\n        api_resp = requests.get(f\"{API_BASE}/api/jobs/counts\", timeout=15)\n        assert api_resp.status_code == 200, (\n            f\"GET /api/jobs/counts returned HTTP {api_resp.status_code}: {api_resp.text!r}\"\n        )\n        api_counts = api_resp.json()\n    \n        db_counts = _sqlite_count_by_status()\n        for status in (\"PENDING\", \"RUNNING\", \"COMPLETED\"):\n            assert api_counts.get(status, 0) == db_counts.get(status, 0), (\n                f\"Count mismatch for status={status!r}: API said \"\n                f\"{api_counts.get(status)}, DB said {db_counts.get(status)}. \"\n                f\"Full API counts: {api_counts!r}, DB counts: {db_counts!r}\"\n            )\n>       assert api_counts.get(\"COMPLETED\", 0) == 1, (\n            f\"Expected exactly 1 COMPLETED job after the single-job lifecycle test, \"\n            f\"got {api_counts!r}\"\n        )\nE       AssertionError: Expected exactly 1 COMPLETED job after the single-job lifecycle test, got {'PENDING': 1, 'RUNNING': 0, 'COMPLETED': 0}\nE       assert 0 == 1\nE        +  where 0 = <built-in method get of dict object at 0x7f144d370f00>('COMPLETED', 0)\nE        +    where <built-in method get of dict object at 0x7f144d370f00> = {'COMPLETED': 0, 'PENDING': 1, 'RUNNING': 0}.get\n\ntests/test_final_state.py:341: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_get_jobs_reflects_completion",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 37,
+                "start": 1781386032076,
+                "stop": 1781386032113,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_get_jobs_reflects_completion(reflex_server):\n        r = requests.get(f\"{API_BASE}/api/jobs\", timeout=15)\n        assert r.status_code == 200, (\n            f\"GET /api/jobs returned HTTP {r.status_code}: {r.text!r}\"\n        )\n        data = r.json()\n        assert isinstance(data, list) and len(data) == 1, (\n            f\"Expected exactly 1 job in GET /api/jobs after single-job lifecycle, \"\n            f\"got: {data!r}\"\n        )\n        job = data[0]\n        assert job.get(\"name\") == \"alpha-job\", (\n            f\"Expected the single job name to be 'alpha-job', got: {job!r}\"\n        )\n>       assert job.get(\"status\") == \"COMPLETED\", (\n            f\"Expected the single job status to be 'COMPLETED', got: {job!r}\"\n        )\nE       AssertionError: Expected the single job status to be 'COMPLETED', got: {'id': 1, 'name': 'alpha-job', 'status': 'PENDING', 'progress': 0}\nE       assert 'PENDING' == 'COMPLETED'\nE         - COMPLETED\nE         + PENDING\n\ntests/test_final_state.py:361: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_bulk_submission_consistency",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 60478,
+                "start": 1781386032114,
+                "stop": 1781386092592,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_bulk_submission_consistency(reflex_server):\n        # Submit three more jobs in close succession.\n        for name in (\"beta-1\", \"beta-2\", \"beta-3\"):\n            r = requests.post(f\"{API_BASE}/api/jobs\", json={\"name\": name}, timeout=15)\n            assert r.status_code in (200, 201), (\n                f\"POST /api/jobs for name={name!r} returned HTTP {r.status_code}: \"\n                f\"{r.text!r}\"\n            )\n    \n        # While the batch is processing, sample counts repeatedly to verify\n        # invariants (RUNNING <= 1, and counts sum equals total DB rows).\n        deadline = time.time() + BULK_TIMEOUT_SEC\n        completed_count = 0\n        while time.time() < deadline:\n            r = requests.get(f\"{API_BASE}/api/jobs/counts\", timeout=15)\n            assert r.status_code == 200, (\n                f\"GET /api/jobs/counts returned HTTP {r.status_code}: {r.text!r}\"\n            )\n            counts = r.json()\n            running = counts.get(\"RUNNING\", 0)\n            pending = counts.get(\"PENDING\", 0)\n            completed = counts.get(\"COMPLETED\", 0)\n            assert running <= 1, (\n                f\"Expected at most 1 RUNNING job at any moment (worker is \"\n                f\"single-threaded), saw RUNNING={running} in {counts!r}\"\n            )\n            db_total = sum(_sqlite_count_by_status().values())\n            assert (pending + running + completed) == db_total, (\n                f\"Counts API ({counts!r}) sum does not equal DB total row count \"\n                f\"({db_total}). Counts must mirror the database exactly.\"\n            )\n            if completed >= 4:\n                completed_count = completed\n                break\n            time.sleep(0.5)\n        else:\n>           raise AssertionError(\n                f\"Bulk batch did not complete within {BULK_TIMEOUT_SEC}s. \"\n                f\"Final counts: {counts!r}\"\n            )\nE           AssertionError: Bulk batch did not complete within 60s. Final counts: {'PENDING': 4, 'RUNNING': 0, 'COMPLETED': 0}\n\ntests/test_final_state.py:405: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_reachable",
+                "status": "passed",
+                "duration": 47,
+                "start": 1781386092592,
+                "stop": 1781386092639,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_immutable_state_error_in_logs",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781386092639,
+                "stop": 1781386092640,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_uses_required_reflex_primitives",
+                "status": "passed",
+                "duration": 506,
+                "start": 1781386092641,
+                "stop": 1781386093147,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

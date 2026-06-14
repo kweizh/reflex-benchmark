@@ -1,0 +1,1091 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 15 items
+
+tests/test_final_state.py EEEEEEEEEEEEEEE                                [100%]
+
+==================================== ERRORS ====================================
+____________ ERROR at setup of test_schema_has_note_and_tag_tables _____________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+________ ERROR at setup of test_schema_has_link_table_for_many_to_many _________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+__________________ ERROR at setup of test_counts_starts_clean __________________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+_______________ ERROR at setup of test_ensure_tag_is_idempotent ________________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+__ ERROR at setup of test_create_note_with_two_existing_tags_adds_three_rows ___
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+_______ ERROR at setup of test_create_note_with_new_tag_creates_tag_row ________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+____________ ERROR at setup of test_list_without_filter_returns_all ____________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+______________ ERROR at setup of test_filter_by_tag_or_semantics _______________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+_____________ ERROR at setup of test_all_tags_is_union_of_attached _____________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+____ ERROR at setup of test_set_tags_replaces_and_does_not_delete_tag_rows _____
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+______________ ERROR at setup of test_update_changes_content_only ______________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+___________ ERROR at setup of test_delete_removes_links_but_not_tags ___________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+__________________ ERROR at setup of test_frontend_reachable ___________________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+___________ ERROR at setup of test_no_immutable_state_error_in_logs ____________
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+______ ERROR at setup of test_source_uses_link_model_and_state_contracts _______
+
+    @pytest.fixture(scope="session")
+    def prepared_db():
+        # Make sure the schema is up to date.
+>       _run_uv(["reflex", "db", "migrate"], timeout=240)
+
+tests/test_final_state.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ['reflex', 'db', 'migrate'], timeout = 240, check = True
+
+    def _run_uv(args, timeout=180, check=True):
+        """Run a command inside the project's uv-managed environment."""
+        cmd = ["uv", "run", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if check:
+>           assert result.returncode == 0, (
+                f"Command {cmd!r} failed with exit code {result.returncode}.\n"
+                f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+            )
+E           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 1.
+E             stdout:
+E             DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E             use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E             removed in 1.0.0. (<frozen abc>:106)
+E             
+E             stderr:
+E             Traceback (most recent call last):
+E               File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E                 sys.exit(cli())
+E                          ^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E                 return self.main(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E                 rv = self.invoke(ctx)
+E                      ^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E                 return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E                 return ctx.invoke(self.callback, **ctx.params)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E                 return callback(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 684, in migrate
+E                 prerequisites.get_app()
+E               File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 198, in get_app
+E                 __import__(module, fromlist=(constants.CompileVars.APP,))
+E               File "/home/user/myproject/myproject/myproject.py", line 21, in <module>
+E                 class Tag(rx.Model, table=True):
+E               File "/home/user/myproject/myproject/myproject.py", line 25, in Tag
+E                 notes: List[Note] = sqlmodel.Relationship(
+E                             ^^^^
+E             NameError: name 'Note' is not defined. Did you mean: 'None'?
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=1, stdout='DeprecationWarning: reflex.Model...e] = sqlmodel.Relationship(\n                ^^^^\nNameError: name \'Note\' is not defined. Did you mean: \'None\'?\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_schema_has_note_and_tag_tables - Assert...
+ERROR tests/test_final_state.py::test_schema_has_link_table_for_many_to_many
+ERROR tests/test_final_state.py::test_counts_starts_clean - AssertionError: C...
+ERROR tests/test_final_state.py::test_ensure_tag_is_idempotent - AssertionErr...
+ERROR tests/test_final_state.py::test_create_note_with_two_existing_tags_adds_three_rows
+ERROR tests/test_final_state.py::test_create_note_with_new_tag_creates_tag_row
+ERROR tests/test_final_state.py::test_list_without_filter_returns_all - Asser...
+ERROR tests/test_final_state.py::test_filter_by_tag_or_semantics - AssertionE...
+ERROR tests/test_final_state.py::test_all_tags_is_union_of_attached - Asserti...
+ERROR tests/test_final_state.py::test_set_tags_replaces_and_does_not_delete_tag_rows
+ERROR tests/test_final_state.py::test_update_changes_content_only - Assertion...
+ERROR tests/test_final_state.py::test_delete_removes_links_but_not_tags - Ass...
+ERROR tests/test_final_state.py::test_frontend_reachable - AssertionError: Co...
+ERROR tests/test_final_state.py::test_no_immutable_state_error_in_logs - Asse...
+ERROR tests/test_final_state.py::test_source_uses_link_model_and_state_contracts
+============================== 15 errors in 6.49s ==============================

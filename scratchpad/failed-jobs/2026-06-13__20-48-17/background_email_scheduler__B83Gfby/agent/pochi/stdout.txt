@@ -1,0 +1,1048 @@
+- Initializing MCP connections...
+You
+# Background Scheduled Email Digest Generator (Reflex) ## Background You are building a Reflex application that runs a **scheduler loop as a background event** to mock-send periodic email digests. The scheduler ticks roughly every second, scans an SQLite-backed table of digests, and for every row whose `next_due_at` is in the past it writes a row to a `SentEmail` audit table and reschedules the row's next due time. The UI shows due/queued counts and a **Force Run** button. The hard parts of this task are: * Time-based scheduling that produces a *bounded* number of mock sends per real-world second. * Transactional, idempotent updates to two SQLite tables from a background coroutine (must not double-send within the same tick, must survive scheduler restarts). * Reflex's strict rule that background events may only mutate state inside `async with self`. ## Acceptance Criteria * Project path: `/home/user/email_scheduler` * Start command: `cd /home/user/email_scheduler && nohup uv run reflex run --backend-only --backend-port 8000 --loglevel debug > /home/user/email_scheduler/server.log 2>&1 &` * Port: `8000` * Server log: `/home/user/email_scheduler/server.log` (must exist after the server has been started) * The project must be a Reflex application initialized with the `blank` template and managed by `uv`, using SQLite (the Reflex default DB) via `rx.Model`. * The project must define two `rx.Model` tables (any class names are fine, but the table names exposed to SQL must be `emaildigest` and `sentemail`, which is the default Reflex/SQLModel lowercasing of `EmailDigest`/`SentEmail`): * `emaildigest`: columns `id` (int PK), `recipient` (str), `period_seconds` (int), `last_sent_at` (float, unix seconds, nullable), `next_due_at` (float, unix seconds, required). * `sentemail`: columns `id` (int PK), `digest_id` (int FK to `emaildigest.id`), `recipient` (str), `sent_at` (float, unix seconds, required). * The state class must declare at least one event handler decorated with `@rx.event(background=True)` that: * Loops while a backend-only flag is set, * Sleeps \~1 second per tick, * On each tick, opens a DB session, finds every `emaildigest` row whose `next_due_at <= now`, inserts one `sentemail` row per due digest with `sent_at = now`, and reschedules the digest by setting `last_sent_at = now` and `next_due_at = now + period_seconds`, * Holds the Reflex state lock with `async with self` whenever it writes to shared state vars (counters, etc.) and never mutates state outside that block. * A non-background `@rx.event` handler must implement **Force Run**: when invoked, send exactly one `sentemail` row for the digest whose `next_due_at` is the earliest (regardless of whether it is due yet) and reschedule it. The Force Run handler must complete before returning control to the UI; do not delegate it to the background loop. * HTTP API (mounted via `rx.App(api_transformer=...)`), all responses JSON with HTTP 200 unless noted. The endpoints exist so the verifier can drive and observe the scheduler without a browser; they MUST delegate to the same underlying SQLite tables and scheduler state used by the Reflex UI/state. * `POST /api/scheduler/seed` * Request body: ```json {"digests": [{"recipient": string, "period_seconds": integer, "first_due_in_seconds": number}]} ``` * Side effect: wipes `emaildigest` and `sentemail`, then inserts the supplied digests. For each digest, set `last_sent_at = null` and `next_due_at = now + first_due_in_seconds`. * Response: ```json {"seeded": integer} ``` * `POST /api/scheduler/start` * Request body: empty or `{}`. * Side effect: ensures the background scheduler loop is running. If a loop is already running, this must be a no-op (idempotent restart). Within 1 s of the call, `GET /api/scheduler/status` must report `running == true`. * Response: ```json {"running": true} ``` * `POST /api/scheduler/stop` * Request body: empty or `{}`. * Side effect: signals the background loop to exit cleanly. Within 2 s, `GET /api/scheduler/status` must report `running == false`. * Response: ```json {"running": false} ``` * `POST /api/scheduler/force_run` * Request body: empty or `{}`. * Side effect: invokes the same Force Run logic exposed in the UI, producing exactly one new `sentemail` row. * Response: ```json {"sent": 1, "digest_id": integer, "recipient": string} ``` * `GET /api/scheduler/status` * Response shape: ```json { "running": boolean, "now": number, "due_count": integer, "queued_count": integer, "total_sent": integer } ``` * Field semantics: * `running` is `true` while the background scheduler loop is alive. * `now` is the server-side unix timestamp in seconds at the moment of the request. * `due_count` is the number of `emaildigest` rows with `next_due_at <= now`. * `queued_count` is the number of `emaildigest` rows with `next_due_at > now`. * `total_sent` is the total number of rows in `sentemail`. * `GET /api/scheduler/sent` * Response shape: ```json {"rows": [{"id": integer, "digest_id": integer, "recipient": string, "sent_at": number}]} ``` * Ordered by `sent_at` ascending. * Behavioural requirements (verifier will exercise these via HTTP): * **Bounded throughput:** after seeding one digest with `period_seconds=2` and `first_due_in_seconds=0`, then starting the scheduler and waiting 6 s, the number of `sentemail` rows for that digest must be in the closed interval `[2, 4]`. * **No duplicate sends per tick:** in any single tick, the scheduler must not insert more than one `sentemail` row for the same digest. Equivalent observable rule: for any single digest, the time gap between consecutive `sent_at` values must be at least `period_seconds - 0.5`. * **Force Run is immediate:** after seeding one digest with `period_seconds=60` and `first_due_in_seconds=60` (so it is NOT due), calling `POST /api/scheduler/force_run` must produce exactly one new `sentemail` row whose `digest_id` matches that digest and whose `sent_at` is within \~2 s of `now` at call time. The scheduler must also reschedule the digest's `next_due_at` forward by `period_seconds` from the force-run moment. * **Idempotent restart:** calling `POST /api/scheduler/start` twice in a row must not spawn two concurrent loops. After two consecutive starts followed by `POST /api/scheduler/stop`, `GET /api/scheduler/status` must report `running == false` within 2 s. * **No ImmutableStateError:** the server log must not contain the substring `ImmutableStateError` after the verifier has exercised every endpoint. * Source-code contract (verified by reading `.py` files under the project, excluding `.venv`, `node_modules`, `.web`, `__pycache__`): * At least one file contains the literal substring `@rx.event(background=True)`. * At least one file contains the literal substring `async with self`. * At least one file contains the literal substring `class EmailDigest` and `class SentEmail` (case-sensitive). * Cleanup requirements: * The agent must terminate any background Reflex servers (for example with `pkill -f 'reflex run'`) before declaring the task complete. The verifier starts its own server and a leftover server bound to port 8000 will fail the test.   
+
+Pochi
+💭 Thinking for 837 characters   
+💫 Executing uv pip install reflex ✖ "Command exited with code 2"
+💫 Executing mkdir -p /home/user/email_scheduler && cd /home/user/email_scheduler && uv venv && uv pip install reflex sqlmodel && uv run reflex init --template blank ✖ "Command exited with code 1"
+💭 Thinking for 187 characters   
+💫 Executing apt-get update && apt-get install -y unzip && cd /home/user/email_scheduler && uv run reflex init --template blank ✔ 
+📖 Reading /home/user/email_scheduler/email_scheduler/email_scheduler.py ✔ 
+💭 Thinking for 1827 characters   
+💫 Executing cat << 'EOF' > /home/user/email_scheduler/email_scheduler/email_scheduler.py
+import reflex as rx
+EOF
+ ✔ 
+💭 Thinking for 905 characters   
+💫 Executing python -c "import reflex as rx; print(dir(rx.App))" ✖ "Command exited with code 1"
+💭 Thinking for 243 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "import reflex as rx; print(dir(rx.App))" ✔ 
+💫 Executing cd /home/user/email_scheduler && uv run python -c "import reflex as rx; import inspect; print(inspect.signature(rx.App.modify_state))" ✔ 
+💭 Thinking for 1510 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+print(dir(rx.State))
+" ✔ 
+💭 Thinking for 749 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+print(dir(rx.App))
+" ✔ 
+💭 Thinking for 253 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+import asyncio
+
+class State(rx.State):
+    val: int = 0
+    
+    @rx.event
+    def increment(self):
+        self.val += 1
+
+app = rx.App()
+
+async def main():
+    async with app.modify_state('api') as state:
+        print(state.val)
+        state.val += 1
+    
+    async with app.modify_state('api') as state:
+        print(state.val)
+
+asyncio.run(main())
+" ✖ "Command exited with code 1"
+💭 Thinking for 293 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+import asyncio
+
+class State(rx.State):
+    val: int = 0
+    
+app = rx.App()
+
+async def main():
+    token = rx.BaseStateToken('api', State)
+    async with app.modify_state(token) as state:
+        print(state.val)
+        state.val += 1
+
+asyncio.run(main())
+" ✖ "Command exited with code 1"
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+import inspect
+from reflex.istate.manager.token import BaseStateToken
+print(inspect.signature(BaseStateToken.__init__))
+" ✔ 
+💭 Thinking for 227 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+import asyncio
+from reflex.istate.manager.token import BaseStateToken
+
+class State(rx.State):
+    val: int = 0
+    
+app = rx.App()
+
+async def main():
+    token = BaseStateToken(ident='api', cls=State)
+    async with app.modify_state(token) as state:
+        print(state.val)
+        state.val += 1
+
+asyncio.run(main())
+" ✖ "Command exited with code 1"
+💭 Thinking for 1245 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+import asyncio
+from reflex.istate.manager.token import BaseStateToken
+
+class State(rx.State):
+    val: int = 0
+    
+app = rx.App()
+
+async def main():
+    token = BaseStateToken(ident='api', cls=State)
+    state = await app.state_manager.get_state(token)
+    print(state.val)
+
+asyncio.run(main())
+" ✖ "Command exited with code 1"
+💭 Thinking for 686 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+import asyncio
+
+class State(rx.State):
+    val: int = 0
+    
+app = rx.App()
+print(dir(app))
+" ✔ 
+💭 Thinking for 1219 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+import asyncio
+
+class State(rx.State):
+    val: int = 0
+    @rx.event(background=True)
+    async def loop(self):
+        async with self:
+            self.val += 1
+
+app = rx.App()
+print(dir(app.event_processor))
+" ✖ "Command exited with code 1"
+💭 Thinking for 647 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+import asyncio
+
+class State(rx.State):
+    val: int = 0
+
+app = rx.App()
+
+async def main():
+    app._setup_state()
+    # Need to initialize state manager properly?
+    # Actually, app.state_manager is initialized in _setup_state? No, in _setup_event_processor?
+    pass
+" ✔ 
+💭 Thinking for 325 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+import asyncio
+
+class State(rx.State):
+    val: int = 0
+    @rx.event(background=True)
+    async def loop(self):
+        async with self:
+            self.val += 1
+
+state = State()
+print(state)
+" ✖ "Command exited with code 1"
+💭 Thinking for 674 characters   
+💫 Executing cat << 'EOF' > /home/user/email_scheduler/test_modify.py
+import reflex as rx
+import asyncio
+from reflex.istate.manager.token import BaseStateToken
+
+class State(rx.State):
+    val: int = 0
+    @rx.event(background=True)
+    async def loop(self):
+        async with self:
+            self.val += 1
+            print("Loop ran, val:", self.val)
+
+app = rx.App()
+
+@app.api.get("/test")
+async def test_endpoint():
+    token = BaseStateToken(ident="api", cls=State)
+    async with app.modify_state(token) as state:
+        # call the background event?
+        # wait, background events are converted to EventHandlers, which are not methods
+        pass
+    return {"ok": True}
+
+EOF
+uv run uvicorn test_modify:app.api --port 8001 &
+sleep 2
+curl http://localhost:8001/test
+kill %1
+ ✖ "Command exited with code 1"
+💭 Thinking for 207 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -m uvicorn test_modify:app.api --port 8001 & sleep 2 && curl http://localhost:8001/test && kill %1 ✖ "Command exited with code 7"
+💭 Thinking for 635 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+
+class State(rx.State):
+    @rx.event(background=True)
+    async def loop(self):
+        pass
+
+print(type(State.loop))
+print(dir(State.loop))
+" ✔ 
+💭 Thinking for 370 characters   
+💫 Executing cat << 'EOF' > /home/user/email_scheduler/test_event.py
+import reflex as rx
+import asyncio
+from reflex.istate.manager.token import BaseStateToken
+
+class State(rx.State):
+    val: int = 0
+    @rx.event(background=True)
+    async def loop(self):
+        async with self:
+            self.val += 1
+            print("Loop ran, val:", self.val)
+
+app = rx.App()
+
+async def main():
+    # setup state manager
+    app._setup_state()
+    # run background task
+    token = BaseStateToken(ident="api", cls=State)
+    
+    # We need to initialize the state first
+    await app.state_manager.set_state(token, State())
+    
+    async with app.modify_state(token) as state:
+        print("Initial val:", state.val)
+    
+    # Call the fn
+    state = await app.state_manager.get_state(token)
+    await State.loop.fn(state)
+    
+    async with app.modify_state(token) as state:
+        print("Final val:", state.val)
+
+asyncio.run(main())
+EOF
+cd /home/user/email_scheduler && uv run python test_event.py
+ ✖ "Command exited with code 1"
+💫 Executing cat << 'EOF' > /home/user/email_scheduler/test_event.py
+import reflex as rx
+import asyncio
+from reflex.istate.manager.token import BaseStateToken
+
+class State(rx.State):
+    val: int = 0
+    @rx.event(background=True)
+    async def loop(self):
+        async with self:
+            self.val += 1
+            print("Loop ran, val:", self.val)
+
+app = rx.App()
+
+async def main():
+    app._setup_state()
+    token = BaseStateToken(ident="api", cls=State)
+    
+    # get_state creates it if missing?
+    state = await app.state_manager.get_state(token)
+    print("State initialized:", state is not None)
+    
+    # Call the fn
+    await State.loop.fn(state)
+    
+    async with app.modify_state(token) as state:
+        print("Final val:", state.val)
+
+asyncio.run(main())
+EOF
+cd /home/user/email_scheduler && uv run python test_event.py
+ ✖ "Command exited with code 1"
+💭 Thinking for 642 characters   
+💫 Executing cat << 'EOF' > /home/user/email_scheduler/test_mock.py
+import reflex as rx
+import asyncio
+
+class State(rx.State):
+    val: int = 0
+    @rx.event(background=True)
+    async def loop(self):
+        async with self:
+            self.val += 1
+            print("Loop ran, val:", self.val)
+
+class MockState:
+    def __init__(self):
+        self.val = 0
+    async def __aenter__(self):
+        pass
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        pass
+
+async def main():
+    state = MockState()
+    await State.loop.fn(state)
+
+asyncio.run(main())
+EOF
+cd /home/user/email_scheduler && uv run python test_mock.py
+ ✔ 
+💭 Thinking for 1188 characters   
+💫 Executing cat << 'EOF' > /home/user/email_scheduler/test_event2.py
+import reflex as rx
+import asyncio
+from reflex.istate.manager.token import BaseStateToken
+
+class State(rx.State):
+    val: int = 0
+    @rx.event(background=True)
+    async def loop(self):
+        async with self:
+            self.val += 1
+            print("Loop ran, val:", self.val)
+
+app = rx.App()
+
+async def main():
+    app._setup_state()
+    # create event processor
+    app._setup_event_processor()
+    
+    token = "api"
+    # To process an event, we create an Event object
+    from reflex.event import Event
+    event = Event(token=token, name="state.loop", router_data={})
+    
+    # Process it
+    async for update in app.event_processor.process(event):
+        pass
+
+asyncio.run(main())
+EOF
+cd /home/user/email_scheduler && uv run python test_event2.py
+ ✖ "Command exited with code 1"
+💭 Thinking for 245 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import inspect
+from reflex.event import Event
+print(inspect.signature(Event.__init__))
+" ✔ 
+💭 Thinking for 247 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import inspect
+import reflex as rx
+app = rx.App()
+app._setup_event_processor()
+print(inspect.signature(app.event_processor.process))
+" ✖ "Command exited with code 1"
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import inspect
+import reflex as rx
+app = rx.App()
+app._setup_state()
+app._setup_event_processor()
+print(inspect.signature(app.event_processor.process))
+" ✖ "Command exited with code 1"
+💭 Thinking for 1696 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "
+import reflex as rx
+print('rx.background' in dir(rx))
+" ✔ 
+💭 Thinking for 4254 characters   
+💫 Executing cat << 'EOF' > /home/user/email_scheduler/email_scheduler/email_scheduler.py
+import reflex as rx
+import time
+import asyncio
+from sqlmodel import select
+from typing import Optional
+
+class EmailDigest(rx.Model, table=True):
+    __tablename__ = "emaildigest"
+    recipient: str
+    period_seconds: int
+    last_sent_at: Optional[float] = None
+    next_due_at: float
+
+class SentEmail(rx.Model, table=True):
+    __tablename__ = "sentemail"
+    digest_id: int
+    recipient: str
+    sent_at: float
+
+_is_running = False
+_scheduler_task = None
+
+class State(rx.State):
+    due_count: int = 0
+    queued_count: int = 0
+    total_sent: int = 0
+    
+    _backend_only_flag: bool = False
+
+    @rx.event(background=True)
+    async def scheduler_loop(self):
+        global _is_running
+        self._backend_only_flag = True
+        
+        while _is_running:
+            now = time.time()
+            with rx.session() as session:
+                due_digests = session.exec(
+                    select(EmailDigest).where(EmailDigest.next_due_at <= now)
+                ).all()
+
+                for digest in due_digests:
+                    sent = SentEmail(
+                        digest_id=digest.id,
+                        recipient=digest.recipient,
+                        sent_at=now
+                    )
+                    session.add(sent)
+                    
+                    digest.last_sent_at = now
+                    digest.next_due_at = now + digest.period_seconds
+                    session.add(digest)
+                
+                if due_digests:
+                    session.commit()
+            
+            async with self:
+                now = time.time()
+                with rx.session() as session:
+                    self.due_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at <= now)).all())
+                    self.queued_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at > now)).all())
+                    self.total_sent = len(session.exec(select(SentEmail)).all())
+            
+            await asyncio.sleep(1)
+
+    @rx.event
+    def force_run(self):
+        now = time.time()
+        with rx.session() as session:
+            digest = session.exec(
+                select(EmailDigest).order_by(EmailDigest.next_due_at.asc()).limit(1)
+            ).first()
+            if digest:
+                sent = SentEmail(
+                    digest_id=digest.id,
+                    recipient=digest.recipient,
+                    sent_at=now
+                )
+                session.add(sent)
+                digest.last_sent_at = now
+                digest.next_due_at = now + digest.period_seconds
+                session.add(digest)
+                session.commit()
+
+        # Update UI state
+        with rx.session() as session:
+            self.due_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at <= now)).all())
+            self.queued_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at > now)).all())
+            self.total_sent = len(session.exec(select(SentEmail)).all())
+
+def index() -> rx.Component:
+    return rx.vstack(
+        rx.heading("Email Scheduler"),
+        rx.text(f"Due count: {State.due_count}"),
+        rx.text(f"Queued count: {State.queued_count}"),
+        rx.text(f"Total sent: {State.total_sent}"),
+        rx.button("Force Run", on_click=State.force_run),
+    )
+
+app = rx.App()
+app.add_page(index)
+
+# API Endpoints
+from fastapi import Request
+
+class DummyState:
+    def __init__(self):
+        self.due_count = 0
+        self.queued_count = 0
+        self.total_sent = 0
+        self._backend_only_flag = False
+    async def __aenter__(self):
+        pass
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        pass
+
+@app.api.post("/api/scheduler/seed")
+async def api_seed(request: Request):
+    data = await request.json()
+    now = time.time()
+    with rx.session() as session:
+        for d in session.exec(select(EmailDigest)).all():
+            session.delete(d)
+        for s in session.exec(select(SentEmail)).all():
+            session.delete(s)
+            
+        count = 0
+        for d in data.get("digests", []):
+            digest = EmailDigest(
+                recipient=d["recipient"],
+                period_seconds=d["period_seconds"],
+                last_sent_at=None,
+                next_due_at=now + d["first_due_in_seconds"]
+            )
+            session.add(digest)
+            count += 1
+        session.commit()
+    return {"seeded": count}
+
+@app.api.post("/api/scheduler/start")
+async def api_start():
+    global _is_running, _scheduler_task
+    if not _is_running:
+        _is_running = True
+        _scheduler_task = asyncio.create_task(State.scheduler_loop.fn(DummyState()))
+    return {"running": True}
+
+@app.api.post("/api/scheduler/stop")
+async def api_stop():
+    global _is_running, _scheduler_task
+    _is_running = False
+    if _scheduler_task:
+        # Wait for the task to finish its current loop iteration
+        # but we don't necessarily need to block
+        pass
+    return {"running": False}
+
+@app.api.post("/api/scheduler/force_run")
+async def api_force_run():
+    now = time.time()
+    sent_info = None
+    with rx.session() as session:
+        digest = session.exec(
+            select(EmailDigest).order_by(EmailDigest.next_due_at.asc()).limit(1)
+        ).first()
+        if digest:
+            sent = SentEmail(
+                digest_id=digest.id,
+                recipient=digest.recipient,
+                sent_at=now
+            )
+            session.add(sent)
+            digest.last_sent_at = now
+            digest.next_due_at = now + digest.period_seconds
+            session.add(digest)
+            session.commit()
+            session.refresh(sent)
+            sent_info = {
+                "sent": 1,
+                "digest_id": sent.digest_id,
+                "recipient": sent.recipient
+            }
+    
+    if sent_info:
+        return sent_info
+    return {"sent": 0}
+
+@app.api.get("/api/scheduler/status")
+async def api_status():
+    global _is_running
+    now = time.time()
+    with rx.session() as session:
+        due_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at <= now)).all())
+        queued_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at > now)).all())
+        total_sent = len(session.exec(select(SentEmail)).all())
+        
+    return {
+        "running": _is_running,
+        "now": now,
+        "due_count": due_count,
+        "queued_count": queued_count,
+        "total_sent": total_sent
+    }
+
+@app.api.get("/api/scheduler/sent")
+async def api_sent():
+    with rx.session() as session:
+        rows = session.exec(select(SentEmail).order_by(SentEmail.sent_at.asc())).all()
+        return {
+            "rows": [
+                {
+                    "id": r.id,
+                    "digest_id": r.digest_id,
+                    "recipient": r.recipient,
+                    "sent_at": r.sent_at
+                } for r in rows
+            ]
+        }
+EOF
+ ✔ 
+💭 Thinking for 633 characters   
+💫 Executing cat << 'EOF' > /home/user/email_scheduler/email_scheduler/email_scheduler.py
+import reflex as rx
+import time
+import asyncio
+from sqlmodel import select
+from typing import Optional
+
+class EmailDigest(rx.Model, table=True):
+    __tablename__ = "emaildigest"
+    recipient: str
+    period_seconds: int
+    last_sent_at: Optional[float] = None
+    next_due_at: float
+
+class SentEmail(rx.Model, table=True):
+    __tablename__ = "sentemail"
+    digest_id: int
+    recipient: str
+    sent_at: float
+
+class State(rx.State):
+    due_count: int = 0
+    queued_count: int = 0
+    total_sent: int = 0
+    
+    _is_running: bool = False
+
+    @rx.event(background=True)
+    async def scheduler_loop(self):
+        while self._is_running:
+            now = time.time()
+            with rx.session() as session:
+                due_digests = session.exec(
+                    select(EmailDigest).where(EmailDigest.next_due_at <= now)
+                ).all()
+
+                for digest in due_digests:
+                    sent = SentEmail(
+                        digest_id=digest.id,
+                        recipient=digest.recipient,
+                        sent_at=now
+                    )
+                    session.add(sent)
+                    
+                    digest.last_sent_at = now
+                    digest.next_due_at = now + digest.period_seconds
+                    session.add(digest)
+                
+                if due_digests:
+                    session.commit()
+            
+            async with self:
+                now = time.time()
+                with rx.session() as session:
+                    self.due_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at <= now)).all())
+                    self.queued_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at > now)).all())
+                    self.total_sent = len(session.exec(select(SentEmail)).all())
+            
+            await asyncio.sleep(1)
+
+    @rx.event
+    def force_run(self):
+        now = time.time()
+        with rx.session() as session:
+            digest = session.exec(
+                select(EmailDigest).order_by(EmailDigest.next_due_at.asc()).limit(1)
+            ).first()
+            if digest:
+                sent = SentEmail(
+                    digest_id=digest.id,
+                    recipient=digest.recipient,
+                    sent_at=now
+                )
+                session.add(sent)
+                digest.last_sent_at = now
+                digest.next_due_at = now + digest.period_seconds
+                session.add(digest)
+                session.commit()
+
+        # Update UI state
+        with rx.session() as session:
+            self.due_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at <= now)).all())
+            self.queued_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at > now)).all())
+            self.total_sent = len(session.exec(select(SentEmail)).all())
+
+def index() -> rx.Component:
+    return rx.vstack(
+        rx.heading("Email Scheduler"),
+        rx.text(f"Due count: {State.due_count}"),
+        rx.text(f"Queued count: {State.queued_count}"),
+        rx.text(f"Total sent: {State.total_sent}"),
+        rx.button("Force Run", on_click=State.force_run),
+    )
+
+app = rx.App()
+app.add_page(index)
+
+# API Endpoints
+from fastapi import Request
+
+class DummyState:
+    def __init__(self):
+        self.due_count = 0
+        self.queued_count = 0
+        self.total_sent = 0
+        self._is_running = False
+    async def __aenter__(self):
+        pass
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        pass
+
+_dummy_state = DummyState()
+_scheduler_task = None
+
+@app.api.post("/api/scheduler/seed")
+async def api_seed(request: Request):
+    data = await request.json()
+    now = time.time()
+    with rx.session() as session:
+        for d in session.exec(select(EmailDigest)).all():
+            session.delete(d)
+        for s in session.exec(select(SentEmail)).all():
+            session.delete(s)
+            
+        count = 0
+        for d in data.get("digests", []):
+            digest = EmailDigest(
+                recipient=d["recipient"],
+                period_seconds=d["period_seconds"],
+                last_sent_at=None,
+                next_due_at=now + d["first_due_in_seconds"]
+            )
+            session.add(digest)
+            count += 1
+        session.commit()
+    return {"seeded": count}
+
+@app.api.post("/api/scheduler/start")
+async def api_start():
+    global _scheduler_task, _dummy_state
+    if not _dummy_state._is_running:
+        _dummy_state._is_running = True
+        _scheduler_task = asyncio.create_task(State.scheduler_loop.fn(_dummy_state))
+    return {"running": True}
+
+@app.api.post("/api/scheduler/stop")
+async def api_stop():
+    global _dummy_state
+    _dummy_state._is_running = False
+    return {"running": False}
+
+@app.api.post("/api/scheduler/force_run")
+async def api_force_run():
+    now = time.time()
+    sent_info = None
+    with rx.session() as session:
+        digest = session.exec(
+            select(EmailDigest).order_by(EmailDigest.next_due_at.asc()).limit(1)
+        ).first()
+        if digest:
+            sent = SentEmail(
+                digest_id=digest.id,
+                recipient=digest.recipient,
+                sent_at=now
+            )
+            session.add(sent)
+            digest.last_sent_at = now
+            digest.next_due_at = now + digest.period_seconds
+            session.add(digest)
+            session.commit()
+            session.refresh(sent)
+            sent_info = {
+                "sent": 1,
+                "digest_id": sent.digest_id,
+                "recipient": sent.recipient
+            }
+    
+    if sent_info:
+        return sent_info
+    return {"sent": 0}
+
+@app.api.get("/api/scheduler/status")
+async def api_status():
+    global _dummy_state
+    now = time.time()
+    with rx.session() as session:
+        due_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at <= now)).all())
+        queued_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at > now)).all())
+        total_sent = len(session.exec(select(SentEmail)).all())
+        
+    return {
+        "running": _dummy_state._is_running,
+        "now": now,
+        "due_count": due_count,
+        "queued_count": queued_count,
+        "total_sent": total_sent
+    }
+
+@app.api.get("/api/scheduler/sent")
+async def api_sent():
+    with rx.session() as session:
+        rows = session.exec(select(SentEmail).order_by(SentEmail.sent_at.asc())).all()
+        return {
+            "rows": [
+                {
+                    "id": r.id,
+                    "digest_id": r.digest_id,
+                    "recipient": r.recipient,
+                    "sent_at": r.sent_at
+                } for r in rows
+            ]
+        }
+EOF
+ ✔ 
+💭 Thinking for 984 characters   
+🛠️ Tool startBackgroundJob ✔ 
+💭 Thinking for 215 characters   
+🛠️ Tool readBackgroundJobOutput ✔ 
+💫 Executing cd /home/user/email_scheduler && uv pip install fastapi ✔ 
+💭 Thinking for 152 characters   
+🛠️ Tool killBackgroundJob ✔ 
+🛠️ Tool startBackgroundJob ✔ 
+💭 Thinking for 232 characters   
+🛠️ Tool readBackgroundJobOutput ✔ 
+💭 Thinking for 346 characters   
+💫 Executing cd /home/user/email_scheduler && uv run python -c "import reflex as rx; app = rx.App(); print([a for a in dir(app) if 'api' in a])" ✔ 
+💭 Thinking for 596 characters   
+💫 Executing cat << 'EOF' > /home/user/email_scheduler/email_scheduler/email_scheduler.py
+import reflex as rx
+import time
+import asyncio
+from sqlmodel import select
+from typing import Optional
+from fastapi import Request
+
+class EmailDigest(rx.Model, table=True):
+    __tablename__ = "emaildigest"
+    recipient: str
+    period_seconds: int
+    last_sent_at: Optional[float] = None
+    next_due_at: float
+
+class SentEmail(rx.Model, table=True):
+    __tablename__ = "sentemail"
+    digest_id: int
+    recipient: str
+    sent_at: float
+
+class State(rx.State):
+    due_count: int = 0
+    queued_count: int = 0
+    total_sent: int = 0
+    
+    _is_running: bool = False
+
+    @rx.event(background=True)
+    async def scheduler_loop(self):
+        while self._is_running:
+            now = time.time()
+            with rx.session() as session:
+                due_digests = session.exec(
+                    select(EmailDigest).where(EmailDigest.next_due_at <= now)
+                ).all()
+
+                for digest in due_digests:
+                    sent = SentEmail(
+                        digest_id=digest.id,
+                        recipient=digest.recipient,
+                        sent_at=now
+                    )
+                    session.add(sent)
+                    
+                    digest.last_sent_at = now
+                    digest.next_due_at = now + digest.period_seconds
+                    session.add(digest)
+                
+                if due_digests:
+                    session.commit()
+            
+            async with self:
+                now = time.time()
+                with rx.session() as session:
+                    self.due_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at <= now)).all())
+                    self.queued_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at > now)).all())
+                    self.total_sent = len(session.exec(select(SentEmail)).all())
+            
+            await asyncio.sleep(1)
+
+    @rx.event
+    def force_run(self):
+        now = time.time()
+        with rx.session() as session:
+            digest = session.exec(
+                select(EmailDigest).order_by(EmailDigest.next_due_at.asc()).limit(1)
+            ).first()
+            if digest:
+                sent = SentEmail(
+                    digest_id=digest.id,
+                    recipient=digest.recipient,
+                    sent_at=now
+                )
+                session.add(sent)
+                digest.last_sent_at = now
+                digest.next_due_at = now + digest.period_seconds
+                session.add(digest)
+                session.commit()
+
+        # Update UI state
+        with rx.session() as session:
+            self.due_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at <= now)).all())
+            self.queued_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at > now)).all())
+            self.total_sent = len(session.exec(select(SentEmail)).all())
+
+
+class DummyState:
+    def __init__(self):
+        self.due_count = 0
+        self.queued_count = 0
+        self.total_sent = 0
+        self._is_running = False
+    async def __aenter__(self):
+        pass
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        pass
+
+_dummy_state = DummyState()
+_scheduler_task = None
+
+async def api_seed(request: Request):
+    data = await request.json()
+    now = time.time()
+    with rx.session() as session:
+        for d in session.exec(select(EmailDigest)).all():
+            session.delete(d)
+        for s in session.exec(select(SentEmail)).all():
+            session.delete(s)
+            
+        count = 0
+        for d in data.get("digests", []):
+            digest = EmailDigest(
+                recipient=d["recipient"],
+                period_seconds=d["period_seconds"],
+                last_sent_at=None,
+                next_due_at=now + d["first_due_in_seconds"]
+            )
+            session.add(digest)
+            count += 1
+        session.commit()
+    return {"seeded": count}
+
+async def api_start():
+    global _scheduler_task, _dummy_state
+    if not _dummy_state._is_running:
+        _dummy_state._is_running = True
+        _scheduler_task = asyncio.create_task(State.scheduler_loop.fn(_dummy_state))
+    return {"running": True}
+
+async def api_stop():
+    global _dummy_state
+    _dummy_state._is_running = False
+    return {"running": False}
+
+async def api_force_run():
+    now = time.time()
+    sent_info = None
+    with rx.session() as session:
+        digest = session.exec(
+            select(EmailDigest).order_by(EmailDigest.next_due_at.asc()).limit(1)
+        ).first()
+        if digest:
+            sent = SentEmail(
+                digest_id=digest.id,
+                recipient=digest.recipient,
+                sent_at=now
+            )
+            session.add(sent)
+            digest.last_sent_at = now
+            digest.next_due_at = now + digest.period_seconds
+            session.add(digest)
+            session.commit()
+            session.refresh(sent)
+            sent_info = {
+                "sent": 1,
+                "digest_id": sent.digest_id,
+                "recipient": sent.recipient
+            }
+    
+    if sent_info:
+        return sent_info
+    return {"sent": 0}
+
+async def api_status():
+    global _dummy_state
+    now = time.time()
+    with rx.session() as session:
+        due_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at <= now)).all())
+        queued_count = len(session.exec(select(EmailDigest).where(EmailDigest.next_due_at > now)).all())
+        total_sent = len(session.exec(select(SentEmail)).all())
+        
+    return {
+        "running": _dummy_state._is_running,
+        "now": now,
+        "due_count": due_count,
+        "queued_count": queued_count,
+        "total_sent": total_sent
+    }
+
+async def api_sent():
+    with rx.session() as session:
+        rows = session.exec(select(SentEmail).order_by(SentEmail.sent_at.asc())).all()
+        return {
+            "rows": [
+                {
+                    "id": r.id,
+                    "digest_id": r.digest_id,
+                    "recipient": r.recipient,
+                    "sent_at": r.sent_at
+                } for r in rows
+            ]
+        }
+
+def api_transformer(fastapi_app):
+    fastapi_app.add_api_route("/api/scheduler/seed", api_seed, methods=["POST"])
+    fastapi_app.add_api_route("/api/scheduler/start", api_start, methods=["POST"])
+    fastapi_app.add_api_route("/api/scheduler/stop", api_stop, methods=["POST"])
+    fastapi_app.add_api_route("/api/scheduler/force_run", api_force_run, methods=["POST"])
+    fastapi_app.add_api_route("/api/scheduler/status", api_status, methods=["GET"])
+    fastapi_app.add_api_route("/api/scheduler/sent", api_sent, methods=["GET"])
+    return fastapi_app
+
+def index() -> rx.Component:
+    return rx.vstack(
+        rx.heading("Email Scheduler"),
+        rx.text(f"Due count: {State.due_count}"),
+        rx.text(f"Queued count: {State.queued_count}"),
+        rx.text(f"Total sent: {State.total_sent}"),
+        rx.button("Force Run", on_click=State.force_run),
+    )
+
+app = rx.App(api_transformer=api_transformer)
+app.add_page(index)
+EOF
+ ✔ 
+💫 Executing pkill -f 'reflex run' || true ✖ "Command exited with code 1"
+💫 Executing pkill -f 'granian' || true ✖ "Command exited with code 1"

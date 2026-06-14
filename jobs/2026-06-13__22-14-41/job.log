@@ -1,0 +1,2477 @@
+Skipping image OS validation for hb__multistep_wizard_localstorage: docker inspect returned 1
+Skipping image OS validation for hb__streaming_llm_chat_cancellable: docker inspect returned 1
+Skipping image OS validation for hb__csv_upload_pipeline: docker inspect returned 1
+Skipping image OS validation for hb__realtime_multiroom_chat: docker inspect returned 1
+Skipping image OS validation for hb__async_paginated_user_directory: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-bkngwba > /logs/artifacts/run-id && echo multistep_wizard_localstorage__bkngWBa > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-rgaf3z9 > /logs/artifacts/run-id && echo async_paginated_user_directory__rgaF3Z9 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-qayzq3a > /logs/artifacts/run-id && echo realtime_multiroom_chat__QAyZq3A > /logs/artifacts/trial_id
+Running command: echo zr-avqesmd > /logs/artifacts/run-id && echo csv_upload_pipeline__aVQeSmd > /logs/artifacts/trial_id
+Running command: echo zr-mffg9mh > /logs/artifacts/run-id && echo streaming_llm_chat_cancellable__mFFg9mh > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Multi-Step Registration Wizard with LocalStorage Persistence
+
+## Background
+Build a four-step registration wizard with the [Reflex](https://reflex.dev/) full-stack Python framework. The wizard must use dynamic routing for each step, enforce explicit per-step validation, persist the in-progress form into `rx.LocalStorage` so a browser refresh resumes at the last saved step, and write the final submission into a SQLite table.
+
+## Requirements
+- The application is a single Reflex project rooted at `/home/user/wizard_app`.
+- Use `uv` to create and manage the Python environment (the system `python3` does not have Reflex installed).
+- Use the Reflex `blank` template to scaffold the project non-interactively.
+- Implement a single dynamic page at the route `/wizard/[step]` that renders one of four steps based on the `step` URL segment:
+  1. `profile` — collect `full_name` and `email`.
+  2. `address` — collect `street`, `city`, and `postal_code`.
+  3. `preferences` — collect `newsletter` (boolean), `theme` (`light` or `dark`), and `language` (ISO 639-1 two-letter code).
+  4. `review` — render a summary of all previously entered data and a Submit button.
+- Every step page must display a textual step indicator of the exact form `Step N of 4` (where N is 1–4).
+- Validation rules (applied both when advancing in the UI and when called through the backend HTTP endpoint described below):
+  - `full_name`: 1 to 100 characters after stripping whitespace.
+  - `email`: must match the regex `^[^@\s]+@[^@\s]+\.[^@\s]+$`.
+  - `street`: 1 to 200 characters after stripping whitespace.
+  - `city`: 1 to 100 characters after stripping whitespace.
+  - `postal_code`: exactly 5 ASCII digits.
+  - `newsletter`: boolean.
+  - `theme`: one of `light` or `dark`.
+  - `language`: exactly two lowercase ASCII letters.
+- Persist the in-progress form data into `rx.LocalStorage` under the storage key name `wizard_draft`. The value must be a single JSON object string containing exactly these keys: `full_name`, `email`, `street`, `city`, `postal_code`, `newsletter`, `theme`, `language`, `current_step`. Unfilled string fields default to the empty string, `newsletter` defaults to `false`, and `current_step` is one of `profile`, `address`, `preferences`, `review`.
+- The page must hydrate from `wizard_draft` on load so refreshing the browser resumes at the last saved step with previously entered data.
+- On final submission, insert one row into a SQLite table named `submission` inside `/home/user/wizard_app/reflex.db` with these columns (any compatible SQL types are acceptable): `id` (auto-incrementing primary key), `full_name`, `email`, `street`, `city`, `postal_code`, `newsletter`, `theme`, `language`, `created_at` (ISO-8601 timestamp string).
+- Mount a small FastAPI router on the Reflex backend (port 8000) using the `api_transformer` parameter of `rx.App(...)`. Expose exactly one JSON endpoint:
+  - `POST /api/wizard/submit`
+    - Request JSON body keys: `full_name`, `email`, `street`, `city`, `postal_code`, `newsletter`, `theme`, `language`.
+    - On any validation failure, respond with HTTP `400` and a JSON body of the form `{"errors": {"<field>": "<message>", ...}}` listing every offending field.
+    - On success, insert the row into the `submission` table and respond with HTTP `200` and a JSON body `{"id": <int>}` containing the new row's primary key.
+
+## Implementation Hints
+- Refer to the Reflex docs for [Dynamic Routing](https://reflex.dev/docs/pages/dynamic-routing/), [Client Storage](https://reflex.dev/docs/client-storage/overview/), [Browser Storage API](https://reflex.dev/docs/api-reference/browser-storage/), [Database Overview](https://reflex.dev/docs/database/overview/), and [API Routes Overview](https://reflex.dev/docs/api-routes/overview/).
+- The Reflex blank template can be created non-interactively with `uv run reflex init --template blank`.
+- The same validation logic should drive both the UI Next-step gate and the HTTP `submit` endpoint to keep the behavior consistent.
+- Use Reflex's `rx.Model` with `table=True` and `reflex db init` / `reflex db makemigrations` / `reflex db migrate` to create the SQLite schema before starting the app.
+- The application is started with `uv run reflex run` which serves the frontend on port 3000 and the backend (including FastAPI routes) on port 8000.
+- After you are done, **stop any Reflex servers you started in the background** (e.g., `pkill -f "reflex run"`). The verifier will start its own server.
+
+## Acceptance Criteria
+- Project path: `/home/user/wizard_app`
+- Start command: `cd /home/user/wizard_app && uv run reflex run`
+- Frontend port: `3000`
+- Backend port: `8000`
+- SQLite database file: `/home/user/wizard_app/reflex.db`
+- Submission table name: `submission`
+- Routes (frontend, port 3000) — each must respond with HTTP `200` and the response body must contain the literal step indicator text:
+  - `GET /wizard/profile` → body contains `Step 1 of 4`
+  - `GET /wizard/address` → body contains `Step 2 of 4`
+  - `GET /wizard/preferences` → body contains `Step 3 of 4`
+  - `GET /wizard/review` → body contains `Step 4 of 4`
+- LocalStorage configuration:
+  - The Reflex state must declare a `rx.LocalStorage` var whose key name (the storage key visible in the browser) is exactly `wizard_draft`.
+  - The value stored in `wizard_draft` is a single JSON string with the schema `{"full_name": str, "email": str, "street": str, "city": str, "postal_code": str, "newsletter": bool, "theme": str, "language": str, "current_step": str}`.
+- HTTP API (backend, port 8000):
+  - `POST /api/wizard/submit`
+    - Request body shape:
+      ```json
+      {
+        "full_name": string,
+        "email": string,
+        "street": string,
+        "city": string,
+        "postal_code": string,
+        "newsletter": boolean,
+        "theme": string,
+        "language": string
+      }
+      ```
+    - On validation failure: HTTP `400`, JSON body shape `{"errors": {"<field>": "<message>"}}`. The keys in `errors` must include every invalid field.
+    - On success: HTTP `200`, JSON body shape `{"id": integer}`, and a corresponding row in the `submission` table.
+- Background servers started during the task **must be stopped** before completion; the verifier starts its own server.
+
+
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Async Paginated User Directory with Search (Reflex)
+
+## Background
+
+Build a Reflex application that renders a paginated, searchable user directory backed by a SQLite database (`rx.Model`). User rows are fetched asynchronously inside a background event handler that takes the State lock to mutate observable variables. The UI must support paging forward/backward, a case-insensitive contains-match search on the username column, and an indicator of the total number of pages.
+
+## Requirements
+
+- A `User` SQL model (subclass of `rx.Model`, `table=True`) with at least `username: str` and `email: str` columns.
+- A Reflex `State` whose synchronized base vars include: the current `page` (1-indexed), the `page_size`, the `search_query` (string), the `users` of the current page, and the `total_users` matching the current filter.
+- A `total_pages` value (computed or stored) derived from `total_users` and `page_size`.
+- A background event handler decorated with `@rx.event(background=True)` that:
+  - Reads the current `search_query`, `page`, and `page_size` under the State lock.
+  - Opens `rx.asession()` and issues a single paginated SELECT that respects an offset/limit and a case-insensitive contains-match on `username`.
+  - Computes the total matching rows for the current search filter.
+  - Re-enters `async with self:` exactly once to publish `users`, `total_users`, and `total_pages` together.
+- A UI on the index route (`/`) showing the users for the current page, a search input bound to `search_query`, Previous/Next buttons that change `page`, and a visible total-pages indicator (e.g. `Page X of Y`).
+- A seeding mechanism that ensures the database always contains exactly the 47 fixture users described under Acceptance Criteria after `reflex db migrate` has run.
+- A non-Reflex CLI helper `probe.py` at the project root that exercises the same query path and prints the result as JSON, so the verifier can confirm pagination/search semantics without driving the websocket UI (see Acceptance Criteria for the exact contract).
+
+## Implementation Hints
+
+- Use the project setup flow from the research plan (`uv init`, `uv add reflex`, `uv run reflex init --template blank`, `uv run reflex db init/makemigrations/migrate`). Keep all Python deps inside the `uv`-managed virtual environment; the verifier will invoke Python through `uv run`.
+- Page size must be exactly 10 and must not be configurable from the client.
+- Inside the background handler, only acquire the State lock (`async with self:`) around reads of inputs and around the publication of results. Do not call `rx.asession()` while holding the lock.
+- For the case-insensitive contains-match, choose a SQLAlchemy/SQLModel construct that works against SQLite (e.g. `ilike`, `func.lower(...).contains(...)`, or an equivalent). The matching is on `username` only.
+- `total_pages` must be `ceil(total_users / page_size)` when `total_users > 0` and `0` when `total_users == 0`.
+- `probe.py` must use the same `rx.Model` and the same query construction as the background handler (factor a shared async function if helpful). It must be invokable via `uv run python probe.py ...` and must not start the Reflex web server.
+- After you have finished developing, **kill all background servers** you started (e.g. `uv run reflex run`). The verifier starts the server itself.
+
+## Acceptance Criteria
+
+- Project path: `/home/user/myproject`
+- Start command: `cd /home/user/myproject && uv run reflex run --loglevel info`
+- Frontend port: `3000`
+- Backend port: `8000`
+- Database: SQLite at `/home/user/myproject/reflex.db`, with a `user` table containing exactly 47 rows after migration + seeding. Re-running the seeder must remain idempotent (total rows stay at 47).
+- Pagination contract enforced by `probe.py`:
+  - Command: `cd /home/user/myproject && uv run python probe.py --page <N> [--search <S>]`
+  - Stdout must be a single JSON object on its own line with the schema:
+    ```json
+    {
+      "page": <int>,
+      "page_size": 10,
+      "total_users": <int>,
+      "total_pages": <int>,
+      "items": [
+        {"id": <int>, "username": <string>, "email": <string>}
+      ]
+    }
+    ```
+  - `items` lists the rows for the requested page in ascending `id` order after applying the optional search filter.
+  - `total_users` is the count of rows matching the filter (or 47 when no filter is provided).
+  - `total_pages` is `ceil(total_users / 10)` when `total_users > 0`, and `0` when `total_users == 0`.
+  - When `page` is beyond `total_pages`, `items` is an empty array (the other fields are still populated correctly).
+  - The search filter is a case-insensitive contains-match on `username`.
+- UI contract on `http://localhost:3000/`:
+  - The page renders without compile or runtime errors.
+  - It contains a search input, a Previous and a Next control, and a text indicator of the form `Page <current> of <total>`.
+  - The current page's users are listed (showing at least their `username`).
+- State-lock contract:
+  - The background handler decorated with `@rx.event(background=True)` mutates `users`, `total_users`, and `total_pages` only inside an `async with self:` block.
+  - Invoking the directory query path (via `probe.py` or the UI) must not raise `reflex.utils.exceptions.ImmutableStateError`.
+- Background processes: After implementation, all `reflex run` (or other) background servers you started must be terminated before the verifier runs.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Real-time Multi-Room Chat with Streaming Generator Handlers
+
+## Background
+You need to build a Reflex full-stack application that implements a multi-room chat experience. The application must persist conversations to SQLite via Reflex's ORM, and respond to user messages with a simulated assistant reply that is streamed token-by-token using a generator event handler.
+
+The app must demonstrate three core Reflex features simultaneously: database-backed state via `rx.Model`, iterable UI rendering with `rx.foreach` plus conditional rendering, and incremental state updates via `yield` inside an event handler. A small companion REST API (mounted through Reflex's API transformer) must expose the same behavior so that the implementation is testable end-to-end.
+
+## Requirements
+- Implement the Reflex app at `/home/user/myproject` so that it can be started with a single command and serves the frontend on port `3000` and the backend on port `8000`.
+- Persist chat data in SQLite via `rx.Model`. A `Message` table is required with at least the columns `id`, `room`, `sender`, `content`, `created_at` (a timestamp). Use the configured database `sqlite:///reflex.db`.
+- The Reflex State must include:
+  - `current_room: str` — the currently selected room.
+  - `rooms: list[str]` — the list of available room names.
+  - `messages_by_room: dict[str, list[...]]` — messages grouped by room and synchronized with the DB.
+- Seed the application on first run with two default rooms named `general` and `random`. Both must be visible after the database is initialized for the first time.
+- The UI must use `rx.foreach` to render the room list and the active room's transcript, and must use conditional rendering (`rx.cond` or `rx.match`) so that an empty-room placeholder is shown when the active room has no messages yet.
+- Dynamic room creation: the user must be able to type a new room name into an input and add it to the room list. Newly created rooms must appear in `rooms` and be selectable.
+- Sending a message must:
+  1. Persist the user's message row into SQLite immediately.
+  2. Invoke a generator event handler that splits a canned assistant reply into multiple tokens and `yield`s a state update for each token, with a brief `await asyncio.sleep(...)` between yields, so the UI receives at least 5 incremental updates per assistant reply.
+  3. Persist the final assembled assistant message as a single row with `sender == "assistant"`.
+- Expose a companion REST API on the Reflex backend (via `app.api` / API transformer) with these endpoints, all returning JSON:
+  - `GET  /api/rooms` → `{"rooms": ["general", "random", ...]}`
+  - `POST /api/rooms` with body `{"name": "<room>"}` → `201` and `{"name": "<room>"}` on success, `409` if the room already exists, `400` if the name is empty.
+  - `GET  /api/messages?room=<room>` → `{"room": "<room>", "messages": [{"id": int, "room": str, "sender": str, "content": str, "created_at": str}, ...]}` sorted oldest-first.
+  - `POST /api/messages` with body `{"room": "<room>", "content": "<text>"}` → `200` and `{"user_message": {<message fields>}, "assistant_chunks": ["<chunk1>", "<chunk2>", ...], "assistant_message": {<message fields>}}`. The `assistant_chunks` array MUST contain at least 5 non-empty strings whose concatenation equals `assistant_message.content`. Returns `404` if the room does not exist.
+- The chat page (`/`) must render the following stable test hooks via the `id` attribute on Reflex components so a server-rendered HTML probe can locate them: `room-list`, `add-room-input`, `add-room-button`, `current-room-title`, `message-list`, `empty-room-placeholder`, `message-input`, `send-button`.
+- Use `uv` to manage the Python environment. After implementation finishes, you MUST kill any background development servers you started so that the verification process can launch its own instance of the app cleanly.
+
+## Implementation Hints
+- Initialize the project non-interactively with `uv init`, `uv add reflex`, and `uv run reflex init --template blank` as described in the project's environment guide.
+- Use `uv run reflex db init`, `uv run reflex db makemigrations --message "initial schema"`, and `uv run reflex db migrate` to create the schema after declaring your `rx.Model` table.
+- Seed default rooms idempotently the first time the app loads (e.g. inside a page-load event handler or a lifespan hook). Avoid re-seeding if rooms already exist.
+- Use a generator event handler (`yield` per token) inside the State to stream the assistant reply. Keep the same logic reusable from the REST endpoint so you do not duplicate the streaming behavior in two places.
+- The companion REST endpoints can be mounted on `app.api` (the underlying FastAPI app exposed by `rx.App`). They must read and write the same SQLite database used by the Reflex State.
+- Conditional rendering: when the current room transcript is empty, render an `empty-room-placeholder` element with a hint like "No messages yet — say hi!".
+- Make sure `id`s are set explicitly on the Reflex components so they appear in the compiled HTML and remain stable across runs.
+- The verifier runs with the system `python3`, not inside the uv environment. Do not assume Reflex is importable from the verification environment.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Start command: `cd /home/user/myproject && uv run reflex run --env prod --loglevel info`
+- Backend port: 8000
+- Frontend port: 3000
+- Database file: `/home/user/myproject/reflex.db` (SQLite, configured via `db_url="sqlite:///reflex.db"`)
+- Database schema:
+  - A table named `message` exists containing at least the columns `id`, `room`, `sender`, `content`, `created_at`.
+- Seed data:
+  - After the first successful startup, `GET /api/rooms` returns at minimum the rooms `general` and `random`.
+- REST API endpoints (all JSON, all served from the backend on port 8000):
+  - `GET /api/rooms` → 200, body shape `{"rooms": [string, ...]}`.
+  - `POST /api/rooms` body `{"name": string}` → 201 on creation, 409 if it already exists, 400 if name is empty.
+  - `GET /api/messages?room=<room>` → 200, body shape `{"room": string, "messages": [{"id": int, "room": string, "sender": string, "content": string, "created_at": string}, ...]}` sorted oldest-first.
+  - `POST /api/messages` body `{"room": string, "content": string}` → 200, body shape `{"user_message": {...}, "assistant_chunks": [string, ...], "assistant_message": {...}}`. `assistant_chunks` must have length ≥ 5, every element must be a non-empty string, and `"".join(assistant_chunks) == assistant_message.content`. Returns 404 if the room does not exist.
+  - Sending a message persists exactly two rows for that exchange: one with `sender == "user"` and one with `sender == "assistant"`.
+- Reflex UI:
+  - `GET http://localhost:3000/` returns 200 and the HTML body contains the following `id` markers: `room-list`, `add-room-input`, `add-room-button`, `current-room-title`, `message-list`, `message-input`, `send-button`.
+  - When the active room transcript is empty, the body also contains an element with id `empty-room-placeholder`.
+- Environment: dependencies must be managed by `uv`; the project root MUST contain a `pyproject.toml` declaring `reflex` as a dependency.
+- No background servers may be left running after the agent finishes; the verifier launches its own server.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# CSV Upload + Async Processing Pipeline with Progress
+
+## Background
+Build a Reflex web application that lets a user upload a CSV file of people records, parses it asynchronously in the background, validates each row, inserts valid rows into a SQLite database via Reflex's ORM, and reports per-row progress and a final summary back to the UI without ever blocking the event loop or raising `ImmutableStateError`.
+
+## Requirements
+- A single-page Reflex app served at `/` that contains an `rx.upload` component (single CSV file, `text/csv` only) and a button (or `on_drop` trigger) that submits the selected file.
+- Persist valid records to SQLite via `rx.Model` + `rx.asession` (the default `sqlite:///reflex.db` connection is fine).
+- Process the uploaded CSV in a `@rx.event(background=True)` async handler. All mutations of synchronized state vars must occur inside `async with self:` blocks. Heavy work (reading the file, parsing, DB I/O) must not hold the state lock continuously.
+- Maintain the following base state vars on the State class and keep them synchronized with the UI:
+  - `progress: int` in the range 0..100
+  - `valid_count: int`
+  - `invalid_count: int`
+  - `errors: list[str]`
+- The UI must visibly render a progress bar bound to `progress` and a final summary line that includes the valid and invalid row counts after processing completes.
+
+## Implementation Hints
+- Use `uv` to manage the Python environment (see `Acceptance Criteria` for exact commands). Reflex must be initialized non-interactively with `--template blank`.
+- The default DB URL `sqlite:///reflex.db` resolves to `/home/user/myproject/reflex.db` when the app is run from the project root.
+- Remember the four rules of background events: must be `async`, must use `async with self:` to mutate state, may read stale state outside the lock, and must not be called directly from other handlers.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Environment manager: `uv` (the project must include a `pyproject.toml` and a working `uv` lock such that `uv run reflex run` works from a clean checkout).
+- Start command (run from the project path): `uv run reflex run --loglevel info`
+  - Frontend port: `3000`
+  - Backend port: `8000`
+- Database file: `/home/user/myproject/reflex.db`
+- Routes / UI:
+  - `GET /` returns the page with an `rx.upload` dropzone (id `csv_upload`, `accept={"text/csv": [".csv"]}`, `multiple=False`), an upload trigger control (button), a progress bar visualizing `State.progress`, and a summary text element.
+- Database schema:
+  - A table created from an `rx.Model` subclass with at least these columns: `name: str`, `email: str`, `age: int` (an autoincrement `id` primary key is acceptable in addition).
+  - The schema must be initialized via `reflex db init` + `reflex db makemigrations` + `reflex db migrate` so that the table exists before the app first serves a request.
+- CSV contract:
+  - The first non-empty line must be the header `name,email,age` (case-sensitive, exact order). Header mismatch is a fatal upload error and must NOT insert any rows.
+  - Each subsequent row is **valid** iff it has exactly 3 comma-separated fields AND `name` is non-empty AND `email` contains an `@` AND `age` parses as a strictly positive integer (`int(age) > 0`).
+  - Any other row is **invalid** and must NOT be inserted. The 1-based row number (counting from the header as row 1; data rows start at row 2) must appear in at least one entry of `State.errors`.
+- Progress contract:
+  - At the start of processing `progress` MUST be set to `0`.
+  - When processing completes successfully `progress` MUST be exactly `100`.
+  - `valid_count + invalid_count` MUST equal the number of data rows processed.
+- Summary contract:
+  - After processing, a visible element on the page must contain the exact substring `Processed <T> rows: <V> valid, <I> invalid` where `<T>`, `<V>`, `<I>` are the integer counts (e.g. `Processed 8 rows: 5 valid, 3 invalid`).
+- Stability contract:
+  - The backend log must not contain any `ImmutableStateError` while a CSV is being processed.
+  - Re-uploading the same file twice must result in the per-upload counts being correct for each upload (the app is free to either reset counts on each new upload or accumulate, but the summary text after each upload must accurately reflect the contents just processed).
+- Reflex Cloud / external services: none required.
+- Teardown: any background dev server started during development MUST be stopped before the task is considered complete. The verifier will start its own server.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Cancellable Streaming LLM Chat Panel (Reflex)
+
+## Background
+You are building a small Reflex application that simulates an LLM chat experience with **mid-response cancellation**. The UI is a chat panel; submitting a prompt streams a simulated assistant reply token-by-token, while a **Stop** control can interrupt the stream between any two tokens. A loading spinner is bound to a backend-only flag while the stream is running.
+
+The interesting part is on the server: the streaming work runs in a Reflex background event, holds the state lock only when mutating shared state, and cooperatively observes a cancellation flag.
+
+## Requirements
+- Reflex application at `/home/user/streaming_chat` initialized with the `blank` template and managed by `uv`.
+- A `StreamingChatState` class (a subclass of `rx.State`) that exposes:
+  - The currently rendered assistant response,
+  - A loading indicator surfaced through a Reflex computed/base var,
+  - Backend-only flags (names starting with `_`) for the in-flight streaming status and the cooperative cancel signal.
+- An async event handler decorated with `@rx.event(background=True)` that simulates a streaming LLM reply token-by-token. The handler must:
+  - Acquire the state lock with `async with self` **per chunk** to publish progress safely,
+  - Sleep a small bounded amount between chunks (between 50 ms and 250 ms),
+  - Check the backend-only cancel flag between yields and stop cleanly when it is set,
+  - Emit at least 12 chunks for a normal (uninterrupted) reply,
+  - Reset the streaming flag to `False` deterministically on both normal completion and cancellation,
+  - Never mutate shared state outside an `async with self` block (must not raise `ImmutableStateError`).
+- A regular (non-background) event handler that flips the cancel flag when the **Stop** button is pressed.
+- A chat UI page on `/` containing at minimum: a prompt input, a **Send** button, a **Stop** button, the assistant response, and a loading indicator whose visibility is driven by the backend-only streaming flag.
+- A FastAPI router mounted via `rx.App(api_transformer=...)` that exposes a small, stable HTTP contract for external observation and control of the streaming task (see *Acceptance Criteria*). The Reflex background event and the FastAPI endpoints **must share the same underlying streaming controller** so that triggering the stream from the API exercises the same cancellation/lock semantics that the UI does.
+- The server is started by the verifier in **backend-only** mode on port 8000.
+- After the test runs, **all background servers must be terminated** (the verifier starts its own server; leftover servers will cause port conflicts).
+
+## Implementation Hints
+- The friction you should design around is `ImmutableStateError`: a background task cannot write `self.<var>` outside `async with self`. Plan your loop so the per-chunk update is the only thing inside the lock.
+- Backend-only vars (names starting with `_`) are *not* serialized to the client; if you want to drive the spinner from `_is_streaming`, surface it via a regular base var or a computed var.
+- Because Reflex State is per-session and the verifier reaches the app via HTTP (not Socket.IO), introduce a module-level controller object that holds the live streaming status and is mutated by the background event. Both the FastAPI endpoints and the Reflex background event delegate to that controller, while the rx.State still owns the per-chunk `async with self` updates and the backend-only flags.
+- Use `uv` to add dependencies (`uv add reflex 'fastapi'`); the verifier runs the app with `uv run reflex run --backend-only`.
+- Keep server logs in a file so an `ImmutableStateError` (if any) becomes observable to the verifier.
+
+## Acceptance Criteria
+- Project path: `/home/user/streaming_chat`
+- Start command: `cd /home/user/streaming_chat && nohup uv run reflex run --backend-only --backend-port 8000 --loglevel debug > /home/user/streaming_chat/server.log 2>&1 &`
+- Port: `8000`
+- Server log: `/home/user/streaming_chat/server.log` (must exist after the server has been started)
+- Source code requirements (verified by inspecting the project source tree under `/home/user/streaming_chat`):
+  - At least one Python file contains the literal substring `@rx.event(background=True)`.
+  - At least one Python file contains the literal substring `async with self`.
+  - At least one Python file declares a backend-only streaming flag whose identifier matches `_is_streaming`.
+  - At least one Python file declares a backend-only cancel flag whose identifier matches `_should_cancel`.
+- HTTP API (mounted via `api_transformer`), all responses JSON with HTTP 200 unless noted:
+  - `POST /api/chat/send`
+    - Request body:
+      ```json
+      {"prompt": string}
+      ```
+    - Response:
+      ```json
+      {"accepted": true}
+      ```
+    - Side effect: starts (or restarts) the cancellable streaming background task. If a previous stream was running, it must be cancelled and superseded.
+  - `POST /api/chat/cancel`
+    - Request body: empty or `{}`.
+    - Response:
+      ```json
+      {"cancelled": true}
+      ```
+    - Side effect: sets the cooperative cancel flag observed by the background task between yields.
+  - `GET /api/chat/status`
+    - Response shape:
+      ```json
+      {
+        "is_streaming": boolean,
+        "current_response": string,
+        "chunks_streamed": number,
+        "was_cancelled": boolean,
+        "completed": boolean
+      }
+      ```
+    - Field semantics:
+      - `is_streaming` is `true` while the background task is producing chunks and `false` otherwise.
+      - `current_response` is the assistant text accumulated so far.
+      - `chunks_streamed` is the count of chunks published so far for the current run.
+      - `was_cancelled` is `true` iff the most recent run was stopped via the cancel flag before its natural end.
+      - `completed` is `true` iff the most recent run reached its natural end (no cancellation) and is no longer streaming.
+- Behavioral requirements (verifier will exercise these via HTTP):
+  - **Uninterrupted run:** after `POST /api/chat/send`, within 15 s `GET /api/chat/status` must report `completed=true`, `was_cancelled=false`, `is_streaming=false`, and `chunks_streamed >= 12`.
+  - **Cancelled run:** if `POST /api/chat/cancel` is issued mid-stream, within 1 s `GET /api/chat/status` must report `is_streaming=false` and `was_cancelled=true`, and `chunks_streamed` must not increase by more than 2 after the cancel call.
+  - **Loading transition:** during an uninterrupted run, the verifier observes `is_streaming=true` at least once and `is_streaming=false` after completion (deterministic True→False transition).
+- Server log requirements:
+  - `/home/user/streaming_chat/server.log` must NOT contain the literal substring `ImmutableStateError` after either run.
+- Cleanup requirements:
+  - The agent must terminate any background Reflex servers (for example with `pkill -f 'reflex run'`) before declaring the task complete. The verifier starts its own server and a leftover server bound to port 8000 will fail the test.
+
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Running command: rm -f ~/.pochi/config.jsonc
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__collaborative_drawing_canvas: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__debounced_filtered_table: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__crud_notes_with_tags: docker inspect returned 1
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-55n3q2u > /logs/artifacts/run-id && echo collaborative_drawing_canvas__55N3Q2u > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Multi-Client Collaborative Drawing Board (Reflex)
+
+## Background
+Build a Reflex application that powers a multi-client collaborative drawing board. Stroke segments are persisted in SQLite and pushed to every connected client via a background polling task that refreshes the in-memory state. The page renders the strokes as `<line>` elements inside an SVG using `rx.foreach`.
+
+A REST surface mounted on the Reflex FastAPI backend (via `api_transformer`) must allow external clients to create and list stroke segments. The page UI itself only needs to render the strokes; HTTP is the contract used to verify behavior.
+
+## Requirements
+- Reflex app located at `/home/user/myproject` with an SQLite database `reflex.db` in the same directory.
+- A persisted `Stroke` table (an `rx.Model` with `table=True`) holding one drawn segment per row.
+- A reactive page state that exposes `strokes: list[Stroke]` synchronized to the browser.
+- A background task (`@rx.event(background=True)`) that refreshes the state from the DB approximately every 250 ms.
+- Two REST endpoints, mounted on the backend via `api_transformer`, that create and list strokes.
+- Index page (`/`) that renders an `<svg>` containing one `<line>` per stroke through `rx.foreach`.
+
+## Implementation Hints
+- Use `uv` to manage the project: `uv init`, `uv add reflex`, `uv run reflex init --template blank`, `uv run reflex db init`, `uv run reflex db makemigrations --message ...`, `uv run reflex db migrate`.
+- Model state mutation inside background events with `async with self:` to avoid `ImmutableStateError`.
+- For SVG elements use `rx.el.svg`, `rx.el.svg.line`, etc.
+- The REST endpoints can be attached using `rx.App(api_transformer=fastapi_app)`. They run on the Reflex backend port.
+- After the app is running, leave it running for verification, but **kill every background server you started** (including `reflex run`, `next dev`, anything bound to ports 8000/3000) before reporting completion.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`.
+- Start command: `cd /home/user/myproject && uv run reflex run --backend-only --backend-port 8000 --loglevel info`.
+- Port: 8000 (backend only).
+- Database: `/home/user/myproject/reflex.db`, applied via `uv run reflex db migrate`.
+- Table `stroke` must exist with the columns (any order, any nullability that still allows inserts): `id` (integer primary key), `x1` (real/float), `y1` (real/float), `x2` (real/float), `y2` (real/float), `color` (text), `session_id` (text).
+- REST API (mounted on backend port 8000):
+  - `POST /api/strokes`
+    ```json
+    // Request body
+    {
+      "x1": number,
+      "y1": number,
+      "x2": number,
+      "y2": number,
+      "color": string,
+      "session_id": string
+    }
+    ```
+    ```json
+    // Response (HTTP 201)
+    {
+      "id": number,
+      "x1": number,
+      "y1": number,
+      "x2": number,
+      "y2": number,
+      "color": string,
+      "session_id": string
+    }
+    ```
+    Calling this endpoint must increase the row count of `stroke` by exactly 1.
+  - `GET /api/strokes`
+    ```json
+    // Response (HTTP 200) - array of stroke rows in insertion order
+    [
+      {
+        "id": number,
+        "x1": number,
+        "y1": number,
+        "x2": number,
+        "y2": number,
+        "color": string,
+        "session_id": string
+      }
+    ]
+    ```
+- Reflex internal health endpoint `GET /ping` must continue to return `"pong"` (used to detect that the backend is alive).
+- A background event handler decorated with `@rx.event(background=True)` must periodically (~every 250 ms) read the `stroke` table and update the reactive state. After the server has been running for at least 1.5 seconds while strokes are inserted, the backend log must contain no `ImmutableStateError` traceback.
+- The index page (`/`) must render an `<svg>` element that contains an `rx.foreach` over the polled stroke list, producing one `<line>` per stroke. The compiled frontend artifact must exist at `/home/user/myproject/.web/pages/index.js` (or `index.jsx`) and reference both an `svg` tag and a `line` tag.
+- No environment variables are required from the runner; all values used to seed strokes during verification are sent by the verifier.
+- After implementation, terminate every background process you started so that ports 8000 and 3000 are free.
+
+
+EOF
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: echo zr-jalpdu8 > /logs/artifacts/run-id && echo debounced_filtered_table__JALPDU8 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Debounced Multi-Filter Data Table (Reflex)
+
+## Background
+Build a Reflex web application that renders a searchable, filterable, sortable data table backed by a SQLite database. The table lists a catalog of `Product` rows that the application must seed deterministically at startup. The text-search filter must be debounced on the client (so rapid typing produces a single query), and the recomputation of filter results must run as an async background event using SQLModel `where`/`order_by` clauses against `rx.asession`.
+
+Use Astral `uv` to manage the Python environment and to drive every Reflex CLI command, per the deployment plan for this benchmark.
+
+## Requirements
+- Initialize a Reflex project named `filtered_table` at `/home/user/filtered_table` using the blank template.
+- Define a SQLModel-backed table `Product` (subclass of `rx.Model`) with at minimum these columns:
+  - `id` (auto-increment primary key)
+  - `name: str`
+  - `category: str`
+  - `sku: str`
+  - `price: float`
+  - `in_stock: bool`
+- Seed the database with EXACTLY 240 rows the first time the app starts, following the deterministic algorithm in the "Seed Algorithm" sub-section below. Subsequent starts must not duplicate rows.
+- Build a single page mounted at `/` containing the following reactive filter controls bound to State vars:
+  - Text search input wrapped in `rx.debounce_input(...)` with `debounce_timeout=300` (milliseconds).
+  - A category dropdown / select offering the literal value `All` plus each of the six category names.
+  - Two numeric inputs for `min_price` and `max_price`.
+  - A checkbox labeled "In stock only" bound to a boolean state var.
+  - A sort-column selector and a sort-direction (asc/desc) selector.
+- The State must expose at least the following synchronized base vars: `result_count: int`, `filtered: list[Product]`, and the individual filter/sort vars listed above.
+- Recomputation of `filtered` and `result_count` MUST happen inside an `@rx.event(background=True)` async handler that opens an `rx.asession()` and constructs a SQLModel `select` with `.where(...)` clauses and an `.order_by(...)` clause. All mutations to state must happen inside an `async with self:` block. The background event must be triggered whenever any filter or sort var changes.
+- The results table must be rendered with `rx.foreach` iterating over `State.filtered`, displaying at least `id`, `name`, `category`, `price`, and `in_stock` per row. Render `result_count` somewhere visible above or below the table.
+- Additionally expose a plain JSON HTTP endpoint `GET /api/filter` mounted via the Reflex `api_transformer` (a FastAPI app). This endpoint applies the exact same filter+sort semantics against the same SQLite database and returns a JSON object. The endpoint exists so that the filter logic can be exercised programmatically. See the "API Contract" sub-section.
+
+### Seed Algorithm (must be implemented exactly)
+Use this list, in this order, as the only category values:
+
+```
+CATEGORIES = ["Electronics", "Books", "Clothing", "Home", "Toys", "Sports"]
+```
+
+For each category index `c` in `0..5` (inclusive), and for each item index `i` in `0..39` (inclusive), insert a row with:
+
+- `name = f"{CATEGORIES[c]} #{i+1:02d}"`  (zero-padded width 2; e.g. `Books #07`, `Sports #40`)
+- `category = CATEGORIES[c]`
+- `sku = f"{CATEGORIES[c][:3].upper()}-{i+1:03d}"`  (e.g. `BOO-007`, `SPO-040`)
+- `price = round(5.0 + (c * 5) + (i * 1.0), 2)`  (a float; e.g. Electronics #01 = 5.0, Sports #40 = 69.0)
+- `in_stock = (i % 4) != 3`  (true for 30 of every 40 rows in each category)
+
+The insertion order MUST be category outer loop, item inner loop, so primary keys are assigned 1..240 with `Electronics #01` = id 1 and `Sports #40` = id 240. Total rows after seeding: 240.
+
+Idempotency: if the `product` table already contains rows when the application starts, do NOT re-seed.
+
+### Filter & Sort Semantics (used by both the State background event and `/api/filter`)
+- `search` (string, default ""): case-insensitive substring match against `Product.name`. Empty string means no constraint.
+- `category` (string, default "All"): when value equals `All` or empty string, no constraint; otherwise equality match against `Product.category`.
+- `min_price` (float or null, default null): when provided, `Product.price >= min_price`.
+- `max_price` (float or null, default null): when provided, `Product.price <= max_price`.
+- `in_stock_only` (bool, default false): when true, restrict to rows with `in_stock == true`.
+- `sort_by` (string, default `id`): one of `id`, `name`, `price`, `category`.
+- `sort_dir` (string, default `asc`): one of `asc`, `desc`.
+
+### API Contract for `GET /api/filter`
+Query parameters (all optional):
+- `search`: string
+- `category`: string
+- `min_price`: float
+- `max_price`: float
+- `in_stock_only`: `true` or `false` (case-insensitive)
+- `sort_by`: `id` | `name` | `price` | `category`
+- `sort_dir`: `asc` | `desc`
+
+Response: `200 OK` with JSON body shaped exactly like:
+
+```
+{
+  "result_count": <int>,
+  "filtered": [
+    {
+      "id": <int>,
+      "name": <str>,
+      "category": <str>,
+      "sku": <str>,
+      "price": <float>,
+      "in_stock": <bool>
+    },
+    ...
+  ]
+}
+```
+
+The length of `filtered` MUST equal `result_count`. Sort order in the JSON list MUST match the requested sort.
+
+## Implementation Hints
+- Per the plan, manage the Python environment with `uv`. Initialize via `uv init` and `uv add reflex`, then run `uv run reflex init --template blank` so the CLI is non-interactive.
+- Run `uv run reflex db init`, `uv run reflex db makemigrations`, and `uv run reflex db migrate` after defining the `Product` model so the schema is materialized.
+- Reflex's docs describe `rx.debounce_input` as a wrapper for fully controlled form controls; pass the `rx.input` as the child and bind `value=` plus `on_change=` for the search var.
+- Background events require `async with self:` for state mutation; do heavy DB work outside the lock to keep the UI responsive.
+- For the API endpoint, build a separate FastAPI `APIRouter` (or a `FastAPI` instance) and pass it to `rx.App(api_transformer=...)`. The endpoint may use a synchronous SQLAlchemy session or `rx.asession()`; the semantics must match the State logic.
+- Factor the SQLModel `select`/`where`/`order_by` construction into a shared helper so that the State background event and the `/api/filter` endpoint produce identical results.
+- Make sure `rxconfig.py` keeps the default `db_url="sqlite:///reflex.db"`; the verifier reads that file directly.
+
+## Acceptance Criteria
+- Project path: `/home/user/filtered_table`
+- Start command (run from the project path): `uv run reflex run --backend-port 8000 --frontend-port 3000 --loglevel info`
+- Frontend port: 3000 (the `/` page must render with HTTP 200).
+- Backend port: 8000 (the `/api/filter` endpoint is mounted here via `api_transformer`).
+- After seeding completes, the SQLite database at `/home/user/filtered_table/reflex.db` must contain exactly 240 rows in the `product` table, distributed 40 per category for the six categories listed above, with `name`, `sku`, `price`, and `in_stock` matching the Seed Algorithm.
+- Source code under `/home/user/filtered_table/filtered_table/` must contain literal occurrences of all of the following Reflex idioms (verified by `grep`):
+  - `rx.debounce_input`
+  - `debounce_timeout=300`
+  - `rx.asession`
+  - `rx.foreach`
+  - `background=True`
+  - `api_transformer`
+- `GET http://localhost:3000/` returns HTTP 200 and the rendered page body references the table heading text used in the UI.
+- `GET http://localhost:8000/api/filter` returns the JSON object described in the API Contract, with `result_count` and `filtered` shaped as specified, and the list length matching `result_count`.
+- The filter logic implements the semantics described above for arbitrary combinations of the parameters, applied against the seeded data.
+- Background server teardown: after finishing the implementation, kill every background `reflex run` (and any other background server) you started. The verifier starts its own server fresh.
+- No external environment variables are required.
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-enffjx8 > /logs/artifacts/run-id && echo crud_notes_with_tags__enfFjX8 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Notes & Tags CRUD App with Many-to-Many Filtering (Reflex)
+
+## Background
+
+Build a Reflex application that manages notes labelled with tags. The data model is a classic **many-to-many** relationship between `Note` and `Tag`, joined by an SQLModel **link table**. The UI must support full CRUD over notes, attach/detach of tags (including creating new tags on the fly), and a `selected_tags` filter that uses `rx.foreach` + `rx.cond` to filter the displayed notes. The State must expose a cached computed var `all_tags` that publishes the union of tag names attached to at least one note.
+
+A non-Reflex CLI helper `probe.py` at the project root must expose the same data layer over stdin/stdout so the verifier can drive the schema deterministically without a browser.
+
+## Requirements
+
+- Three SQL models inside the Reflex app:
+  - A `Note` model (subclass of `rx.Model`, `table=True`) with at least an `id` primary key and a `content: str` field.
+  - A `Tag` model (subclass of `rx.Model`, `table=True`) with at least an `id` primary key and a `name: str` field whose values are unique.
+  - A separate **link table** model (subclass of `rx.Model`, `table=True`) that holds the foreign keys to `note.id` and `tag.id` and joins the two via `sqlmodel.Relationship(..., link_model=...)`. The `Note.tags` and `Tag.notes` relationships must both be configured.
+- A Reflex `State` whose synchronized base vars include at least:
+  - `notes`: the list of notes currently displayed (after filtering).
+  - `selected_tags`: the list of tag names the user is filtering by.
+- A cached computed var `all_tags` on that State that returns the union of tag names currently attached to at least one note (sorted, no duplicates).
+- An index route (`/`) UI that:
+  - Renders the list of notes via `rx.foreach`, where each note row uses `rx.cond` to decide whether to show based on `selected_tags` (a note is shown when `selected_tags` is empty, or when at least one of its tags is in `selected_tags`).
+  - Supports creating a new note with content and a list of tag names (autocomplete from existing tags is allowed but not required; typing a new tag name MUST create the corresponding `Tag` row if it does not already exist).
+  - Supports editing a note's content and replacing its full tag set.
+  - Supports deleting a note. Deleting a note must remove its link rows but MUST NOT delete the referenced tag rows.
+  - Supports toggling tags into / out of `selected_tags`.
+- A CLI helper `probe.py` at the project root that uses the **same** `rx.Model` classes and the same database file, and exposes the contract documented under `Acceptance Criteria`.
+
+## Implementation Hints
+
+- Use the project setup flow from the research plan (`uv init`, `uv add reflex`, `uv run reflex init --template blank`, `uv run reflex db init/makemigrations/migrate`). Keep all Python deps inside the `uv`-managed virtual environment; the verifier will invoke Python through `uv run`.
+- The link table is its own `rx.Model` with `table=True` and two `Field(..., foreign_key=...)` columns that together form the primary key. Wire the many-to-many with `sqlmodel.Relationship(back_populates=..., link_model=<LinkTable>)`.
+- For the filter UI, do not pre-filter on the backend just for display; perform the filter inside `rx.foreach` using `rx.cond` against `selected_tags` so the UX matches the requirements. (You may still query a sorted list of notes from the DB.)
+- For `all_tags`, use `@rx.var(cache=True)` and derive it from the same data the State already holds for notes (or read from DB) so it stays in sync after CRUD operations.
+- After you have finished developing, **kill all background servers** you started (e.g. `uv run reflex run`). The verifier starts the server itself.
+
+## Acceptance Criteria
+
+- Project path: `/home/user/myproject`
+- Start command: `cd /home/user/myproject && uv run reflex run --loglevel info`
+- Frontend port: `3000`
+- Backend port: `8000`
+- Database: SQLite at `/home/user/myproject/reflex.db`. After `uv run reflex db migrate`, the schema MUST contain:
+  - A `note` table (with at least `id` and `content` columns).
+  - A `tag` table (with at least `id` and `name` columns).
+  - A separate **link table** whose name is anything (e.g. `notetaglink`) that has exactly two columns which are FOREIGN KEYs into `note.id` and `tag.id`.
+- UI contract on `http://localhost:3000/`:
+  - The page renders without compile or runtime errors and returns valid HTML on a `GET /`.
+- CLI contract — `probe.py` at the project root, invoked as `cd /home/user/myproject && uv run python probe.py <subcommand> [args]`. Every subcommand MUST print exactly one JSON object on its own line on stdout (extra log lines are tolerated; the verifier parses the last JSON object on stdout). Exit code MUST be 0 on success and non-zero on failure.
+  - Subcommand `counts`:
+    - Returns: `{"notes": <int>, "tags": <int>, "links": <int>}` reflecting `SELECT COUNT(*)` of the note, tag, and link tables.
+  - Subcommand `ensure-tag --name <NAME>`:
+    - Creates a `Tag` row with `name == NAME` if and only if it does not already exist. Idempotent.
+    - Returns: `{"id": <int>, "name": <NAME>, "created": <bool>}`.
+  - Subcommand `create --content <TXT> --tags <T1,T2,...>`:
+    - Creates one `Note` row. For each comma-separated tag name in `--tags`, attaches that `Tag` to the new note, creating the `Tag` row only if no row with that exact `name` already exists.
+    - `--tags` is optional. If absent or empty, the note is created without tags.
+    - Returns: `{"id": <int>, "content": <TXT>, "tags": [<sorted tag names>]}`.
+  - Subcommand `list [--filter <T1,T2,...>]`:
+    - When `--filter` is missing or empty, returns all notes in ascending `id` order.
+    - When `--filter` has at least one tag, returns notes that have at least one tag in the filter (OR semantics), in ascending `id` order.
+    - Returns: `{"notes": [{"id": <int>, "content": <str>, "tags": [<sorted tag names>]}, ...]}`.
+  - Subcommand `set-tags --id <N> --tags <T1,T2,...>`:
+    - Replaces the entire tag set of the note with id `N` with the comma-separated tags. Creates missing `Tag` rows as needed. Removes link rows for tags no longer attached. Never deletes `Tag` rows.
+    - Returns: `{"id": <N>, "tags": [<sorted tag names>]}`.
+  - Subcommand `update --id <N> --content <TXT>`:
+    - Updates the `content` of the note with id `N`. Does not touch its tags.
+    - Returns: `{"id": <N>, "content": <TXT>}`.
+  - Subcommand `delete --id <N>`:
+    - Deletes the note with id `N` and all its rows in the link table. Does NOT delete any `Tag` row.
+    - Returns: `{"id": <N>, "deleted": true}`.
+  - Subcommand `all-tags`:
+    - Returns: `{"all_tags": [<sorted tag names that are attached to at least one note>]}`. Tag rows that exist in the `tag` table but are not currently attached to any note MUST NOT appear.
+- Many-to-many contract (verifier asserts via `probe.py` + sqlite):
+  - With no notes and two pre-existing tags `T1` and `T2` already inserted via `ensure-tag`, calling `create --content C --tags T1,T2` MUST add exactly 1 row to the note table, exactly 0 rows to the tag table, and exactly 2 rows to the link table — i.e. exactly **3 new rows total** across the 3 tables.
+  - With a note attached to tags `T1,T2`, calling `delete --id <N>` MUST remove the note row and both link rows for that note, but MUST leave both `Tag` rows in place.
+  - `all_tags` MUST equal the union of tag names currently attached to at least one note. After `delete`, any tag that was used only by that note is excluded; tags still used by other notes remain.
+- State / source-code contract:
+  - The Reflex app must define `selected_tags` as a base var on a State subclass, and `all_tags` as a cached computed var (`@rx.var(cache=True)` or `@rx.cached_var`) on that same State.
+  - The index page must use `rx.foreach` to render notes and `rx.cond` (anywhere within the render path) to filter them by `selected_tags`.
+  - The many-to-many MUST be implemented via an `rx.Model(table=True)` link-table class and `sqlmodel.Relationship(..., link_model=<that class>)` on both sides.
+- Background processes: After implementation, all `reflex run` (or other) background servers you started must be terminated before the verifier runs.
+
+
+EOF
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__numpy_chart_serializer: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-6cs5uab > /logs/artifacts/run-id && echo numpy_chart_serializer__6cS5uAb > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# NumPy ndarray Custom Serializer Powering a Recharts Line Chart
+
+## Background
+Reflex synchronizes Python state to the React frontend by JSON-serializing every Base Var. Storing a raw `numpy.ndarray` in a regular state field raises `reflex.utils.exceptions.VarTypeError` at compile/runtime because numpy arrays are not directly JSON-serializable. The idiomatic fix is to register a `@rx.serializer` for `numpy.ndarray` that converts it into a primitive structure consumable by `rx.recharts.line_chart`. Your job is to build such an app end to end.
+
+## Requirements
+- A Reflex application that renders an interactive line chart driven by a `numpy.ndarray` state var.
+- The state must keep the data as a **typed `numpy.ndarray`** of shape `(50, 2)` (column 0 is `x`, column 1 is `y`).
+- A `@rx.serializer` must be registered for `numpy.ndarray` that converts it into a `list[dict[str, float]]` whose every element looks like `{"x": <float>, "y": <float>}` (those exact lowercase keys, plain `float` values).
+- The home page (`/`) must mount an `rx.recharts.line_chart` bound to that ndarray state var, with at least one `rx.recharts.line(data_key="y")` series and an `rx.recharts.x_axis(data_key="x")`.
+- The page must include a button labelled exactly `Regenerate` that, when clicked, replaces the state var with a fresh array of 50 noisy sine-wave points.
+- The app must also expose a custom FastAPI route `GET /api/points` (mounted through `rx.App(api_transformer=...)`) that returns a JSON array produced by the same noisy-sine generator function used by the state, serialized in the same `[{"x": float, "y": float}, ...]` shape with exactly 50 entries. Each call must produce a fresh array (use randomness, not a cached value).
+- The environment must be managed with `uv` per the repository convention. After the verifier finishes, no background Reflex processes (frontend on port 3000, backend on port 8000) may remain.
+
+## Implementation Hints
+- Use `uv init` + `uv add reflex numpy` and the `--template blank` flag for `reflex init`.
+- Register the serializer with `@rx.serializer` on a function annotated `def serialize_ndarray(arr: numpy.ndarray) -> list[dict[str, float]]:` so Reflex picks up the type from the annotation.
+- The noisy sine generator should produce points where `x` spans a deterministic-shape range (e.g. evenly spaced floats) and `y = sin(x) + small_noise`; use `numpy.random` so each invocation is genuinely different.
+- For the custom REST route, build a `FastAPI()` instance, add a `@app.get("/api/points")` handler that calls the same generator, then pass it to `rx.App(api_transformer=fastapi_app)`.
+- The `rx.recharts.line_chart` `data=` prop should be bound directly to the typed ndarray var — Reflex will pipe the value through the registered serializer automatically, so you must NOT pre-convert it to a list inside the component tree.
+- Provide a `bash start.sh` at the project root that prepares the environment (`uv sync`, `uv run reflex init --template blank` if `.web` is missing, `uv run reflex db init` / `makemigrations` / `migrate` if needed) and then launches `uv run reflex run --loglevel info`. The verifier will execute this script and then poll the backend `/ping` endpoint.
+- Provide a `bash stop.sh` that kills anything bound to ports 3000 and 8000 so the verifier can guarantee teardown.
+
+## Acceptance Criteria
+- Project path: `/home/user/numpy_chart_serializer`.
+- Start command: `bash start.sh` (run from the project root, must launch both backend on port 8000 and frontend on port 3000).
+- Stop command: `bash stop.sh` (must terminate every process bound to ports 3000 and 8000).
+- Frontend port: 3000.
+- Backend port: 8000.
+- The Python environment is managed by `uv`; `pyproject.toml` (or equivalent uv-managed manifest) lists `reflex` and `numpy` as dependencies.
+- At least one `.py` file inside the project declares a State base var whose type annotation references `numpy.ndarray` (e.g. `points: numpy.ndarray = ...`) — backend-only underscore-prefixed fields do NOT satisfy this requirement; the var must be a synchronized base var.
+- At least one `.py` file inside the project defines a function decorated with `@rx.serializer` whose single argument is annotated `numpy.ndarray` (or `np.ndarray`) and whose return annotation resolves to `list[dict[str, float]]` (or an equivalent typing alias).
+- HTTP GET `http://localhost:8000/ping/` returns status 200 with body `"pong"`.
+- HTTP GET `http://localhost:3000/` returns status 200 (page renders without a `VarTypeError` traceback in the response body or backend logs).
+- HTTP GET `http://localhost:8000/api/points` returns:
+  - status 200,
+  - Content-Type `application/json`,
+  - a JSON array of length exactly 50,
+  - every element is an object with exactly two keys `x` and `y`, both numeric (JSON numbers).
+- Two successive calls to `GET http://localhost:8000/api/points` return arrays whose contents differ (the regeneration is genuinely random).
+- The rendered home page HTML contains a button with the exact visible label `Regenerate`.
+- After `bash stop.sh` is executed, neither port 3000 nor port 8000 has any listener.
+
+
+EOF
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__kanban_drag_drop_persistence: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-mvbmad9 > /logs/artifacts/run-id && echo kanban_drag_drop_persistence__mVbmAD9 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Kanban Board with Backend Persistence and Move API
+
+## Background
+Reflex serves a single ASGI app that combines a Next.js-compiled frontend with a FastAPI backend. By passing a custom `FastAPI` instance to `rx.App(api_transformer=...)`, you can mount additional REST endpoints onto the same backend port that drives Reflex events. Reflex's database layer wraps SQLModel/SQLAlchemy through `rx.Model`; transactional work runs inside `rx.session()`.
+
+In this task you will build a three-column Kanban board (TODO / DOING / DONE) whose card order is fully persisted in SQLite. A custom FastAPI route exposes the move operation as a server-side API so that any client (the Reflex UI, curl, or the verifier) can deterministically reorder cards. Card positions must remain 0-dense per column after every move.
+
+## Requirements
+- Build a single Reflex project that serves both:
+  1. A Reflex page at the root path (`/`) that renders three columns (`TODO`, `DOING`, `DONE`) using `rx.foreach`, with cards inside each column displayed in ascending `position` order.
+  2. A custom FastAPI app mounted via `rx.App(api_transformer=...)` that exposes `POST /api/cards/move`.
+- Persist cards in SQLite using `rx.Model` with the schema described in *Acceptance Criteria*.
+- Seed the database on app startup (if empty) with the exact set of cards described in *Acceptance Criteria*.
+- The move endpoint must run as a single DB transaction and normalise positions so that, after every successful move, each of the three columns contains a 0-dense sequence of positions (`0, 1, 2, ...`).
+- The Reflex page must read the current cards from the same database and render them grouped by column, ordered by `position`. Use `rx.foreach` to iterate over both columns and cards.
+- Manage the Python environment with `uv` and initialise the Reflex project non-interactively (see plan.md).
+
+## Implementation Hints
+- `rx.App` accepts an `api_transformer` parameter. Passing a `FastAPI()` instance mounts your routes alongside Reflex's reserved `/ping` and `/_event` routes on port 8000.
+- `rx.Model` is a thin wrapper around `SQLModel`. Use `rx.session()` (sync) inside the FastAPI route handler for the move transaction.
+- After moving a card into a target column, you typically (a) remove it from its old column, (b) insert it at the target index, then (c) renumber positions inside *both* the source and destination columns so they are contiguous starting at 0.
+- To make the page reflect the DB state on reload, load cards from the DB in an `on_load` event handler (or in a state initializer) and store them in a state var. `rx.foreach` over a `list[Card]` works because `rx.Model` instances are serializable.
+- Reflex's database migration commands are `uv run reflex db init` / `makemigrations` / `migrate`. Running them once after defining the `Card` model is enough.
+- Use `rx.foreach` (not Python `for`) when rendering state-bound lists; nested `rx.foreach` is allowed.
+
+## Acceptance Criteria
+- Project path: `/home/user/kanban_drag_drop_persistence`
+- Python environment is managed by `uv` (i.e. `pyproject.toml` exists and `uv run` works at the project root). `reflex` must be an installable dependency of the project.
+- Start command: `cd /home/user/kanban_drag_drop_persistence && uv run reflex run --loglevel info` — the command must bring up the frontend on port 3000 and the backend (including mounted FastAPI routes) on port 8000.
+- Frontend port: `3000`
+- Backend port: `8000`
+- SQLite DB file: `/home/user/kanban_drag_drop_persistence/reflex.db` (the default created by `rx.Config(db_url="sqlite:///reflex.db")`).
+- Database schema — a single `card` table with at minimum these columns:
+  - `id` (integer primary key, auto-generated)
+  - `title` (text, non-null)
+  - `column` (text, non-null; one of `TODO`, `DOING`, `DONE`)
+  - `position` (integer, non-null; 0-based index inside its column)
+- Initial seed data (inserted automatically by the app the first time it starts against an empty DB; the executor must NOT hand-seed via `sqlite3`):
+
+  | column | position | title       |
+  | ------ | -------- | ----------- |
+  | TODO   | 0        | Write spec  |
+  | TODO   | 1        | Draft API   |
+  | TODO   | 2        | Review PR   |
+  | DOING  | 0        | Build UI    |
+  | DOING  | 1        | Wire DB     |
+  | DOING  | 2        | Add tests   |
+  | DONE   | 0        | Setup repo  |
+  | DONE   | 1        | Pick stack  |
+  | DONE   | 2        | Kickoff     |
+
+- HTTP API (served on port 8000, mounted via `api_transformer`):
+  - `POST /api/cards/move`
+    - Request JSON body: `{"card_id": integer, "target_column": string, "target_position": integer}` where `target_column` is one of `TODO`, `DOING`, `DONE` and `target_position >= 0`.
+    - On success: returns HTTP 200 with JSON body `{"ok": true}`. The card identified by `card_id` is moved into `target_column` and inserted at index `target_position` (clamped to the new column length). All positions inside the affected source and destination columns are renumbered so they form a 0-dense contiguous sequence (`0, 1, 2, ...`) ordered by the new logical order.
+    - On unknown `card_id`: returns HTTP 404.
+    - On invalid `target_column` (not in `{TODO, DOING, DONE}`): returns HTTP 400.
+    - The operation must run inside a single DB transaction; concurrent successful calls must leave every column 0-dense.
+  - The full move must be persisted: after the call, `GET http://localhost:3000/` must reflect the new order on reload, and the underlying SQLite DB must contain the new `(column, position)` for every affected card.
+- Frontend behavior (Reflex page at `http://localhost:3000/`):
+  - The page must render at least one visible occurrence of each column label `TODO`, `DOING`, `DONE`.
+  - The page must render every seeded card's title visible somewhere in the initial server-rendered HTML.
+  - Cards must be rendered via `rx.foreach` (the page must continue to reflect DB state after a reload following a successful move).
+- Cleanup: After implementation, **all background `reflex run` / `uv run` / `next` / `uvicorn` processes started during the task MUST be killed.** The final-state tests are responsible for starting the server they need and tearing it down again.
+
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__tenant_subdomain_routing: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__oauth2_pkce_login: docker inspect returned 1
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-wwnctof > /logs/artifacts/run-id && echo tenant_subdomain_routing__wWncTof > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Multi-Tenant Path-Based Routing with FastAPI Middleware (Reflex)
+
+## Background
+Build a Reflex web application that exposes tenant-scoped pages under `/t/[tenant_id]/...` and a tenant-aware REST endpoint mounted onto Reflex's internal FastAPI backend through `api_transformer`. The application MUST be implemented at `/home/user/myproject` using `uv` to manage the Python environment per the framework documentation.
+
+## Requirements
+- Pure-Python full-stack application built with Reflex.
+- A SQLite-backed `Tenant` table (using `rx.Model`) with the following exact seed rows. The application MUST insert these rows on startup if they do not already exist:
+  - slug=`acme`, name=`Acme Corp`
+  - slug=`globex`, name=`Globex Inc`
+  - slug=`initech`, name=`Initech LLC`
+- Two dynamic-route pages:
+  - `/t/[tenant_id]/dashboard`
+  - `/t/[tenant_id]/settings`
+  Both pages MUST resolve the tenant by reading the dynamic route segment from the Reflex router (e.g. the `tenant_id` dynamic var exposed on `rx.State`, or the equivalent value derived from `self.router`). The tenant lookup MUST happen via an on-load event handler that queries the `Tenant` table where `slug == tenant_id`.
+- When the tenant exists, the rendered page for `/t/[tenant_id]/dashboard` MUST display the literal tenant name AND the literal text `Dashboard`. The rendered page for `/t/[tenant_id]/settings` MUST display the literal tenant name AND the literal text `Settings`.
+- When the tenant does NOT exist, both pages MUST render a 404 marker. The page MUST display the case-sensitive literal text `Tenant Not Found` and MUST NOT display any of the seed tenant names. The 404 branch MUST be controlled by `rx.cond` based on whether the tenant lookup succeeded.
+- A FastAPI application MUST be mounted onto the Reflex backend through the `api_transformer` parameter of `rx.App`. The FastAPI app MUST:
+  - Register an ASGI/HTTP middleware that inspects every incoming request whose path starts with `/api/`. The middleware MUST look up the value of the request header `X-Tenant-Id` against the `Tenant` table and short-circuit with HTTP `403` and a JSON body of `{"detail": "forbidden"}` if the header is missing or does not match any known tenant slug. Requests to non-`/api/` paths MUST pass through unmodified so that Reflex's own routes (frontend assets, `/ping`, `/_event`, websocket) keep working.
+  - Expose `GET /api/me`. When the middleware allows the request through, this endpoint MUST return HTTP `200` with a JSON body `{"slug": <tenant_slug>, "name": <tenant_name>}` matching the tenant identified by the `X-Tenant-Id` header.
+
+## Implementation Hints
+- Initialize the project non-interactively with `uv` and the Reflex `blank` template, then run `reflex db init`, `reflex db makemigrations`, and `reflex db migrate` to apply the schema. Use the default Reflex SQLite database under the project directory.
+- The middleware is plain FastAPI/Starlette; it only needs to read the same SQLite database that `rx.Model` writes to (no shared Reflex state).
+- Page on-load handlers may use `rx.session()` (synchronous) to look up tenants by slug.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Start command: `cd /home/user/myproject && uv run reflex run --env prod`
+- Ports:
+  - Frontend (Next.js, browser-facing): `3000`
+  - Backend (FastAPI / Reflex websocket): `8000`
+- The verifier starts its own server using the start command above. The agent MUST shut down any background processes it started for development or testing before finishing the task.
+- Browser-visible routes (port 3000):
+  - `http://localhost:3000/t/acme/dashboard` → page displays `Acme Corp` and `Dashboard` (no `Tenant Not Found`).
+  - `http://localhost:3000/t/globex/settings` → page displays `Globex Inc` and `Settings` (no `Tenant Not Found`).
+  - `http://localhost:3000/t/initech/dashboard` → page displays `Initech LLC` and `Dashboard`.
+  - `http://localhost:3000/t/no-such-tenant/dashboard` → page displays `Tenant Not Found` and does NOT display any of `Acme Corp`, `Globex Inc`, or `Initech LLC`.
+- Backend API endpoints (port 8000):
+  - `GET http://localhost:8000/api/me` with header `X-Tenant-Id: acme` → HTTP 200, JSON body `{"slug": "acme", "name": "Acme Corp"}`.
+  - `GET http://localhost:8000/api/me` with header `X-Tenant-Id: initech` → HTTP 200, JSON body `{"slug": "initech", "name": "Initech LLC"}`.
+  - `GET http://localhost:8000/api/me` with no `X-Tenant-Id` header → HTTP 403, JSON body `{"detail": "forbidden"}`.
+  - `GET http://localhost:8000/api/me` with header `X-Tenant-Id: not-a-tenant` → HTTP 403, JSON body `{"detail": "forbidden"}`.
+- Reflex's reserved backend route MUST keep working: `GET http://localhost:8000/ping` → HTTP 200 with body `"pong"`.
+
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-qn3sbem > /logs/artifacts/run-id && echo oauth2_pkce_login__qn3SBEM > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Reflex App: OAuth2 PKCE Login with FastAPI Custom Routes
+
+## Background
+Build a Reflex application that mounts FastAPI routes via `api_transformer` to implement an OAuth2 PKCE (RFC 7636) authorization-code flow against a local **mock** OAuth provider that is hosted inside the **same** Reflex/FastAPI app. The Reflex UI exposes a "Sign in" button that starts the flow, and the callback exchanges the authorization code for an access token, persists the token in a client-side `rx.Cookie`, and mirrors it into a backend-only state var so authenticated server-side requests can use it.
+
+## Requirements
+- Build the Reflex project at `/home/user/oauth_app` and manage Python dependencies with `uv` (per the framework convention).
+- Define a top-level FastAPI app and mount it on Reflex via `rx.App(api_transformer=fastapi_app)`.
+- Implement a **mock OAuth provider** with the following endpoints under `/auth/*` (mounted via the FastAPI app):
+  - `GET /auth/authorize` — the provider's authorization endpoint.
+  - `POST /auth/token` — the provider's token endpoint (form-encoded body).
+- Implement an **application-side** flow with these endpoints under the same FastAPI app:
+  - `GET /auth/start` — initiates the PKCE flow: generates `code_verifier`, derives `code_challenge` using **S256**, generates an opaque `state`, stores the verifier server-side keyed by `state`, and redirects (HTTP 302) to `/auth/authorize` with all required PKCE/OAuth2 query params.
+  - `GET /auth/callback` — receives `code` and `state`, looks up the matching `code_verifier`, exchanges the code at `/auth/token`, sets a non-HttpOnly `access_token` cookie with `Path=/`, and redirects (HTTP 302) to `/`.
+- Implement a protected API endpoint `GET /api/me` that returns 200 with the demo user identity only when a valid `Authorization: Bearer <token>` header is present, and 401 otherwise.
+- Implement the Reflex UI:
+  - Route `/` shows a heading containing the text `Sign in` and a clickable element (link or button) that navigates the browser to `/auth/start`.
+  - The application state must declare an `access_token` field using `rx.Cookie` (so it is synchronized to/from the browser cookie of the same name) **and** a backend-only state var (name starting with `_`) that mirrors the same value for use in authenticated server-side requests.
+- Persist the generated credentials and demo identity to a known location so an external client can drive the flow without scraping source code (see Acceptance Criteria).
+
+## Implementation Hints
+- Use `secrets.token_urlsafe(...)` for the verifier/state. Compute the S256 challenge as `base64url(sha256(verifier))` **without** `=` padding.
+- The `CLIENT_ID`, `CLIENT_SECRET`, demo `USERNAME`, and the issued `access_token` should be **generated inside the project** (not taken from environment variables). Use Python's `secrets` module.
+- Keep the per-flow `state → code_verifier` map and the per-code `code → {code_challenge, redirect_uri}` map in module-level dictionaries (single-process server is fine for this task).
+- Reuse the same FastAPI app for both the mock provider and the application-side routes; mount it via `api_transformer`.
+- The protected `/api/me` route should reject any request whose token does not match the most recently issued token.
+- For the Reflex UI, you only need a minimal `/` page; no styling is required. Use `rx.link` or `rx.button` such that activating it navigates to `/auth/start`.
+- Run database migrations only if you actually add models; this task does not require a database.
+
+## Acceptance Criteria
+- Project path: `/home/user/oauth_app`
+- Start command: `cd /home/user/oauth_app && uv run reflex run --loglevel info`
+- Backend port: `8000`
+- The backend must continue to serve while the verifier runs. The agent **must kill all background servers** before finishing; the verifier starts its own server.
+
+### Generated credentials file
+
+- On startup (or as a one-shot during project initialization), the project must write a JSON file at `/home/user/oauth_app/credentials.json` with this exact schema (no extra required keys):
+
+  ```json
+  {
+    "client_id": "<generated random string, non-empty>",
+    "client_secret": "<generated random string, non-empty>",
+    "redirect_uri": "http://localhost:8000/auth/callback",
+    "username": "<generated demo username, non-empty>"
+  }
+  ```
+
+- The values in this file must match the values actually used by the running server. The file must be present after the server has started at least once.
+
+### HTTP contract (all on `http://localhost:8000`)
+
+1. `GET /auth/authorize`
+   - **Required query params**: `client_id`, `redirect_uri`, `response_type=code`, `code_challenge`, `code_challenge_method=S256`, `state`.
+   - On valid input: returns HTTP `302` with `Location: <redirect_uri>?code=<code>&state=<state>`.
+   - On invalid input (bad client, missing PKCE fields, unsupported `response_type`, or `code_challenge_method != S256`): returns HTTP `400` with a JSON body containing an `error` field.
+
+2. `POST /auth/token`
+   - **Content-Type**: `application/x-www-form-urlencoded`.
+   - **Required form fields**: `grant_type=authorization_code`, `code`, `redirect_uri`, `client_id`, `client_secret`, `code_verifier`.
+   - On valid input: returns HTTP `200` with JSON `{"access_token": <str>, "token_type": "Bearer", "expires_in": <int>}`.
+   - **PKCE S256 enforcement**: if `base64url(sha256(code_verifier))` (no padding) does not equal the stored `code_challenge`, return HTTP `400` with JSON `{"error": "invalid_grant"}` (or any other JSON object whose `error` value is `invalid_grant`).
+   - Reject mismatched `client_id`/`client_secret` with HTTP `400` (or `401`) and a JSON `error` field.
+
+3. `GET /auth/callback?code=<code>&state=<state>`
+   - Looks up the verifier for `state`, calls the token endpoint, and on success returns HTTP `302` with:
+     - `Location: /` (the application home).
+     - A `Set-Cookie` header that sets the cookie named `access_token` to the issued token value. The cookie **must not** include `HttpOnly`.
+
+4. `GET /api/me`
+   - With header `Authorization: Bearer <valid_token>`: returns HTTP `200` and a JSON body with a `username` field.
+   - Without the header, or with an invalid token: returns HTTP `401`.
+
+5. `GET /auth/start`
+   - Returns HTTP `302` with a `Location` header pointing to `/auth/authorize` and containing `code_challenge_method=S256` in the query string.
+
+### Reflex UI
+6. `GET /` returns HTTP `200` and the response body contains the literal substring `Sign in`.
+
+### State design
+7. The Reflex state module must define an `rx.Cookie` field named `access_token` **and** a separate backend-only state var (name starts with `_`) that mirrors the token, so authenticated server-side requests can use it. (This is verified by inspecting the project's Python source files.)
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__react_colorful_wrapper: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-drtc3jy > /logs/artifacts/run-id && echo react_colorful_wrapper__dRTC3jy > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Wrap react-colorful HexColorPicker as a Reflex Component
+
+## Background
+Reflex lets you bring React-only widgets into a pure Python app by wrapping npm packages as `rx.Component` subclasses. In this task you will wrap the `HexColorPicker` from the `react-colorful` npm package and use it inside a synchronized state-driven page.
+
+## Requirements
+- Build a Reflex application that wraps the `HexColorPicker` from `react-colorful` as a custom Reflex component.
+- The custom component must:
+  - Be a `NoSSRComponent` (because the picker touches the DOM and must not be server-side rendered).
+  - Expose a `color: rx.Var[str]` prop bound to the React component's `color` prop.
+  - Expose an `on_change` event trigger that serializes the React `(color) => void` callback argument so that Reflex event handlers receive the new color string.
+- Wire the component into the default `/` page so that:
+  - The picker's `on_change` updates a synchronized state var holding the hex color.
+  - An `rx.text` element on the page displays the current hex code as its text content and uses the chosen color as its `background_color`.
+- The Reflex application must compile and the resulting frontend bundle must reference the `react-colorful` npm package.
+
+## Implementation Hints
+- Use `uv` for the Python environment, as described in the framework setup.
+- See the Reflex "Wrapping React" documentation for the `library`, `tag`, props (`rx.Var[...]`), and `on_change: rx.EventHandler[lambda ...]` patterns.
+- `react-colorful` exports `HexColorPicker` as a named export (not the default export).
+- Remember to kill any background servers (e.g. `reflex run`) you started during development before finishing the task.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- The project is a valid Reflex application initialized with `uv` and the blank template.
+- Start command: `uv run reflex run`
+- Frontend port: 3000
+- The custom component class in the project source code must satisfy ALL of the following (verified by static inspection of the Python source):
+  - It subclasses `reflex.components.component.NoSSRComponent` (directly or via an alias).
+  - Its `library` class attribute is the string `react-colorful` (an optional `@<version>` suffix is allowed).
+  - Its `tag` class attribute is exactly the string `HexColorPicker`.
+  - It declares a typed prop `color: rx.Var[str]` (or the equivalent `reflex.Var[str]`).
+  - It declares an `on_change` event trigger whose argument serializer forwards the new color string to the Python handler.
+- The Reflex `State` subclass used by the page must declare a single string state var that stores the current hex color and an event handler that updates this var from a single `str` argument coming from `on_change`.
+- The default index page must render the wrapped color picker and an `rx.text` element that:
+  - Uses the current state hex color as its visible text.
+  - Uses the same hex color as its `background_color` style prop (so the box is filled with the picked color).
+- Compiled frontend bundle: After running `uv run reflex export --frontend-only --no-zip` inside the project directory, the generated `.web/_static/` directory must exist and at least one file under it must contain the literal substring `react-colorful`.
+- The application must compile and start successfully with `uv run reflex run` and serve the index page on port 3000 over HTTP.
+- After the task is finished, no Reflex background server process started by the executor may remain running.
+
+
+EOF
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__markdown_live_preview_editor: docker inspect returned 1
+Skipping image OS validation for hb__live_stock_ticker_sse: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: echo zr-8t7t2ml > /logs/artifacts/run-id && echo markdown_live_preview_editor__8T7t2mL > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Markdown Editor with Live HTML Preview (Reflex)
+
+## Background
+Build a single-page Reflex application that gives the user a Markdown editing experience with a live HTML preview. The page is split into two columns: an editable Markdown source area on the left, and a live-updating HTML preview on the right. A toolbar above (or beside) the textarea offers `Bold`, `Italic`, and `Code` buttons that wrap the user's current text selection with the appropriate Markdown markers. A counter element shows the live word and character counts of the source.
+
+The Markdown-to-HTML conversion must happen on the backend in a cached computed var, and the HTML must be injected into the page via `rx.html`.
+
+## Requirements
+- A Reflex project at `/home/user/myproject` initialized with `uv` (per the framework's recommended setup) and a Reflex app exposing a page at `/`.
+- A single Reflex `State` subclass that owns at minimum:
+  - `source: str` — the current Markdown source (controlled value of the textarea).
+  - `selection_start: int` and `selection_end: int` — the cursor's current selection range inside the textarea, updated from a textarea event handler whenever the user changes the selection or types.
+  - A cached computed var (decorated with `@rx.var(cache=True)`) named `preview_html` that converts `self.source` into HTML using the `markdown-it-py` library and returns the HTML string.
+  - Cached computed vars (decorated with `@rx.var(cache=True)`) named `word_count` and `char_count` that return the number of words and the number of characters in `self.source`.
+  - Event handlers `wrap_bold`, `wrap_italic`, and `wrap_code` that mutate `self.source` by wrapping the substring from `selection_start` to `selection_end` with the Markdown markers `**…**`, `*…*`, and `` `…` `` respectively. When the selection is empty (`selection_start == selection_end`), insert the marker pair at the cursor position so the cursor sits between the markers.
+- The page layout must include the following DOM hooks (these IDs are how the verifier locates each piece):
+  - A `<textarea>` element bound to `State.source` with the HTML id `md-source`.
+  - A preview container element with HTML id `md-preview` whose inner HTML is produced by `rx.html(State.preview_html)`.
+  - A counter element with HTML id `md-counter` whose displayed text follows the format `Words: <word_count> | Characters: <char_count>` (no other text in this element).
+  - Three toolbar buttons with HTML ids `btn-bold`, `btn-italic`, and `btn-code` that trigger the corresponding wrap event handlers.
+- The Markdown converter must be instantiated using `markdown-it-py`'s `MarkdownIt` class (any preset — `commonmark` is fine — as long as it produces standard HTML such as `<h1>`, `<p>`, `<strong>`, `<em>`, `<code>`, `<ul>`, `<li>` for the corresponding Markdown constructs).
+- The preview must update reactively whenever the user edits the source.
+- The application must not require any external network calls or external services to function.
+
+## Implementation Hints
+- Use `uv init`, `uv add reflex markdown-it-py`, then `uv run reflex init --template blank` to scaffold the project non-interactively, as described in the Reflex setup docs.
+- The textarea's selection range can be captured by attaching an event handler to a native browser event (e.g. `on_select`, plus updating on `on_change` and `on_click`) and forwarding `event.target.selectionStart` / `event.target.selectionEnd` to the backend via Reflex's `EventHandler` argument-spec mechanism.
+- Use Reflex's HTML-id passthrough (the `id` prop on Reflex components is forwarded as the DOM `id` attribute) to expose the stable selectors listed above.
+- Render the converted HTML with `rx.html(State.preview_html)` placed inside a container whose `id` is `md-preview`.
+- Make sure to set `value=State.source` and `on_change=State.set_source` (or a custom handler) on the textarea so it is fully controlled by state.
+- A clean way to keep your computed var cached is to derive everything (preview, word count, character count) from `self.source` only; avoid touching `self.selection_start` / `self.selection_end` inside `preview_html` so caching is not invalidated by selection changes.
+- See: Reflex computed vars (https://reflex.dev/docs/vars/computed-vars/), Reflex rx.html (https://reflex.dev/docs/library/other/html-embed/), Reflex events overview (https://reflex.dev/docs/events/events-overview/), markdown-it-py docs (https://markdown-it-py.readthedocs.io/en/latest/using.html).
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Start command: `cd /home/user/myproject && uv run reflex run --env prod --loglevel info`
+- Frontend port: `3000`
+- Backend port: `8000`
+- Route under test: `/` (i.e. `http://localhost:3000/`)
+- Required stable DOM ids on the page: `md-source` (textarea), `md-preview` (HTML preview container), `md-counter` (counter element), `btn-bold`, `btn-italic`, `btn-code` (toolbar buttons).
+- Counter element text must follow the exact format `Words: <N> | Characters: <M>` (single space around the pipe).
+- Markdown rendering behavior (tested via the live preview's inner HTML):
+  - A heading source (e.g. `# Heading`) must produce an `<h1>` element containing the heading text inside `#md-preview`.
+  - Strong emphasis source (e.g. `**bold**`) must produce a `<strong>` element with the text inside `#md-preview`.
+  - Emphasis source (e.g. `*italic*`) must produce an `<em>` element with the text inside `#md-preview`.
+  - Inline code source (e.g. `` `code` ``) must produce a `<code>` element with the text inside `#md-preview`.
+  - Unordered list source (e.g. `- a` / `- b`) must produce a `<ul>` containing two `<li>` elements with the corresponding text.
+- Toolbar mutation behavior on the controlled textarea:
+  - With source `hello world`, the user selecting characters `[0, 5)` (the word `hello`) and clicking `#btn-bold` must result in a source value of `**hello** world`.
+  - With the same `hello world` source, selecting `[6, 11)` and clicking `#btn-italic` must result in `hello *world*`.
+  - With source `print(x)`, selecting `[0, 8)` and clicking `#btn-code` must result in `` `print(x)` ``.
+  - With an empty selection (caret at end of `abc`, i.e. `selection_start == selection_end == 3`) clicking `#btn-bold` must result in `abc****`.
+- Counter behavior on the textarea value `the quick brown fox` must show `Words: 4 | Characters: 19`; on the empty string it must show `Words: 0 | Characters: 0`.
+- The Markdown → HTML conversion must be implemented as a cached computed var. The application source code under `/home/user/myproject` must contain at least one occurrence of `@rx.var(cache=True)` (or `@reflex.var(cache=True)`) annotating the preview computed var.
+- A `requirements.txt` (or equivalent dependency manifest used by `uv`) inside the project must declare the `markdown-it-py` dependency.
+- Background processes started during the task must be terminated before completion: no orphan `reflex run`, `next` / `node`, or backend processes may remain after the executor finishes.
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: echo zr-6tudsby > /logs/artifacts/run-id && echo live_stock_ticker_sse__6TUDSbY > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Live Stock Ticker with Background-Task Streaming (Reflex)
+
+## Background
+Build a Reflex dashboard that simulates a real-time stock ticker for 5 well-known equity symbols. The price stream MUST be driven by a long-running `@rx.event(background=True)` handler that updates an in-memory price book every 500 ms using a small bounded random walk. The page must render a live table and expose Start / Stop controls. A second click on **Start** MUST NOT spawn a duplicate update loop. The task evaluates correct use of Reflex background events (with `async with self` state-mutation context), cached computed vars, and `api_transformer` for a control / observation REST surface.
+
+## Requirements
+- Implement a Reflex app named `ticker_app` whose root page renders:
+  - A table with one row per symbol containing columns: **Symbol**, **Price**, **Percent Change**.
+  - A **Start** button and a **Stop** button.
+  - A small text status showing whether the ticker is currently running.
+- The price stream MUST be implemented inside a `@rx.event(background=True)` async method on the State class. State mutations MUST happen inside `async with self:` blocks. The loop MUST update prices every 500 ms (`asyncio.sleep(0.5)`) and apply a bounded random walk: every tick each symbol's price changes by `current_price * uniform(-0.005, +0.005)` (i.e. ±0.5% per tick), clamped so that price stays strictly positive.
+- Implement an idempotency guard so that pressing **Start** while the ticker is already running does NOT spawn a second concurrent update loop. The implementation MUST track this via a backend-only state var (a `_` prefixed attribute) checked / set inside `async with self:`.
+- Implement a `percent_change` view as a `@rx.var(cache=True)` computed var on the State class. It MUST be a dict mapping `symbol -> float`, computed as `round((current_price - seed_price) / seed_price * 100.0, 4)`. The computed var MUST depend on both the live price dict and the seed price dict.
+- Mount a FastAPI sub-app onto the Reflex app via `rx.App(api_transformer=...)`. The sub-app MUST expose the following JSON endpoints under the `/api/ticker` prefix. These endpoints share state with the Reflex State by reading / writing a module-level in-memory engine. They exist so headless verification can drive the ticker without a browser; the same engine MUST be used by both the Reflex UI Start/Stop event handlers and the REST endpoints.
+  - `POST /api/ticker/start` — Start the ticker idempotently. Response JSON: `{"running": true, "started": <bool>}` where `started` is `true` only if this call actually started a new loop (i.e. previously not running), and `false` if a loop was already active.
+  - `POST /api/ticker/stop` — Stop the ticker. Response JSON: `{"running": false}`.
+  - `GET /api/ticker/snapshot` — Return a JSON object with the keys:
+    - `running` (bool)
+    - `update_count` (int) — number of completed 500 ms ticks since the most recent start
+    - `seeds` (object: symbol -> float)
+    - `prices` (object: symbol -> float)
+    - `percent_changes` (object: symbol -> float, same formula as the computed var, rounded to 4 decimal places)
+- The symbol universe and seed prices MUST be exactly:
+  - `AAPL`: 150.00
+  - `GOOG`: 2800.00
+  - `MSFT`: 300.00
+  - `AMZN`: 3300.00
+  - `TSLA`: 700.00
+- The random walk MUST be seeded deterministically inside the task code (the executor chooses any fixed seed; no environment variable is read for randomness).
+- After verification finishes, the executor MUST kill all background dev servers that were started for this task. Verification spins up its own server.
+
+## Implementation Hints
+- Use `uv` to manage the Python environment per the research plan. Initialize the project non-interactively with `uv run reflex init --template blank`.
+- The Reflex State `start` event handler should be a regular (non-background) `@rx.event` that flips a `_should_run` backend flag (under no lock, since it is a normal handler) and returns / yields the background event handler. The background event handler itself owns the loop and the idempotency guard.
+- Inside the background handler, use `async with self:` to read / set the idempotency guard (e.g. `_loop_active`) and to write base vars (`prices`, `update_count`, `running`).
+- For `api_transformer`, build a `fastapi.FastAPI()` instance and pass it to `rx.App(api_transformer=...)`. The endpoints can manipulate / read the shared engine directly; they do NOT need to go through a Reflex State token.
+- The shared in-memory engine should expose: `start()` (idempotent), `stop()`, `snapshot()`, and a coroutine `tick_once()` (or an internal asyncio task). A clean way is to give the engine its own `asyncio.Task`, and have the Reflex background event also drive (or mirror) the same engine so the UI table updates live.
+- Computed vars are cached by default. Make sure the `percent_change` computed var actually re-runs when prices change by reading both `self.prices` and `self.seeds` inside its body.
+- Avoid storing non-serializable types in any State var that is not underscore-prefixed.
+
+## Acceptance Criteria
+- Project path: `/home/user/ticker_app`
+- Start command: `uv run reflex run --backend-only --backend-port 8000 --loglevel warning`
+- Backend port: `8000`
+- Verification interacts ONLY with the backend port `8000` over HTTP using the REST endpoints listed below. The Reflex frontend (Next.js) does NOT need to be running during verification.
+- The Reflex State class MUST define:
+  - At least one method decorated with `@rx.event(background=True)` that runs the 500 ms update loop.
+  - At least one method decorated with `@rx.var(cache=True)` that exposes per-symbol percent change.
+  - At least one backend-only var (name starts with `_`) used as the idempotency guard.
+- REST endpoints under `http://localhost:8000`:
+  - `POST /api/ticker/start` → `200` with JSON `{"running": true, "started": <bool>}`.
+  - `POST /api/ticker/stop` → `200` with JSON `{"running": false}`.
+  - `GET /api/ticker/snapshot` → `200` with JSON `{"running": <bool>, "update_count": <int>, "seeds": <object>, "prices": <object>, "percent_changes": <object>}`.
+  - `seeds`, `prices`, and `percent_changes` MUST contain exactly the keys `AAPL`, `GOOG`, `MSFT`, `AMZN`, `TSLA`.
+  - `seeds` MUST equal `{"AAPL": 150.0, "GOOG": 2800.0, "MSFT": 300.0, "AMZN": 3300.0, "TSLA": 700.0}`.
+- Behavioural acceptance:
+  1. After a single `POST /api/ticker/start`, polling `GET /api/ticker/snapshot` every 500 ms for 5 seconds MUST yield at least 5 distinct values of `update_count` (the ticker is producing updates).
+  2. Calling `POST /api/ticker/start` a second time while the ticker is already running MUST respond with `"started": false`, and the observed tick rate (delta `update_count` per second) MUST NOT roughly double — it MUST stay within a small factor (≤ 1.5×) of the rate observed after the first start.
+  3. After `POST /api/ticker/stop`, the `update_count` MUST stop advancing: two snapshots taken ≥ 2 seconds apart MUST return the same `update_count`, and `running` MUST be `false`.
+  4. For every snapshot, for every symbol `s`, the relation `percent_changes[s] == round((prices[s] - seeds[s]) / seeds[s] * 100.0, 4)` MUST hold within a small floating-point tolerance.
+  5. All prices MUST stay strictly positive across the entire test run.
+- The Reflex backend dev server MUST be terminated by the executor after verification (do not leave dangling processes).
+
+
+EOF
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__theme_toggle_cookie_persistence: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-tups8nz > /logs/artifacts/run-id && echo theme_toggle_cookie_persistence__TUPs8nz > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Reflex Theme System with Cookie Persistence and Computed Palette
+
+## Background
+Build a small multi-page Reflex application that gives the user a `light` / `dark` / `auto` theme selector. The user's choice must be persisted in a browser cookie so it survives full page reloads. When the user picks `auto`, the application must resolve the actual theme using a server-side `prefers_color_scheme` backend var (which the page must let the user simulate so the behaviour can be exercised without a real OS-level media query). Every page must derive its colors from a single computed `palette` so the whole UI stays consistent.
+
+## Requirements
+- A Reflex project at `/home/user/myproject` initialized with the blank template using `uv` and `reflex`.
+- A `theme` selector that allows the user to pick exactly one of `light`, `dark`, or `auto`.
+- The current selection is persisted in a cookie named `theme_pref` using Reflex client-storage so that reopening the page restores the previous choice.
+- A backend-only state var that represents the simulated OS color scheme preference (allowed values `light` and `dark`), exposed via two simulation controls on the page (`Simulate system: light` and `Simulate system: dark`).
+- A cached computed var `effective_theme` that returns the concrete theme actually used to render the UI:
+  - When `theme` is `light`, `effective_theme` must be `light`.
+  - When `theme` is `dark`, `effective_theme` must be `dark`.
+  - When `theme` is `auto`, `effective_theme` must mirror the simulated OS preference.
+- A computed `palette` (a dictionary keyed by at least `bg`, `fg`, and `accent`) that depends on `effective_theme`. Each page reads its colors from this `palette`.
+- A header component that uses `rx.cond` (or `rx.match`) to swap between visibly different palettes for `light` vs `dark`. The header must show the current selection and the current effective theme.
+- At least two routes (e.g. `/` and `/about`) that both render the header and a body whose background and foreground colors are driven by the `palette`.
+
+## Implementation Hints
+- Use `uv` to manage the Python environment as described in the project README and initialize the Reflex app non-interactively (`uv run reflex init --template blank`). Add Reflex with `uv add reflex`.
+- Refer to the Reflex docs for [Client Storage](https://reflex.dev/docs/client-storage/overview/), [Computed Vars](https://reflex.dev/docs/vars/computed-vars/), and [Conditional Rendering](https://reflex.dev/docs/components/conditional-rendering/). Do not assume APIs you have not verified.
+- The simulated OS preference is a private (backend-only) state field; expose it to the UI only via the two simulation buttons and the effective theme. Do not store it in a cookie or environment variable.
+- The two simulation buttons must visibly affect the rendered theme only when `theme=auto`.
+- Use a single computed `palette` so the colors on every page stay in sync with `effective_theme`. Pick clearly distinguishable hex colors for the light and dark palettes (e.g. light has a near-white background, dark has a near-black background).
+- Pick contrasting, easy-to-name colors for the header so the swap is obvious to a visual check.
+- Always stop any long-running development servers (e.g. `uv run reflex run`) you started for manual testing before finishing the task. Verification will start its own server.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Start command: `uv run reflex run --env prod`
+- Port: `3000`
+- Routes:
+  - `/`: renders the header and a body whose background and foreground reflect the current `palette`.
+  - `/about`: renders the same header and a body that also reflects the current `palette`.
+- Theme selector UI: lets the user pick exactly one of `light`, `dark`, `auto`, and reflects the current choice.
+- Cookie persistence: after the user selects a theme, a cookie named `theme_pref` is stored in the browser with the exact selected value (`light`, `dark`, or `auto`); the choice survives a full page reload and is reflected in the UI.
+- Simulation controls: two visible controls labeled along the lines of `Simulate system: light` and `Simulate system: dark`. Clicking either control sets the simulated OS preference accordingly. The simulated OS preference must not be stored in any cookie nor read from an environment variable.
+- `effective_theme` rules (visible somewhere on every page):
+  - `theme=light` → `effective_theme=light` regardless of simulated OS preference.
+  - `theme=dark` → `effective_theme=dark` regardless of simulated OS preference.
+  - `theme=auto` + simulated OS preference `light` → `effective_theme=light`.
+  - `theme=auto` + simulated OS preference `dark` → `effective_theme=dark`.
+- Palette visualization: the rendered background of the body and header changes between a clearly light palette and a clearly dark palette as `effective_theme` switches between `light` and `dark`.
+- Header conditional rendering: the header must visibly swap its palette (background and/or accent color) based on `effective_theme`.
+- No external environment variables are required to run the app or the tests.
+- Background servers: stop any dev server you started before submitting; the verifier will start its own server.
+
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__background_email_scheduler: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-bq2bt8v > /logs/artifacts/run-id && echo background_email_scheduler__BQ2Bt8V > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Background Scheduled Email Digest Generator (Reflex)
+
+## Background
+You are building a Reflex application that runs a **scheduler loop as a background event** to mock-send periodic email digests. The scheduler ticks roughly every second, scans an SQLite-backed table of digests, and for every row whose `next_due_at` is in the past it writes a row to a `SentEmail` audit table and reschedules the row's next due time. The UI shows due/queued counts and a **Force Run** button.
+
+The hard parts of this task are:
+- Time-based scheduling that produces a *bounded* number of mock sends per real-world second.
+- Transactional, idempotent updates to two SQLite tables from a background coroutine (must not double-send within the same tick, must survive scheduler restarts).
+- Reflex's strict rule that background events may only mutate state inside `async with self`.
+
+## Acceptance Criteria
+- Project path: `/home/user/email_scheduler`
+- Start command: `cd /home/user/email_scheduler && nohup uv run reflex run --backend-only --backend-port 8000 --loglevel debug > /home/user/email_scheduler/server.log 2>&1 &`
+- Port: `8000`
+- Server log: `/home/user/email_scheduler/server.log` (must exist after the server has been started)
+- The project must be a Reflex application initialized with the `blank` template and managed by `uv`, using SQLite (the Reflex default DB) via `rx.Model`.
+- The project must define two `rx.Model` tables (any class names are fine, but the table names exposed to SQL must be `emaildigest` and `sentemail`, which is the default Reflex/SQLModel lowercasing of `EmailDigest`/`SentEmail`):
+  - `emaildigest`: columns `id` (int PK), `recipient` (str), `period_seconds` (int), `last_sent_at` (float, unix seconds, nullable), `next_due_at` (float, unix seconds, required).
+  - `sentemail`: columns `id` (int PK), `digest_id` (int FK to `emaildigest.id`), `recipient` (str), `sent_at` (float, unix seconds, required).
+- The state class must declare at least one event handler decorated with `@rx.event(background=True)` that:
+  - Loops while a backend-only flag is set,
+  - Sleeps ~1 second per tick,
+  - On each tick, opens a DB session, finds every `emaildigest` row whose `next_due_at <= now`, inserts one `sentemail` row per due digest with `sent_at = now`, and reschedules the digest by setting `last_sent_at = now` and `next_due_at = now + period_seconds`,
+  - Holds the Reflex state lock with `async with self` whenever it writes to shared state vars (counters, etc.) and never mutates state outside that block.
+- A non-background `@rx.event` handler must implement **Force Run**: when invoked, send exactly one `sentemail` row for the digest whose `next_due_at` is the earliest (regardless of whether it is due yet) and reschedule it. The Force Run handler must complete before returning control to the UI; do not delegate it to the background loop.
+- HTTP API (mounted via `rx.App(api_transformer=...)`), all responses JSON with HTTP 200 unless noted. The endpoints exist so the verifier can drive and observe the scheduler without a browser; they MUST delegate to the same underlying SQLite tables and scheduler state used by the Reflex UI/state.
+  - `POST /api/scheduler/seed`
+    - Request body:
+      ```json
+      {"digests": [{"recipient": string, "period_seconds": integer, "first_due_in_seconds": number}]}
+      ```
+    - Side effect: wipes `emaildigest` and `sentemail`, then inserts the supplied digests. For each digest, set `last_sent_at = null` and `next_due_at = now + first_due_in_seconds`.
+    - Response:
+      ```json
+      {"seeded": integer}
+      ```
+  - `POST /api/scheduler/start`
+    - Request body: empty or `{}`.
+    - Side effect: ensures the background scheduler loop is running. If a loop is already running, this must be a no-op (idempotent restart). Within 1 s of the call, `GET /api/scheduler/status` must report `running == true`.
+    - Response:
+      ```json
+      {"running": true}
+      ```
+  - `POST /api/scheduler/stop`
+    - Request body: empty or `{}`.
+    - Side effect: signals the background loop to exit cleanly. Within 2 s, `GET /api/scheduler/status` must report `running == false`.
+    - Response:
+      ```json
+      {"running": false}
+      ```
+  - `POST /api/scheduler/force_run`
+    - Request body: empty or `{}`.
+    - Side effect: invokes the same Force Run logic exposed in the UI, producing exactly one new `sentemail` row.
+    - Response:
+      ```json
+      {"sent": 1, "digest_id": integer, "recipient": string}
+      ```
+  - `GET /api/scheduler/status`
+    - Response shape:
+      ```json
+      {
+        "running": boolean,
+        "now": number,
+        "due_count": integer,
+        "queued_count": integer,
+        "total_sent": integer
+      }
+      ```
+    - Field semantics:
+      - `running` is `true` while the background scheduler loop is alive.
+      - `now` is the server-side unix timestamp in seconds at the moment of the request.
+      - `due_count` is the number of `emaildigest` rows with `next_due_at <= now`.
+      - `queued_count` is the number of `emaildigest` rows with `next_due_at > now`.
+      - `total_sent` is the total number of rows in `sentemail`.
+  - `GET /api/scheduler/sent`
+    - Response shape:
+      ```json
+      {"rows": [{"id": integer, "digest_id": integer, "recipient": string, "sent_at": number}]}
+      ```
+    - Ordered by `sent_at` ascending.
+- Behavioural requirements (verifier will exercise these via HTTP):
+  - **Bounded throughput:** after seeding one digest with `period_seconds=2` and `first_due_in_seconds=0`, then starting the scheduler and waiting 6 s, the number of `sentemail` rows for that digest must be in the closed interval `[2, 4]`.
+  - **No duplicate sends per tick:** in any single tick, the scheduler must not insert more than one `sentemail` row for the same digest. Equivalent observable rule: for any single digest, the time gap between consecutive `sent_at` values must be at least `period_seconds - 0.5`.
+  - **Force Run is immediate:** after seeding one digest with `period_seconds=60` and `first_due_in_seconds=60` (so it is NOT due), calling `POST /api/scheduler/force_run` must produce exactly one new `sentemail` row whose `digest_id` matches that digest and whose `sent_at` is within ~2 s of `now` at call time. The scheduler must also reschedule the digest's `next_due_at` forward by `period_seconds` from the force-run moment.
+  - **Idempotent restart:** calling `POST /api/scheduler/start` twice in a row must not spawn two concurrent loops. After two consecutive starts followed by `POST /api/scheduler/stop`, `GET /api/scheduler/status` must report `running == false` within 2 s.
+  - **No ImmutableStateError:** the server log must not contain the substring `ImmutableStateError` after the verifier has exercised every endpoint.
+- Source-code contract (verified by reading `.py` files under the project, excluding `.venv`, `node_modules`, `.web`, `__pycache__`):
+  - At least one file contains the literal substring `@rx.event(background=True)`.
+  - At least one file contains the literal substring `async with self`.
+  - At least one file contains the literal substring `class EmailDigest` and `class SentEmail` (case-sensitive).
+- Cleanup requirements:
+  - The agent must terminate any background Reflex servers (for example with `pkill -f 'reflex run'`) before declaring the task complete. The verifier starts its own server and a leftover server bound to port 8000 will fail the test.
+
+
+EOF
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__audio_player_react_wrapper: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-selyyhp > /logs/artifacts/run-id && echo audio_player_react_wrapper__SELyYHp > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Wrap `react-h5-audio-player` as a Reflex NoSSRComponent with Playlist State
+
+## Background
+Reflex compiles Python UI into a Next.js / React frontend. Many useful UI libraries are only available on npm. The [`react-h5-audio-player`](https://github.com/lhz516/react-h5-audio-player) package ships a `<AudioPlayer />` React component that touches `window.Audio`, so it must be wrapped as a Reflex `NoSSRComponent` (see [Wrapping React Overview](https://reflex.dev/docs/wrapping-react/overview/)). Your job is to wrap it, expose two props and three event triggers, and drive it from a small playlist state machine.
+
+## Requirements
+- Build a Reflex app named `audio_app` at `/home/user/audio_app` using `uv` per the rules in the project plan (use `uv init`, `uv add reflex`, `uv run reflex init --template blank`).
+- Author a Python wrapper for `react-h5-audio-player` as a `NoSSRComponent`.
+- The wrapper must expose **exactly** these two props as Reflex Vars: `src: rx.Var[str]` and `autoplay: rx.Var[bool]`. The Python attribute names must literally be `src` and `autoplay`; you are responsible for mapping them onto the underlying React props (the React component uses `src` and `autoPlay`).
+- The wrapper must declare three event triggers — `on_play`, `on_pause`, `on_ended` — each defined via `rx.EventHandler[...]` with a serializer lambda that produces **zero** positional arguments (i.e. the event handler signature on the Python side takes no extra args).
+- Build a single page at route `/` that displays:
+  - The wrapped audio player driven by the current playlist track.
+  - A list of exactly 3 selectable track entries; clicking a track sets that track as the current one.
+- Implement a `State` class (subclass of `rx.State`) with:
+  - A backend list of exactly 3 tracks (each with a `title` and a `src` URL — use local placeholder paths such as `/tracks/track1.mp3`, etc.; do **not** read any external service).
+  - An `int` Base Var named `current_index` representing the active track.
+  - An event handler that updates `current_index` when a track is clicked.
+  - An event handler wired to the wrapper's `on_ended` trigger that advances `current_index` by one and **loops back to 0** after the last track.
+- The page must bind the wrapper's `src` Var to the current track's URL so that switching the index swaps the audio source.
+
+## Implementation Hints
+- Read the React component's prop and event names from the upstream README before wiring up the wrapper.
+- `NoSSRComponent` lives in `reflex.components.component`.
+- `react-h5-audio-player` uses a **default** export; consider the `is_default` class attribute.
+- Reflex auto-converts snake_case Python prop names to camelCase on the React side, but a single word like `autoplay` will not magically become `autoPlay`. Look into prop renaming mechanisms (e.g. `_rename_props`) when the names diverge.
+- The library ships a separate CSS file (`react-h5-audio-player/lib/styles.css`). You will need to inject it into the compiled output (e.g. via `add_imports` / `_get_custom_code` / `add_style` — pick whichever the docs you read recommend).
+- For event triggers that should serialize zero arguments, the lambda used in `rx.EventHandler[...]` takes no parameters and returns `[]`.
+- All Python dependencies must be managed with `uv`. After installing, generate `requirements.txt` (e.g. `uv pip freeze > requirements.txt`) at the project root so the project remains Reflex-Cloud-deployable per `plan.md`.
+- **Background servers MUST be killed before finishing the task.** Do not leave `reflex run`, `reflex export`, or any other Reflex process listening on ports 3000 or 8000. The verifier will start its own short-lived processes.
+
+## Acceptance Criteria
+- Project path: `/home/user/audio_app`
+- Start command: `uv run reflex run --loglevel debug`
+- Port: frontend on `3000`, backend on `8000`
+- A file `requirements.txt` exists at the project root listing `reflex` (any version `>=0.6.6`).
+- A Python module inside the project defines a class that subclasses `reflex.components.component.NoSSRComponent` (directly or indirectly) and:
+  - Sets `library` to a string whose first token (before any `@version` suffix) is exactly `react-h5-audio-player`.
+  - Sets a `tag` attribute (any non-empty string).
+  - Sets `is_default = True`.
+  - Declares a class attribute `src` typed as `rx.Var[str]`.
+  - Declares a class attribute `autoplay` typed as `rx.Var[bool]`.
+  - Declares three event triggers `on_play`, `on_pause`, `on_ended`, each annotated as `rx.EventHandler[...]` with a serializer lambda that takes no arguments and returns an empty list (`[]`).
+- A `State` class (subclass of `rx.State`) exposes:
+  - A list-typed Base Var holding exactly 3 track entries.
+  - An `int` Base Var named `current_index` defaulting to `0`.
+  - An event handler that, given an integer index, sets `current_index` to that integer.
+  - An event handler bound to the wrapper's `on_ended` trigger that advances `current_index` to `(current_index + 1) % 3`.
+- Building the frontend with `uv run reflex export --frontend-only --no-zip` succeeds, and the resulting compiled assets reference the string `react-h5-audio-player` (i.e. the wrapper survived bundling).
+- After the task is complete, no Reflex process is running on ports 3000 or 8000.
+
+## Notes
+- Do not set any external environment variables for the playlist; the 3 placeholder URLs are part of the source code.
+- Do not deploy to Reflex Cloud; only local export is required.
+
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__polling_job_queue_dashboard: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Running command: echo zr-8ptpdt5 > /logs/artifacts/run-id && echo polling_job_queue_dashboard__8pTPDt5 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Background-Polling Job Queue Dashboard (Reflex)
+
+## Background
+
+Build a Reflex application that runs a **background polling worker** to process queued jobs persisted in SQLite. End users submit jobs from a dashboard; a long-lived `@rx.event(background=True)` polling task ticks roughly once per second, claims the oldest PENDING job, advances it through a fixed number of work steps while updating its `progress`, and finally marks it COMPLETED. The dashboard shows a live table of all jobs and a status-count summary that is implemented as a **cached** computed var.
+
+## Requirements
+
+- A `Job` SQL model (subclass of `rx.Model`, `table=True`) with at least:
+  - `id: int` (auto primary key)
+  - `name: str`
+  - `status: str` (one of `PENDING`, `RUNNING`, `COMPLETED`)
+  - `progress: int` (in the inclusive range `[0, 100]`)
+  - `created_at: datetime.datetime` (UTC timestamp at insertion time)
+- A Reflex `State` whose synchronized base vars include a list of jobs that is rendered live in the UI.
+- A **cached** computed var (declared with `@rx.var(cache=True)`) that returns the per-status counts (counts for at least `PENDING`, `RUNNING`, and `COMPLETED`) derived from the in-memory job list.
+- A background polling event handler decorated with `@rx.event(background=True)` that:
+  - Runs an indefinite loop, sleeping roughly 1 second between iterations.
+  - On each iteration, claims the oldest `PENDING` job (lowest `id`).
+  - Transitions the claimed job through exactly the progress sequence `20 -> 40 -> 60 -> 80 -> 100` (5 steps). The `status` must be `RUNNING` while progress is strictly less than `100`, and `COMPLETED` once progress reaches `100`.
+  - Persists every status/progress transition to SQLite so an external observer can witness the transitions.
+  - Mutates Reflex state vars (e.g. the in-memory job list) **only** inside `async with self:` blocks and **never** outside of them.
+  - Re-fetches the current job list from SQLite and publishes it to the synchronized state so the dashboard updates live.
+- A submit action wired to the dashboard UI that inserts a new row with `status='PENDING'` and `progress=0` into the database.
+- A custom FastAPI router mounted on the Reflex backend through the `api_transformer` parameter of `rx.App`, exposing exactly the following JSON endpoints (see the Acceptance Criteria for the response schema):
+  - `POST /api/jobs` to enqueue a new PENDING job.
+  - `GET /api/jobs` to list all jobs.
+  - `GET /api/jobs/counts` to return the per-status counts derived from the database.
+- An index page at `/` rendering:
+  - A name input plus a submit control that invokes the submit action.
+  - A status-count summary that reads from the cached computed var.
+  - A table of jobs (rendered with `rx.foreach`) showing at least `id`, `name`, `status`, and `progress` columns.
+- The background polling worker must start automatically on app load (e.g. by an `on_load` event on the index page, or any other supported Reflex mechanism). The verifier will only start the Reflex server and exercise the HTTP API; it will not invoke any state event by hand.
+
+## Implementation Hints
+
+- Use the project setup flow from the research plan (`uv init`, `uv add reflex`, `uv run reflex init --template blank`, `uv run reflex db init/makemigrations/migrate`). Keep all Python dependencies inside the `uv`-managed virtual environment.
+- Use `rx.asession()` (the async session) inside the background event handler. Do not call `rx.asession()` while holding the state lock; perform DB I/O outside `async with self:`.
+- Guard against duplicate polling workers: starting the worker on every page load should not result in N concurrent workers stepping on each other. A backend-only flag (a Python attribute prefixed with `_`) or an equivalent guard inside the state is sufficient.
+- The status count computed var must use `@rx.var(cache=True)` and derive its value from a synchronized state var (e.g. the in-memory job list), not from a fresh database query, so the framework can cache it.
+- Use the `api_transformer` argument of `rx.App` to mount your `FastAPI()` instance with the three routes above. The routes share the same SQLite database as the Reflex state.
+- Keep each tick of the polling loop reasonably short so that PENDING jobs do not languish in the queue; the verifier requires that a freshly enqueued PENDING job reach COMPLETED within a small bounded number of seconds.
+- After you have finished developing, **kill all background servers** you started (e.g. `uv run reflex run`). The verifier starts its own Reflex server.
+
+## Acceptance Criteria
+
+- Project path: `/home/user/myproject`
+- Start command: `cd /home/user/myproject && uv run reflex run --loglevel info`
+- Frontend port: `3000`
+- Backend port: `8000`
+- Database: SQLite at `/home/user/myproject/reflex.db`. The job table must be created by `reflex db migrate` (no manual seed data is required; the table must start empty after migration on a fresh DB).
+- HTTP API contract (mounted via `api_transformer`):
+  - `POST http://localhost:8000/api/jobs`
+    - Request body: JSON object `{"name": <string>}`. The string must be non-empty; otherwise the endpoint returns HTTP 4xx.
+    - Response body on success: JSON object `{"id": <int>, "name": <string>, "status": "PENDING", "progress": 0}` and HTTP 200 or 201.
+    - Side effect: inserts exactly one row into the `job` table with `status='PENDING'` and `progress=0`.
+  - `GET http://localhost:8000/api/jobs`
+    - Response body: JSON array, sorted by `id` ascending. Each element has the shape `{"id": <int>, "name": <string>, "status": <string>, "progress": <int>}`.
+  - `GET http://localhost:8000/api/jobs/counts`
+    - Response body: JSON object with at least the keys `PENDING`, `RUNNING`, `COMPLETED`, each mapped to a non-negative integer. The sum of those three counts must equal the total number of rows in the `job` table.
+- Worker contract:
+  - After a row is inserted with `status='PENDING'` and `progress=0`, the row must reach `status='COMPLETED'` and `progress=100` within 30 seconds.
+  - While the row is being processed, `progress` is monotonically non-decreasing and passes through the values `20, 40, 60, 80, 100` in that order (each value must be observed at least once in the database before the next is written).
+  - While `progress < 100`, the row's `status` must be `RUNNING` (it is acceptable for the row to be `RUNNING` with `progress=0` for a brief moment immediately after being claimed). Once `progress == 100`, the row's `status` must be `COMPLETED`.
+  - The counts returned by `GET /api/jobs/counts` must always exactly reflect the database when sampled between transitions.
+- UI contract on `http://localhost:3000/`:
+  - The page renders without compile or runtime errors and returns HTTP 200 with a non-empty HTML document body on a GET request.
+  - The page contains a name input control, a submit control, a status-count summary, and a job table rendered with `rx.foreach`.
+- State-lock contract:
+  - The Reflex backend log must not contain `ImmutableStateError` or `Background task StateProxy is immutable` while the verifier is running.
+  - The status-count computation in the State must use `@rx.var(cache=True)` (verified by static source check).
+  - The polling worker must be decorated with `@rx.event(background=True)` and must contain at least one `async with self:` block (verified by static source check).
+- Background processes: After implementation, all `reflex run` (or other) background servers you started must be terminated before the verifier runs.
+
+
+EOF
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Skipping image OS validation for hb__secure_jwt_api_gateway: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-gwh3xfc > /logs/artifacts/run-id && echo secure_jwt_api_gateway__Gwh3XFc > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Secure JWT API Gateway with Reflex `api_transformer`
+
+## Background
+Reflex serves its UI through a FastAPI backend. By passing a custom FastAPI application to the `api_transformer` parameter of `rx.App`, you can expose additional REST endpoints on the same backend port. In this task, you will mount a custom JWT authentication API into a Reflex app and wire a Reflex page that exercises that API from a State event handler. Sensitive material (the issued token) must never leak into the frontend bundle, so it must live in a backend-only state var.
+
+## Requirements
+- Build a single Reflex project that simultaneously serves:
+  1. A custom FastAPI router mounted via `api_transformer` exposing the routes documented in *Acceptance Criteria*.
+  2. A Reflex page at the root path (`/`) that demonstrates an end-to-end login flow against those routes.
+- The authentication API must issue and validate JWTs using algorithm **HS256** with the secret value given in *Acceptance Criteria*. Use the `PyJWT` package (`import jwt`).
+- The page must contain a button labelled `Login`. Clicking it must:
+  1. Call the backend `/auth/login` endpoint from a Reflex event handler using `httpx` or `requests` (server-side HTTP call, not browser fetch).
+  2. Store the returned JWT in a **backend-only** state var (the field name must start with an underscore so it is never serialized to the client).
+  3. Use that stored JWT to call `/auth/me` (again from an event handler) and place the returned `username` into a normal (client-visible) state var.
+- After a successful login, the page must render the authenticated username somewhere in the visible DOM.
+- Manage the Python environment with `uv`. Initialize the Reflex project non-interactively with `uv run reflex init --template blank`.
+
+## Implementation Hints
+- The `api_transformer` parameter of `rx.App` accepts a `FastAPI` instance directly; Reflex will mount its own internal routes alongside yours on port 8000.
+- Backend-only state vars are conventional Python attributes on an `rx.State` subclass whose name begins with `_`. They are never sent to the client.
+- The Reflex backend itself listens on `http://localhost:8000`, so server-side HTTP calls from event handlers can target that base URL.
+- PyJWT's HS256 flow is essentially `jwt.encode(payload, secret, algorithm="HS256")` / `jwt.decode(token, secret, algorithms=["HS256"])`.
+- The JWT secret, username, and password are fixed values supplied in *Acceptance Criteria* — hard-code them into the project. Do **not** read them from environment variables.
+
+## Acceptance Criteria
+- Project path: `/home/user/secure_jwt_api_gateway`
+- Python environment is managed by `uv` (i.e. `pyproject.toml` exists and `uv run` works at the project root). `reflex` and `PyJWT` must be installable dependencies of the project.
+- Start command: `cd /home/user/secure_jwt_api_gateway && uv run reflex run --loglevel info` (the executor must ensure this command brings up both the frontend on port 3000 and the backend — including the mounted custom routes — on port 8000).
+- Frontend port: `3000`
+- Backend port: `8000`
+- **Fixed credentials and secret** (use these exact values; they are randomly generated per task instance):
+  - Username: `alice_h4k9m2`
+  - Password: `P@ssw0rd_X9zL2qN8`
+  - JWT signing secret (HS256): `9f3e8a1c4b7d2e5f8a0b3c6d9e2f1a4b7c0d3e6f9a2b5c8d1e4f7a0b3c6d9e2f`
+- HTTP API (served on port 8000, mounted via `api_transformer`):
+  - `POST /auth/login`
+    - Request JSON body: `{"username": string, "password": string}`
+    - On valid credentials: returns HTTP 200 with JSON body `{"access_token": string, "token_type": "bearer"}`. The `access_token` MUST be a JWT signed with HS256 using the secret above and MUST contain a `sub` claim whose value equals the supplied username.
+    - On invalid credentials: returns HTTP 401.
+  - `GET /auth/me`
+    - Requires header `Authorization: Bearer <token>`.
+    - On a valid token signed with the secret above: returns HTTP 200 with JSON body `{"username": string}` where `username` matches the `sub` claim of the token.
+    - On missing or invalid token: returns HTTP 401.
+- Frontend behavior (Reflex page at `http://localhost:3000/`):
+  - The page contains a clickable element whose visible text is exactly `Login`.
+  - Clicking `Login` triggers a state event handler that performs the login + identity round-trip described in *Requirements*.
+  - After a successful login, the page renders the authenticated username (`alice_h4k9m2`) somewhere in the DOM. Before clicking Login, that username string must NOT appear in the initial server-rendered HTML of the root page.
+  - The JWT itself MUST NOT appear in the initial server-rendered HTML of the root page either before or after compilation (the executor enforces this by keeping the token only in a backend-only state var).
+- Cleanup: After verification, **all background `reflex run` / `uv run` / `next` / `uvicorn` processes started during the task MUST be killed.** The final-state tests are responsible for starting the server they need and tearing it down again.
+
+
+EOF
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Trial markdown_live_preview_editor__8T7t2mL failed: Verifier execution timed out after 600.0 seconds
+Skipping exception record because trial already has exception_info
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/asyncio/tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/verifier/verifier.py", line 193, in verify
+    await self.environment.exec(
+    ...<2 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 641, in exec
+    return await self._run_docker_compose_command(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        exec_command, check=False, timeout_sec=timeout_sec
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 396, in _run_docker_compose_command
+    stdout_bytes, stderr_bytes = await process.communicate()
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/subprocess.py", line 201, in communicate
+    stdin, stdout, stderr = await tasks.gather(stdin, stdout, stderr)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/subprocess.py", line 181, in _read_stream
+    output = await stream.read()
+             ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/streams.py", line 723, in read
+    block = await self.read(self._limit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/streams.py", line 730, in read
+    await self._wait_for_data('read')
+  File "/usr/lib/python3.13/asyncio/streams.py", line 539, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/single_step.py", line 91, in _run_verifier
+    self.result.verifier_result = await self._run_shared_verifier(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 304, in _run_shared_verifier
+    return await asyncio.wait_for(verifier.verify(), timeout=timeout_sec)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/tasks.py", line 506, in wait_for
+    async with timeouts.timeout(timeout):
+               ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/timeouts.py", line 116, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 161, in run
+    await self._run()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/single_step.py", line 40, in _run
+    await self._run_verifier()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/single_step.py", line 96, in _run_verifier
+    raise VerifierTimeoutError(
+        f"Verifier execution timed out after {self._verifier_timeout_sec} seconds"
+    ) from exc
+harbor.trial.errors.VerifierTimeoutError: Verifier execution timed out after 600.0 seconds
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Trial theme_toggle_cookie_persistence__TUPs8nz failed: Verifier execution timed out after 600.0 seconds
+Skipping exception record because trial already has exception_info
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/asyncio/tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/verifier/verifier.py", line 193, in verify
+    await self.environment.exec(
+    ...<2 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 641, in exec
+    return await self._run_docker_compose_command(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        exec_command, check=False, timeout_sec=timeout_sec
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 396, in _run_docker_compose_command
+    stdout_bytes, stderr_bytes = await process.communicate()
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/subprocess.py", line 201, in communicate
+    stdin, stdout, stderr = await tasks.gather(stdin, stdout, stderr)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/subprocess.py", line 181, in _read_stream
+    output = await stream.read()
+             ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/streams.py", line 723, in read
+    block = await self.read(self._limit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/streams.py", line 730, in read
+    await self._wait_for_data('read')
+  File "/usr/lib/python3.13/asyncio/streams.py", line 539, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/single_step.py", line 91, in _run_verifier
+    self.result.verifier_result = await self._run_shared_verifier(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 304, in _run_shared_verifier
+    return await asyncio.wait_for(verifier.verify(), timeout=timeout_sec)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/tasks.py", line 506, in wait_for
+    async with timeouts.timeout(timeout):
+               ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/timeouts.py", line 116, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 161, in run
+    await self._run()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/single_step.py", line 40, in _run
+    await self._run_verifier()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/single_step.py", line 96, in _run_verifier
+    raise VerifierTimeoutError(
+        f"Verifier execution timed out after {self._verifier_timeout_sec} seconds"
+    ) from exc
+harbor.trial.errors.VerifierTimeoutError: Verifier execution timed out after 600.0 seconds
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached

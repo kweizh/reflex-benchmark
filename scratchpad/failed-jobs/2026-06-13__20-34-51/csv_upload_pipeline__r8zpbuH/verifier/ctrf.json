@@ -1,0 +1,69 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:35:35.956807+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 0,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781382933600,
+            "stop": 1781382935956
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_database_file_exists_after_migrations",
+                "status": "failed",
+                "duration": 2279,
+                "start": 1781382933643,
+                "stop": 1781382935922,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def prepare_fixture_and_db():\n        # Kill any stale dev server first.\n        for pat in (\"reflex run\", \"next-server\", \"uvicorn\"):\n            subprocess.run([\"pkill\", \"-f\", pat], check=False, capture_output=True)\n        for port in (FRONTEND_PORT, BACKEND_PORT):\n            subprocess.run([\"fuser\", \"-k\", f\"{port}/tcp\"], check=False, capture_output=True)\n        time.sleep(2)\n    \n        # Recreate the verification fixture.\n        Path(FIXTURE_PATH).write_text(FIXTURE_CONTENT, encoding=\"utf-8\")\n    \n        # Wipe the DB so we count only this run's inserts.\n        if os.path.exists(DB_PATH):\n            os.remove(DB_PATH)\n    \n        # Apply migrations from a clean DB (best-effort init then strict migrate).\n        subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"init\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n        subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"makemigrations\", \"--message\", \"verify\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n        migrate = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"migrate\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n>       assert migrate.returncode == 0, (\n            f\"`reflex db migrate` failed before starting the server: \"\n            f\"stdout={migrate.stdout!r} stderr={migrate.stderr!r}\"\n        )\nE       AssertionError: `reflex db migrate` failed before starting the server: stdout='' stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n'\nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:88: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_browser_upload_and_summary",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781382935923,
+                "stop": 1781382935933,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def prepare_fixture_and_db():\n        # Kill any stale dev server first.\n        for pat in (\"reflex run\", \"next-server\", \"uvicorn\"):\n            subprocess.run([\"pkill\", \"-f\", pat], check=False, capture_output=True)\n        for port in (FRONTEND_PORT, BACKEND_PORT):\n            subprocess.run([\"fuser\", \"-k\", f\"{port}/tcp\"], check=False, capture_output=True)\n        time.sleep(2)\n    \n        # Recreate the verification fixture.\n        Path(FIXTURE_PATH).write_text(FIXTURE_CONTENT, encoding=\"utf-8\")\n    \n        # Wipe the DB so we count only this run's inserts.\n        if os.path.exists(DB_PATH):\n            os.remove(DB_PATH)\n    \n        # Apply migrations from a clean DB (best-effort init then strict migrate).\n        subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"init\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n        subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"makemigrations\", \"--message\", \"verify\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n        migrate = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"migrate\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n>       assert migrate.returncode == 0, (\n            f\"`reflex db migrate` failed before starting the server: \"\n            f\"stdout={migrate.stdout!r} stderr={migrate.stderr!r}\"\n        )\nE       AssertionError: `reflex db migrate` failed before starting the server: stdout='' stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n'\nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:88: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_sqlite_contains_exactly_valid_rows",
+                "status": "failed",
+                "duration": 12,
+                "start": 1781382935934,
+                "stop": 1781382935946,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def prepare_fixture_and_db():\n        # Kill any stale dev server first.\n        for pat in (\"reflex run\", \"next-server\", \"uvicorn\"):\n            subprocess.run([\"pkill\", \"-f\", pat], check=False, capture_output=True)\n        for port in (FRONTEND_PORT, BACKEND_PORT):\n            subprocess.run([\"fuser\", \"-k\", f\"{port}/tcp\"], check=False, capture_output=True)\n        time.sleep(2)\n    \n        # Recreate the verification fixture.\n        Path(FIXTURE_PATH).write_text(FIXTURE_CONTENT, encoding=\"utf-8\")\n    \n        # Wipe the DB so we count only this run's inserts.\n        if os.path.exists(DB_PATH):\n            os.remove(DB_PATH)\n    \n        # Apply migrations from a clean DB (best-effort init then strict migrate).\n        subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"init\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n        subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"makemigrations\", \"--message\", \"verify\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n        migrate = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"migrate\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n>       assert migrate.returncode == 0, (\n            f\"`reflex db migrate` failed before starting the server: \"\n            f\"stdout={migrate.stdout!r} stderr={migrate.stderr!r}\"\n        )\nE       AssertionError: `reflex db migrate` failed before starting the server: stdout='' stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n'\nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:88: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_no_immutable_state_error_in_log",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781382935946,
+                "stop": 1781382935956,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def prepare_fixture_and_db():\n        # Kill any stale dev server first.\n        for pat in (\"reflex run\", \"next-server\", \"uvicorn\"):\n            subprocess.run([\"pkill\", \"-f\", pat], check=False, capture_output=True)\n        for port in (FRONTEND_PORT, BACKEND_PORT):\n            subprocess.run([\"fuser\", \"-k\", f\"{port}/tcp\"], check=False, capture_output=True)\n        time.sleep(2)\n    \n        # Recreate the verification fixture.\n        Path(FIXTURE_PATH).write_text(FIXTURE_CONTENT, encoding=\"utf-8\")\n    \n        # Wipe the DB so we count only this run's inserts.\n        if os.path.exists(DB_PATH):\n            os.remove(DB_PATH)\n    \n        # Apply migrations from a clean DB (best-effort init then strict migrate).\n        subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"init\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n        subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"makemigrations\", \"--message\", \"verify\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n        migrate = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"db\", \"migrate\"],\n            cwd=PROJECT_DIR, capture_output=True, text=True, timeout=300,\n        )\n>       assert migrate.returncode == 0, (\n            f\"`reflex db migrate` failed before starting the server: \"\n            f\"stdout={migrate.stdout!r} stderr={migrate.stderr!r}\"\n        )\nE       AssertionError: `reflex db migrate` failed before starting the server: stdout='' stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n'\nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:88: AssertionError"
+            }
+        ]
+    }
+}

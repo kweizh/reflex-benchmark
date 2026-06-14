@@ -1,0 +1,9 @@
+[project]
+name = "myproject"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "markdown-it-py>=4.2.0",
+    "reflex>=0.9.5.post2",
+]

@@ -1,0 +1,23 @@
+Debug: Overriding config value loglevel with env var LOGLEVEL=debug
+───────────────────────────────── System Info ──────────────────────────────────
+Debug: Config file: 
+'/home/user/streaming_chat/.venv/lib/python3.12/site-packages/reflex_base/config
+.py'
+Debug: Config: Config(app_name='streaming_chat', app_module_import=None, 
+loglevel=<LogLevel.DEBUG: 'debug'>, frontend_port=None, frontend_path='', 
+backend_port=None, backend_path='', api_url='http://localhost:8000', 
+deploy_url='http://localhost:3000', backend_host='0.0.0.0', db_url=None, 
+async_db_url=None, redis_url=None, telemetry_enabled=True, 
+bun_path=PosixPath('/root/.local/share/reflex/bun/bin/bun'), 
+static_page_generation_timeout=60, cors_allowed_origins=('*',), 
+vite_allowed_hosts=False, react_strict_mode=True, 
+frontend_compression_formats=['gzip'], frontend_packages=[], 
+state_manager_mode=<StateManagerMode.DISK: 'disk'>, redis_lock_expiration=10000,
+redis_lock_warning_threshold=1000, redis_token_expiration=3600, 
+_non_default_attributes={'plugins', 'app_name', 'loglevel'}, env_file=None, 
+state_auto_setters=False, show_built_with_reflex=None, is_reflex_cloud=False, 
+extra_overlay_function=None, hydrate_fallback=None, 
+plugins=[SitemapPlugin(trailing_slash='preserve'), 
+TailwindV4Plugin(config={'plugins': ['@tailwindcss/typography@0.5.19']})], 
+disable_plugins=[], transport='websocket')
+Debug: Running command: [PosixPath('/usr/bin/node'), '--version']

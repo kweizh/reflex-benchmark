@@ -1,0 +1,103 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:36:27.818754+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781382986207,
+            "stop": 1781382987818
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_state_var_typed_as_ndarray",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 40,
+                "start": 1781382986680,
+                "stop": 1781382986720,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_state_var_typed_as_ndarray():\n        \"\"\"An rx.State subclass must declare a non-underscore base var typed as numpy.ndarray.\"\"\"\n        sources = _read_all_py_sources(PROJECT_DIR)\n>       assert sources, f\"No Python source files were found under {PROJECT_DIR}.\"\nE       AssertionError: No Python source files were found under /home/user/numpy_chart_serializer.\nE       assert []\n\ntests/test_final_state.py:163: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_serializer_registered_for_ndarray",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 9,
+                "start": 1781382986721,
+                "stop": 1781382986730,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_serializer_registered_for_ndarray():\n        \"\"\"A function decorated with @rx.serializer must accept numpy.ndarray and return list[dict[str, float]].\"\"\"\n        sources = _read_all_py_sources(PROJECT_DIR)\n>       assert sources, f\"No Python source files were found under {PROJECT_DIR}.\"\nE       AssertionError: No Python source files were found under /home/user/numpy_chart_serializer.\nE       assert []\n\ntests/test_final_state.py:182: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_backend_ping_returns_pong",
+                "status": "failed",
+                "duration": 1045,
+                "start": 1781382986730,
+                "stop": 1781382987775,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f558dcd39e0>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_app(xprocess):\n        _force_free_ports()\n    \n        start_script = os.path.join(PROJECT_DIR, \"start.sh\")\n>       assert os.path.isfile(start_script), (\n            f\"Expected start script at {start_script}; the task description requires bash start.sh.\"\n        )\nE       AssertionError: Expected start script at /home/user/numpy_chart_serializer/start.sh; the task description requires bash start.sh.\nE       assert False\nE        +  where False = <function isfile at 0x7f558efe0220>('/home/user/numpy_chart_serializer/start.sh')\nE        +    where <function isfile at 0x7f558efe0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:97: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_renders_without_vartypeerror",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781382987776,
+                "stop": 1781382987785,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f558dcd39e0>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_app(xprocess):\n        _force_free_ports()\n    \n        start_script = os.path.join(PROJECT_DIR, \"start.sh\")\n>       assert os.path.isfile(start_script), (\n            f\"Expected start script at {start_script}; the task description requires bash start.sh.\"\n        )\nE       AssertionError: Expected start script at /home/user/numpy_chart_serializer/start.sh; the task description requires bash start.sh.\nE       assert False\nE        +  where False = <function isfile at 0x7f558efe0220>('/home/user/numpy_chart_serializer/start.sh')\nE        +    where <function isfile at 0x7f558efe0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:97: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_regenerate_button_visible_on_page",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781382987785,
+                "stop": 1781382987794,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f558dcd39e0>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_app(xprocess):\n        _force_free_ports()\n    \n        start_script = os.path.join(PROJECT_DIR, \"start.sh\")\n>       assert os.path.isfile(start_script), (\n            f\"Expected start script at {start_script}; the task description requires bash start.sh.\"\n        )\nE       AssertionError: Expected start script at /home/user/numpy_chart_serializer/start.sh; the task description requires bash start.sh.\nE       assert False\nE        +  where False = <function isfile at 0x7f558efe0220>('/home/user/numpy_chart_serializer/start.sh')\nE        +    where <function isfile at 0x7f558efe0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:97: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_points_endpoint_shape",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781382987794,
+                "stop": 1781382987805,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f558dcd39e0>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_app(xprocess):\n        _force_free_ports()\n    \n        start_script = os.path.join(PROJECT_DIR, \"start.sh\")\n>       assert os.path.isfile(start_script), (\n            f\"Expected start script at {start_script}; the task description requires bash start.sh.\"\n        )\nE       AssertionError: Expected start script at /home/user/numpy_chart_serializer/start.sh; the task description requires bash start.sh.\nE       assert False\nE        +  where False = <function isfile at 0x7f558efe0220>('/home/user/numpy_chart_serializer/start.sh')\nE        +    where <function isfile at 0x7f558efe0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:97: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_points_endpoint_regenerates_fresh_data",
+                "status": "failed",
+                "duration": 13,
+                "start": 1781382987805,
+                "stop": 1781382987818,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f558dcd39e0>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_app(xprocess):\n        _force_free_ports()\n    \n        start_script = os.path.join(PROJECT_DIR, \"start.sh\")\n>       assert os.path.isfile(start_script), (\n            f\"Expected start script at {start_script}; the task description requires bash start.sh.\"\n        )\nE       AssertionError: Expected start script at /home/user/numpy_chart_serializer/start.sh; the task description requires bash start.sh.\nE       assert False\nE        +  where False = <function isfile at 0x7f558efe0220>('/home/user/numpy_chart_serializer/start.sh')\nE        +    where <function isfile at 0x7f558efe0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:97: AssertionError"
+            }
+        ]
+    }
+}

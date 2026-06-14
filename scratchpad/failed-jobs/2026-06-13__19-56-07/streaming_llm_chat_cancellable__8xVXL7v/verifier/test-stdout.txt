@@ -1,0 +1,304 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 9 items
+
+tests/test_final_state.py .....EEEE                                      [100%]
+
+==================================== ERRORS ====================================
+_____________ ERROR at setup of test_status_endpoint_initial_shape _____________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f8b64b3bc20>
+_kill_leftover_servers = None
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess, _kill_leftover_servers):
+        # Reset any stale log so the ImmutableStateError grep is meaningful.
+        if os.path.exists(SERVER_LOG):
+            try:
+                os.remove(SERVER_LOG)
+            except OSError:
+                pass
+    
+        class Starter(ProcessStarter):
+            name = "reflex_backend"
+            args = [
+                "uv", "run", "reflex", "run",
+                "--backend-only",
+                "--backend-port", str(BACKEND_PORT),
+                "--loglevel", "debug",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 240
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                if not _port_open(BACKEND_PORT):
+                    return False
+                try:
+                    r = requests.get(f"{BASE_URL}/ping", timeout=2)
+                    return r.status_code == 200 and "pong" in r.text.lower()
+                except Exception:  # noqa: BLE001
+                    return False
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_server.<locals>.Starter object at 0x7f8b64b3bdd0>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 240                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_backend$ uv run reflex run --backend-only --backend-port 8000 --loglevel debug
+process 'reflex_backend' started pid=1107
+___ ERROR at setup of test_uninterrupted_stream_completes_with_enough_chunks ___
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f8b64b3bc20>
+_kill_leftover_servers = None
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess, _kill_leftover_servers):
+        # Reset any stale log so the ImmutableStateError grep is meaningful.
+        if os.path.exists(SERVER_LOG):
+            try:
+                os.remove(SERVER_LOG)
+            except OSError:
+                pass
+    
+        class Starter(ProcessStarter):
+            name = "reflex_backend"
+            args = [
+                "uv", "run", "reflex", "run",
+                "--backend-only",
+                "--backend-port", str(BACKEND_PORT),
+                "--loglevel", "debug",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 240
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                if not _port_open(BACKEND_PORT):
+                    return False
+                try:
+                    r = requests.get(f"{BASE_URL}/ping", timeout=2)
+                    return r.status_code == 200 and "pong" in r.text.lower()
+                except Exception:  # noqa: BLE001
+                    return False
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_server.<locals>.Starter object at 0x7f8b64b3bdd0>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 240                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+__________ ERROR at setup of test_cancellation_stops_stream_promptly ___________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f8b64b3bc20>
+_kill_leftover_servers = None
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess, _kill_leftover_servers):
+        # Reset any stale log so the ImmutableStateError grep is meaningful.
+        if os.path.exists(SERVER_LOG):
+            try:
+                os.remove(SERVER_LOG)
+            except OSError:
+                pass
+    
+        class Starter(ProcessStarter):
+            name = "reflex_backend"
+            args = [
+                "uv", "run", "reflex", "run",
+                "--backend-only",
+                "--backend-port", str(BACKEND_PORT),
+                "--loglevel", "debug",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 240
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                if not _port_open(BACKEND_PORT):
+                    return False
+                try:
+                    r = requests.get(f"{BASE_URL}/ping", timeout=2)
+                    return r.status_code == 200 and "pong" in r.text.lower()
+                except Exception:  # noqa: BLE001
+                    return False
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_server.<locals>.Starter object at 0x7f8b64b3bdd0>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 240                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+___________ ERROR at setup of test_no_immutable_state_error_in_logs ____________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f8b64b3bc20>
+_kill_leftover_servers = None
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess, _kill_leftover_servers):
+        # Reset any stale log so the ImmutableStateError grep is meaningful.
+        if os.path.exists(SERVER_LOG):
+            try:
+                os.remove(SERVER_LOG)
+            except OSError:
+                pass
+    
+        class Starter(ProcessStarter):
+            name = "reflex_backend"
+            args = [
+                "uv", "run", "reflex", "run",
+                "--backend-only",
+                "--backend-port", str(BACKEND_PORT),
+                "--loglevel", "debug",
+            ]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 240
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                if not _port_open(BACKEND_PORT):
+                    return False
+                try:
+                    r = requests.get(f"{BASE_URL}/ping", timeout=2)
+                    return r.status_code == 200 and "pong" in r.text.lower()
+                except Exception:  # noqa: BLE001
+                    return False
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_server.<locals>.Starter object at 0x7f8b64b3bdd0>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 240                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_exists
+PASSED tests/test_final_state.py::test_source_uses_background_event_decorator
+PASSED tests/test_final_state.py::test_source_uses_state_lock_block
+PASSED tests/test_final_state.py::test_source_declares_backend_only_streaming_flag
+PASSED tests/test_final_state.py::test_source_declares_backend_only_cancel_flag
+ERROR tests/test_final_state.py::test_status_endpoint_initial_shape - Timeout...
+ERROR tests/test_final_state.py::test_uninterrupted_stream_completes_with_enough_chunks
+ERROR tests/test_final_state.py::test_cancellation_stops_stream_promptly - Ti...
+ERROR tests/test_final_state.py::test_no_immutable_state_error_in_logs - Time...
+=================== 5 passed, 4 errors in 241.71s (0:04:01) ====================

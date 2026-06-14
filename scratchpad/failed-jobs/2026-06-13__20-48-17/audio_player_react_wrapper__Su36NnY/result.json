@@ -1,0 +1,122 @@
+{
+    "id": "b69b5f36-ab05-46f7-8336-d029ed5d4a10",
+    "task_name": "audio_player_react_wrapper",
+    "trial_name": "audio_player_react_wrapper__Su36NnY",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-13__20-48-17/audio_player_react_wrapper__Su36NnY",
+    "task_id": {
+        "path": "/home/kweizh/zealt/reflex-benchmark/scratchpad/pending-tasks/audio_player_react_wrapper"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "4fce5fbb23a130bcb4174b56bed1287498426f1827b1193d14ec17fbee4cd270",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/reflex-benchmark/scratchpad/pending-tasks/audio_player_react_wrapper",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "audio_player_react_wrapper__Su36NnY",
+        "trials_dir": "jobs/2026-06-13__20-48-17",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "google/gemini-3.1-pro",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "2a777f44-ca13-4bbb-b476-c9577a979bac"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.14",
+        "model_info": {
+            "name": "gemini-3.1-pro",
+            "provider": "google"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 0,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": {
+        "exception_type": "NonZeroAgentExitCodeError",
+        "exception_message": "Command failed (exit 143): pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'\n# Wrap `react-h5-audio-player` as a Reflex NoSSRComponent with Playlist State\n\n## Background\nReflex compiles Python UI into a Next.js / React frontend. Many useful UI libraries are only available on npm. The [`react-h5-audio-player`](https://github.com/lhz516/react-h5-audio-player) package ships a `<AudioPlayer />` React component that touches `window.Audio`, so it must be wrapped as a Reflex `NoSSRComponent` (see [Wrapping React Overview](https://reflex.dev/docs/wrapping-react/overview/)). Your job is to wrap it, expose two props and three event triggers, and drive it from a small playlist state machine.\n\n## Requirements\n- Build a Reflex app named `audio_app` at `/home/user/audio_app` using `uv` per the rules in the project plan (use `uv init`, `uv add reflex`, `uv run reflex init --template blank`).\n- Author a Python wrapper for `react-h5-audio-player` as a `NoSSRComponent`.\n- The wrapper must expose **exactly** these two props as Reflex Vars: `src: rx.Var[str]` and `autoplay: rx.Var[bool]`. The Python attribute names must literally be `src` and `autoplay`; you are responsible for mapping them onto the underlying React props (the React component uses `src` and `autoPlay`).\n- The wrapper must declare three event triggers — `on_play`, `on_pause`, `on_ended` — each defined via `rx.EventHandler[...]` with a serializer lambda that produces **zero** positional arguments (i.e. the event handler signature on the Python side takes no extra args).\n- Build a single page at route `/` that displays:\n  - The wrapped audio player driven by the current playlist track.\n  - A list of exactly 3 selectable track entries; clicking a track sets that track as the current one.\n- Implement a `State` class (subclass of `rx.State`) with:\n  - A backend list of exactly 3 tracks (each with a `title` and a `src` URL — use local placeholder paths such as `/tracks/track1.mp3`, etc.; do **not** read any external service).\n  - An `int` Base Var named `current_index` representing the active track.\n  - An event handler that updates `current_index` when a track is clicked.\n  - An event handler wired to the wrapper's `on_ended` trigger that advances `current_index` by one and **loops back to 0** after the last track.\n- The page must bind the wrapper's `src` Var to the current track's URL so that switching the index swaps the audio source.\n\n## Implementation Hints\n- Read the React component's prop and event names from the upstream README before wiring up the wrapper.\n- `NoSSRComponent` lives in `reflex.components.component`.\n- `react-h5-audio-player` uses a **default** export; consider the `is_default` class attribute.\n- Reflex auto-converts snake_case Python prop names to camelCase on the React side, but a single word like `autoplay` will not magically become `autoPlay`. Look into prop renaming mechanisms (e.g. `_rename_props`) when the names diverge.\n- The library ships a separate CSS file (`react-h5-audio-player/lib/styles.css`). You will need to inject it into the compiled output (e.g. via `add_imports` / `_get_custom_code` / `add_style` — pick whichever the docs you read recommend).\n- For event triggers that should serialize zero arguments, the lambda used in `rx.EventHandler[...]` takes no parameters and returns `[]`.\n- All Python dependencies must be managed with `uv`. After installing, generate `requirements.txt` (e.g. `uv pip freeze > requirements.txt`) at the project root so the project remains Reflex-Cloud-deployable per `plan.md`.\n- **Background servers MUST be killed before finishing the task.** Do not leave `reflex run`, `reflex export`, or any other Reflex process listening on ports 3000 or 8000. The verifier will start its own short-lived processes.\n\n## Acceptance Criteria\n- Project path: `/home/user/audio_app`\n- Start command: `uv run reflex run --loglevel debug`\n- Port: frontend on `3000`, backend on `8000`\n- A file `requirements.txt` exists at the project root listing `reflex` (any version `>=0.6.6`).\n- A Python module inside the project defines a class that subclasses `reflex.components.component.NoSSRComponent` (directly or indirectly) and:\n  - Sets `library` to a string whose first token (before any `@version` suffix) is exactly `react-h5-audio-player`.\n  - Sets a `tag` attribute (any non-empty string).\n  - Sets `is_default = True`.\n  - Declares a class attribute `src` typed as `rx.Var[str]`.\n  - Declares a class attribute `autoplay` typed as `rx.Var[bool]`.\n  - Declares three event triggers `on_play`, `on_pause`, `on_ended`, each annotated as `rx.EventHandler[...]` with a serializer lambda that takes no arguments and returns an empty list (`[]`).\n- A `State` class (subclass of `rx.State`) exposes:\n  - A list-typed Base Var holding exactly 3 track entries.\n  - An `int` Base Var named `current_index` defaulting to `0`.\n  - An event handler that, given an integer index, sets `current_index` to that integer.\n  - An event handler bound to the wrapper's `on_ended` trigger that advances `current_index` to `(current_index + 1) % 3`.\n- Building the frontend with `uv run reflex export --frontend-only --no-zip` succeeds, and the resulting compiled assets reference the string `react-h5-audio-player` (i.e. the wrapper survived bundling).\n- After the task is complete, no Reflex process is running on ports 3000 or 8000.\n\n## Notes\n- Do not set any external environment variables for the playlist; the 3 placeholder URLs are part of the source code.\n- Do not deploy to Reflex Cloud; only local export is required.\n\n\nEOF\nstdout: \u001b[37m2026-06-13 21:17:05.953\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochi\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tpochi v0.6.14\n\u001b[37m2026-06-13 21:17:06.328\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37mnative:7\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tBuiltInBundle\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tMaterializing 16 built-in files to /tmp/pochi-builtin-5f7c1b2d4157fa59\n\u001b[37m2026-06-13 21:17:06.614\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:517730\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadAgents\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 6 custom agents (6 valid, 0 invalid)\n\u001b[37m2026-06-13 21:17:06.715\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:517731\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadSkills\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 3 skills (3 valid, 0 invalid)\n\u001b[37m2026-06-13 21:17:06.771\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:442311\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochiVendor\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tJWT is expiring or missing, fetching a new one\n\u001b[37m2026-06-13 21:17:08.172\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b ... [truncated]\nstderr: None",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/single_step.py\", line 63, in _run_agent\n    await self._run_agent_phase(\n    ...<4 lines>...\n    )\n  File \"/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py\", line 238, in _run_agent_phase\n    await asyncio.wait_for(\n    ...<6 lines>...\n    )\n  File \"/usr/lib/python3.13/asyncio/tasks.py\", line 507, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py\", line 39, in wrapper\n    return await fn(self, instruction, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/kweizh/zealt/zealt-agent/agents/pochi.py\", line 223, in run\n    await self.exec_as_agent(\n    ...<15 lines>...\n    )\n  File \"/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py\", line 354, in exec_as_agent\n    return await self._exec(\n           ^^^^^^^^^^^^^^^^^\n        environment, command, env=env, cwd=cwd, timeout_sec=timeout_sec\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py\", line 317, in _exec\n    raise NonZeroAgentExitCodeError(\n    ...<3 lines>...\n    )\nharbor.agents.installed.base.NonZeroAgentExitCodeError: Command failed (exit 143): pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'\n# Wrap `react-h5-audio-player` as a Reflex NoSSRComponent with Playlist State\n\n## Background\nReflex compiles Python UI into a Next.js / React frontend. Many useful UI libraries are only available on npm. The [`react-h5-audio-player`](https://github.com/lhz516/react-h5-audio-player) package ships a `<AudioPlayer />` React component that touches `window.Audio`, so it must be wrapped as a Reflex `NoSSRComponent` (see [Wrapping React Overview](https://reflex.dev/docs/wrapping-react/overview/)). Your job is to wrap it, expose two props and three event triggers, and drive it from a small playlist state machine.\n\n## Requirements\n- Build a Reflex app named `audio_app` at `/home/user/audio_app` using `uv` per the rules in the project plan (use `uv init`, `uv add reflex`, `uv run reflex init --template blank`).\n- Author a Python wrapper for `react-h5-audio-player` as a `NoSSRComponent`.\n- The wrapper must expose **exactly** these two props as Reflex Vars: `src: rx.Var[str]` and `autoplay: rx.Var[bool]`. The Python attribute names must literally be `src` and `autoplay`; you are responsible for mapping them onto the underlying React props (the React component uses `src` and `autoPlay`).\n- The wrapper must declare three event triggers — `on_play`, `on_pause`, `on_ended` — each defined via `rx.EventHandler[...]` with a serializer lambda that produces **zero** positional arguments (i.e. the event handler signature on the Python side takes no extra args).\n- Build a single page at route `/` that displays:\n  - The wrapped audio player driven by the current playlist track.\n  - A list of exactly 3 selectable track entries; clicking a track sets that track as the current one.\n- Implement a `State` class (subclass of `rx.State`) with:\n  - A backend list of exactly 3 tracks (each with a `title` and a `src` URL — use local placeholder paths such as `/tracks/track1.mp3`, etc.; do **not** read any external service).\n  - An `int` Base Var named `current_index` representing the active track.\n  - An event handler that updates `current_index` when a track is clicked.\n  - An event handler wired to the wrapper's `on_ended` trigger that advances `current_index` by one and **loops back to 0** after the last track.\n- The page must bind the wrapper's `src` Var to the current track's URL so that switching the index swaps the audio source.\n\n## Implementation Hints\n- Read the React component's prop and event names from the upstream README before wiring up the wrapper.\n- `NoSSRComponent` lives in `reflex.components.component`.\n- `react-h5-audio-player` uses a **default** export; consider the `is_default` class attribute.\n- Reflex auto-converts snake_case Python prop names to camelCase on the React side, but a single word like `autoplay` will not magically become `autoPlay`. Look into prop renaming mechanisms (e.g. `_rename_props`) when the names diverge.\n- The library ships a separate CSS file (`react-h5-audio-player/lib/styles.css`). You will need to inject it into the compiled output (e.g. via `add_imports` / `_get_custom_code` / `add_style` — pick whichever the docs you read recommend).\n- For event triggers that should serialize zero arguments, the lambda used in `rx.EventHandler[...]` takes no parameters and returns `[]`.\n- All Python dependencies must be managed with `uv`. After installing, generate `requirements.txt` (e.g. `uv pip freeze > requirements.txt`) at the project root so the project remains Reflex-Cloud-deployable per `plan.md`.\n- **Background servers MUST be killed before finishing the task.** Do not leave `reflex run`, `reflex export`, or any other Reflex process listening on ports 3000 or 8000. The verifier will start its own short-lived processes.\n\n## Acceptance Criteria\n- Project path: `/home/user/audio_app`\n- Start command: `uv run reflex run --loglevel debug`\n- Port: frontend on `3000`, backend on `8000`\n- A file `requirements.txt` exists at the project root listing `reflex` (any version `>=0.6.6`).\n- A Python module inside the project defines a class that subclasses `reflex.components.component.NoSSRComponent` (directly or indirectly) and:\n  - Sets `library` to a string whose first token (before any `@version` suffix) is exactly `react-h5-audio-player`.\n  - Sets a `tag` attribute (any non-empty string).\n  - Sets `is_default = True`.\n  - Declares a class attribute `src` typed as `rx.Var[str]`.\n  - Declares a class attribute `autoplay` typed as `rx.Var[bool]`.\n  - Declares three event triggers `on_play`, `on_pause`, `on_ended`, each annotated as `rx.EventHandler[...]` with a serializer lambda that takes no arguments and returns an empty list (`[]`).\n- A `State` class (subclass of `rx.State`) exposes:\n  - A list-typed Base Var holding exactly 3 track entries.\n  - An `int` Base Var named `current_index` defaulting to `0`.\n  - An event handler that, given an integer index, sets `current_index` to that integer.\n  - An event handler bound to the wrapper's `on_ended` trigger that advances `current_index` to `(current_index + 1) % 3`.\n- Building the frontend with `uv run reflex export --frontend-only --no-zip` succeeds, and the resulting compiled assets reference the string `react-h5-audio-player` (i.e. the wrapper survived bundling).\n- After the task is complete, no Reflex process is running on ports 3000 or 8000.\n\n## Notes\n- Do not set any external environment variables for the playlist; the 3 placeholder URLs are part of the source code.\n- Do not deploy to Reflex Cloud; only local export is required.\n\n\nEOF\nstdout: \u001b[37m2026-06-13 21:17:05.953\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochi\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tpochi v0.6.14\n\u001b[37m2026-06-13 21:17:06.328\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37mnative:7\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tBuiltInBundle\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tMaterializing 16 built-in files to /tmp/pochi-builtin-5f7c1b2d4157fa59\n\u001b[37m2026-06-13 21:17:06.614\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:517730\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadAgents\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 6 custom agents (6 valid, 0 invalid)\n\u001b[37m2026-06-13 21:17:06.715\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:517731\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadSkills\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 3 skills (3 valid, 0 invalid)\n\u001b[37m2026-06-13 21:17:06.771\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:442311\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochiVendor\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tJWT is expiring or missing, fetching a new one\n\u001b[37m2026-06-13 21:17:08.172\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b ... [truncated]\nstderr: None\n",
+        "occurred_at": "2026-06-13T21:22:10.767172"
+    },
+    "started_at": "2026-06-13T21:16:47.767123Z",
+    "finished_at": "2026-06-13T21:22:38.097878Z",
+    "environment_setup": {
+        "started_at": "2026-06-13T21:16:47.770701Z",
+        "finished_at": "2026-06-13T21:16:50.404433Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-13T21:16:50.404477Z",
+        "finished_at": "2026-06-13T21:17:03.005138Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-13T21:17:03.005275Z",
+        "finished_at": "2026-06-13T21:22:10.764061Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-13T21:22:15.052099Z",
+        "finished_at": "2026-06-13T21:22:24.548930Z"
+    },
+    "step_results": null
+}

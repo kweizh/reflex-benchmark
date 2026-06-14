@@ -1,0 +1,131 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T22:08:40.050984+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 6,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781388512448,
+            "stop": 1781388520050
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_exists",
+                "status": "passed",
+                "duration": 1009,
+                "start": 1781388512790,
+                "stop": 1781388513799,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_uses_background_event_decorator",
+                "status": "passed",
+                "duration": 18,
+                "start": 1781388513799,
+                "stop": 1781388513817,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_uses_state_lock_block",
+                "status": "passed",
+                "duration": 22,
+                "start": 1781388513818,
+                "stop": 1781388513840,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_declares_emaildigest_model",
+                "status": "passed",
+                "duration": 20,
+                "start": 1781388513840,
+                "stop": 1781388513860,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_declares_sentemail_model",
+                "status": "passed",
+                "duration": 18,
+                "start": 1781388513861,
+                "stop": 1781388513879,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_status_endpoint_initial_shape",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3840,
+                "start": 1781388513879,
+                "stop": 1781388517719,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_status_endpoint_initial_shape(reflex_server):\n        _safe_stop()\n        time.sleep(0.5)\n>       _seed([])\n\ntests/test_final_state.py:193: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ndigests = []\n\n    def _seed(digests: list) -> dict:\n        r = requests.post(\n            f\"{BASE_URL}/api/scheduler/seed\",\n            json={\"digests\": digests},\n            timeout=10,\n        )\n>       assert r.status_code == 200, f\"POST /api/scheduler/seed returned {r.status_code}: {r.text}\"\nE       AssertionError: POST /api/scheduler/seed returned 404: Not Found\nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:52: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_bounded_throughput_for_two_second_period",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 520,
+                "start": 1781388517719,
+                "stop": 1781388518239,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_bounded_throughput_for_two_second_period(reflex_server):\n        _safe_stop()\n        time.sleep(0.5)\n    \n>       seed_resp = _seed([\n            {\n                \"recipient\": \"alice@example.com\",\n                \"period_seconds\": 2,\n                \"first_due_in_seconds\": 0.0,\n            }\n        ])\n\ntests/test_final_state.py:211: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ndigests = [{'first_due_in_seconds': 0.0, 'period_seconds': 2, 'recipient': 'alice@example.com'}]\n\n    def _seed(digests: list) -> dict:\n        r = requests.post(\n            f\"{BASE_URL}/api/scheduler/seed\",\n            json={\"digests\": digests},\n            timeout=10,\n        )\n>       assert r.status_code == 200, f\"POST /api/scheduler/seed returned {r.status_code}: {r.text}\"\nE       AssertionError: POST /api/scheduler/seed returned 404: Not Found\nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:52: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_force_run_sends_immediately_when_not_due",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 519,
+                "start": 1781388518240,
+                "stop": 1781388518759,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_force_run_sends_immediately_when_not_due(reflex_server):\n        _safe_stop()\n        time.sleep(0.5)\n    \n>       seed_resp = _seed([\n            {\n                \"recipient\": \"bob@example.com\",\n                \"period_seconds\": 60,\n                \"first_due_in_seconds\": 60.0,\n            }\n        ])\n\ntests/test_final_state.py:253: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ndigests = [{'first_due_in_seconds': 60.0, 'period_seconds': 60, 'recipient': 'bob@example.com'}]\n\n    def _seed(digests: list) -> dict:\n        r = requests.post(\n            f\"{BASE_URL}/api/scheduler/seed\",\n            json={\"digests\": digests},\n            timeout=10,\n        )\n>       assert r.status_code == 200, f\"POST /api/scheduler/seed returned {r.status_code}: {r.text}\"\nE       AssertionError: POST /api/scheduler/seed returned 404: Not Found\nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:52: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_idempotent_restart",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 520,
+                "start": 1781388518759,
+                "stop": 1781388519279,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_idempotent_restart(reflex_server):\n        _safe_stop()\n        time.sleep(0.5)\n>       _seed([])\n\ntests/test_final_state.py:297: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ndigests = []\n\n    def _seed(digests: list) -> dict:\n        r = requests.post(\n            f\"{BASE_URL}/api/scheduler/seed\",\n            json={\"digests\": digests},\n            timeout=10,\n        )\n>       assert r.status_code == 200, f\"POST /api/scheduler/seed returned {r.status_code}: {r.text}\"\nE       AssertionError: POST /api/scheduler/seed returned 404: Not Found\nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests/test_final_state.py:52: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_no_immutable_state_error_in_logs",
+                "status": "passed",
+                "duration": 771,
+                "start": 1781388519279,
+                "stop": 1781388520050,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

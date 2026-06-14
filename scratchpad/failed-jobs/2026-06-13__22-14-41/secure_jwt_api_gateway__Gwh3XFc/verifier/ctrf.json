@@ -1,0 +1,104 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T23:13:03.669877+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 7,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781392375746,
+            "stop": 1781392383669
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_backend_ping_route_alive",
+                "status": "passed",
+                "duration": 6940,
+                "start": 1781392376132,
+                "stop": 1781392383072,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_login_success_returns_valid_jwt",
+                "status": "passed",
+                "duration": 8,
+                "start": 1781392383073,
+                "stop": 1781392383081,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_login_failure_returns_401",
+                "status": "passed",
+                "duration": 5,
+                "start": 1781392383082,
+                "stop": 1781392383087,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_me_with_valid_token_returns_username",
+                "status": "passed",
+                "duration": 8,
+                "start": 1781392383088,
+                "stop": 1781392383096,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_me_without_token_rejected",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781392383096,
+                "stop": 1781392383100,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_me_with_tampered_token_rejected",
+                "status": "passed",
+                "duration": 5,
+                "start": 1781392383101,
+                "stop": 1781392383106,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_root_page_has_login_text",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 129,
+                "start": 1781392383109,
+                "stop": 1781392383238,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_frontend_root_page_has_login_text(reflex_server):\n        \"\"\"GET / returns 200 and contains the visible 'Login' label.\"\"\"\n        response = requests.get(f\"{FRONTEND_URL}/\", timeout=15)\n        assert response.status_code == 200, (\n            f\"Expected 200 from {FRONTEND_URL}/, got {response.status_code}\"\n        )\n>       assert \"Login\" in response.text, (\n            \"Expected the rendered root page HTML to contain the visible 'Login' \"\n            \"label that triggers the auth flow.\"\n        )\nE       AssertionError: Expected the rendered root page HTML to contain the visible 'Login' label that triggers the auth flow.\nE       assert 'Login' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\nE        +  where '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>' = <Response [200]>.text\n\ntests/test_final_state.py:222: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_does_not_leak_secret_or_password",
+                "status": "passed",
+                "duration": 431,
+                "start": 1781392383238,
+                "stop": 1781392383669,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

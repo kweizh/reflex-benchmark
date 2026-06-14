@@ -1,0 +1,50 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 8 items
+
+tests/test_final_state.py ......F.                                       [100%]
+
+=================================== FAILURES ===================================
+____________________ test_frontend_root_page_has_login_text ____________________
+
+reflex_server = None
+
+    def test_frontend_root_page_has_login_text(reflex_server):
+        """GET / returns 200 and contains the visible 'Login' label."""
+        response = requests.get(f"{FRONTEND_URL}/", timeout=15)
+        assert response.status_code == 200, (
+            f"Expected 200 from {FRONTEND_URL}/, got {response.status_code}"
+        )
+>       assert "Login" in response.text, (
+            "Expected the rendered root page HTML to contain the visible 'Login' "
+            "label that triggers the auth flow."
+        )
+E       AssertionError: Expected the rendered root page HTML to contain the visible 'Login' label that triggers the auth flow.
+E       assert 'Login' in '<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'
+E        +  where '<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>' = <Response [200]>.text
+
+tests/test_final_state.py:222: AssertionError
+=============================== warnings summary ===============================
+test_final_state.py::test_me_with_tampered_token_rejected
+  /usr/local/lib/python3.12/dist-packages/jwt/api_jwt.py:147: InsecureKeyLengthWarning: The HMAC key is 19 bytes long, which is below the minimum recommended length of 32 bytes for SHA256. See RFC 7518 Section 3.2.
+    return self._jws.encode(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+==================================== PASSES ====================================
+________________________ test_backend_ping_route_alive _________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run --loglevel info
+process 'reflex_app' started pid=1488
+reflex_app process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_backend_ping_route_alive
+PASSED tests/test_final_state.py::test_login_success_returns_valid_jwt
+PASSED tests/test_final_state.py::test_login_failure_returns_401
+PASSED tests/test_final_state.py::test_me_with_valid_token_returns_username
+PASSED tests/test_final_state.py::test_me_without_token_rejected
+PASSED tests/test_final_state.py::test_me_with_tampered_token_rejected
+PASSED tests/test_final_state.py::test_frontend_does_not_leak_secret_or_password
+FAILED tests/test_final_state.py::test_frontend_root_page_has_login_text - As...
+==================== 1 failed, 7 passed, 1 warning in 7.49s ====================

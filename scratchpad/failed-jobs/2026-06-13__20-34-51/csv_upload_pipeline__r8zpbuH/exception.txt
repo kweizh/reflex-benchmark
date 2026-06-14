@@ -1,0 +1,89 @@
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/single_step.py", line 63, in _run_agent
+    await self._run_agent_phase(
+    ...<4 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 238, in _run_agent_phase
+    await asyncio.wait_for(
+    ...<6 lines>...
+    )
+  File "/usr/lib/python3.13/asyncio/tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py", line 39, in wrapper
+    return await fn(self, instruction, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kweizh/zealt/zealt-agent/agents/pochi.py", line 223, in run
+    await self.exec_as_agent(
+    ...<15 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py", line 354, in exec_as_agent
+    return await self._exec(
+           ^^^^^^^^^^^^^^^^^
+        environment, command, env=env, cwd=cwd, timeout_sec=timeout_sec
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py", line 317, in _exec
+    raise NonZeroAgentExitCodeError(
+    ...<3 lines>...
+    )
+harbor.agents.installed.base.NonZeroAgentExitCodeError: Command failed (exit 1): pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# CSV Upload + Async Processing Pipeline with Progress
+
+## Background
+Build a Reflex web application that lets a user upload a CSV file of people records, parses it asynchronously in the background, validates each row, inserts valid rows into a SQLite database via Reflex's ORM, and reports per-row progress and a final summary back to the UI without ever blocking the event loop or raising `ImmutableStateError`.
+
+## Requirements
+- A single-page Reflex app served at `/` that contains an `rx.upload` component (single CSV file, `text/csv` only) and a button (or `on_drop` trigger) that submits the selected file.
+- Persist valid records to SQLite via `rx.Model` + `rx.asession` (the default `sqlite:///reflex.db` connection is fine).
+- Process the uploaded CSV in a `@rx.event(background=True)` async handler. All mutations of synchronized state vars must occur inside `async with self:` blocks. Heavy work (reading the file, parsing, DB I/O) must not hold the state lock continuously.
+- Maintain the following base state vars on the State class and keep them synchronized with the UI:
+  - `progress: int` in the range 0..100
+  - `valid_count: int`
+  - `invalid_count: int`
+  - `errors: list[str]`
+- The UI must visibly render a progress bar bound to `progress` and a final summary line that includes the valid and invalid row counts after processing completes.
+
+## Implementation Hints
+- Use `uv` to manage the Python environment (see `Acceptance Criteria` for exact commands). Reflex must be initialized non-interactively with `--template blank`.
+- The default DB URL `sqlite:///reflex.db` resolves to `/home/user/myproject/reflex.db` when the app is run from the project root.
+- Remember the four rules of background events: must be `async`, must use `async with self:` to mutate state, may read stale state outside the lock, and must not be called directly from other handlers.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Environment manager: `uv` (the project must include a `pyproject.toml` and a working `uv` lock such that `uv run reflex run` works from a clean checkout).
+- Start command (run from the project path): `uv run reflex run --loglevel info`
+  - Frontend port: `3000`
+  - Backend port: `8000`
+- Database file: `/home/user/myproject/reflex.db`
+- Routes / UI:
+  - `GET /` returns the page with an `rx.upload` dropzone (id `csv_upload`, `accept={"text/csv": [".csv"]}`, `multiple=False`), an upload trigger control (button), a progress bar visualizing `State.progress`, and a summary text element.
+- Database schema:
+  - A table created from an `rx.Model` subclass with at least these columns: `name: str`, `email: str`, `age: int` (an autoincrement `id` primary key is acceptable in addition).
+  - The schema must be initialized via `reflex db init` + `reflex db makemigrations` + `reflex db migrate` so that the table exists before the app first serves a request.
+- CSV contract:
+  - The first non-empty line must be the header `name,email,age` (case-sensitive, exact order). Header mismatch is a fatal upload error and must NOT insert any rows.
+  - Each subsequent row is **valid** iff it has exactly 3 comma-separated fields AND `name` is non-empty AND `email` contains an `@` AND `age` parses as a strictly positive integer (`int(age) > 0`).
+  - Any other row is **invalid** and must NOT be inserted. The 1-based row number (counting from the header as row 1; data rows start at row 2) must appear in at least one entry of `State.errors`.
+- Progress contract:
+  - At the start of processing `progress` MUST be set to `0`.
+  - When processing completes successfully `progress` MUST be exactly `100`.
+  - `valid_count + invalid_count` MUST equal the number of data rows processed.
+- Summary contract:
+  - After processing, a visible element on the page must contain the exact substring `Processed <T> rows: <V> valid, <I> invalid` where `<T>`, `<V>`, `<I>` are the integer counts (e.g. `Processed 8 rows: 5 valid, 3 invalid`).
+- Stability contract:
+  - The backend log must not contain any `ImmutableStateError` while a CSV is being processed.
+  - Re-uploading the same file twice must result in the per-upload counts being correct for each upload (the app is free to either reset counts on each new upload or accumulate, but the summary text after each upload must accurately reflect the contents just processed).
+- Reflex Cloud / external services: none required.
+- Teardown: any background dev server started during development MUST be stopped before the task is considered complete. The verifier will start its own server.
+
+
+EOF
+stdout: [37m2026-06-13 20:35:21.460[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.14
+[37m2026-06-13 20:35:21.603[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	BuiltInBundle[39m[22m[0m[0m	Materializing 16 built-in files to /tmp/pochi-builtin-5f7c1b2d4157fa59
+[37m2026-06-13 20:35:21.945[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:517730[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 6 custom agents (6 valid, 0 invalid)
+[37m2026-06-13 20:35:22.039[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:517731[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 3 skills (3 valid, 0 invalid)
+[37m2026-06-13 20:35:22.142[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:442311[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-06-13 20:35:23.462[39m[0m[0m	[32m ... [truncated]
+stderr: None

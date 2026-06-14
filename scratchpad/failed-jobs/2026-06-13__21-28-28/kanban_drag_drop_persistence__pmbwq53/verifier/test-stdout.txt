@@ -1,0 +1,67 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py ...F......F                                    [100%]
+
+=================================== FAILURES ===================================
+________________ test_frontend_root_renders_columns_and_titles _________________
+
+reflex_server = None
+
+    def test_frontend_root_renders_columns_and_titles(reflex_server):
+        """The root page must contain all column labels and all seeded card titles."""
+        response = requests.get(f"{FRONTEND_URL}/", timeout=15)
+        assert response.status_code == 200, (
+            f"Expected 200 from {FRONTEND_URL}/, got {response.status_code}"
+        )
+        html = response.text
+        for column in ("TODO", "DOING", "DONE"):
+>           assert column in html, (
+                f"Expected column label {column!r} in the rendered root page HTML."
+            )
+E           AssertionError: Expected column label 'TODO' in the rendered root page HTML.
+E           assert 'TODO' in '<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'
+
+tests/test_final_state.py:206: AssertionError
+________________ test_page_still_renders_all_titles_after_moves ________________
+
+reflex_server = None
+
+    def test_page_still_renders_all_titles_after_moves(reflex_server):
+        """After several moves, all nine card titles must still be present on the root page."""
+        response = requests.get(f"{FRONTEND_URL}/", timeout=15)
+        assert response.status_code == 200, (
+            f"Expected 200 from {FRONTEND_URL}/, got {response.status_code}"
+        )
+        html = response.text
+        for title in ALL_TITLES:
+>           assert title in html, (
+                f"Expected card title {title!r} to still appear in the rendered root page "
+                "HTML after move operations (page must reflect current DB state)."
+            )
+E           AssertionError: Expected card title 'Add tests' to still appear in the rendered root page HTML after move operations (page must reflect current DB state).
+E           assert 'Add tests' in '<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'
+
+tests/test_final_state.py:363: AssertionError
+==================================== PASSES ====================================
+________________________ test_backend_ping_route_alive _________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_kanban_app$ uv run reflex run --loglevel info
+process 'reflex_kanban_app' started pid=2126
+reflex_kanban_app process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_backend_ping_route_alive
+PASSED tests/test_final_state.py::test_sqlite_db_file_exists
+PASSED tests/test_final_state.py::test_seed_data_present
+PASSED tests/test_final_state.py::test_move_todo_head_to_done_tail
+PASSED tests/test_final_state.py::test_move_doing_to_todo_head
+PASSED tests/test_final_state.py::test_same_column_reorder_collapses_gaps
+PASSED tests/test_final_state.py::test_position_clamping_when_target_exceeds_column_size
+PASSED tests/test_final_state.py::test_invalid_card_id_returns_404
+PASSED tests/test_final_state.py::test_invalid_target_column_returns_400
+FAILED tests/test_final_state.py::test_frontend_root_renders_columns_and_titles
+FAILED tests/test_final_state.py::test_page_still_renders_all_titles_after_moves
+========================= 2 failed, 9 passed in 9.13s ==========================

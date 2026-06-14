@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 14 items
+
+tests/test_final_state.py .............F                                 [100%]
+
+=================================== FAILURES ===================================
+______________________ test_no_lingering_reflex_processes ______________________
+
+running_reflex_app = {'log': '/tmp/reflex_run.log', 'proc': <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--env', 'dev'...>, 'ready': True}
+
+    def test_no_lingering_reflex_processes(running_reflex_app):
+        """After the running_reflex_app fixture tears down, no reflex servers should remain."""
+        # The fixture teardown happens at session end; here we only confirm that
+        # the fixture itself did not leave the server bound after we explicitly
+        # asked for cleanup at the end of the test session.
+        # We additionally force kill and check the ports are free.
+        _kill_reflex_processes()
+        time.sleep(2)
+>       assert not _port_open("127.0.0.1", FRONTEND_PORT, timeout=1.0), (
+            f"Port {FRONTEND_PORT} is still bound after cleanup; a Reflex server is still running."
+        )
+E       AssertionError: Port 3000 is still bound after cleanup; a Reflex server is still running.
+E       assert not True
+E        +  where True = _port_open('127.0.0.1', 3000, timeout=1.0)
+
+tests/test_final_state.py:518: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_present
+PASSED tests/test_final_state.py::test_pyproject_lists_reflex
+PASSED tests/test_final_state.py::test_no_ssr_component_subclass_exists
+PASSED tests/test_final_state.py::test_component_library_attribute_is_react_colorful
+PASSED tests/test_final_state.py::test_component_tag_attribute_is_hex_color_picker
+PASSED tests/test_final_state.py::test_component_color_prop_annotation
+PASSED tests/test_final_state.py::test_component_on_change_event_handler
+PASSED tests/test_final_state.py::test_state_holds_hex_color_string
+PASSED tests/test_final_state.py::test_index_page_uses_wrapped_component_and_text
+PASSED tests/test_final_state.py::test_reflex_export_exits_zero
+PASSED tests/test_final_state.py::test_static_directory_exists
+PASSED tests/test_final_state.py::test_bundle_references_react_colorful
+PASSED tests/test_final_state.py::test_reflex_app_starts_and_serves_index
+FAILED tests/test_final_state.py::test_no_lingering_reflex_processes - Assert...
+======================== 1 failed, 13 passed in 21.84s =========================

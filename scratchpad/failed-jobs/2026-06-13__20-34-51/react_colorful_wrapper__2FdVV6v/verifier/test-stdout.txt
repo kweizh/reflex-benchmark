@@ -1,0 +1,153 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 14 items
+
+tests/test_final_state.py ..FFFFFFF.FF.F                                 [100%]
+
+=================================== FAILURES ===================================
+____________________ test_no_ssr_component_subclass_exists _____________________
+
+    def test_no_ssr_component_subclass_exists():
+        matches = _find_no_ssr_component_classes()
+>       assert matches, (
+            "Could not find any class subclassing NoSSRComponent under "
+            f"{PROJECT_DIR}; the wrapper must subclass reflex.components.component.NoSSRComponent."
+        )
+E       AssertionError: Could not find any class subclassing NoSSRComponent under /home/user/myproject; the wrapper must subclass reflex.components.component.NoSSRComponent.
+E       assert []
+
+tests/test_final_state.py:172: AssertionError
+______________ test_component_library_attribute_is_react_colorful ______________
+
+    def test_component_library_attribute_is_react_colorful():
+        matches = _find_no_ssr_component_classes()
+>       assert matches, "No NoSSRComponent subclass found."
+E       AssertionError: No NoSSRComponent subclass found.
+E       assert []
+
+tests/test_final_state.py:180: AssertionError
+_______________ test_component_tag_attribute_is_hex_color_picker _______________
+
+    def test_component_tag_attribute_is_hex_color_picker():
+        matches = _find_no_ssr_component_classes()
+>       assert matches, "No NoSSRComponent subclass found."
+E       AssertionError: No NoSSRComponent subclass found.
+E       assert []
+
+tests/test_final_state.py:198: AssertionError
+_____________________ test_component_color_prop_annotation _____________________
+
+    def test_component_color_prop_annotation():
+        candidates = _color_picker_classes()
+>       assert candidates, "No HexColorPicker wrapper class found."
+E       AssertionError: No HexColorPicker wrapper class found.
+E       assert []
+
+tests/test_final_state.py:225: AssertionError
+____________________ test_component_on_change_event_handler ____________________
+
+    def test_component_on_change_event_handler():
+        candidates = _color_picker_classes()
+>       assert candidates, "No HexColorPicker wrapper class found."
+E       AssertionError: No HexColorPicker wrapper class found.
+E       assert []
+
+tests/test_final_state.py:238: AssertionError
+______________________ test_state_holds_hex_color_string _______________________
+
+    def test_state_holds_hex_color_string():
+        state_classes = _find_state_classes()
+        assert state_classes, "No subclass of rx.State found in the project."
+        for _, cls in state_classes:
+            var_name = _state_string_var(cls)
+            if var_name is None:
+                continue
+            handler = _state_event_handler_for(cls, var_name)
+            if handler is not None:
+                return
+>       pytest.fail(
+            "Could not find an rx.State subclass that declares a string-typed state "
+            "var AND an event handler taking a single argument that assigns it to that var."
+        )
+E       Failed: Could not find an rx.State subclass that declares a string-typed state var AND an event handler taking a single argument that assigns it to that var.
+
+tests/test_final_state.py:313: Failed
+_______________ test_index_page_uses_wrapped_component_and_text ________________
+
+    def test_index_page_uses_wrapped_component_and_text():
+        """The index page must mention the wrapped component AND an rx.text with background_color bound to the state hex color."""
+        candidates = _color_picker_classes()
+>       assert candidates, "Wrapper class missing."
+E       AssertionError: Wrapper class missing.
+E       assert []
+
+tests/test_final_state.py:322: AssertionError
+_________________________ test_static_directory_exists _________________________
+
+reflex_export = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout='────────...━━━ 100% 17/16 0:00:00\nCreating Production Build:  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 4/4 0:00:06\n', stderr='')
+
+    def test_static_directory_exists(reflex_export):
+        static_dir = os.path.join(PROJECT_DIR, ".web", "_static")
+>       assert os.path.isdir(static_dir), (
+            f"Expected exported static assets at {static_dir} after running reflex export."
+        )
+E       AssertionError: Expected exported static assets at /home/user/myproject/.web/_static after running reflex export.
+E       assert False
+E        +  where False = <function isdir at 0x7fdfa7e602c0>('/home/user/myproject/.web/_static')
+E        +    where <function isdir at 0x7fdfa7e602c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:417: AssertionError
+____________________ test_bundle_references_react_colorful _____________________
+
+reflex_export = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout='────────...━━━ 100% 17/16 0:00:00\nCreating Production Build:  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 4/4 0:00:06\n', stderr='')
+
+    def test_bundle_references_react_colorful(reflex_export):
+        static_dir = os.path.join(PROJECT_DIR, ".web", "_static")
+>       assert os.path.isdir(static_dir), f"{static_dir} missing."
+E       AssertionError: /home/user/myproject/.web/_static missing.
+E       assert False
+E        +  where False = <function isdir at 0x7fdfa7e602c0>('/home/user/myproject/.web/_static')
+E        +    where <function isdir at 0x7fdfa7e602c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:430: AssertionError
+______________________ test_no_lingering_reflex_processes ______________________
+
+running_reflex_app = {'log': '/tmp/reflex_run.log', 'proc': <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--env', 'dev'...>, 'ready': True}
+
+    def test_no_lingering_reflex_processes(running_reflex_app):
+        """After the running_reflex_app fixture tears down, no reflex servers should remain."""
+        # The fixture teardown happens at session end; here we only confirm that
+        # the fixture itself did not leave the server bound after we explicitly
+        # asked for cleanup at the end of the test session.
+        # We additionally force kill and check the ports are free.
+        _kill_reflex_processes()
+        time.sleep(2)
+>       assert not _port_open("127.0.0.1", FRONTEND_PORT, timeout=1.0), (
+            f"Port {FRONTEND_PORT} is still bound after cleanup; a Reflex server is still running."
+        )
+E       AssertionError: Port 3000 is still bound after cleanup; a Reflex server is still running.
+E       assert not True
+E        +  where True = _port_open('127.0.0.1', 3000, timeout=1.0)
+
+tests/test_final_state.py:518: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_present
+PASSED tests/test_final_state.py::test_pyproject_lists_reflex
+PASSED tests/test_final_state.py::test_reflex_export_exits_zero
+PASSED tests/test_final_state.py::test_reflex_app_starts_and_serves_index
+FAILED tests/test_final_state.py::test_no_ssr_component_subclass_exists - Ass...
+FAILED tests/test_final_state.py::test_component_library_attribute_is_react_colorful
+FAILED tests/test_final_state.py::test_component_tag_attribute_is_hex_color_picker
+FAILED tests/test_final_state.py::test_component_color_prop_annotation - Asse...
+FAILED tests/test_final_state.py::test_component_on_change_event_handler - As...
+FAILED tests/test_final_state.py::test_state_holds_hex_color_string - Failed:...
+FAILED tests/test_final_state.py::test_index_page_uses_wrapped_component_and_text
+FAILED tests/test_final_state.py::test_static_directory_exists - AssertionErr...
+FAILED tests/test_final_state.py::test_bundle_references_react_colorful - Ass...
+FAILED tests/test_final_state.py::test_no_lingering_reflex_processes - Assert...
+======================== 10 failed, 4 passed in 46.88s =========================

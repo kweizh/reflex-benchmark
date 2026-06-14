@@ -1,0 +1,207 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 10 items
+
+tests/test_final_state.py .FFFFFFFFF                                     [100%]
+
+=================================== FAILURES ===================================
+_________________ test_source_uses_background_event_decorator __________________
+
+    def test_source_uses_background_event_decorator():
+        src = _all_py_sources()
+>       assert "@rx.event(background=True)" in src, (
+            "Expected at least one Python source file under /home/user/email_scheduler to declare "
+            "an event handler with `@rx.event(background=True)`."
+        )
+E       AssertionError: Expected at least one Python source file under /home/user/email_scheduler to declare an event handler with `@rx.event(background=True)`.
+E       assert '@rx.event(background=True)' in 'def main():\n    print("Hello from email-scheduler!")\n\n\nif __name__ == "__main__":\n    main()\n\n\nimport reflex ...       justify="center",\n            min_height="85vh",\n        ),\n    )\n\n\napp = rx.App()\napp.add_page(index)\n'
+
+tests/test_final_state.py:157: AssertionError
+______________________ test_source_uses_state_lock_block _______________________
+
+    def test_source_uses_state_lock_block():
+        src = _all_py_sources()
+>       assert "async with self" in src, (
+            "Expected at least one Python source file to enter the Reflex state lock with "
+            "`async with self` (required to avoid ImmutableStateError in background tasks)."
+        )
+E       AssertionError: Expected at least one Python source file to enter the Reflex state lock with `async with self` (required to avoid ImmutableStateError in background tasks).
+E       assert 'async with self' in 'def main():\n    print("Hello from email-scheduler!")\n\n\nif __name__ == "__main__":\n    main()\n\n\nimport reflex ...       justify="center",\n            min_height="85vh",\n        ),\n    )\n\n\napp = rx.App()\napp.add_page(index)\n'
+
+tests/test_final_state.py:165: AssertionError
+____________________ test_source_declares_emaildigest_model ____________________
+
+    def test_source_declares_emaildigest_model():
+        src = _all_py_sources()
+>       assert "class EmailDigest" in src, (
+            "Expected the project to declare a `class EmailDigest` rx.Model for the digests table."
+        )
+E       AssertionError: Expected the project to declare a `class EmailDigest` rx.Model for the digests table.
+E       assert 'class EmailDigest' in 'def main():\n    print("Hello from email-scheduler!")\n\n\nif __name__ == "__main__":\n    main()\n\n\nimport reflex ...       justify="center",\n            min_height="85vh",\n        ),\n    )\n\n\napp = rx.App()\napp.add_page(index)\n'
+
+tests/test_final_state.py:173: AssertionError
+_____________________ test_source_declares_sentemail_model _____________________
+
+    def test_source_declares_sentemail_model():
+        src = _all_py_sources()
+>       assert "class SentEmail" in src, (
+            "Expected the project to declare a `class SentEmail` rx.Model for the sent-emails audit table."
+        )
+E       AssertionError: Expected the project to declare a `class SentEmail` rx.Model for the sent-emails audit table.
+E       assert 'class SentEmail' in 'def main():\n    print("Hello from email-scheduler!")\n\n\nif __name__ == "__main__":\n    main()\n\n\nimport reflex ...       justify="center",\n            min_height="85vh",\n        ),\n    )\n\n\napp = rx.App()\napp.add_page(index)\n'
+
+tests/test_final_state.py:180: AssertionError
+______________________ test_status_endpoint_initial_shape ______________________
+
+reflex_server = None
+
+    def test_status_endpoint_initial_shape(reflex_server):
+        _safe_stop()
+        time.sleep(0.5)
+>       _seed([])
+
+tests/test_final_state.py:193: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+digests = []
+
+    def _seed(digests: list) -> dict:
+        r = requests.post(
+            f"{BASE_URL}/api/scheduler/seed",
+            json={"digests": digests},
+            timeout=10,
+        )
+>       assert r.status_code == 200, f"POST /api/scheduler/seed returned {r.status_code}: {r.text}"
+E       AssertionError: POST /api/scheduler/seed returned 404: Not Found
+E       assert 404 == 200
+E        +  where 404 = <Response [404]>.status_code
+
+tests/test_final_state.py:52: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_backend$ uv run reflex run --backend-only --backend-port 8000 --loglevel debug
+process 'reflex_backend' started pid=1363
+reflex_backend process startup detected
+________________ test_bounded_throughput_for_two_second_period _________________
+
+reflex_server = None
+
+    def test_bounded_throughput_for_two_second_period(reflex_server):
+        _safe_stop()
+        time.sleep(0.5)
+    
+>       seed_resp = _seed([
+            {
+                "recipient": "alice@example.com",
+                "period_seconds": 2,
+                "first_due_in_seconds": 0.0,
+            }
+        ])
+
+tests/test_final_state.py:211: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+digests = [{'first_due_in_seconds': 0.0, 'period_seconds': 2, 'recipient': 'alice@example.com'}]
+
+    def _seed(digests: list) -> dict:
+        r = requests.post(
+            f"{BASE_URL}/api/scheduler/seed",
+            json={"digests": digests},
+            timeout=10,
+        )
+>       assert r.status_code == 200, f"POST /api/scheduler/seed returned {r.status_code}: {r.text}"
+E       AssertionError: POST /api/scheduler/seed returned 404: Not Found
+E       assert 404 == 200
+E        +  where 404 = <Response [404]>.status_code
+
+tests/test_final_state.py:52: AssertionError
+________________ test_force_run_sends_immediately_when_not_due _________________
+
+reflex_server = None
+
+    def test_force_run_sends_immediately_when_not_due(reflex_server):
+        _safe_stop()
+        time.sleep(0.5)
+    
+>       seed_resp = _seed([
+            {
+                "recipient": "bob@example.com",
+                "period_seconds": 60,
+                "first_due_in_seconds": 60.0,
+            }
+        ])
+
+tests/test_final_state.py:253: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+digests = [{'first_due_in_seconds': 60.0, 'period_seconds': 60, 'recipient': 'bob@example.com'}]
+
+    def _seed(digests: list) -> dict:
+        r = requests.post(
+            f"{BASE_URL}/api/scheduler/seed",
+            json={"digests": digests},
+            timeout=10,
+        )
+>       assert r.status_code == 200, f"POST /api/scheduler/seed returned {r.status_code}: {r.text}"
+E       AssertionError: POST /api/scheduler/seed returned 404: Not Found
+E       assert 404 == 200
+E        +  where 404 = <Response [404]>.status_code
+
+tests/test_final_state.py:52: AssertionError
+___________________________ test_idempotent_restart ____________________________
+
+reflex_server = None
+
+    def test_idempotent_restart(reflex_server):
+        _safe_stop()
+        time.sleep(0.5)
+>       _seed([])
+
+tests/test_final_state.py:297: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+digests = []
+
+    def _seed(digests: list) -> dict:
+        r = requests.post(
+            f"{BASE_URL}/api/scheduler/seed",
+            json={"digests": digests},
+            timeout=10,
+        )
+>       assert r.status_code == 200, f"POST /api/scheduler/seed returned {r.status_code}: {r.text}"
+E       AssertionError: POST /api/scheduler/seed returned 404: Not Found
+E       assert 404 == 200
+E        +  where 404 = <Response [404]>.status_code
+
+tests/test_final_state.py:52: AssertionError
+____________________ test_no_immutable_state_error_in_logs _____________________
+
+reflex_server = None
+
+    def test_no_immutable_state_error_in_logs(reflex_server):
+        # Give the server a beat to flush logs from the prior tests.
+        time.sleep(0.3)
+>       assert os.path.isfile(SERVER_LOG), (
+            f"Expected server log at {SERVER_LOG} (start command must redirect stdout/stderr there)."
+        )
+E       AssertionError: Expected server log at /home/user/email_scheduler/server.log (start command must redirect stdout/stderr there).
+E       assert False
+E        +  where False = <function isfile at 0x7f0561680220>('/home/user/email_scheduler/server.log')
+E        +    where <function isfile at 0x7f0561680220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:329: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_exists
+FAILED tests/test_final_state.py::test_source_uses_background_event_decorator
+FAILED tests/test_final_state.py::test_source_uses_state_lock_block - Asserti...
+FAILED tests/test_final_state.py::test_source_declares_emaildigest_model - As...
+FAILED tests/test_final_state.py::test_source_declares_sentemail_model - Asse...
+FAILED tests/test_final_state.py::test_status_endpoint_initial_shape - Assert...
+FAILED tests/test_final_state.py::test_bounded_throughput_for_two_second_period
+FAILED tests/test_final_state.py::test_force_run_sends_immediately_when_not_due
+FAILED tests/test_final_state.py::test_idempotent_restart - AssertionError: P...
+FAILED tests/test_final_state.py::test_no_immutable_state_error_in_logs - Ass...
+========================= 9 failed, 1 passed in 7.74s ==========================

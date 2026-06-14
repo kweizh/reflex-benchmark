@@ -1,0 +1,47 @@
+# Reflex Theme System with Cookie Persistence and Computed Palette
+
+## Background
+Build a small multi-page Reflex application that gives the user a `light` / `dark` / `auto` theme selector. The user's choice must be persisted in a browser cookie so it survives full page reloads. When the user picks `auto`, the application must resolve the actual theme using a server-side `prefers_color_scheme` backend var (which the page must let the user simulate so the behaviour can be exercised without a real OS-level media query). Every page must derive its colors from a single computed `palette` so the whole UI stays consistent.
+
+## Requirements
+- A Reflex project at `/home/user/myproject` initialized with the blank template using `uv` and `reflex`.
+- A `theme` selector that allows the user to pick exactly one of `light`, `dark`, or `auto`.
+- The current selection is persisted in a cookie named `theme_pref` using Reflex client-storage so that reopening the page restores the previous choice.
+- A backend-only state var that represents the simulated OS color scheme preference (allowed values `light` and `dark`), exposed via two simulation controls on the page (`Simulate system: light` and `Simulate system: dark`).
+- A cached computed var `effective_theme` that returns the concrete theme actually used to render the UI:
+  - When `theme` is `light`, `effective_theme` must be `light`.
+  - When `theme` is `dark`, `effective_theme` must be `dark`.
+  - When `theme` is `auto`, `effective_theme` must mirror the simulated OS preference.
+- A computed `palette` (a dictionary keyed by at least `bg`, `fg`, and `accent`) that depends on `effective_theme`. Each page reads its colors from this `palette`.
+- A header component that uses `rx.cond` (or `rx.match`) to swap between visibly different palettes for `light` vs `dark`. The header must show the current selection and the current effective theme.
+- At least two routes (e.g. `/` and `/about`) that both render the header and a body whose background and foreground colors are driven by the `palette`.
+
+## Implementation Hints
+- Use `uv` to manage the Python environment as described in the project README and initialize the Reflex app non-interactively (`uv run reflex init --template blank`). Add Reflex with `uv add reflex`.
+- Refer to the Reflex docs for [Client Storage](https://reflex.dev/docs/client-storage/overview/), [Computed Vars](https://reflex.dev/docs/vars/computed-vars/), and [Conditional Rendering](https://reflex.dev/docs/components/conditional-rendering/). Do not assume APIs you have not verified.
+- The simulated OS preference is a private (backend-only) state field; expose it to the UI only via the two simulation buttons and the effective theme. Do not store it in a cookie or environment variable.
+- The two simulation buttons must visibly affect the rendered theme only when `theme=auto`.
+- Use a single computed `palette` so the colors on every page stay in sync with `effective_theme`. Pick clearly distinguishable hex colors for the light and dark palettes (e.g. light has a near-white background, dark has a near-black background).
+- Pick contrasting, easy-to-name colors for the header so the swap is obvious to a visual check.
+- Always stop any long-running development servers (e.g. `uv run reflex run`) you started for manual testing before finishing the task. Verification will start its own server.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Start command: `uv run reflex run --env prod`
+- Port: `3000`
+- Routes:
+  - `/`: renders the header and a body whose background and foreground reflect the current `palette`.
+  - `/about`: renders the same header and a body that also reflects the current `palette`.
+- Theme selector UI: lets the user pick exactly one of `light`, `dark`, `auto`, and reflects the current choice.
+- Cookie persistence: after the user selects a theme, a cookie named `theme_pref` is stored in the browser with the exact selected value (`light`, `dark`, or `auto`); the choice survives a full page reload and is reflected in the UI.
+- Simulation controls: two visible controls labeled along the lines of `Simulate system: light` and `Simulate system: dark`. Clicking either control sets the simulated OS preference accordingly. The simulated OS preference must not be stored in any cookie nor read from an environment variable.
+- `effective_theme` rules (visible somewhere on every page):
+  - `theme=light` → `effective_theme=light` regardless of simulated OS preference.
+  - `theme=dark` → `effective_theme=dark` regardless of simulated OS preference.
+  - `theme=auto` + simulated OS preference `light` → `effective_theme=light`.
+  - `theme=auto` + simulated OS preference `dark` → `effective_theme=dark`.
+- Palette visualization: the rendered background of the body and header changes between a clearly light palette and a clearly dark palette as `effective_theme` switches between `light` and `dark`.
+- Header conditional rendering: the header must visibly swap its palette (background and/or accent color) based on `effective_theme`.
+- No external environment variables are required to run the app or the tests.
+- Background servers: stop any dev server you started before submitting; the verifier will start its own server.
+

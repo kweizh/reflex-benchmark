@@ -1,0 +1,159 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T21:35:00.254548+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 13,
+            "passed": 0,
+            "failed": 13,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781386497906,
+            "stop": 1781386500254
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_database_seeded_with_47_users",
+                "status": "failed",
+                "duration": 2025,
+                "start": 1781386498094,
+                "stop": 1781386500119,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_database_seed_rows_exact",
+                "status": "failed",
+                "duration": 16,
+                "start": 1781386500120,
+                "stop": 1781386500136,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_database_case_insensitive_foo_count",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781386500136,
+                "stop": 1781386500146,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_reachable",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781386500147,
+                "stop": 1781386500157,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_probe_page_1_no_search",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781386500157,
+                "stop": 1781386500168,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_probe_page_2_returns_items_11_to_20",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781386500168,
+                "stop": 1781386500178,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_probe_final_partial_page",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781386500178,
+                "stop": 1781386500189,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_probe_out_of_range_page",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781386500189,
+                "stop": 1781386500200,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_probe_search_lowercase_foo",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781386500200,
+                "stop": 1781386500210,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_probe_search_uppercase_foo_same_result",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781386500211,
+                "stop": 1781386500221,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_probe_search_with_no_match",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781386500221,
+                "stop": 1781386500231,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_no_immutable_state_error_in_logs",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781386500232,
+                "stop": 1781386500243,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_source_uses_background_event_and_state_lock",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781386500243,
+                "stop": 1781386500253,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n        _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=180)\n    \n        seed_cmd = _find_seed_command()\n>       assert seed_cmd is not None, (\n            f\"Could not find a seed script (looked for seed.py, seed_users.py, \"\n            f\"scripts/seed.py under {PROJECT_DIR}). The task requires a deterministic \"\n            f\"seeding mechanism.\"\n        )\nE       AssertionError: Could not find a seed script (looked for seed.py, seed_users.py, scripts/seed.py under /home/user/myproject). The task requires a deterministic seeding mechanism.\nE       assert None is not None\n\ntests/test_final_state.py:123: AssertionError"
+            }
+        ]
+    }
+}

@@ -1,0 +1,293 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T22:40:56.343721+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 24,
+            "passed": 8,
+            "failed": 16,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781390154489,
+            "stop": 1781390456343
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781390155072,
+                "stop": 1781390155073,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rxconfig_present",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781390155074,
+                "stop": 1781390155075,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_db_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 45,
+                "start": 1781390155075,
+                "stop": 1781390155120,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_reflex_db_file_exists():\n>       assert os.path.isfile(DB_PATH), (\n            f\"SQLite database not found at {DB_PATH}; the executor must seed it during setup.\"\n        )\nE       AssertionError: SQLite database not found at /home/user/filtered_table/reflex.db; the executor must seed it during setup.\nE       assert False\nE        +  where False = <function isfile at 0x7fbde0874220>('/home/user/filtered_table/reflex.db')\nE        +    where <function isfile at 0x7fbde0874220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:109: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 121,
+                "start": 1781390155120,
+                "stop": 1781390155241,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 121,
+                "start": 1781390155241,
+                "stop": 1781390155362,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 134,
+                "start": 1781390155363,
+                "stop": 1781390155497,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 124,
+                "start": 1781390155498,
+                "stop": 1781390155622,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 113,
+                "start": 1781390155622,
+                "stop": 1781390155735,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_source_contains_required_idiom",
+                "status": "passed",
+                "duration": 126,
+                "start": 1781390155735,
+                "stop": 1781390155861,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::needle::['rx.debounce_input', 'debounce_timeout=300', 'rx.asession', 'rx.foreach', 'background=True', 'api_transformer']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_seed_total_row_count",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 28,
+                "start": 1781390155862,
+                "stop": 1781390155890,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_total_row_count():\n>       rows = _query(\"SELECT COUNT(*) FROM product\")\n\ntests/test_final_state.py:157: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nsql = 'SELECT COUNT(*) FROM product', params = ()\n\n    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper\n        with sqlite3.connect(DB_PATH) as conn:\n>           cur = conn.execute(sql, params)\nE           sqlite3.OperationalError: no such table: product\n\ntests/test_final_state.py:152: OperationalError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_seed_per_category_counts",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 19,
+                "start": 1781390155891,
+                "stop": 1781390155910,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_per_category_counts():\n>       rows = _query(\n            \"SELECT category, COUNT(*) FROM product GROUP BY category ORDER BY category\"\n        )\n\ntests/test_final_state.py:164: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nsql = 'SELECT category, COUNT(*) FROM product GROUP BY category ORDER BY category'\nparams = ()\n\n    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper\n        with sqlite3.connect(DB_PATH) as conn:\n>           cur = conn.execute(sql, params)\nE           sqlite3.OperationalError: no such table: product\n\ntests/test_final_state.py:152: OperationalError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_seed_in_stock_count",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 28,
+                "start": 1781390155910,
+                "stop": 1781390155938,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_in_stock_count():\n>       rows = _query(\"SELECT COUNT(*) FROM product WHERE in_stock = 1\")\n\ntests/test_final_state.py:175: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nsql = 'SELECT COUNT(*) FROM product WHERE in_stock = 1', params = ()\n\n    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper\n        with sqlite3.connect(DB_PATH) as conn:\n>           cur = conn.execute(sql, params)\nE           sqlite3.OperationalError: no such table: product\n\ntests/test_final_state.py:152: OperationalError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_seed_first_row",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 26,
+                "start": 1781390155939,
+                "stop": 1781390155965,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_first_row():\n>       rows = _query(\n            \"SELECT name, sku, price, in_stock FROM product WHERE id = 1\"\n        )\n\ntests/test_final_state.py:182: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nsql = 'SELECT name, sku, price, in_stock FROM product WHERE id = 1', params = ()\n\n    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper\n        with sqlite3.connect(DB_PATH) as conn:\n>           cur = conn.execute(sql, params)\nE           sqlite3.OperationalError: no such table: product\n\ntests/test_final_state.py:152: OperationalError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_seed_last_row",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 20,
+                "start": 1781390155965,
+                "stop": 1781390155985,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_last_row():\n>       rows = _query(\n            \"SELECT name, sku, price, in_stock FROM product WHERE id = 240\"\n        )\n\ntests/test_final_state.py:200: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nsql = 'SELECT name, sku, price, in_stock FROM product WHERE id = 240'\nparams = ()\n\n    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper\n        with sqlite3.connect(DB_PATH) as conn:\n>           cur = conn.execute(sql, params)\nE           sqlite3.OperationalError: no such table: product\n\ntests/test_final_state.py:152: OperationalError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_seed_books_second_row",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 22,
+                "start": 1781390155985,
+                "stop": 1781390156007,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_seed_books_second_row():\n>       rows = _query(\"SELECT name, price FROM product WHERE id = 42\")\n\ntests/test_final_state.py:218: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nsql = 'SELECT name, price FROM product WHERE id = 42', params = ()\n\n    def _query(sql: str, params: tuple = ()):  # noqa: ANN201 - internal helper\n        with sqlite3.connect(DB_PATH) as conn:\n>           cur = conn.execute(sql, params)\nE           sqlite3.OperationalError: no such table: product\n\ntests/test_final_state.py:152: OperationalError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_page_renders",
+                "status": "failed",
+                "duration": 300101,
+                "start": 1781390156008,
+                "stop": 1781390456109,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbddf0c1070>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        \"\"\"Start the reflex server fresh and wait for both ports to be ready.\"\"\"\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_filtered_table\"\n            args = [\n                \"uv\",\n                \"run\",\n                \"reflex\",\n                \"run\",\n                \"--backend-port\",\n                str(BACKEND_PORT),\n                \"--frontend-port\",\n                str(FRONTEND_PORT),\n                \"--loglevel\",\n                \"info\",\n            ]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 300\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(\"localhost\", BACKEND_PORT) and _port_open(\n                    \"localhost\", FRONTEND_PORT\n                )\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7fbddf0c1370>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_filter_no_filters_default_sort",
+                "status": "failed",
+                "duration": 26,
+                "start": 1781390456111,
+                "stop": 1781390456137,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbddf0c1070>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        \"\"\"Start the reflex server fresh and wait for both ports to be ready.\"\"\"\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_filtered_table\"\n            args = [\n                \"uv\",\n                \"run\",\n                \"reflex\",\n                \"run\",\n                \"--backend-port\",\n                str(BACKEND_PORT),\n                \"--frontend-port\",\n                str(FRONTEND_PORT),\n                \"--loglevel\",\n                \"info\",\n            ]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 300\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(\"localhost\", BACKEND_PORT) and _port_open(\n                    \"localhost\", FRONTEND_PORT\n                )\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7fbddf0c1370>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_filter_category_books",
+                "status": "failed",
+                "duration": 27,
+                "start": 1781390456137,
+                "stop": 1781390456164,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbddf0c1070>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        \"\"\"Start the reflex server fresh and wait for both ports to be ready.\"\"\"\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_filtered_table\"\n            args = [\n                \"uv\",\n                \"run\",\n                \"reflex\",\n                \"run\",\n                \"--backend-port\",\n                str(BACKEND_PORT),\n                \"--frontend-port\",\n                str(FRONTEND_PORT),\n                \"--loglevel\",\n                \"info\",\n            ]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 300\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(\"localhost\", BACKEND_PORT) and _port_open(\n                    \"localhost\", FRONTEND_PORT\n                )\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7fbddf0c1370>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_filter_books_in_stock_only",
+                "status": "failed",
+                "duration": 30,
+                "start": 1781390456164,
+                "stop": 1781390456194,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbddf0c1070>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        \"\"\"Start the reflex server fresh and wait for both ports to be ready.\"\"\"\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_filtered_table\"\n            args = [\n                \"uv\",\n                \"run\",\n                \"reflex\",\n                \"run\",\n                \"--backend-port\",\n                str(BACKEND_PORT),\n                \"--frontend-port\",\n                str(FRONTEND_PORT),\n                \"--loglevel\",\n                \"info\",\n            ]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 300\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(\"localhost\", BACKEND_PORT) and _port_open(\n                    \"localhost\", FRONTEND_PORT\n                )\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7fbddf0c1370>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_filter_price_window_20_to_30",
+                "status": "failed",
+                "duration": 22,
+                "start": 1781390456195,
+                "stop": 1781390456217,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbddf0c1070>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        \"\"\"Start the reflex server fresh and wait for both ports to be ready.\"\"\"\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_filtered_table\"\n            args = [\n                \"uv\",\n                \"run\",\n                \"reflex\",\n                \"run\",\n                \"--backend-port\",\n                str(BACKEND_PORT),\n                \"--frontend-port\",\n                str(FRONTEND_PORT),\n                \"--loglevel\",\n                \"info\",\n            ]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 300\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(\"localhost\", BACKEND_PORT) and _port_open(\n                    \"localhost\", FRONTEND_PORT\n                )\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7fbddf0c1370>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_filter_text_search_books_hash_one",
+                "status": "failed",
+                "duration": 25,
+                "start": 1781390456217,
+                "stop": 1781390456242,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbddf0c1070>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        \"\"\"Start the reflex server fresh and wait for both ports to be ready.\"\"\"\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_filtered_table\"\n            args = [\n                \"uv\",\n                \"run\",\n                \"reflex\",\n                \"run\",\n                \"--backend-port\",\n                str(BACKEND_PORT),\n                \"--frontend-port\",\n                str(FRONTEND_PORT),\n                \"--loglevel\",\n                \"info\",\n            ]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 300\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(\"localhost\", BACKEND_PORT) and _port_open(\n                    \"localhost\", FRONTEND_PORT\n                )\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7fbddf0c1370>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_filter_sort_price_desc",
+                "status": "failed",
+                "duration": 25,
+                "start": 1781390456242,
+                "stop": 1781390456267,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbddf0c1070>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        \"\"\"Start the reflex server fresh and wait for both ports to be ready.\"\"\"\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_filtered_table\"\n            args = [\n                \"uv\",\n                \"run\",\n                \"reflex\",\n                \"run\",\n                \"--backend-port\",\n                str(BACKEND_PORT),\n                \"--frontend-port\",\n                str(FRONTEND_PORT),\n                \"--loglevel\",\n                \"info\",\n            ]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 300\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(\"localhost\", BACKEND_PORT) and _port_open(\n                    \"localhost\", FRONTEND_PORT\n                )\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7fbddf0c1370>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_filter_in_stock_only_sort_name_asc",
+                "status": "failed",
+                "duration": 52,
+                "start": 1781390456267,
+                "stop": 1781390456319,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbddf0c1070>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        \"\"\"Start the reflex server fresh and wait for both ports to be ready.\"\"\"\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_filtered_table\"\n            args = [\n                \"uv\",\n                \"run\",\n                \"reflex\",\n                \"run\",\n                \"--backend-port\",\n                str(BACKEND_PORT),\n                \"--frontend-port\",\n                str(FRONTEND_PORT),\n                \"--loglevel\",\n                \"info\",\n            ]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 300\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(\"localhost\", BACKEND_PORT) and _port_open(\n                    \"localhost\", FRONTEND_PORT\n                )\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7fbddf0c1370>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_filter_combined_electronics_under_20_in_stock",
+                "status": "failed",
+                "duration": 23,
+                "start": 1781390456320,
+                "stop": 1781390456343,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbddf0c1070>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        \"\"\"Start the reflex server fresh and wait for both ports to be ready.\"\"\"\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_filtered_table\"\n            args = [\n                \"uv\",\n                \"run\",\n                \"reflex\",\n                \"run\",\n                \"--backend-port\",\n                str(BACKEND_PORT),\n                \"--frontend-port\",\n                str(FRONTEND_PORT),\n                \"--loglevel\",\n                \"info\",\n            ]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 300\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(\"localhost\", BACKEND_PORT) and _port_open(\n                    \"localhost\", FRONTEND_PORT\n                )\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7fbddf0c1370>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 300                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            }
+        ]
+    }
+}

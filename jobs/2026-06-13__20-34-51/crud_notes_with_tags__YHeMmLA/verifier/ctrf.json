@@ -1,0 +1,179 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:36:27.291820+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 15,
+            "passed": 0,
+            "failed": 15,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781382986645,
+            "stop": 1781382987291
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_schema_has_note_and_tag_tables",
+                "status": "failed",
+                "duration": 144,
+                "start": 1781382986886,
+                "stop": 1781382987030,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_schema_has_link_table_for_many_to_many",
+                "status": "failed",
+                "duration": 18,
+                "start": 1781382987031,
+                "stop": 1781382987049,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_counts_starts_clean",
+                "status": "failed",
+                "duration": 18,
+                "start": 1781382987050,
+                "stop": 1781382987068,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_ensure_tag_is_idempotent",
+                "status": "failed",
+                "duration": 20,
+                "start": 1781382987068,
+                "stop": 1781382987088,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_create_note_with_two_existing_tags_adds_three_rows",
+                "status": "failed",
+                "duration": 18,
+                "start": 1781382987088,
+                "stop": 1781382987106,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_create_note_with_new_tag_creates_tag_row",
+                "status": "failed",
+                "duration": 19,
+                "start": 1781382987106,
+                "stop": 1781382987125,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_list_without_filter_returns_all",
+                "status": "failed",
+                "duration": 18,
+                "start": 1781382987125,
+                "stop": 1781382987143,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_filter_by_tag_or_semantics",
+                "status": "failed",
+                "duration": 18,
+                "start": 1781382987143,
+                "stop": 1781382987161,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_all_tags_is_union_of_attached",
+                "status": "failed",
+                "duration": 18,
+                "start": 1781382987161,
+                "stop": 1781382987179,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_set_tags_replaces_and_does_not_delete_tag_rows",
+                "status": "failed",
+                "duration": 18,
+                "start": 1781382987180,
+                "stop": 1781382987198,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_update_changes_content_only",
+                "status": "failed",
+                "duration": 17,
+                "start": 1781382987199,
+                "stop": 1781382987216,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_delete_removes_links_but_not_tags",
+                "status": "failed",
+                "duration": 18,
+                "start": 1781382987217,
+                "stop": 1781382987235,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_reachable",
+                "status": "failed",
+                "duration": 19,
+                "start": 1781382987235,
+                "stop": 1781382987254,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_no_immutable_state_error_in_logs",
+                "status": "failed",
+                "duration": 17,
+                "start": 1781382987255,
+                "stop": 1781382987272,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_source_uses_link_model_and_state_contracts",
+                "status": "failed",
+                "duration": 18,
+                "start": 1781382987273,
+                "stop": 1781382987291,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def prepared_db():\n        # Make sure the schema is up to date.\n>       _run_uv([\"reflex\", \"db\", \"migrate\"], timeout=240)\n\ntests/test_final_state.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = ['reflex', 'db', 'migrate'], timeout = 240, check = True\n\n    def _run_uv(args, timeout=180, check=True):\n        \"\"\"Run a command inside the project's uv-managed environment.\"\"\"\n        cmd = [\"uv\", \"run\", *args]\n        result = subprocess.run(\n            cmd,\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n        )\n        if check:\n>           assert result.returncode == 0, (\n                f\"Command {cmd!r} failed with exit code {result.returncode}.\\n\"\n                f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n            )\nE           AssertionError: Command ['uv', 'run', 'reflex', 'db', 'migrate'] failed with exit code 2.\nE             stdout:\nE             \nE             stderr:\nE             error: Failed to spawn: `reflex`\nE               Caused by: No such file or directory (os error 2)\nE             \nE           assert 2 == 0\nE            +  where 2 = CompletedProcess(args=['uv', 'run', 'reflex', 'db', 'migrate'], returncode=2, stdout='', stderr='error: Failed to spawn: `reflex`\\n  Caused by: No such file or directory (os error 2)\\n').returncode\n\ntests/test_final_state.py:50: AssertionError"
+            }
+        ]
+    }
+}

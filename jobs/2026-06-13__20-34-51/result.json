@@ -1,0 +1,80 @@
+{
+    "id": "1097774d-ebfb-42b7-b904-6df9e8a408fe",
+    "started_at": "2026-06-13T20:34:53.720991",
+    "updated_at": "2026-06-13T20:48:16.166218",
+    "finished_at": "2026-06-13T20:48:16.166218",
+    "n_total_trials": 20,
+    "stats": {
+        "n_completed_trials": 20,
+        "n_errored_trials": 20,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__claude-4-6-sonnet__pending-tasks": {
+                "n_trials": 19,
+                "n_errors": 20,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "multistep_wizard_localstorage__PKyZtpp",
+                            "streaming_llm_chat_cancellable__Q7eiQkM",
+                            "csv_upload_pipeline__r8zpbuH",
+                            "realtime_multiroom_chat__6ivEcJs",
+                            "async_paginated_user_directory__U2RLWJw",
+                            "collaborative_drawing_canvas__gCUTnGB",
+                            "debounced_filtered_table__QxwS5nS",
+                            "crud_notes_with_tags__YHeMmLA",
+                            "numpy_chart_serializer__DwiNf4H",
+                            "kanban_drag_drop_persistence__TnDL8Gp",
+                            "tenant_subdomain_routing__3Qfphfb",
+                            "oauth2_pkce_login__zLdPjtM",
+                            "react_colorful_wrapper__2FdVV6v",
+                            "markdown_live_preview_editor__yGTrRqx",
+                            "live_stock_ticker_sse__svW8vLc",
+                            "background_email_scheduler__zxKqgQq",
+                            "audio_player_react_wrapper__CRXSfwQ",
+                            "polling_job_queue_dashboard__fwnDMzg",
+                            "secure_jwt_api_gateway__BFLHk3A"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "NonZeroAgentExitCodeError": [
+                        "multistep_wizard_localstorage__PKyZtpp",
+                        "streaming_llm_chat_cancellable__Q7eiQkM",
+                        "csv_upload_pipeline__r8zpbuH",
+                        "realtime_multiroom_chat__6ivEcJs",
+                        "async_paginated_user_directory__U2RLWJw",
+                        "collaborative_drawing_canvas__gCUTnGB",
+                        "debounced_filtered_table__QxwS5nS",
+                        "crud_notes_with_tags__YHeMmLA",
+                        "numpy_chart_serializer__DwiNf4H",
+                        "kanban_drag_drop_persistence__TnDL8Gp",
+                        "tenant_subdomain_routing__3Qfphfb",
+                        "oauth2_pkce_login__zLdPjtM",
+                        "react_colorful_wrapper__2FdVV6v",
+                        "markdown_live_preview_editor__yGTrRqx",
+                        "live_stock_ticker_sse__svW8vLc",
+                        "theme_toggle_cookie_persistence__96jGA5s",
+                        "background_email_scheduler__zxKqgQq",
+                        "audio_player_react_wrapper__CRXSfwQ",
+                        "polling_job_queue_dashboard__fwnDMzg",
+                        "secure_jwt_api_gateway__BFLHk3A"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 0,
+        "cost_usd": null
+    }
+}

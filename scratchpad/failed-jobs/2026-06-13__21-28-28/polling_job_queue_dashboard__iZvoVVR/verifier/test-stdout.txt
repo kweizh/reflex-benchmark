@@ -1,0 +1,176 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py EEEEEEEEEEE                                    [100%]
+
+==================================== ERRORS ====================================
+______________ ERROR at setup of test_job_table_exists_and_empty _______________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:110: AssertionError
+_________________ ERROR at setup of test_empty_counts_endpoint _________________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:110: AssertionError
+__________________ ERROR at setup of test_empty_jobs_endpoint __________________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:110: AssertionError
+__________________ ERROR at setup of test_rejects_empty_name ___________________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:110: AssertionError
+_________________ ERROR at setup of test_single_job_lifecycle __________________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:110: AssertionError
+____________ ERROR at setup of test_counts_after_single_completion _____________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:110: AssertionError
+_____________ ERROR at setup of test_get_jobs_reflects_completion ______________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:110: AssertionError
+______________ ERROR at setup of test_bulk_submission_consistency ______________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:110: AssertionError
+__________________ ERROR at setup of test_frontend_reachable ___________________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:110: AssertionError
+___________ ERROR at setup of test_no_immutable_state_error_in_logs ____________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:110: AssertionError
+________ ERROR at setup of test_source_uses_required_reflex_primitives _________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:110: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_job_table_exists_and_empty - AssertionE...
+ERROR tests/test_final_state.py::test_empty_counts_endpoint - AssertionError:...
+ERROR tests/test_final_state.py::test_empty_jobs_endpoint - AssertionError: P...
+ERROR tests/test_final_state.py::test_rejects_empty_name - AssertionError: Po...
+ERROR tests/test_final_state.py::test_single_job_lifecycle - AssertionError: ...
+ERROR tests/test_final_state.py::test_counts_after_single_completion - Assert...
+ERROR tests/test_final_state.py::test_get_jobs_reflects_completion - Assertio...
+ERROR tests/test_final_state.py::test_bulk_submission_consistency - Assertion...
+ERROR tests/test_final_state.py::test_frontend_reachable - AssertionError: Po...
+ERROR tests/test_final_state.py::test_no_immutable_state_error_in_logs - Asse...
+ERROR tests/test_final_state.py::test_source_uses_required_reflex_primitives
+============================== 11 errors in 0.54s ==============================

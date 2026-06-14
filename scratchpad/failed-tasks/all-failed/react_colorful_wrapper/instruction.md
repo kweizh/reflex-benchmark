@@ -1,0 +1,41 @@
+# Wrap react-colorful HexColorPicker as a Reflex Component
+
+## Background
+Reflex lets you bring React-only widgets into a pure Python app by wrapping npm packages as `rx.Component` subclasses. In this task you will wrap the `HexColorPicker` from the `react-colorful` npm package and use it inside a synchronized state-driven page.
+
+## Requirements
+- Build a Reflex application that wraps the `HexColorPicker` from `react-colorful` as a custom Reflex component.
+- The custom component must:
+  - Be a `NoSSRComponent` (because the picker touches the DOM and must not be server-side rendered).
+  - Expose a `color: rx.Var[str]` prop bound to the React component's `color` prop.
+  - Expose an `on_change` event trigger that serializes the React `(color) => void` callback argument so that Reflex event handlers receive the new color string.
+- Wire the component into the default `/` page so that:
+  - The picker's `on_change` updates a synchronized state var holding the hex color.
+  - An `rx.text` element on the page displays the current hex code as its text content and uses the chosen color as its `background_color`.
+- The Reflex application must compile and the resulting frontend bundle must reference the `react-colorful` npm package.
+
+## Implementation Hints
+- Use `uv` for the Python environment, as described in the framework setup.
+- See the Reflex "Wrapping React" documentation for the `library`, `tag`, props (`rx.Var[...]`), and `on_change: rx.EventHandler[lambda ...]` patterns.
+- `react-colorful` exports `HexColorPicker` as a named export (not the default export).
+- Remember to kill any background servers (e.g. `reflex run`) you started during development before finishing the task.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- The project is a valid Reflex application initialized with `uv` and the blank template.
+- Start command: `uv run reflex run`
+- Frontend port: 3000
+- The custom component class in the project source code must satisfy ALL of the following (verified by static inspection of the Python source):
+  - It subclasses `reflex.components.component.NoSSRComponent` (directly or via an alias).
+  - Its `library` class attribute is the string `react-colorful` (an optional `@<version>` suffix is allowed).
+  - Its `tag` class attribute is exactly the string `HexColorPicker`.
+  - It declares a typed prop `color: rx.Var[str]` (or the equivalent `reflex.Var[str]`).
+  - It declares an `on_change` event trigger whose argument serializer forwards the new color string to the Python handler.
+- The Reflex `State` subclass used by the page must declare a single string state var that stores the current hex color and an event handler that updates this var from a single `str` argument coming from `on_change`.
+- The default index page must render the wrapped color picker and an `rx.text` element that:
+  - Uses the current state hex color as its visible text.
+  - Uses the same hex color as its `background_color` style prop (so the box is filled with the picked color).
+- Compiled frontend bundle: After running `uv run reflex export --frontend-only --no-zip` inside the project directory, the generated `.web/_static/` directory must exist and at least one file under it must contain the literal substring `react-colorful`.
+- The application must compile and start successfully with `uv run reflex run` and serve the index page on port 3000 over HTTP.
+- After the task is finished, no Reflex background server process started by the executor may remain running.
+

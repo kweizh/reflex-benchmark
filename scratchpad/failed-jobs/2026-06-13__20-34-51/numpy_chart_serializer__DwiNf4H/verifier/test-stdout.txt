@@ -1,0 +1,134 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py FFEEEEE                                        [100%]
+
+==================================== ERRORS ====================================
+_______________ ERROR at setup of test_backend_ping_returns_pong _______________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f558dcd39e0>
+
+    @pytest.fixture(scope="session")
+    def reflex_app(xprocess):
+        _force_free_ports()
+    
+        start_script = os.path.join(PROJECT_DIR, "start.sh")
+>       assert os.path.isfile(start_script), (
+            f"Expected start script at {start_script}; the task description requires bash start.sh."
+        )
+E       AssertionError: Expected start script at /home/user/numpy_chart_serializer/start.sh; the task description requires bash start.sh.
+E       assert False
+E        +  where False = <function isfile at 0x7f558efe0220>('/home/user/numpy_chart_serializer/start.sh')
+E        +    where <function isfile at 0x7f558efe0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:97: AssertionError
+_________ ERROR at setup of test_frontend_renders_without_vartypeerror _________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f558dcd39e0>
+
+    @pytest.fixture(scope="session")
+    def reflex_app(xprocess):
+        _force_free_ports()
+    
+        start_script = os.path.join(PROJECT_DIR, "start.sh")
+>       assert os.path.isfile(start_script), (
+            f"Expected start script at {start_script}; the task description requires bash start.sh."
+        )
+E       AssertionError: Expected start script at /home/user/numpy_chart_serializer/start.sh; the task description requires bash start.sh.
+E       assert False
+E        +  where False = <function isfile at 0x7f558efe0220>('/home/user/numpy_chart_serializer/start.sh')
+E        +    where <function isfile at 0x7f558efe0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:97: AssertionError
+___________ ERROR at setup of test_regenerate_button_visible_on_page ___________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f558dcd39e0>
+
+    @pytest.fixture(scope="session")
+    def reflex_app(xprocess):
+        _force_free_ports()
+    
+        start_script = os.path.join(PROJECT_DIR, "start.sh")
+>       assert os.path.isfile(start_script), (
+            f"Expected start script at {start_script}; the task description requires bash start.sh."
+        )
+E       AssertionError: Expected start script at /home/user/numpy_chart_serializer/start.sh; the task description requires bash start.sh.
+E       assert False
+E        +  where False = <function isfile at 0x7f558efe0220>('/home/user/numpy_chart_serializer/start.sh')
+E        +    where <function isfile at 0x7f558efe0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:97: AssertionError
+_________________ ERROR at setup of test_points_endpoint_shape _________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f558dcd39e0>
+
+    @pytest.fixture(scope="session")
+    def reflex_app(xprocess):
+        _force_free_ports()
+    
+        start_script = os.path.join(PROJECT_DIR, "start.sh")
+>       assert os.path.isfile(start_script), (
+            f"Expected start script at {start_script}; the task description requires bash start.sh."
+        )
+E       AssertionError: Expected start script at /home/user/numpy_chart_serializer/start.sh; the task description requires bash start.sh.
+E       assert False
+E        +  where False = <function isfile at 0x7f558efe0220>('/home/user/numpy_chart_serializer/start.sh')
+E        +    where <function isfile at 0x7f558efe0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:97: AssertionError
+________ ERROR at setup of test_points_endpoint_regenerates_fresh_data _________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f558dcd39e0>
+
+    @pytest.fixture(scope="session")
+    def reflex_app(xprocess):
+        _force_free_ports()
+    
+        start_script = os.path.join(PROJECT_DIR, "start.sh")
+>       assert os.path.isfile(start_script), (
+            f"Expected start script at {start_script}; the task description requires bash start.sh."
+        )
+E       AssertionError: Expected start script at /home/user/numpy_chart_serializer/start.sh; the task description requires bash start.sh.
+E       assert False
+E        +  where False = <function isfile at 0x7f558efe0220>('/home/user/numpy_chart_serializer/start.sh')
+E        +    where <function isfile at 0x7f558efe0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:97: AssertionError
+=================================== FAILURES ===================================
+_______________________ test_state_var_typed_as_ndarray ________________________
+
+    def test_state_var_typed_as_ndarray():
+        """An rx.State subclass must declare a non-underscore base var typed as numpy.ndarray."""
+        sources = _read_all_py_sources(PROJECT_DIR)
+>       assert sources, f"No Python source files were found under {PROJECT_DIR}."
+E       AssertionError: No Python source files were found under /home/user/numpy_chart_serializer.
+E       assert []
+
+tests/test_final_state.py:163: AssertionError
+____________________ test_serializer_registered_for_ndarray ____________________
+
+    def test_serializer_registered_for_ndarray():
+        """A function decorated with @rx.serializer must accept numpy.ndarray and return list[dict[str, float]]."""
+        sources = _read_all_py_sources(PROJECT_DIR)
+>       assert sources, f"No Python source files were found under {PROJECT_DIR}."
+E       AssertionError: No Python source files were found under /home/user/numpy_chart_serializer.
+E       assert []
+
+tests/test_final_state.py:182: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_backend_ping_returns_pong - AssertionEr...
+ERROR tests/test_final_state.py::test_frontend_renders_without_vartypeerror
+ERROR tests/test_final_state.py::test_regenerate_button_visible_on_page - Ass...
+ERROR tests/test_final_state.py::test_points_endpoint_shape - AssertionError:...
+ERROR tests/test_final_state.py::test_points_endpoint_regenerates_fresh_data
+FAILED tests/test_final_state.py::test_state_var_typed_as_ndarray - Assertion...
+FAILED tests/test_final_state.py::test_serializer_registered_for_ndarray - As...
+========================= 2 failed, 5 errors in 1.61s ==========================

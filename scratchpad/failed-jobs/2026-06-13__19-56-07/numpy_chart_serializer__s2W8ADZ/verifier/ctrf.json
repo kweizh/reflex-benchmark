@@ -1,0 +1,97 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:20:31.810803+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 2,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781381670091,
+            "stop": 1781382031810
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_state_var_typed_as_ndarray",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781381670312,
+                "stop": 1781381670316,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_serializer_registered_for_ndarray",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781381670316,
+                "stop": 1781381670319,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_backend_ping_returns_pong",
+                "status": "failed",
+                "duration": 361260,
+                "start": 1781381670320,
+                "stop": 1781382031580,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbae60c8c20>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_app(xprocess):\n        _force_free_ports()\n    \n        start_script = os.path.join(PROJECT_DIR, \"start.sh\")\n        assert os.path.isfile(start_script), (\n            f\"Expected start script at {start_script}; the task description requires bash start.sh.\"\n        )\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_app\"\n            args = [\"bash\", \"start.sh\"]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 360\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                # Backend ping is the most reliable readiness signal for Reflex.\n                try:\n                    r = requests.get(f\"{BACKEND_URL}/ping/\", timeout=3)\n                except requests.RequestException:\n                    return False\n                return r.status_code == 200 and \"pong\" in r.text.lower()\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:120: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_app.<locals>.Starter object at 0x7fbae5764590>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 360                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_renders_without_vartypeerror",
+                "status": "failed",
+                "duration": 50,
+                "start": 1781382031581,
+                "stop": 1781382031631,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbae60c8c20>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_app(xprocess):\n        _force_free_ports()\n    \n        start_script = os.path.join(PROJECT_DIR, \"start.sh\")\n        assert os.path.isfile(start_script), (\n            f\"Expected start script at {start_script}; the task description requires bash start.sh.\"\n        )\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_app\"\n            args = [\"bash\", \"start.sh\"]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 360\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                # Backend ping is the most reliable readiness signal for Reflex.\n                try:\n                    r = requests.get(f\"{BACKEND_URL}/ping/\", timeout=3)\n                except requests.RequestException:\n                    return False\n                return r.status_code == 200 and \"pong\" in r.text.lower()\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:120: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_app.<locals>.Starter object at 0x7fbae5764590>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 360                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_regenerate_button_visible_on_page",
+                "status": "failed",
+                "duration": 83,
+                "start": 1781382031632,
+                "stop": 1781382031715,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbae60c8c20>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_app(xprocess):\n        _force_free_ports()\n    \n        start_script = os.path.join(PROJECT_DIR, \"start.sh\")\n        assert os.path.isfile(start_script), (\n            f\"Expected start script at {start_script}; the task description requires bash start.sh.\"\n        )\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_app\"\n            args = [\"bash\", \"start.sh\"]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 360\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                # Backend ping is the most reliable readiness signal for Reflex.\n                try:\n                    r = requests.get(f\"{BACKEND_URL}/ping/\", timeout=3)\n                except requests.RequestException:\n                    return False\n                return r.status_code == 200 and \"pong\" in r.text.lower()\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:120: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_app.<locals>.Starter object at 0x7fbae5764590>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 360                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_points_endpoint_shape",
+                "status": "failed",
+                "duration": 46,
+                "start": 1781382031715,
+                "stop": 1781382031761,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbae60c8c20>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_app(xprocess):\n        _force_free_ports()\n    \n        start_script = os.path.join(PROJECT_DIR, \"start.sh\")\n        assert os.path.isfile(start_script), (\n            f\"Expected start script at {start_script}; the task description requires bash start.sh.\"\n        )\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_app\"\n            args = [\"bash\", \"start.sh\"]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 360\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                # Backend ping is the most reliable readiness signal for Reflex.\n                try:\n                    r = requests.get(f\"{BACKEND_URL}/ping/\", timeout=3)\n                except requests.RequestException:\n                    return False\n                return r.status_code == 200 and \"pong\" in r.text.lower()\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:120: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_app.<locals>.Starter object at 0x7fbae5764590>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 360                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_points_endpoint_regenerates_fresh_data",
+                "status": "failed",
+                "duration": 49,
+                "start": 1781382031761,
+                "stop": 1781382031810,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7fbae60c8c20>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_app(xprocess):\n        _force_free_ports()\n    \n        start_script = os.path.join(PROJECT_DIR, \"start.sh\")\n        assert os.path.isfile(start_script), (\n            f\"Expected start script at {start_script}; the task description requires bash start.sh.\"\n        )\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_app\"\n            args = [\"bash\", \"start.sh\"]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n            }\n            timeout = 360\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                # Backend ping is the most reliable readiness signal for Reflex.\n                try:\n                    r = requests.get(f\"{BACKEND_URL}/ping/\", timeout=3)\n                except requests.RequestException:\n                    return False\n                return r.status_code == 200 and \"pong\" in r.text.lower()\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:120: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_app.<locals>.Starter object at 0x7fbae5764590>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 360                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            }
+        ]
+    }
+}

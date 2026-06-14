@@ -1,0 +1,424 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 18 items
+
+tests/test_final_state.py .F.EEEEEEEEEEEEEF.                             [100%]
+
+==================================== ERRORS ====================================
+_______ ERROR at setup of test_wrapper_library_is_react_h5_audio_player ________
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def wrapper_class(parsed_modules) -> ast.ClassDef:
+        """Return the NoSSRComponent subclass that wraps react-h5-audio-player."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b.split(".")[-1] == "NoSSRComponent" for b in bases):
+                # Must also reference react-h5-audio-player as its library.
+                lib_value = _find_assign_value(cls, "library")
+                if isinstance(lib_value, ast.Constant) and isinstance(lib_value.value, str):
+                    head = lib_value.value.split("@", 1)[0].strip()
+                    if head == "react-h5-audio-player":
+                        candidates.append(cls)
+>       assert candidates, (
+            "No class directly subclassing NoSSRComponent with "
+            "library='react-h5-audio-player' was found in the project sources."
+        )
+E       AssertionError: No class directly subclassing NoSSRComponent with library='react-h5-audio-player' was found in the project sources.
+E       assert []
+
+tests/test_final_state.py:128: AssertionError
+____________________ ERROR at setup of test_wrapper_has_tag ____________________
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def wrapper_class(parsed_modules) -> ast.ClassDef:
+        """Return the NoSSRComponent subclass that wraps react-h5-audio-player."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b.split(".")[-1] == "NoSSRComponent" for b in bases):
+                # Must also reference react-h5-audio-player as its library.
+                lib_value = _find_assign_value(cls, "library")
+                if isinstance(lib_value, ast.Constant) and isinstance(lib_value.value, str):
+                    head = lib_value.value.split("@", 1)[0].strip()
+                    if head == "react-h5-audio-player":
+                        candidates.append(cls)
+>       assert candidates, (
+            "No class directly subclassing NoSSRComponent with "
+            "library='react-h5-audio-player' was found in the project sources."
+        )
+E       AssertionError: No class directly subclassing NoSSRComponent with library='react-h5-audio-player' was found in the project sources.
+E       assert []
+
+tests/test_final_state.py:128: AssertionError
+__________________ ERROR at setup of test_wrapper_is_default ___________________
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def wrapper_class(parsed_modules) -> ast.ClassDef:
+        """Return the NoSSRComponent subclass that wraps react-h5-audio-player."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b.split(".")[-1] == "NoSSRComponent" for b in bases):
+                # Must also reference react-h5-audio-player as its library.
+                lib_value = _find_assign_value(cls, "library")
+                if isinstance(lib_value, ast.Constant) and isinstance(lib_value.value, str):
+                    head = lib_value.value.split("@", 1)[0].strip()
+                    if head == "react-h5-audio-player":
+                        candidates.append(cls)
+>       assert candidates, (
+            "No class directly subclassing NoSSRComponent with "
+            "library='react-h5-audio-player' was found in the project sources."
+        )
+E       AssertionError: No class directly subclassing NoSSRComponent with library='react-h5-audio-player' was found in the project sources.
+E       assert []
+
+tests/test_final_state.py:128: AssertionError
+_______________ ERROR at setup of test_wrapper_declares_src_var ________________
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def wrapper_class(parsed_modules) -> ast.ClassDef:
+        """Return the NoSSRComponent subclass that wraps react-h5-audio-player."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b.split(".")[-1] == "NoSSRComponent" for b in bases):
+                # Must also reference react-h5-audio-player as its library.
+                lib_value = _find_assign_value(cls, "library")
+                if isinstance(lib_value, ast.Constant) and isinstance(lib_value.value, str):
+                    head = lib_value.value.split("@", 1)[0].strip()
+                    if head == "react-h5-audio-player":
+                        candidates.append(cls)
+>       assert candidates, (
+            "No class directly subclassing NoSSRComponent with "
+            "library='react-h5-audio-player' was found in the project sources."
+        )
+E       AssertionError: No class directly subclassing NoSSRComponent with library='react-h5-audio-player' was found in the project sources.
+E       assert []
+
+tests/test_final_state.py:128: AssertionError
+_____________ ERROR at setup of test_wrapper_declares_autoplay_var _____________
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def wrapper_class(parsed_modules) -> ast.ClassDef:
+        """Return the NoSSRComponent subclass that wraps react-h5-audio-player."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b.split(".")[-1] == "NoSSRComponent" for b in bases):
+                # Must also reference react-h5-audio-player as its library.
+                lib_value = _find_assign_value(cls, "library")
+                if isinstance(lib_value, ast.Constant) and isinstance(lib_value.value, str):
+                    head = lib_value.value.split("@", 1)[0].strip()
+                    if head == "react-h5-audio-player":
+                        candidates.append(cls)
+>       assert candidates, (
+            "No class directly subclassing NoSSRComponent with "
+            "library='react-h5-audio-player' was found in the project sources."
+        )
+E       AssertionError: No class directly subclassing NoSSRComponent with library='react-h5-audio-player' was found in the project sources.
+E       assert []
+
+tests/test_final_state.py:128: AssertionError
+__ ERROR at setup of test_wrapper_event_trigger_zero_arg_serializer[on_play] ___
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def wrapper_class(parsed_modules) -> ast.ClassDef:
+        """Return the NoSSRComponent subclass that wraps react-h5-audio-player."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b.split(".")[-1] == "NoSSRComponent" for b in bases):
+                # Must also reference react-h5-audio-player as its library.
+                lib_value = _find_assign_value(cls, "library")
+                if isinstance(lib_value, ast.Constant) and isinstance(lib_value.value, str):
+                    head = lib_value.value.split("@", 1)[0].strip()
+                    if head == "react-h5-audio-player":
+                        candidates.append(cls)
+>       assert candidates, (
+            "No class directly subclassing NoSSRComponent with "
+            "library='react-h5-audio-player' was found in the project sources."
+        )
+E       AssertionError: No class directly subclassing NoSSRComponent with library='react-h5-audio-player' was found in the project sources.
+E       assert []
+
+tests/test_final_state.py:128: AssertionError
+__ ERROR at setup of test_wrapper_event_trigger_zero_arg_serializer[on_pause] __
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def wrapper_class(parsed_modules) -> ast.ClassDef:
+        """Return the NoSSRComponent subclass that wraps react-h5-audio-player."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b.split(".")[-1] == "NoSSRComponent" for b in bases):
+                # Must also reference react-h5-audio-player as its library.
+                lib_value = _find_assign_value(cls, "library")
+                if isinstance(lib_value, ast.Constant) and isinstance(lib_value.value, str):
+                    head = lib_value.value.split("@", 1)[0].strip()
+                    if head == "react-h5-audio-player":
+                        candidates.append(cls)
+>       assert candidates, (
+            "No class directly subclassing NoSSRComponent with "
+            "library='react-h5-audio-player' was found in the project sources."
+        )
+E       AssertionError: No class directly subclassing NoSSRComponent with library='react-h5-audio-player' was found in the project sources.
+E       assert []
+
+tests/test_final_state.py:128: AssertionError
+__ ERROR at setup of test_wrapper_event_trigger_zero_arg_serializer[on_ended] __
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def wrapper_class(parsed_modules) -> ast.ClassDef:
+        """Return the NoSSRComponent subclass that wraps react-h5-audio-player."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b.split(".")[-1] == "NoSSRComponent" for b in bases):
+                # Must also reference react-h5-audio-player as its library.
+                lib_value = _find_assign_value(cls, "library")
+                if isinstance(lib_value, ast.Constant) and isinstance(lib_value.value, str):
+                    head = lib_value.value.split("@", 1)[0].strip()
+                    if head == "react-h5-audio-player":
+                        candidates.append(cls)
+>       assert candidates, (
+            "No class directly subclassing NoSSRComponent with "
+            "library='react-h5-audio-player' was found in the project sources."
+        )
+E       AssertionError: No class directly subclassing NoSSRComponent with library='react-h5-audio-player' was found in the project sources.
+E       assert []
+
+tests/test_final_state.py:128: AssertionError
+_________ ERROR at setup of test_state_current_index_defaults_to_zero __________
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def state_class(parsed_modules) -> ast.ClassDef:
+        """Return a class subclassing rx.State (or any *State* base)."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b == "rx.State" or b.endswith(".State") or b == "State" for b in bases):
+                # Must define current_index annotated as int.
+                ann = _find_annassign(cls, "current_index")
+                if ann is not None:
+                    ann_src = _annotation_src(ann)
+                    if "int" in ann_src:
+                        candidates.append(cls)
+>       assert candidates, (
+            "No rx.State subclass defining `current_index: int` was found. "
+            "The playlist State machine is missing."
+        )
+E       AssertionError: No rx.State subclass defining `current_index: int` was found. The playlist State machine is missing.
+E       assert []
+
+tests/test_final_state.py:148: AssertionError
+______________ ERROR at setup of test_state_has_three_track_list _______________
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def state_class(parsed_modules) -> ast.ClassDef:
+        """Return a class subclassing rx.State (or any *State* base)."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b == "rx.State" or b.endswith(".State") or b == "State" for b in bases):
+                # Must define current_index annotated as int.
+                ann = _find_annassign(cls, "current_index")
+                if ann is not None:
+                    ann_src = _annotation_src(ann)
+                    if "int" in ann_src:
+                        candidates.append(cls)
+>       assert candidates, (
+            "No rx.State subclass defining `current_index: int` was found. "
+            "The playlist State machine is missing."
+        )
+E       AssertionError: No rx.State subclass defining `current_index: int` was found. The playlist State machine is missing.
+E       assert []
+
+tests/test_final_state.py:148: AssertionError
+_____ ERROR at setup of test_state_has_click_handler_setting_current_index _____
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def state_class(parsed_modules) -> ast.ClassDef:
+        """Return a class subclassing rx.State (or any *State* base)."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b == "rx.State" or b.endswith(".State") or b == "State" for b in bases):
+                # Must define current_index annotated as int.
+                ann = _find_annassign(cls, "current_index")
+                if ann is not None:
+                    ann_src = _annotation_src(ann)
+                    if "int" in ann_src:
+                        candidates.append(cls)
+>       assert candidates, (
+            "No rx.State subclass defining `current_index: int` was found. "
+            "The playlist State machine is missing."
+        )
+E       AssertionError: No rx.State subclass defining `current_index: int` was found. The playlist State machine is missing.
+E       assert []
+
+tests/test_final_state.py:148: AssertionError
+_____ ERROR at setup of test_state_has_on_ended_handler_with_modulo_three ______
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def state_class(parsed_modules) -> ast.ClassDef:
+        """Return a class subclassing rx.State (or any *State* base)."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b == "rx.State" or b.endswith(".State") or b == "State" for b in bases):
+                # Must define current_index annotated as int.
+                ann = _find_annassign(cls, "current_index")
+                if ann is not None:
+                    ann_src = _annotation_src(ann)
+                    if "int" in ann_src:
+                        candidates.append(cls)
+>       assert candidates, (
+            "No rx.State subclass defining `current_index: int` was found. "
+            "The playlist State machine is missing."
+        )
+E       AssertionError: No rx.State subclass defining `current_index: int` was found. The playlist State machine is missing.
+E       assert []
+
+tests/test_final_state.py:148: AssertionError
+___________ ERROR at setup of test_state_behavior_via_uv_run_python ____________
+
+parsed_modules = [(PosixPath('/home/user/audio_app/main.py'), <ast.Module object at 0x7f02b8e49c50>), (PosixPath('/home/user/audio_app/... at 0x7f02b8f6ff90>), (PosixPath('/home/user/audio_app/audio_app/__init__.py'), <ast.Module object at 0x7f02b8bbd350>)]
+
+    @pytest.fixture(scope="module")
+    def state_class(parsed_modules) -> ast.ClassDef:
+        """Return a class subclassing rx.State (or any *State* base)."""
+        candidates: list[ast.ClassDef] = []
+        for _, cls in _all_classdefs(parsed_modules):
+            bases = _base_names(cls)
+            if any(b == "rx.State" or b.endswith(".State") or b == "State" for b in bases):
+                # Must define current_index annotated as int.
+                ann = _find_annassign(cls, "current_index")
+                if ann is not None:
+                    ann_src = _annotation_src(ann)
+                    if "int" in ann_src:
+                        candidates.append(cls)
+>       assert candidates, (
+            "No rx.State subclass defining `current_index: int` was found. "
+            "The playlist State machine is missing."
+        )
+E       AssertionError: No rx.State subclass defining `current_index: int` was found. The playlist State machine is missing.
+E       assert []
+
+tests/test_final_state.py:148: AssertionError
+=================================== FAILURES ===================================
+________________________ test_requirements_lists_reflex ________________________
+
+    def test_requirements_lists_reflex():
+>       assert os.path.isfile(REQUIREMENTS_FILE), (
+            f"requirements.txt missing at {REQUIREMENTS_FILE}. "
+            "Generate it with `uv pip freeze > requirements.txt`."
+        )
+E       AssertionError: requirements.txt missing at /home/user/audio_app/requirements.txt. Generate it with `uv pip freeze > requirements.txt`.
+E       assert False
+E        +  where False = <function isfile at 0x7f02b9828220>('/home/user/audio_app/requirements.txt')
+E        +    where <function isfile at 0x7f02b9828220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:168: AssertionError
+____________ test_frontend_export_references_react_h5_audio_player _____________
+
+    def test_frontend_export_references_react_h5_audio_player():
+        """Build the frontend with `reflex export --frontend-only` and grep the bundle."""
+        proc = subprocess.run(
+            ["uv", "run", "reflex", "export", "--frontend-only", "--no-zip"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+        assert proc.returncode == 0, (
+            f"`reflex export --frontend-only --no-zip` failed (exit={proc.returncode}).\n"
+            f"--- stdout (tail) ---\n{proc.stdout[-2000:]}\n"
+            f"--- stderr (tail) ---\n{proc.stderr[-2000:]}"
+        )
+    
+        search_roots = [
+            Path(PROJECT_DIR) / ".web" / "_static",
+            Path(PROJECT_DIR) / ".web" / ".next",
+            Path(PROJECT_DIR) / ".web",
+        ]
+        needle = "react-h5-audio-player"
+        text_exts = {".js", ".mjs", ".cjs", ".html", ".css", ".json", ".map", ".txt"}
+    
+        found = False
+        scanned_files = 0
+        for root in search_roots:
+            if not root.is_dir():
+                continue
+            for path in root.rglob("*"):
+                if not path.is_file():
+                    continue
+                if path.suffix.lower() not in text_exts:
+                    continue
+                try:
+                    content = path.read_text(encoding="utf-8", errors="ignore")
+                except OSError:
+                    continue
+                scanned_files += 1
+                if needle in content:
+                    found = True
+                    break
+            if found:
+                break
+    
+>       assert found, (
+            f"After `reflex export`, the string `{needle}` was not found in any compiled "
+            f"frontend asset under {PROJECT_DIR}/.web. Scanned {scanned_files} text files."
+        )
+E       AssertionError: After `reflex export`, the string `react-h5-audio-player` was not found in any compiled frontend asset under /home/user/audio_app/.web. Scanned 10422 text files.
+E       assert False
+
+tests/test_final_state.py:540: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_rxconfig_exists
+PASSED tests/test_final_state.py::test_ports_free_before_checks
+PASSED tests/test_final_state.py::test_no_lingering_processes_on_reflex_ports
+ERROR tests/test_final_state.py::test_wrapper_library_is_react_h5_audio_player
+ERROR tests/test_final_state.py::test_wrapper_has_tag - AssertionError: No cl...
+ERROR tests/test_final_state.py::test_wrapper_is_default - AssertionError: No...
+ERROR tests/test_final_state.py::test_wrapper_declares_src_var - AssertionErr...
+ERROR tests/test_final_state.py::test_wrapper_declares_autoplay_var - Asserti...
+ERROR tests/test_final_state.py::test_wrapper_event_trigger_zero_arg_serializer[on_play]
+ERROR tests/test_final_state.py::test_wrapper_event_trigger_zero_arg_serializer[on_pause]
+ERROR tests/test_final_state.py::test_wrapper_event_trigger_zero_arg_serializer[on_ended]
+ERROR tests/test_final_state.py::test_state_current_index_defaults_to_zero - ...
+ERROR tests/test_final_state.py::test_state_has_three_track_list - AssertionE...
+ERROR tests/test_final_state.py::test_state_has_click_handler_setting_current_index
+ERROR tests/test_final_state.py::test_state_has_on_ended_handler_with_modulo_three
+ERROR tests/test_final_state.py::test_state_behavior_via_uv_run_python - Asse...
+FAILED tests/test_final_state.py::test_requirements_lists_reflex - AssertionE...
+FAILED tests/test_final_state.py::test_frontend_export_references_react_h5_audio_player
+=================== 2 failed, 3 passed, 13 errors in 15.05s ====================

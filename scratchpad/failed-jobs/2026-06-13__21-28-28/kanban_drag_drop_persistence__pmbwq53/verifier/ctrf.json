@@ -1,0 +1,134 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T21:53:45.489871+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 9,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781387616354,
+            "stop": 1781387625489
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_backend_ping_route_alive",
+                "status": "passed",
+                "duration": 7839,
+                "start": 1781387616710,
+                "stop": 1781387624549,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sqlite_db_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781387624550,
+                "stop": 1781387624551,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_seed_data_present",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781387624552,
+                "stop": 1781387624554,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_root_renders_columns_and_titles",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 197,
+                "start": 1781387624554,
+                "stop": 1781387624751,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_frontend_root_renders_columns_and_titles(reflex_server):\n        \"\"\"The root page must contain all column labels and all seeded card titles.\"\"\"\n        response = requests.get(f\"{FRONTEND_URL}/\", timeout=15)\n        assert response.status_code == 200, (\n            f\"Expected 200 from {FRONTEND_URL}/, got {response.status_code}\"\n        )\n        html = response.text\n        for column in (\"TODO\", \"DOING\", \"DONE\"):\n>           assert column in html, (\n                f\"Expected column label {column!r} in the rendered root page HTML.\"\n            )\nE           AssertionError: Expected column label 'TODO' in the rendered root page HTML.\nE           assert 'TODO' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\n\ntests/test_final_state.py:206: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_move_todo_head_to_done_tail",
+                "status": "passed",
+                "duration": 36,
+                "start": 1781387624751,
+                "stop": 1781387624787,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_move_doing_to_todo_head",
+                "status": "passed",
+                "duration": 22,
+                "start": 1781387624788,
+                "stop": 1781387624810,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_same_column_reorder_collapses_gaps",
+                "status": "passed",
+                "duration": 17,
+                "start": 1781387624810,
+                "stop": 1781387624827,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_position_clamping_when_target_exceeds_column_size",
+                "status": "passed",
+                "duration": 18,
+                "start": 1781387624827,
+                "stop": 1781387624845,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_card_id_returns_404",
+                "status": "passed",
+                "duration": 7,
+                "start": 1781387624846,
+                "stop": 1781387624853,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_target_column_returns_400",
+                "status": "passed",
+                "duration": 7,
+                "start": 1781387624853,
+                "stop": 1781387624860,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_page_still_renders_all_titles_after_moves",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 629,
+                "start": 1781387624860,
+                "stop": 1781387625489,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_page_still_renders_all_titles_after_moves(reflex_server):\n        \"\"\"After several moves, all nine card titles must still be present on the root page.\"\"\"\n        response = requests.get(f\"{FRONTEND_URL}/\", timeout=15)\n        assert response.status_code == 200, (\n            f\"Expected 200 from {FRONTEND_URL}/, got {response.status_code}\"\n        )\n        html = response.text\n        for title in ALL_TITLES:\n>           assert title in html, (\n                f\"Expected card title {title!r} to still appear in the rendered root page \"\n                \"HTML after move operations (page must reflect current DB state).\"\n            )\nE           AssertionError: Expected card title 'Add tests' to still appear in the rendered root page HTML after move operations (page must reflect current DB state).\nE           assert 'Add tests' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\n\ntests/test_final_state.py:363: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

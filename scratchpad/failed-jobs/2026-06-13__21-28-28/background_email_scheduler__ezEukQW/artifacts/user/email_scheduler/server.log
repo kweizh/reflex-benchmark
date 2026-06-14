@@ -1,0 +1,103 @@
+Debug: Overriding config value loglevel with env var LOGLEVEL=debug
+───────────────────────────────── System Info ──────────────────────────────────
+Debug: Config file: 
+'/home/user/email_scheduler/.venv/lib/python3.12/site-packages/reflex_base/confi
+g.py'
+Debug: Config: Config(app_name='email_scheduler', app_module_import=None, 
+loglevel=<LogLevel.DEBUG: 'debug'>, frontend_port=None, frontend_path='', 
+backend_port=None, backend_path='', api_url='http://localhost:8000', 
+deploy_url='http://localhost:3000', backend_host='0.0.0.0', db_url=None, 
+async_db_url=None, redis_url=None, telemetry_enabled=True, 
+bun_path=PosixPath('/root/.local/share/reflex/bun/bin/bun'), 
+static_page_generation_timeout=60, cors_allowed_origins=('*',), 
+vite_allowed_hosts=False, react_strict_mode=True, 
+frontend_compression_formats=['gzip'], frontend_packages=[], 
+state_manager_mode=<StateManagerMode.DISK: 'disk'>, redis_lock_expiration=10000,
+redis_lock_warning_threshold=1000, redis_token_expiration=3600, 
+_non_default_attributes={'app_name', 'loglevel', 'plugins'}, env_file=None, 
+state_auto_setters=False, show_built_with_reflex=None, is_reflex_cloud=False, 
+extra_overlay_function=None, hydrate_fallback=None, 
+plugins=[SitemapPlugin(trailing_slash='preserve'), 
+TailwindV4Plugin(config={'plugins': ['@tailwindcss/typography@0.5.19']})], 
+disable_plugins=[], transport='websocket')
+Debug: Running command: [PosixPath('/usr/bin/node'), '--version']
+Debug: Running command: [PosixPath('/root/.local/share/reflex/bun/bin/bun'), 
+'--version']
+Debug: [Reflex 0.9.5.post2 with Python 3.12.3 (PATH: 
+/home/user/email_scheduler/.venv/bin/python)]
+Debug: [Node 22.22.3 (Minimum: 22.12.0) (PATH:/usr/bin/node)]
+Debug: [Bun 1.3.13 (Minimum: 1.3.0) (PATH: 
+/root/.local/share/reflex/bun/bin/bun)]
+Debug: [OS Linux Ubuntu 24.04.4 LTS]
+Debug: Using package installer at: ['/root/.local/share/reflex/bun/bin/bun', 
+'/usr/bin/npm']
+Debug: Using package executer at: [['/root/.local/share/reflex/bun/bin/bun'], 
+['/usr/bin/npm']]
+Debug: Unzip path: /usr/bin/unzip
+Debug: Resetting disk state manager.
+Debug: Overriding config value backend_port with env var BACKEND_PORT=8000
+───────────────────────────── Starting Reflex App ──────────────────────────────
+Debug: Checking for the latest version of reflex...
+Debug: Sending HTTPS request to https://pypi.org/pypi/reflex/json
+Debug: Received response from https://pypi.org/pypi/reflex/json in 0.091 seconds
+Debug: Latest version of reflex: 0.9.5.post2
+Debug: Checking if Backend port: 8000 is in use.
+Debug: Checking if Backend port: 8000 is in use for families: 
+[<AddressFamily.AF_INET: 2>, <AddressFamily.AF_INET6: 10>].
+Debug: Backend port: 8000 is not in use.
+Debug: Ensuring reflex installation id.
+Debug: Creating /root/.local/share/reflex
+Debug: Ensuring reflex installation id.
+Debug: Creating /root/.local/share/reflex
+Debug: Running command: [PosixPath('/root/.local/share/reflex/bun/bin/bun'), 
+'--version']
+Backend running at: http://0.0.0.0:8000
+Debug: Using Granian for backend
+Debug: Reload paths: ['/home/user/email_scheduler/server.log', 
+'/home/user/email_scheduler/main.py', 
+'/home/user/email_scheduler/.python-version', 
+'/home/user/email_scheduler/assets', '/home/user/email_scheduler/rxconfig.py', 
+'/home/user/email_scheduler/uv.lock', 
+'/home/user/email_scheduler/email_scheduler', 
+'/home/user/email_scheduler/README.md', 
+'/home/user/email_scheduler/pyproject.toml']
+[INFO] Starting granian (main PID: 1112)
+[INFO] Listening at: http://0.0.0.0:8000
+[INFO] Spawning worker-1 with PID: 1117
+Process granian-worker:
+Traceback (most recent call last):
+  File "/home/user/email_scheduler/.venv/lib/python3.12/site-packages/granian/_internal.py", line 47, in load_module
+    __import__(module_name)
+  File "/home/user/email_scheduler/email_scheduler/email_scheduler.py", line 8, in <module>
+    from sqlmodel import select
+ModuleNotFoundError: No module named 'sqlmodel'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/user/email_scheduler/.venv/lib/python3.12/site-packages/granian/server/mp.py", line 90, in wrapped
+    callback = callback_loader()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/user/email_scheduler/.venv/lib/python3.12/site-packages/granian/_internal.py", line 65, in load_target
+    module = load_module(path)
+             ^^^^^^^^^^^^^^^^^
+  File "/home/user/email_scheduler/.venv/lib/python3.12/site-packages/granian/_internal.py", line 50, in load_module
+    raise RuntimeError(
+RuntimeError: While importing 'email_scheduler.email_scheduler', an ImportError was raised:
+
+Traceback (most recent call last):
+  File "/home/user/email_scheduler/.venv/lib/python3.12/site-packages/granian/_internal.py", line 47, in load_module
+    __import__(module_name)
+  File "/home/user/email_scheduler/email_scheduler/email_scheduler.py", line 8, in <module>
+    from sqlmodel import select
+ModuleNotFoundError: No module named 'sqlmodel'
+
+[ERROR] Unexpected exit from worker-1
+[INFO] Shutting down granian
+[INFO] Stopped worker-1
+[INFO] Granian shutdown completed, see ya!
+[22:08:25] Reflex app stopped.                                    console.py:231

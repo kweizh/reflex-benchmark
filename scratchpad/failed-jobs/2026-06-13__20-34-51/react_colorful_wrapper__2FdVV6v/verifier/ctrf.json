@@ -1,0 +1,185 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-13T20:38:12.458604+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 14,
+            "passed": 4,
+            "failed": 10,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781383045581,
+            "stop": 1781383092458
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_present",
+                "status": "passed",
+                "duration": 2024,
+                "start": 1781383045619,
+                "stop": 1781383047643,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pyproject_lists_reflex",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781383047644,
+                "stop": 1781383047645,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_ssr_component_subclass_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 27,
+                "start": 1781383047645,
+                "stop": 1781383047672,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_no_ssr_component_subclass_exists():\n        matches = _find_no_ssr_component_classes()\n>       assert matches, (\n            \"Could not find any class subclassing NoSSRComponent under \"\n            f\"{PROJECT_DIR}; the wrapper must subclass reflex.components.component.NoSSRComponent.\"\n        )\nE       AssertionError: Could not find any class subclassing NoSSRComponent under /home/user/myproject; the wrapper must subclass reflex.components.component.NoSSRComponent.\nE       assert []\n\ntests/test_final_state.py:172: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_component_library_attribute_is_react_colorful",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1781383047672,
+                "stop": 1781383047685,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_component_library_attribute_is_react_colorful():\n        matches = _find_no_ssr_component_classes()\n>       assert matches, \"No NoSSRComponent subclass found.\"\nE       AssertionError: No NoSSRComponent subclass found.\nE       assert []\n\ntests/test_final_state.py:180: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_component_tag_attribute_is_hex_color_picker",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1781383047686,
+                "stop": 1781383047699,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_component_tag_attribute_is_hex_color_picker():\n        matches = _find_no_ssr_component_classes()\n>       assert matches, \"No NoSSRComponent subclass found.\"\nE       AssertionError: No NoSSRComponent subclass found.\nE       assert []\n\ntests/test_final_state.py:198: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_component_color_prop_annotation",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 14,
+                "start": 1781383047699,
+                "stop": 1781383047713,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_component_color_prop_annotation():\n        candidates = _color_picker_classes()\n>       assert candidates, \"No HexColorPicker wrapper class found.\"\nE       AssertionError: No HexColorPicker wrapper class found.\nE       assert []\n\ntests/test_final_state.py:225: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_component_on_change_event_handler",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1781383047713,
+                "stop": 1781383047726,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_component_on_change_event_handler():\n        candidates = _color_picker_classes()\n>       assert candidates, \"No HexColorPicker wrapper class found.\"\nE       AssertionError: No HexColorPicker wrapper class found.\nE       assert []\n\ntests/test_final_state.py:238: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_state_holds_hex_color_string",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1781383047727,
+                "stop": 1781383047740,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_state_holds_hex_color_string():\n        state_classes = _find_state_classes()\n        assert state_classes, \"No subclass of rx.State found in the project.\"\n        for _, cls in state_classes:\n            var_name = _state_string_var(cls)\n            if var_name is None:\n                continue\n            handler = _state_event_handler_for(cls, var_name)\n            if handler is not None:\n                return\n>       pytest.fail(\n            \"Could not find an rx.State subclass that declares a string-typed state \"\n            \"var AND an event handler taking a single argument that assigns it to that var.\"\n        )\nE       Failed: Could not find an rx.State subclass that declares a string-typed state var AND an event handler taking a single argument that assigns it to that var.\n\ntests/test_final_state.py:313: Failed",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_index_page_uses_wrapped_component_and_text",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1781383047740,
+                "stop": 1781383047753,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_index_page_uses_wrapped_component_and_text():\n        \"\"\"The index page must mention the wrapped component AND an rx.text with background_color bound to the state hex color.\"\"\"\n        candidates = _color_picker_classes()\n>       assert candidates, \"Wrapper class missing.\"\nE       AssertionError: Wrapper class missing.\nE       assert []\n\ntests/test_final_state.py:322: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_export_exits_zero",
+                "status": "passed",
+                "duration": 13828,
+                "start": 1781383047754,
+                "stop": 1781383061582,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_static_directory_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 20,
+                "start": 1781383061583,
+                "stop": 1781383061603,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_export = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500...\u2501\u2501\u2501 100% 17/16 0:00:00\\nCreating Production Build:  \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 100% 4/4 0:00:06\\n', stderr='')\n\n    def test_static_directory_exists(reflex_export):\n        static_dir = os.path.join(PROJECT_DIR, \".web\", \"_static\")\n>       assert os.path.isdir(static_dir), (\n            f\"Expected exported static assets at {static_dir} after running reflex export.\"\n        )\nE       AssertionError: Expected exported static assets at /home/user/myproject/.web/_static after running reflex export.\nE       assert False\nE        +  where False = <function isdir at 0x7fdfa7e602c0>('/home/user/myproject/.web/_static')\nE        +    where <function isdir at 0x7fdfa7e602c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:417: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_bundle_references_react_colorful",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 20,
+                "start": 1781383061603,
+                "stop": 1781383061623,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_export = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500...\u2501\u2501\u2501 100% 17/16 0:00:00\\nCreating Production Build:  \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 100% 4/4 0:00:06\\n', stderr='')\n\n    def test_bundle_references_react_colorful(reflex_export):\n        static_dir = os.path.join(PROJECT_DIR, \".web\", \"_static\")\n>       assert os.path.isdir(static_dir), f\"{static_dir} missing.\"\nE       AssertionError: /home/user/myproject/.web/_static missing.\nE       assert False\nE        +  where False = <function isdir at 0x7fdfa7e602c0>('/home/user/myproject/.web/_static')\nE        +    where <function isdir at 0x7fdfa7e602c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:430: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_app_starts_and_serves_index",
+                "status": "passed",
+                "duration": 7726,
+                "start": 1781383061623,
+                "stop": 1781383069349,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_lingering_reflex_processes",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 23108,
+                "start": 1781383069349,
+                "stop": 1781383092457,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "running_reflex_app = {'log': '/tmp/reflex_run.log', 'proc': <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--env', 'dev'...>, 'ready': True}\n\n    def test_no_lingering_reflex_processes(running_reflex_app):\n        \"\"\"After the running_reflex_app fixture tears down, no reflex servers should remain.\"\"\"\n        # The fixture teardown happens at session end; here we only confirm that\n        # the fixture itself did not leave the server bound after we explicitly\n        # asked for cleanup at the end of the test session.\n        # We additionally force kill and check the ports are free.\n        _kill_reflex_processes()\n        time.sleep(2)\n>       assert not _port_open(\"127.0.0.1\", FRONTEND_PORT, timeout=1.0), (\n            f\"Port {FRONTEND_PORT} is still bound after cleanup; a Reflex server is still running.\"\n        )\nE       AssertionError: Port 3000 is still bound after cleanup; a Reflex server is still running.\nE       assert not True\nE        +  where True = _port_open('127.0.0.1', 3000, timeout=1.0)\n\ntests/test_final_state.py:518: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

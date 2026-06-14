@@ -1,0 +1,275 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 18 items
+
+tests/test_final_state.py ........FFF...FF..                             [100%]
+
+=================================== FAILURES ===================================
+___________ test_wrapper_event_trigger_zero_arg_serializer[on_play] ____________
+
+wrapper_class = <ast.ClassDef object at 0x7f1c3c143090>, event_name = 'on_play'
+
+    @pytest.mark.parametrize("event_name", ["on_play", "on_pause", "on_ended"])
+    def test_wrapper_event_trigger_zero_arg_serializer(wrapper_class: ast.ClassDef, event_name: str):
+        ann = _find_annassign(wrapper_class, event_name)
+        assert ann is not None, (
+            f"Wrapper must declare an event trigger `{event_name}` annotated as `rx.EventHandler[...]`."
+        )
+        ann_src = _annotation_src(ann)
+        assert "EventHandler" in ann_src, (
+            f"Annotation for `{event_name}` must reference EventHandler; got `{ann_src}`."
+        )
+        # Find a Lambda node inside the subscript and verify zero args + empty-list body.
+        lambdas = [n for n in ast.walk(ann.annotation) if isinstance(n, ast.Lambda)]
+>       assert lambdas, (
+            f"Event trigger `{event_name}` must use a `lambda: []` serializer inside its "
+            f"`rx.EventHandler[...]` subscript."
+        )
+E       AssertionError: Event trigger `on_play` must use a `lambda: []` serializer inside its `rx.EventHandler[...]` subscript.
+E       assert []
+
+tests/test_final_state.py:253: AssertionError
+___________ test_wrapper_event_trigger_zero_arg_serializer[on_pause] ___________
+
+wrapper_class = <ast.ClassDef object at 0x7f1c3c143090>, event_name = 'on_pause'
+
+    @pytest.mark.parametrize("event_name", ["on_play", "on_pause", "on_ended"])
+    def test_wrapper_event_trigger_zero_arg_serializer(wrapper_class: ast.ClassDef, event_name: str):
+        ann = _find_annassign(wrapper_class, event_name)
+        assert ann is not None, (
+            f"Wrapper must declare an event trigger `{event_name}` annotated as `rx.EventHandler[...]`."
+        )
+        ann_src = _annotation_src(ann)
+        assert "EventHandler" in ann_src, (
+            f"Annotation for `{event_name}` must reference EventHandler; got `{ann_src}`."
+        )
+        # Find a Lambda node inside the subscript and verify zero args + empty-list body.
+        lambdas = [n for n in ast.walk(ann.annotation) if isinstance(n, ast.Lambda)]
+>       assert lambdas, (
+            f"Event trigger `{event_name}` must use a `lambda: []` serializer inside its "
+            f"`rx.EventHandler[...]` subscript."
+        )
+E       AssertionError: Event trigger `on_pause` must use a `lambda: []` serializer inside its `rx.EventHandler[...]` subscript.
+E       assert []
+
+tests/test_final_state.py:253: AssertionError
+___________ test_wrapper_event_trigger_zero_arg_serializer[on_ended] ___________
+
+wrapper_class = <ast.ClassDef object at 0x7f1c3c143090>, event_name = 'on_ended'
+
+    @pytest.mark.parametrize("event_name", ["on_play", "on_pause", "on_ended"])
+    def test_wrapper_event_trigger_zero_arg_serializer(wrapper_class: ast.ClassDef, event_name: str):
+        ann = _find_annassign(wrapper_class, event_name)
+        assert ann is not None, (
+            f"Wrapper must declare an event trigger `{event_name}` annotated as `rx.EventHandler[...]`."
+        )
+        ann_src = _annotation_src(ann)
+        assert "EventHandler" in ann_src, (
+            f"Annotation for `{event_name}` must reference EventHandler; got `{ann_src}`."
+        )
+        # Find a Lambda node inside the subscript and verify zero args + empty-list body.
+        lambdas = [n for n in ast.walk(ann.annotation) if isinstance(n, ast.Lambda)]
+>       assert lambdas, (
+            f"Event trigger `{event_name}` must use a `lambda: []` serializer inside its "
+            f"`rx.EventHandler[...]` subscript."
+        )
+E       AssertionError: Event trigger `on_ended` must use a `lambda: []` serializer inside its `rx.EventHandler[...]` subscript.
+E       assert []
+
+tests/test_final_state.py:253: AssertionError
+______________ test_state_has_on_ended_handler_with_modulo_three _______________
+
+state_class = <ast.ClassDef object at 0x7f1c3c143e90>
+
+    def test_state_has_on_ended_handler_with_modulo_three(state_class: ast.ClassDef):
+        found = False
+        for stmt in state_class.body:
+            if not isinstance(stmt, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                continue
+            for node in ast.walk(stmt):
+                if isinstance(node, ast.Assign):
+                    for target in node.targets:
+                        if isinstance(target, ast.Attribute) and target.attr == "current_index" \
+                                and isinstance(target.value, ast.Name) and target.value.id == "self":
+                            if isinstance(node.value, ast.BinOp) and isinstance(node.value.op, ast.Mod):
+                                right = node.value.right
+                                if isinstance(right, ast.Constant) and right.value == 3:
+                                    found = True
+                                    break
+                if found:
+                    break
+            if found:
+                break
+>       assert found, (
+            "State must define an event handler that advances `self.current_index` using "
+            "modulo-3 arithmetic so the playlist wraps from index 2 back to 0."
+        )
+E       AssertionError: State must define an event handler that advances `self.current_index` using modulo-3 arithmetic so the playlist wraps from index 2 back to 0.
+E       assert False
+
+tests/test_final_state.py:347: AssertionError
+____________________ test_state_behavior_via_uv_run_python _____________________
+
+state_class = <ast.ClassDef object at 0x7f1c3c143e90>
+
+    def test_state_behavior_via_uv_run_python(state_class: ast.ClassDef):
+        """Drive the State class via `uv run python -c ...` to verify wraparound."""
+        state_name = state_class.name
+    
+        script = textwrap.dedent(
+            f"""
+            import sys, os, importlib, pkgutil, inspect, pathlib
+    
+            project_root = pathlib.Path("/home/user/audio_app").resolve()
+            sys.path.insert(0, str(project_root))
+    
+            # Discover the app package: a directory that contains an __init__.py and
+            # is not .web/.venv/etc.
+            skip = {{".web", ".venv", "venv", "__pycache__", ".git", "node_modules", "alembic"}}
+            candidate_pkgs = []
+            for child in project_root.iterdir():
+                if child.is_dir() and child.name not in skip and (child / "__init__.py").exists():
+                    candidate_pkgs.append(child.name)
+    
+            StateCls = None
+            for pkg in candidate_pkgs:
+                try:
+                    mod = importlib.import_module(pkg)
+                except Exception:
+                    continue
+                # walk submodules
+                for sub in pkgutil.walk_packages(mod.__path__, prefix=pkg + "."):
+                    try:
+                        submod = importlib.import_module(sub.name)
+                    except Exception:
+                        continue
+                    for name, obj in inspect.getmembers(submod, inspect.isclass):
+                        if name == {state_name!r} and obj.__module__.startswith(pkg):
+                            StateCls = obj
+                            break
+                    if StateCls is not None:
+                        break
+                if StateCls is None:
+                    # Maybe the class lives in the package's __init__ itself.
+                    for name, obj in inspect.getmembers(mod, inspect.isclass):
+                        if name == {state_name!r}:
+                            StateCls = obj
+                            break
+                if StateCls is not None:
+                    break
+    
+            if StateCls is None:
+                print("FAIL: could not import State class", {state_name!r}, file=sys.stderr)
+                sys.exit(2)
+    
+            instance = StateCls()
+    
+            # Locate handler that takes an int and assigns to current_index without modulo.
+            click_handler_name = None
+            ended_handler_name = None
+            import ast as _ast, textwrap as _tw
+            for attr_name in dir(StateCls):
+                if attr_name.startswith("_"):
+                    continue
+                attr = getattr(StateCls, attr_name, None)
+                if not callable(attr):
+                    continue
+                try:
+                    src = _tw.dedent(inspect.getsource(attr))
+                except Exception:
+                    continue
+                try:
+                    tree = _ast.parse(src)
+                except Exception:
+                    continue
+                for node in _ast.walk(tree):
+                    if isinstance(node, _ast.Assign):
+                        for target in node.targets:
+                            if (isinstance(target, _ast.Attribute) and target.attr == "current_index"
+                                    and isinstance(target.value, _ast.Name) and target.value.id == "self"):
+                                if isinstance(node.value, _ast.BinOp) and isinstance(node.value.op, _ast.Mod):
+                                    ended_handler_name = ended_handler_name or attr_name
+                                else:
+                                    click_handler_name = click_handler_name or attr_name
+    
+            if click_handler_name is None or ended_handler_name is None:
+                print(
+                    "FAIL: could not locate click/ended handlers; click=",
+                    click_handler_name, "ended=", ended_handler_name,
+                    file=sys.stderr,
+                )
+                sys.exit(3)
+    
+            # Reflex wraps event handlers in EventHandler descriptors; the raw callable
+            # is on the class. We resolve it via instance __class__.__dict__ if needed.
+            def _raw(name):
+                attr = StateCls.__dict__.get(name) or getattr(StateCls, name)
+                fn = getattr(attr, "fn", None) or getattr(attr, "func", None) or attr
+                return fn
+    
+            click_fn = _raw(click_handler_name)
+            ended_fn = _raw(ended_handler_name)
+    
+            # Click on index 2
+            try:
+                click_fn(instance, 2)
+            except TypeError:
+                click_fn(instance, index=2)
+            assert instance.current_index == 2, f"after click_fn(2), current_index={{instance.current_index}}"
+    
+            seq = []
+            for _ in range(3):
+                ended_fn(instance)
+                seq.append(instance.current_index)
+    
+            expected = [0, 1, 2]
+            assert seq == expected, f"on_ended sequence wrong: got {{seq}}, expected {{expected}}"
+    
+            print("OK")
+            """
+        )
+    
+        proc = subprocess.run(
+            ["uv", "run", "python", "-c", script],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=300,
+        )
+>       assert proc.returncode == 0, (
+            f"State behaviour smoke test failed (exit={proc.returncode}).\n"
+            f"--- stdout ---\n{proc.stdout}\n--- stderr ---\n{proc.stderr}"
+        )
+E       AssertionError: State behaviour smoke test failed (exit=3).
+E         --- stdout ---
+E         
+E         --- stderr ---
+E         FAIL: could not locate click/ended handlers; click= None ended= None
+E         
+E       assert 3 == 0
+E        +  where 3 = CompletedProcess(args=['uv', 'run', 'python', '-c', '\nimport sys, os, importlib, pkgutil, inspect, pathlib\n\nproject...nt("OK")\n'], returncode=3, stdout='', stderr='FAIL: could not locate click/ended handlers; click= None ended= None\n').returncode
+
+tests/test_final_state.py:482: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_rxconfig_exists
+PASSED tests/test_final_state.py::test_requirements_lists_reflex
+PASSED tests/test_final_state.py::test_ports_free_before_checks
+PASSED tests/test_final_state.py::test_wrapper_library_is_react_h5_audio_player
+PASSED tests/test_final_state.py::test_wrapper_has_tag
+PASSED tests/test_final_state.py::test_wrapper_is_default
+PASSED tests/test_final_state.py::test_wrapper_declares_src_var
+PASSED tests/test_final_state.py::test_wrapper_declares_autoplay_var
+PASSED tests/test_final_state.py::test_state_current_index_defaults_to_zero
+PASSED tests/test_final_state.py::test_state_has_three_track_list
+PASSED tests/test_final_state.py::test_state_has_click_handler_setting_current_index
+PASSED tests/test_final_state.py::test_frontend_export_references_react_h5_audio_player
+PASSED tests/test_final_state.py::test_no_lingering_processes_on_reflex_ports
+FAILED tests/test_final_state.py::test_wrapper_event_trigger_zero_arg_serializer[on_play]
+FAILED tests/test_final_state.py::test_wrapper_event_trigger_zero_arg_serializer[on_pause]
+FAILED tests/test_final_state.py::test_wrapper_event_trigger_zero_arg_serializer[on_ended]
+FAILED tests/test_final_state.py::test_state_has_on_ended_handler_with_modulo_three
+FAILED tests/test_final_state.py::test_state_behavior_via_uv_run_python - Ass...
+========================= 5 failed, 13 passed in 9.16s =========================

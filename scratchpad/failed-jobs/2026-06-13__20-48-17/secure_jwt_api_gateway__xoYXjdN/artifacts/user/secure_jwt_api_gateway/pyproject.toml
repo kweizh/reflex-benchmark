@@ -1,0 +1,13 @@
+[project]
+name = "secure-jwt-api-gateway"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.136.3",
+    "httpx>=0.28.1",
+    "pydantic>=2.13.4",
+    "pyjwt>=2.13.0",
+    "reflex>=0.9.5.post2",
+]
