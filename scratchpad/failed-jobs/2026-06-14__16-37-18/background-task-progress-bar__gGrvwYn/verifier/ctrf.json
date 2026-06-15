@@ -1,0 +1,131 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:52:08.431922+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 10,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781455908675,
+            "stop": 1781455928431
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_main_module_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455908742,
+                "stop": 1781455908744,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_progress_var",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455908745,
+                "stop": 1781455908747,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_status_message_var",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455908748,
+                "stop": 1781455908750,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_backend_only_running_flag",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781455908750,
+                "stop": 1781455908753,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_background_event_handler_decorator_and_locks",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455908753,
+                "stop": 1781455908755,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_asyncio_sleep_outside_async_with_self",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781455908756,
+                "stop": 1781455908759,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exported_frontend_contains_start_button",
+                "status": "passed",
+                "duration": 9657,
+                "start": 1781455908759,
+                "stop": 1781455918416,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exported_frontend_uses_progress_component",
+                "status": "passed",
+                "duration": 6,
+                "start": 1781455918416,
+                "stop": 1781455918422,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_serves_root_with_start_label",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6568,
+                "start": 1781455918422,
+                "stop": 1781455924990,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "running_app = None\n\n    def test_frontend_serves_root_with_start_label(running_app):\n        import urllib.request\n    \n        req = urllib.request.Request(\"http://127.0.0.1:3000/\", headers={\"User-Agent\": \"harbor-verify\"})\n        with urllib.request.urlopen(req, timeout=30) as resp:\n            assert resp.status == 200, f\"Expected HTTP 200 from frontend, got {resp.status}.\"\n            body = resp.read().decode(\"utf-8\", errors=\"ignore\")\n>       assert \"Start\" in body, (\n            \"Served HTML at http://localhost:3000/ does not contain the `Start` label.\"\n        )\nE       AssertionError: Served HTML at http://localhost:3000/ does not contain the `Start` label.\nE       assert 'Start' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\n\ntests/test_final_state.py:430: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_backend_ping",
+                "status": "passed",
+                "duration": 50,
+                "start": 1781455924991,
+                "stop": 1781455925041,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_lingering_servers_after_teardown",
+                "status": "passed",
+                "duration": 3390,
+                "start": 1781455925041,
+                "stop": 1781455928431,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

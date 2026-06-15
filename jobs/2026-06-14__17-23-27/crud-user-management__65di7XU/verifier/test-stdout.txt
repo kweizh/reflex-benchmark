@@ -1,0 +1,193 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 8 items
+
+tests/test_final_state.py FF....FE                                       [100%]
+
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_dev_server_serves_root _________________
+
+    @pytest.fixture(scope="session")
+    def reflex_dev_server():
+        """Start `uv run reflex run` in the background and tear it down at the end."""
+        assert os.path.isdir(PROJECT_DIR), f"Project directory {PROJECT_DIR} does not exist."
+    
+        _kill_reflex_processes()
+        time.sleep(2.0)
+    
+        log_path = "/tmp/reflex_run.log"
+        log_file = open(log_path, "wb")
+        proc = subprocess.Popen(
+            ["uv", "run", "reflex", "run", "--loglevel", "info"],
+            cwd=PROJECT_DIR,
+            stdout=log_file,
+            stderr=subprocess.STDOUT,
+            start_new_session=True,
+        )
+    
+        deadline = time.time() + 300.0  # first run compiles the frontend; allow plenty of time
+        ready = False
+        last_error: Exception | None = None
+        while time.time() < deadline:
+            if proc.poll() is not None:
+                log_file.flush()
+                tail = ""
+                try:
+                    with open(log_path, "r", encoding="utf-8", errors="ignore") as fh:
+                        tail = fh.read()[-4000:]
+                except OSError:
+                    pass
+>               pytest.fail(
+                    f"'uv run reflex run' exited early with code {proc.returncode}.\n"
+                    f"Recent log:\n{tail}"
+                )
+E               Failed: 'uv run reflex run' exited early with code 1.
+E               Recent log:
+E               ───────────────────────────── Starting Reflex App ──────────────────────────────
+E               DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E               use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E               removed in 1.0.0. (<frozen abc>:106)
+E               Traceback (most recent call last):
+E                 File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 361, in compile_or_validate_app
+E                   get_compiled_app(
+E                 File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 273, in get_compiled_app
+E                   app._compile(
+E                 File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/app.py", line 1317, in _compile
+E                   did_real_compile = compiler.compile_app(
+E                                      ^^^^^^^^^^^^^^^^^^^^^
+E                 File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/compiler/compiler.py", line 1101, in compile_app
+E                   compile_ctx.compile(
+E                 File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex_base/plugins/compiler.py", line 803, in compile
+E                   page_ctx = self.hooks.eval_page(
+E                              ^^^^^^^^^^^^^^^^^^^^^
+E                 File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex_base/plugins/compiler.py", line 271, in eval_page
+E                   result = hook_impl(page_fn, page=page, **kwargs)
+E                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                 File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/compiler/plugins/builtin.py", line 182, in eval_page
+E                   component = compiler.into_component(page_fn)
+E                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                 File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/compiler/compiler.py", line 795, in into_component
+E                   component_called = component()
+E                                      ^^^^^^^^^^^
+E                 File "/home/user/myproject/myproject/myproject.py", line 78, in index
+E                   on_change=State.set_username,
+E                             ^^^^^^^^^^^^^^^^^^
+E               AttributeError: type object 'State' has no attribute 'set_username'
+E               Happened while evaluating page 'index'
+
+tests/test_final_state.py:93: Failed
+=================================== FAILURES ===================================
+__________________________ test_database_file_exists ___________________________
+
+    def test_database_file_exists():
+>       assert os.path.isfile(DB_PATH), (
+            f"Expected SQLite database file at {DB_PATH}. Did the executor run "
+            "'uv run reflex db init && uv run reflex db makemigrations --message init && "
+            "uv run reflex db migrate'?"
+        )
+E       AssertionError: Expected SQLite database file at /home/user/myproject/reflex.db. Did the executor run 'uv run reflex db init && uv run reflex db makemigrations --message init && uv run reflex db migrate'?
+E       assert False
+E        +  where False = <function isfile at 0x7fc35634c220>('/home/user/myproject/reflex.db')
+E        +    where <function isfile at 0x7fc35634c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:146: AssertionError
+____________________________ test_user_table_schema ____________________________
+
+    def test_user_table_schema():
+>       assert os.path.isfile(DB_PATH), f"Database file {DB_PATH} does not exist."
+E       AssertionError: Database file /home/user/myproject/reflex.db does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x7fc35634c220>('/home/user/myproject/reflex.db')
+E        +    where <function isfile at 0x7fc35634c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:154: AssertionError
+_______________ test_exported_frontend_contains_required_labels ________________
+
+    def test_exported_frontend_contains_required_labels():
+        # Trigger an export to ensure the .web tree is materialized regardless of dev-server state.
+        result = subprocess.run(
+            ["uv", "run", "reflex", "export", "--frontend-only", "--no-zip"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=900,
+        )
+>       assert result.returncode == 0, (
+            f"`uv run reflex export --frontend-only --no-zip` failed (exit={result.returncode}).\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: `uv run reflex export --frontend-only --no-zip` failed (exit=1).
+E         stdout:
+E         ────────────── Compiling production app and preparing for export. ──────────────
+E         DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+E         use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+E         removed in 1.0.0. (<frozen abc>:106)
+E         
+E         stderr:
+E         Traceback (most recent call last):
+E           File "/home/user/myproject/.venv/bin/reflex", line 10, in <module>
+E             sys.exit(cli())
+E                      ^^^^^
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+E             return self.main(*args, **kwargs)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1445, in main
+E             rv = self.invoke(ctx)
+E                  ^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1912, in invoke
+E             return _process_result(sub_ctx.command.invoke(sub_ctx))
+E                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+E             return ctx.invoke(self.callback, **ctx.params)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+E             return callback(*args, **kwargs)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 579, in export
+E             export_utils.export(
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/export.py", line 83, in export
+E             prerequisites.get_compiled_app(
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/utils/prerequisites.py", line 273, in get_compiled_app
+E             app._compile(
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/app.py", line 1317, in _compile
+E             did_real_compile = compiler.compile_app(
+E                                ^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/compiler/compiler.py", line 1101, in compile_app
+E             compile_ctx.compile(
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex_base/plugins/compiler.py", line 803, in compile
+E             page_ctx = self.hooks.eval_page(
+E                        ^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex_base/plugins/compiler.py", line 271, in eval_page
+E             result = hook_impl(page_fn, page=page, **kwargs)
+E                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/compiler/plugins/builtin.py", line 182, in eval_page
+E             component = compiler.into_component(page_fn)
+E                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/compiler/compiler.py", line 795, in into_component
+E             component_called = component()
+E                                ^^^^^^^^^^^
+E           File "/home/user/myproject/myproject/myproject.py", line 78, in index
+E             on_change=State.set_username,
+E                       ^^^^^^^^^^^^^^^^^^
+E         AttributeError: type object 'State' has no attribute 'set_username'
+E         Happened while evaluating page 'index'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=1, stdout='────────...\nAttributeError: type object \'State\' has no attribute \'set_username\'\nHappened while evaluating page \'index\'\n').returncode
+
+tests/test_final_state.py:278: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_user_model_definition
+PASSED tests/test_final_state.py::test_state_exposes_users_var_and_load_event
+PASSED tests/test_final_state.py::test_event_handlers_present
+PASSED tests/test_final_state.py::test_sync_rx_session_used_at_least_twice
+ERROR tests/test_final_state.py::test_dev_server_serves_root - Failed: 'uv ru...
+FAILED tests/test_final_state.py::test_database_file_exists - AssertionError:...
+FAILED tests/test_final_state.py::test_user_table_schema - AssertionError: Da...
+FAILED tests/test_final_state.py::test_exported_frontend_contains_required_labels
+===================== 3 failed, 4 passed, 1 error in 8.58s =====================

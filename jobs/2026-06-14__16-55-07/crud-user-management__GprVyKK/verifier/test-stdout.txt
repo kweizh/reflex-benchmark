@@ -1,0 +1,19 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 8 items
+
+tests/test_final_state.py ........                                       [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_database_file_exists
+PASSED tests/test_final_state.py::test_user_table_schema
+PASSED tests/test_final_state.py::test_user_model_definition
+PASSED tests/test_final_state.py::test_state_exposes_users_var_and_load_event
+PASSED tests/test_final_state.py::test_event_handlers_present
+PASSED tests/test_final_state.py::test_sync_rx_session_used_at_least_twice
+PASSED tests/test_final_state.py::test_exported_frontend_contains_required_labels
+PASSED tests/test_final_state.py::test_dev_server_serves_root
+============================== 8 passed in 31.92s ==============================

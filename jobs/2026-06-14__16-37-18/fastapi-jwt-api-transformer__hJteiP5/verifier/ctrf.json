@@ -1,0 +1,110 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:53:38.105501+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781456011369,
+            "stop": 1781456018105
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_rx_app_uses_api_transformer_with_fastapi_instance",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781456011681,
+                "stop": 1781456011685,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_endpoints_registered_on_fastapi_instance",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781456011686,
+                "stop": 1781456011689,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jwt_secret_generated_with_secure_random",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781456011689,
+                "stop": 1781456011692,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_backend_only_current_user",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781456011692,
+                "stop": 1781456011695,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_login_with_correct_credentials_returns_access_token",
+                "status": "passed",
+                "duration": 4046,
+                "start": 1781456011695,
+                "stop": 1781456015741,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_login_with_wrong_credentials_returns_401",
+                "status": "passed",
+                "duration": 7,
+                "start": 1781456015741,
+                "stop": 1781456015748,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_me_with_valid_token_returns_admin",
+                "status": "passed",
+                "duration": 15,
+                "start": 1781456015748,
+                "stop": 1781456015763,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_me_without_token_returns_unauthorized",
+                "status": "passed",
+                "duration": 5,
+                "start": 1781456015763,
+                "stop": 1781456015768,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_me_with_malformed_token_returns_unauthorized",
+                "status": "passed",
+                "duration": 2335,
+                "start": 1781456015769,
+                "stop": 1781456018104,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

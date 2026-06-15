@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 12 items
+
+tests/test_final_state.py ............                                   [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_python_files_present
+PASSED tests/test_final_state.py::test_nossr_component_imported_from_reflex_components_component
+PASSED tests/test_final_state.py::test_color_picker_class_inherits_nossr_component
+PASSED tests/test_final_state.py::test_color_picker_library_and_tag
+PASSED tests/test_final_state.py::test_color_picker_color_prop_is_var_str
+PASSED tests/test_final_state.py::test_color_picker_on_change_event_handler_lambda
+PASSED tests/test_final_state.py::test_color_picker_factory_assignment
+PASSED tests/test_final_state.py::test_state_class_color_var_and_set_color_handler
+PASSED tests/test_final_state.py::test_reflex_export_succeeded
+PASSED tests/test_final_state.py::test_web_package_json_exists
+PASSED tests/test_final_state.py::test_web_package_json_contains_react_colorful
+PASSED tests/test_final_state.py::test_ports_free_after_build
+============================= 12 passed in 12.51s ==============================

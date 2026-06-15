@@ -1,0 +1,251 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 9 items
+
+tests/test_final_state.py ....EEEEE                                      [100%]
+
+==================================== ERRORS ====================================
+__ ERROR at setup of test_login_with_correct_credentials_returns_access_token __
+
+    @pytest.fixture(scope="module")
+    def reflex_backend():
+        _kill_servers()
+        # Give the OS a moment to free the ports.
+        time.sleep(2)
+    
+        env = os.environ.copy()
+        proc = subprocess.Popen(
+            ["uv", "run", "reflex", "run", "--backend-only", "--loglevel", "debug"],
+            cwd=PROJECT_DIR,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            env=env,
+        )
+    
+        started = False
+        deadline = time.time() + 240
+        last_err = ""
+        while time.time() < deadline:
+            if proc.poll() is not None:
+                break
+            try:
+                r = requests.get(f"{BACKEND}/ping", timeout=2)
+                if r.status_code == 200 and "pong" in r.text.lower():
+                    started = True
+                    break
+            except Exception as e:
+                last_err = str(e)
+            time.sleep(2)
+    
+        if not started:
+            try:
+                proc.terminate()
+                proc.wait(timeout=10)
+            except Exception:
+                proc.kill()
+            _kill_servers()
+>           pytest.fail(
+                f"Reflex backend did not become ready on {BACKEND}/ping within timeout. "
+                f"Last error: {last_err}"
+            )
+E           Failed: Reflex backend did not become ready on http://localhost:8000/ping within timeout. Last error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=2)
+
+tests/test_final_state.py:306: Failed
+_______ ERROR at setup of test_login_with_wrong_credentials_returns_401 ________
+
+    @pytest.fixture(scope="module")
+    def reflex_backend():
+        _kill_servers()
+        # Give the OS a moment to free the ports.
+        time.sleep(2)
+    
+        env = os.environ.copy()
+        proc = subprocess.Popen(
+            ["uv", "run", "reflex", "run", "--backend-only", "--loglevel", "debug"],
+            cwd=PROJECT_DIR,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            env=env,
+        )
+    
+        started = False
+        deadline = time.time() + 240
+        last_err = ""
+        while time.time() < deadline:
+            if proc.poll() is not None:
+                break
+            try:
+                r = requests.get(f"{BACKEND}/ping", timeout=2)
+                if r.status_code == 200 and "pong" in r.text.lower():
+                    started = True
+                    break
+            except Exception as e:
+                last_err = str(e)
+            time.sleep(2)
+    
+        if not started:
+            try:
+                proc.terminate()
+                proc.wait(timeout=10)
+            except Exception:
+                proc.kill()
+            _kill_servers()
+>           pytest.fail(
+                f"Reflex backend did not become ready on {BACKEND}/ping within timeout. "
+                f"Last error: {last_err}"
+            )
+E           Failed: Reflex backend did not become ready on http://localhost:8000/ping within timeout. Last error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=2)
+
+tests/test_final_state.py:306: Failed
+___________ ERROR at setup of test_me_with_valid_token_returns_admin ___________
+
+    @pytest.fixture(scope="module")
+    def reflex_backend():
+        _kill_servers()
+        # Give the OS a moment to free the ports.
+        time.sleep(2)
+    
+        env = os.environ.copy()
+        proc = subprocess.Popen(
+            ["uv", "run", "reflex", "run", "--backend-only", "--loglevel", "debug"],
+            cwd=PROJECT_DIR,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            env=env,
+        )
+    
+        started = False
+        deadline = time.time() + 240
+        last_err = ""
+        while time.time() < deadline:
+            if proc.poll() is not None:
+                break
+            try:
+                r = requests.get(f"{BACKEND}/ping", timeout=2)
+                if r.status_code == 200 and "pong" in r.text.lower():
+                    started = True
+                    break
+            except Exception as e:
+                last_err = str(e)
+            time.sleep(2)
+    
+        if not started:
+            try:
+                proc.terminate()
+                proc.wait(timeout=10)
+            except Exception:
+                proc.kill()
+            _kill_servers()
+>           pytest.fail(
+                f"Reflex backend did not become ready on {BACKEND}/ping within timeout. "
+                f"Last error: {last_err}"
+            )
+E           Failed: Reflex backend did not become ready on http://localhost:8000/ping within timeout. Last error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=2)
+
+tests/test_final_state.py:306: Failed
+_________ ERROR at setup of test_me_without_token_returns_unauthorized _________
+
+    @pytest.fixture(scope="module")
+    def reflex_backend():
+        _kill_servers()
+        # Give the OS a moment to free the ports.
+        time.sleep(2)
+    
+        env = os.environ.copy()
+        proc = subprocess.Popen(
+            ["uv", "run", "reflex", "run", "--backend-only", "--loglevel", "debug"],
+            cwd=PROJECT_DIR,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            env=env,
+        )
+    
+        started = False
+        deadline = time.time() + 240
+        last_err = ""
+        while time.time() < deadline:
+            if proc.poll() is not None:
+                break
+            try:
+                r = requests.get(f"{BACKEND}/ping", timeout=2)
+                if r.status_code == 200 and "pong" in r.text.lower():
+                    started = True
+                    break
+            except Exception as e:
+                last_err = str(e)
+            time.sleep(2)
+    
+        if not started:
+            try:
+                proc.terminate()
+                proc.wait(timeout=10)
+            except Exception:
+                proc.kill()
+            _kill_servers()
+>           pytest.fail(
+                f"Reflex backend did not become ready on {BACKEND}/ping within timeout. "
+                f"Last error: {last_err}"
+            )
+E           Failed: Reflex backend did not become ready on http://localhost:8000/ping within timeout. Last error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=2)
+
+tests/test_final_state.py:306: Failed
+_____ ERROR at setup of test_me_with_malformed_token_returns_unauthorized ______
+
+    @pytest.fixture(scope="module")
+    def reflex_backend():
+        _kill_servers()
+        # Give the OS a moment to free the ports.
+        time.sleep(2)
+    
+        env = os.environ.copy()
+        proc = subprocess.Popen(
+            ["uv", "run", "reflex", "run", "--backend-only", "--loglevel", "debug"],
+            cwd=PROJECT_DIR,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            env=env,
+        )
+    
+        started = False
+        deadline = time.time() + 240
+        last_err = ""
+        while time.time() < deadline:
+            if proc.poll() is not None:
+                break
+            try:
+                r = requests.get(f"{BACKEND}/ping", timeout=2)
+                if r.status_code == 200 and "pong" in r.text.lower():
+                    started = True
+                    break
+            except Exception as e:
+                last_err = str(e)
+            time.sleep(2)
+    
+        if not started:
+            try:
+                proc.terminate()
+                proc.wait(timeout=10)
+            except Exception:
+                proc.kill()
+            _kill_servers()
+>           pytest.fail(
+                f"Reflex backend did not become ready on {BACKEND}/ping within timeout. "
+                f"Last error: {last_err}"
+            )
+E           Failed: Reflex backend did not become ready on http://localhost:8000/ping within timeout. Last error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=2)
+
+tests/test_final_state.py:306: Failed
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_rx_app_uses_api_transformer_with_fastapi_instance
+PASSED tests/test_final_state.py::test_endpoints_registered_on_fastapi_instance
+PASSED tests/test_final_state.py::test_jwt_secret_generated_with_secure_random
+PASSED tests/test_final_state.py::test_state_has_backend_only_current_user
+ERROR tests/test_final_state.py::test_login_with_correct_credentials_returns_access_token
+ERROR tests/test_final_state.py::test_login_with_wrong_credentials_returns_401
+ERROR tests/test_final_state.py::test_me_with_valid_token_returns_admin - Fai...
+ERROR tests/test_final_state.py::test_me_without_token_returns_unauthorized
+ERROR tests/test_final_state.py::test_me_with_malformed_token_returns_unauthorized
+=================== 4 passed, 5 errors in 243.10s (0:04:03) ====================

@@ -1,0 +1,115 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T18:12:50.136531+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 4,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781460526720,
+            "stop": 1781460770136
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_rx_app_uses_api_transformer_with_fastapi_instance",
+                "status": "passed",
+                "duration": 5,
+                "start": 1781460527044,
+                "stop": 1781460527049,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_endpoints_registered_on_fastapi_instance",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781460527049,
+                "stop": 1781460527053,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jwt_secret_generated_with_secure_random",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781460527053,
+                "stop": 1781460527057,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_backend_only_current_user",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781460527058,
+                "stop": 1781460527061,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_login_with_correct_credentials_returns_access_token",
+                "status": "failed",
+                "duration": 243002,
+                "start": 1781460527061,
+                "stop": 1781460770063,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def reflex_backend():\n        _kill_servers()\n        # Give the OS a moment to free the ports.\n        time.sleep(2)\n    \n        env = os.environ.copy()\n        proc = subprocess.Popen(\n            [\"uv\", \"run\", \"reflex\", \"run\", \"--backend-only\", \"--loglevel\", \"debug\"],\n            cwd=PROJECT_DIR,\n            stdout=subprocess.DEVNULL,\n            stderr=subprocess.DEVNULL,\n            env=env,\n        )\n    \n        started = False\n        deadline = time.time() + 240\n        last_err = \"\"\n        while time.time() < deadline:\n            if proc.poll() is not None:\n                break\n            try:\n                r = requests.get(f\"{BACKEND}/ping\", timeout=2)\n                if r.status_code == 200 and \"pong\" in r.text.lower():\n                    started = True\n                    break\n            except Exception as e:\n                last_err = str(e)\n            time.sleep(2)\n    \n        if not started:\n            try:\n                proc.terminate()\n                proc.wait(timeout=10)\n            except Exception:\n                proc.kill()\n            _kill_servers()\n>           pytest.fail(\n                f\"Reflex backend did not become ready on {BACKEND}/ping within timeout. \"\n                f\"Last error: {last_err}\"\n            )\nE           Failed: Reflex backend did not become ready on http://localhost:8000/ping within timeout. Last error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=2)\n\ntests/test_final_state.py:306: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_login_with_wrong_credentials_returns_401",
+                "status": "failed",
+                "duration": 18,
+                "start": 1781460770063,
+                "stop": 1781460770081,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def reflex_backend():\n        _kill_servers()\n        # Give the OS a moment to free the ports.\n        time.sleep(2)\n    \n        env = os.environ.copy()\n        proc = subprocess.Popen(\n            [\"uv\", \"run\", \"reflex\", \"run\", \"--backend-only\", \"--loglevel\", \"debug\"],\n            cwd=PROJECT_DIR,\n            stdout=subprocess.DEVNULL,\n            stderr=subprocess.DEVNULL,\n            env=env,\n        )\n    \n        started = False\n        deadline = time.time() + 240\n        last_err = \"\"\n        while time.time() < deadline:\n            if proc.poll() is not None:\n                break\n            try:\n                r = requests.get(f\"{BACKEND}/ping\", timeout=2)\n                if r.status_code == 200 and \"pong\" in r.text.lower():\n                    started = True\n                    break\n            except Exception as e:\n                last_err = str(e)\n            time.sleep(2)\n    \n        if not started:\n            try:\n                proc.terminate()\n                proc.wait(timeout=10)\n            except Exception:\n                proc.kill()\n            _kill_servers()\n>           pytest.fail(\n                f\"Reflex backend did not become ready on {BACKEND}/ping within timeout. \"\n                f\"Last error: {last_err}\"\n            )\nE           Failed: Reflex backend did not become ready on http://localhost:8000/ping within timeout. Last error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=2)\n\ntests/test_final_state.py:306: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_me_with_valid_token_returns_admin",
+                "status": "failed",
+                "duration": 17,
+                "start": 1781460770082,
+                "stop": 1781460770099,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def reflex_backend():\n        _kill_servers()\n        # Give the OS a moment to free the ports.\n        time.sleep(2)\n    \n        env = os.environ.copy()\n        proc = subprocess.Popen(\n            [\"uv\", \"run\", \"reflex\", \"run\", \"--backend-only\", \"--loglevel\", \"debug\"],\n            cwd=PROJECT_DIR,\n            stdout=subprocess.DEVNULL,\n            stderr=subprocess.DEVNULL,\n            env=env,\n        )\n    \n        started = False\n        deadline = time.time() + 240\n        last_err = \"\"\n        while time.time() < deadline:\n            if proc.poll() is not None:\n                break\n            try:\n                r = requests.get(f\"{BACKEND}/ping\", timeout=2)\n                if r.status_code == 200 and \"pong\" in r.text.lower():\n                    started = True\n                    break\n            except Exception as e:\n                last_err = str(e)\n            time.sleep(2)\n    \n        if not started:\n            try:\n                proc.terminate()\n                proc.wait(timeout=10)\n            except Exception:\n                proc.kill()\n            _kill_servers()\n>           pytest.fail(\n                f\"Reflex backend did not become ready on {BACKEND}/ping within timeout. \"\n                f\"Last error: {last_err}\"\n            )\nE           Failed: Reflex backend did not become ready on http://localhost:8000/ping within timeout. Last error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=2)\n\ntests/test_final_state.py:306: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_me_without_token_returns_unauthorized",
+                "status": "failed",
+                "duration": 17,
+                "start": 1781460770099,
+                "stop": 1781460770116,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def reflex_backend():\n        _kill_servers()\n        # Give the OS a moment to free the ports.\n        time.sleep(2)\n    \n        env = os.environ.copy()\n        proc = subprocess.Popen(\n            [\"uv\", \"run\", \"reflex\", \"run\", \"--backend-only\", \"--loglevel\", \"debug\"],\n            cwd=PROJECT_DIR,\n            stdout=subprocess.DEVNULL,\n            stderr=subprocess.DEVNULL,\n            env=env,\n        )\n    \n        started = False\n        deadline = time.time() + 240\n        last_err = \"\"\n        while time.time() < deadline:\n            if proc.poll() is not None:\n                break\n            try:\n                r = requests.get(f\"{BACKEND}/ping\", timeout=2)\n                if r.status_code == 200 and \"pong\" in r.text.lower():\n                    started = True\n                    break\n            except Exception as e:\n                last_err = str(e)\n            time.sleep(2)\n    \n        if not started:\n            try:\n                proc.terminate()\n                proc.wait(timeout=10)\n            except Exception:\n                proc.kill()\n            _kill_servers()\n>           pytest.fail(\n                f\"Reflex backend did not become ready on {BACKEND}/ping within timeout. \"\n                f\"Last error: {last_err}\"\n            )\nE           Failed: Reflex backend did not become ready on http://localhost:8000/ping within timeout. Last error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=2)\n\ntests/test_final_state.py:306: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_me_with_malformed_token_returns_unauthorized",
+                "status": "failed",
+                "duration": 18,
+                "start": 1781460770117,
+                "stop": 1781460770135,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def reflex_backend():\n        _kill_servers()\n        # Give the OS a moment to free the ports.\n        time.sleep(2)\n    \n        env = os.environ.copy()\n        proc = subprocess.Popen(\n            [\"uv\", \"run\", \"reflex\", \"run\", \"--backend-only\", \"--loglevel\", \"debug\"],\n            cwd=PROJECT_DIR,\n            stdout=subprocess.DEVNULL,\n            stderr=subprocess.DEVNULL,\n            env=env,\n        )\n    \n        started = False\n        deadline = time.time() + 240\n        last_err = \"\"\n        while time.time() < deadline:\n            if proc.poll() is not None:\n                break\n            try:\n                r = requests.get(f\"{BACKEND}/ping\", timeout=2)\n                if r.status_code == 200 and \"pong\" in r.text.lower():\n                    started = True\n                    break\n            except Exception as e:\n                last_err = str(e)\n            time.sleep(2)\n    \n        if not started:\n            try:\n                proc.terminate()\n                proc.wait(timeout=10)\n            except Exception:\n                proc.kill()\n            _kill_servers()\n>           pytest.fail(\n                f\"Reflex backend did not become ready on {BACKEND}/ping within timeout. \"\n                f\"Last error: {last_err}\"\n            )\nE           Failed: Reflex backend did not become ready on http://localhost:8000/ping within timeout. Last error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=2)\n\ntests/test_final_state.py:306: Failed"
+            }
+        ]
+    }
+}

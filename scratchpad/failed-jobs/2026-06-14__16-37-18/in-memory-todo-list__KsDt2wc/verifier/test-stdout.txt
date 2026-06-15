@@ -1,0 +1,146 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 9 items
+
+tests/test_final_state.py EEEEEEEEE                                      [100%]
+
+==================================== ERRORS ====================================
+__________________ ERROR at setup of test_frontend_reachable ___________________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:89: AssertionError
+_______ ERROR at setup of test_compiled_frontend_contains_add_and_total ________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:89: AssertionError
+___________ ERROR at setup of test_no_immutable_state_error_in_logs ____________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:89: AssertionError
+___________ ERROR at setup of test_source_declares_new_item_base_var ___________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:89: AssertionError
+____________ ERROR at setup of test_source_declares_items_base_var _____________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:89: AssertionError
+___________ ERROR at setup of test_source_uses_rx_foreach_over_items ___________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:89: AssertionError
+________________ ERROR at setup of test_source_has_add_handler _________________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:89: AssertionError
+__________ ERROR at setup of test_source_has_remove_by_index_handler ___________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:89: AssertionError
+_________ ERROR at setup of test_source_has_cached_total_computed_var __________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _no_stale_ports():
+>       assert not _port_open(FRONTEND_PORT), (
+            f"Port {FRONTEND_PORT} is already in use before the verifier started the "
+            f"Reflex server. The task description requires the candidate to terminate "
+            f"any background `reflex run` processes after they finish."
+        )
+E       AssertionError: Port 3000 is already in use before the verifier started the Reflex server. The task description requires the candidate to terminate any background `reflex run` processes after they finish.
+E       assert not True
+E        +  where True = _port_open(3000)
+
+tests/test_final_state.py:89: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_frontend_reachable - AssertionError: Po...
+ERROR tests/test_final_state.py::test_compiled_frontend_contains_add_and_total
+ERROR tests/test_final_state.py::test_no_immutable_state_error_in_logs - Asse...
+ERROR tests/test_final_state.py::test_source_declares_new_item_base_var - Ass...
+ERROR tests/test_final_state.py::test_source_declares_items_base_var - Assert...
+ERROR tests/test_final_state.py::test_source_uses_rx_foreach_over_items - Ass...
+ERROR tests/test_final_state.py::test_source_has_add_handler - AssertionError...
+ERROR tests/test_final_state.py::test_source_has_remove_by_index_handler - As...
+ERROR tests/test_final_state.py::test_source_has_cached_total_computed_var - ...
+============================== 9 errors in 0.42s ===============================

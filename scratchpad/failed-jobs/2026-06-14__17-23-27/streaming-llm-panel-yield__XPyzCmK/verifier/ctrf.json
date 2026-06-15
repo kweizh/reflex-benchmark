@@ -1,0 +1,151 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:46:13.037964+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 13,
+            "passed": 10,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781459119243,
+            "stop": 1781459173037
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_module_file_exists",
+                "status": "passed",
+                "duration": 20,
+                "start": 1781459119306,
+                "stop": 1781459119326,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rxconfig_references_app_name",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781459119327,
+                "stop": 1781459119328,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_class_declares_required_vars",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781459119328,
+                "stop": 1781459119330,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handler_is_async_generator_with_event_decorator",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781459119331,
+                "stop": 1781459119332,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handler_calls_asyncio_sleep",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781459119333,
+                "stop": 1781459119334,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handler_contains_expected_chunk_list",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781459119335,
+                "stop": 1781459119336,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ui_uses_text_area_and_send_button_label",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781459119337,
+                "stop": 1781459119337,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ui_uses_rx_cond_with_is_loading_for_spinner",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781459119338,
+                "stop": 1781459119339,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_static_export_contains_send_label",
+                "status": "failed",
+                "duration": 7880,
+                "start": 1781459119340,
+                "stop": 1781459127220,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def static_export() -> str:\n        \"\"\"Produce a static frontend export under .web/_static and return its path.\"\"\"\n        assert shutil.which(\"uv\") is not None, \"uv binary not found in PATH\"\n        # Clean previous export to avoid stale artifacts.\n        if os.path.isdir(EXPORT_DIR):\n            shutil.rmtree(EXPORT_DIR, ignore_errors=True)\n        result = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"export\", \"--frontend-only\", \"--no-zip\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=900,\n        )\n        assert result.returncode == 0, (\n            \"`uv run reflex export --frontend-only --no-zip` failed.\\n\"\n            f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n        )\n>       assert os.path.isdir(EXPORT_DIR), (\n            f\"Expected static export directory {EXPORT_DIR} after reflex export, \"\n            \"but it was not created.\"\n        )\nE       AssertionError: Expected static export directory /home/user/streaming_llm_panel/.web/_static after reflex export, but it was not created.\nE       assert False\nE        +  where False = <function isdir at 0x7ff6e07902c0>('/home/user/streaming_llm_panel/.web/_static')\nE        +    where <function isdir at 0x7ff6e07902c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:175: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_static_export_contains_spinner_component",
+                "status": "failed",
+                "duration": 16,
+                "start": 1781459127220,
+                "stop": 1781459127236,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def static_export() -> str:\n        \"\"\"Produce a static frontend export under .web/_static and return its path.\"\"\"\n        assert shutil.which(\"uv\") is not None, \"uv binary not found in PATH\"\n        # Clean previous export to avoid stale artifacts.\n        if os.path.isdir(EXPORT_DIR):\n            shutil.rmtree(EXPORT_DIR, ignore_errors=True)\n        result = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"export\", \"--frontend-only\", \"--no-zip\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=900,\n        )\n        assert result.returncode == 0, (\n            \"`uv run reflex export --frontend-only --no-zip` failed.\\n\"\n            f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n        )\n>       assert os.path.isdir(EXPORT_DIR), (\n            f\"Expected static export directory {EXPORT_DIR} after reflex export, \"\n            \"but it was not created.\"\n        )\nE       AssertionError: Expected static export directory /home/user/streaming_llm_panel/.web/_static after reflex export, but it was not created.\nE       assert False\nE        +  where False = <function isdir at 0x7ff6e07902c0>('/home/user/streaming_llm_panel/.web/_static')\nE        +    where <function isdir at 0x7ff6e07902c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:175: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_dev_server_frontend_serves_root",
+                "status": "passed",
+                "duration": 458,
+                "start": 1781459127236,
+                "stop": 1781459127694,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dev_server_backend_ping",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 30307,
+                "start": 1781459127695,
+                "stop": 1781459158002,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "dev_server = {'backend_up': True, 'frontend_up': True, 'log_path': '/tmp/reflex_streaming_panel.log', 'process': <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--loglevel', ...>}\n\n    def test_dev_server_backend_ping(dev_server):\n        assert dev_server[\"backend_up\"], (\n            \"Reflex backend did not come up on port 8000 within the timeout. \"\n            f\"See {dev_server['log_path']} for details.\"\n        )\n        try:\n>           with urllib.request.urlopen(\"http://127.0.0.1:8000/ping\", timeout=30) as resp:\n\ntests/test_final_state.py:458: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/lib/python3.12/urllib/request.py:215: in urlopen\n    return opener.open(url, data, timeout)\nusr/lib/python3.12/urllib/request.py:515: in open\n    response = self._open(req, data)\nusr/lib/python3.12/urllib/request.py:532: in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\nusr/lib/python3.12/urllib/request.py:492: in _call_chain\n    result = func(*args)\nusr/lib/python3.12/urllib/request.py:1373: in http_open\n    return self.do_open(http.client.HTTPConnection, req)\nusr/lib/python3.12/urllib/request.py:1348: in do_open\n    r = h.getresponse()\nusr/lib/python3.12/http/client.py:1448: in getresponse\n    response.begin()\nusr/lib/python3.12/http/client.py:336: in begin\n    version, status, reason = self._read_status()\nusr/lib/python3.12/http/client.py:297: in _read_status\n    line = str(self.fp.readline(_MAXLINE + 1), \"iso-8859-1\")\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <socket.SocketIO object at 0x7ff6dfc98970>\nb = <memory at 0x7ff6dfb48100>\n\n    def readinto(self, b):\n        \"\"\"Read up to len(b) bytes into the writable buffer *b* and return\n        the number of bytes read.  If the socket is non-blocking and no bytes\n        are available, None is returned.\n    \n        If *b* is non-empty, a 0 return value indicates that the connection\n        was shutdown at the other end.\n        \"\"\"\n        self._checkClosed()\n        self._checkReadable()\n        if self._timeout_occurred:\n            raise OSError(\"cannot read from timed out object\")\n        while True:\n            try:\n>               return self._sock.recv_into(b)\nE               TimeoutError: timed out\n\nusr/lib/python3.12/socket.py:707: TimeoutError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_no_lingering_reflex_processes_after_teardown",
+                "status": "passed",
+                "duration": 15034,
+                "start": 1781459158003,
+                "stop": 1781459173037,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

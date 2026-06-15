@@ -1,0 +1,45 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py ......F                                        [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_no_reflex_servers_remaining _______________________
+
+    def test_no_reflex_servers_remaining():
+        """Make sure no leftover reflex/uvicorn/next dev servers are running after verification."""
+        result = subprocess.run(
+            ["pgrep", "-fa", r"reflex run|next dev|uvicorn .*reflex"],
+            capture_output=True,
+            text=True,
+        )
+        # pgrep exits 1 when there is no match; that is the desired state.
+        if result.returncode == 0 and result.stdout.strip():
+            # Attempt cleanup so subsequent tests in the same harness are not affected.
+            subprocess.run(["pkill", "-f", "reflex run"], capture_output=True)
+            subprocess.run(["pkill", "-f", "next dev"], capture_output=True)
+            subprocess.run(["pkill", "-f", "uvicorn"], capture_output=True)
+>           raise AssertionError(
+                "Expected no leftover Reflex/Next/uvicorn dev servers after task completion, "
+                f"but found:\n{result.stdout}"
+            )
+E           AssertionError: Expected no leftover Reflex/Next/uvicorn dev servers after task completion, but found:
+E           2622 uv run reflex run
+E           2641 /home/user/myproject/.venv/bin/python3 /home/user/myproject/.venv/bin/reflex run
+E           2715 sh -c next dev --turbopack
+E           2716 node /home/user/myproject/.web/node_modules/.bin/next dev --turbopack
+
+tests/test_final_state.py:240: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_dynamic_route_registration_present
+PASSED tests/test_final_state.py::test_state_accesses_router_for_slug
+PASSED tests/test_final_state.py::test_hardcoded_posts_have_three_unique_slugs
+PASSED tests/test_final_state.py::test_reflex_export_succeeds
+PASSED tests/test_final_state.py::test_dynamic_route_page_generated
+PASSED tests/test_final_state.py::test_post_title_appears_in_build_output
+FAILED tests/test_final_state.py::test_no_reflex_servers_remaining - Assertio...
+========================= 1 failed, 6 passed in 54.92s =========================

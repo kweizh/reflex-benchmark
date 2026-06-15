@@ -1,0 +1,41 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py ........F..                                    [100%]
+
+=================================== FAILURES ===================================
+__________________ test_frontend_serves_root_with_start_label __________________
+
+running_app = None
+
+    def test_frontend_serves_root_with_start_label(running_app):
+        import urllib.request
+    
+        req = urllib.request.Request("http://127.0.0.1:3000/", headers={"User-Agent": "harbor-verify"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            assert resp.status == 200, f"Expected HTTP 200 from frontend, got {resp.status}."
+            body = resp.read().decode("utf-8", errors="ignore")
+>       assert "Start" in body, (
+            "Served HTML at http://localhost:3000/ does not contain the `Start` label."
+        )
+E       AssertionError: Served HTML at http://localhost:3000/ does not contain the `Start` label.
+E       assert 'Start' in '<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'
+
+tests/test_final_state.py:430: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_main_module_exists
+PASSED tests/test_final_state.py::test_state_has_progress_var
+PASSED tests/test_final_state.py::test_state_has_status_message_var
+PASSED tests/test_final_state.py::test_state_has_backend_only_running_flag
+PASSED tests/test_final_state.py::test_background_event_handler_decorator_and_locks
+PASSED tests/test_final_state.py::test_asyncio_sleep_outside_async_with_self
+PASSED tests/test_final_state.py::test_exported_frontend_contains_start_button
+PASSED tests/test_final_state.py::test_exported_frontend_uses_progress_component
+PASSED tests/test_final_state.py::test_backend_ping
+PASSED tests/test_final_state.py::test_no_lingering_servers_after_teardown
+FAILED tests/test_final_state.py::test_frontend_serves_root_with_start_label
+======================== 1 failed, 10 passed in 20.78s =========================

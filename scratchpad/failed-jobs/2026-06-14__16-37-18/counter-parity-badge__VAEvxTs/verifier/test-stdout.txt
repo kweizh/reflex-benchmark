@@ -1,0 +1,56 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py ....FF.                                        [100%]
+
+=================================== FAILURES ===================================
+________________________ test_frontend_export_succeeds _________________________
+
+exported_frontend = {'proc': CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout=...━━━━━━━━━━━━━━━━━━━━━━━━ 100% 4/4 0:00:06\n', stderr=''), 'static_dir': PosixPath('/home/user/myproject/.web/_static')}
+
+    def test_frontend_export_succeeds(exported_frontend):
+        proc = exported_frontend["proc"]
+        static_dir: Path = exported_frontend["static_dir"]
+        assert proc.returncode == 0, (
+            "`uv run reflex export --frontend-only --no-zip` failed with "
+            f"exit code {proc.returncode}.\n"
+            f"stdout:\n{proc.stdout}\nstderr:\n{proc.stderr}"
+        )
+>       assert static_dir.is_dir(), (
+            f"Expected exported frontend assets under {static_dir} after "
+            "`reflex export`."
+        )
+E       AssertionError: Expected exported frontend assets under /home/user/myproject/.web/_static after `reflex export`.
+E       assert False
+E        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/.web/_static')>()
+E        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/.web/_static')> = PosixPath('/home/user/myproject/.web/_static').is_dir
+
+tests/test_final_state.py:255: AssertionError
+___________________ test_frontend_contains_required_literals ___________________
+
+exported_frontend = {'proc': CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout=...━━━━━━━━━━━━━━━━━━━━━━━━ 100% 4/4 0:00:06\n', stderr=''), 'static_dir': PosixPath('/home/user/myproject/.web/_static')}
+
+    def test_frontend_contains_required_literals(exported_frontend):
+        static_dir: Path = exported_frontend["static_dir"]
+>       assert static_dir.is_dir(), (
+            f"Frontend static dir missing: {static_dir}"
+        )
+E       AssertionError: Frontend static dir missing: /home/user/myproject/.web/_static
+E       assert False
+E        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/.web/_static')>()
+E        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/.web/_static')> = PosixPath('/home/user/myproject/.web/_static').is_dir
+
+tests/test_final_state.py:263: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_state_class_with_count_int_zero
+PASSED tests/test_final_state.py::test_three_event_handlers_for_count
+PASSED tests/test_final_state.py::test_parity_cached_computed_var
+PASSED tests/test_final_state.py::test_rx_cond_used_in_layout
+PASSED tests/test_final_state.py::test_no_reflex_servers_running_after_teardown
+FAILED tests/test_final_state.py::test_frontend_export_succeeds - AssertionEr...
+FAILED tests/test_final_state.py::test_frontend_contains_required_literals - ...
+========================= 2 failed, 5 passed in 10.07s =========================

@@ -1,0 +1,76 @@
+{
+    "id": "62629359-e367-4433-b694-74d4242e6c30",
+    "started_at": "2026-06-14T16:17:54.469047",
+    "updated_at": "2026-06-14T16:37:16.575271",
+    "finished_at": "2026-06-14T16:37:16.575271",
+    "n_total_trials": 20,
+    "stats": {
+        "n_completed_trials": 20,
+        "n_errored_trials": 12,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__claude-4-6-sonnet__pending-tasks": {
+                "n_trials": 19,
+                "n_errors": 12,
+                "metrics": [
+                    {
+                        "mean": 0.25
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "wrap-react-colorful__cqkC5fe",
+                            "reflex-cloud-deploy-blank-app__ofsKUmz",
+                            "cond-show-hide-panel__tw2xUSh",
+                            "crud-user-management__pxosFHz",
+                            "cookie-theme-toggle__wtCugQ2"
+                        ],
+                        "0.0": [
+                            "counter-parity-badge__XKPaZDy",
+                            "dynamic-tab-match-panel__CiMD7xu",
+                            "file-upload-handler__2bSmhGV",
+                            "wrap-react-quill-editor__MxFGbH5",
+                            "collaborative-text-board__bfSX2UJ",
+                            "in-memory-todo-list__UxyaWzP",
+                            "streaming-llm-panel-yield__xyoQZYg",
+                            "multistep-form-localstorage__ZiKFCDM",
+                            "blog-dynamic-routing__hBM8UdS",
+                            "contact-form-reset__ueJmDDY",
+                            "async-paginated-user-table__Vr5MqaM",
+                            "realtime-character-counter__smp2Qiu",
+                            "background-task-progress-bar__Qc7HkRq",
+                            "fastapi-jwt-api-transformer__9sffpDo"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "RuntimeError": [
+                        "search-filter-computed__NUKEMNm"
+                    ],
+                    "NonZeroAgentExitCodeError": [
+                        "dynamic-tab-match-panel__CiMD7xu",
+                        "file-upload-handler__2bSmhGV",
+                        "wrap-react-quill-editor__MxFGbH5",
+                        "in-memory-todo-list__UxyaWzP",
+                        "blog-dynamic-routing__hBM8UdS",
+                        "contact-form-reset__ueJmDDY",
+                        "async-paginated-user-table__Vr5MqaM",
+                        "realtime-character-counter__smp2Qiu",
+                        "crud-user-management__pxosFHz",
+                        "background-task-progress-bar__Qc7HkRq",
+                        "fastapi-jwt-api-transformer__9sffpDo"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 288472,
+        "cost_usd": null
+    }
+}

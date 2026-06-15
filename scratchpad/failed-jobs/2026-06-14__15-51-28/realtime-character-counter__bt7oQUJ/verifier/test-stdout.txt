@@ -1,0 +1,66 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 6 items
+
+tests/test_final_state.py .....F                                         [100%]
+
+=================================== FAILURES ===================================
+_______________ test_frontend_returns_200_with_expected_markers ________________
+
+reflex_server = <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--loglevel', ...>
+
+    def test_frontend_returns_200_with_expected_markers(reflex_server):
+        last_exc = None
+        body = ""
+        for _ in range(30):
+            try:
+                resp = requests.get(FRONTEND_URL, timeout=10)
+                if resp.status_code == 200:
+                    body = resp.text
+                    break
+            except requests.RequestException as exc:
+                last_exc = exc
+            time.sleep(2.0)
+        else:
+            pytest.fail(
+                f"Frontend at {FRONTEND_URL} never returned 200. Last error: {last_exc!r}"
+            )
+    
+        # The compiled Next.js HTML should mention the textarea id and the static
+        # labels. Reflex sometimes inlines labels into the JS bundle; if the
+        # markers aren't in the initial HTML, follow up by checking the linked
+        # _next chunk(s) referenced from <script src=...>.
+        haystacks = [body]
+        chunk_urls = set(
+            re.findall(r'src="(/_next/static/[^"]+\.js)"', body)
+        )
+        for chunk in list(chunk_urls)[:25]:
+            try:
+                chunk_resp = requests.get(
+                    f"http://localhost:{FRONTEND_PORT}{chunk}", timeout=10
+                )
+                if chunk_resp.status_code == 200:
+                    haystacks.append(chunk_resp.text)
+            except requests.RequestException:
+                continue
+    
+        combined = "\n".join(haystacks)
+>       assert "content_input" in combined, (
+            "Expected the textarea id 'content_input' to appear in the rendered page "
+            "or its JS bundle."
+        )
+E       AssertionError: Expected the textarea id 'content_input' to appear in the rendered page or its JS bundle.
+E       assert 'content_input' in '<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'
+
+tests/test_final_state.py:314: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_rxconfig_exists
+PASSED tests/test_final_state.py::test_app_module_imports_reflex
+PASSED tests/test_final_state.py::test_two_rx_var_computed_methods_exist
+PASSED tests/test_final_state.py::test_text_area_uses_required_id
+PASSED tests/test_final_state.py::test_backend_is_listening
+FAILED tests/test_final_state.py::test_frontend_returns_200_with_expected_markers
+========================= 1 failed, 5 passed in 11.03s =========================

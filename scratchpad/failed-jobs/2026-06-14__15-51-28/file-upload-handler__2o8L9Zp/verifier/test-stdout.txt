@@ -1,0 +1,7 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py .....FF/tests/test.sh: line 7:  2123 Killed                  pytest --ctrf /logs/verifier/ctrf.json /tests/test_final_state.py -rA

@@ -1,0 +1,56 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py .........F.                                    [100%]
+
+=================================== FAILURES ===================================
+__________________ test_web_package_json_contains_react_quill __________________
+
+reflex_export = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=1, stdout='────────...n file to install from\nnote: Run "bun init" to initialize a project\n\nRun with --loglevel debug for the full log.\n')
+
+    def test_web_package_json_contains_react_quill(reflex_export):
+>       assert os.path.isfile(WEB_PACKAGE_JSON), (
+            f"Expected `{WEB_PACKAGE_JSON}` to exist after `reflex export`. "
+            f"Export stdout/stderr: {reflex_export.stdout[-800:]} {reflex_export.stderr[-800:]}"
+        )
+E       AssertionError: Expected `/home/user/myproject/.web/package.json` to exist after `reflex export`. Export stdout/stderr: ────────────── Compiling production app and preparing for export. ──────────────
+E         DeprecationWarning: Implicit Radix Themes enablement has been deprecated in 
+E         version 0.9.0. a Radix Themes component was detected, which enables the full 
+E         Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to
+E         make this explicit, or remove Radix components to avoid loading the stylesheet. 
+E         It will be completely removed in 1.0. 
+E         (.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)
+E         Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 17/16 0:00:00
+E          error: Bun could not find a package.json file to install from
+E         note: Run "bun init" to initialize a project
+E         
+E         Run with --loglevel debug for the full log.
+E         
+E       assert False
+E        +  where False = <function isfile at 0x7fcb76734220>('/home/user/myproject/.web/package.json')
+E        +    where <function isfile at 0x7fcb76734220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:339: AssertionError
+==================================== PASSES ====================================
+_________________________ test_index_page_serves_html __________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_server$ uv run reflex run --loglevel info
+process 'reflex_server' started pid=2060
+reflex_server process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_react_quill_class_exists_and_subclasses_no_ssr
+PASSED tests/test_final_state.py::test_react_quill_library_is_pinned
+PASSED tests/test_final_state.py::test_react_quill_tag_is_react_quill
+PASSED tests/test_final_state.py::test_react_quill_value_prop
+PASSED tests/test_final_state.py::test_react_quill_on_change_event_handler
+PASSED tests/test_final_state.py::test_react_quill_factory_exported
+PASSED tests/test_final_state.py::test_state_has_content_str_field
+PASSED tests/test_final_state.py::test_state_has_set_content_handler
+PASSED tests/test_final_state.py::test_quill_stylesheet_is_wired
+PASSED tests/test_final_state.py::test_index_page_serves_html
+FAILED tests/test_final_state.py::test_web_package_json_contains_react_quill
+========================= 1 failed, 10 passed in 2.91s =========================

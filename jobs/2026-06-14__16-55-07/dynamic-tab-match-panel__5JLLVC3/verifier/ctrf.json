@@ -1,0 +1,134 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:58:32.157875+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 7,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781456304298,
+            "stop": 1781456312157
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_exists",
+                "status": "passed",
+                "duration": 30,
+                "start": 1781456304340,
+                "stop": 1781456304370,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pyproject_toml_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781456304370,
+                "stop": 1781456304372,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rxconfig_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781456304372,
+                "stop": 1781456304374,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_active_tab_state_var_defined",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781456304374,
+                "stop": 1781456304378,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_three_tab_buttons_exist",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781456304378,
+                "stop": 1781456304382,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rx_match_uses_active_tab_with_three_cases_and_default",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781456304383,
+                "stop": 1781456304386,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handlers_set_active_tab",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 45,
+                "start": 1781456304387,
+                "stop": 1781456304432,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_event_handlers_set_active_tab():\n        \"\"\"Either (a) three handlers each assigning a specific literal, or\n        (b) one parameterized handler that assigns self.active_tab = <param>.\"\"\"\n        modules = _parse_modules()\n        required_literals = {\"profile\", \"settings\", \"about\"}\n        literal_handlers: set[str] = set()\n        has_parameterized = False\n    \n        for tree in modules.values():\n            for node in ast.walk(tree):\n                if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):\n                    continue\n                params = [a.arg for a in node.args.args]\n                for body_node in ast.walk(node):\n                    if not isinstance(body_node, ast.Assign):\n                        continue\n                    for target in body_node.targets:\n                        if not (\n                            isinstance(target, ast.Attribute)\n                            and target.attr == \"active_tab\"\n                            and isinstance(target.value, ast.Name)\n                            and target.value.id == \"self\"\n                        ):\n                            continue\n                        literal = _string_const(body_node.value)\n                        if literal in required_literals:\n                            literal_handlers.add(literal)\n                        elif (\n                            isinstance(body_node.value, ast.Name)\n                            and body_node.value.id in params\n                        ):\n                            has_parameterized = True\n    \n>       assert has_parameterized or required_literals.issubset(literal_handlers), (\n            \"Expected either (a) three handlers assigning self.active_tab to \"\n            '\"profile\", \"settings\", \"about\" respectively, or (b) one '\n            \"parameterized handler that assigns self.active_tab = <param>. \"\n            f\"Literal handlers found: {sorted(literal_handlers)}; \"\n            f\"parameterized handler found: {has_parameterized}.\"\n        )\nE       AssertionError: Expected either (a) three handlers assigning self.active_tab to \"profile\", \"settings\", \"about\" respectively, or (b) one parameterized handler that assigns self.active_tab = <param>. Literal handlers found: []; parameterized handler found: False.\nE       assert (False or False)\nE        +  where False = <built-in method issubset of set object at 0x7f4a533df680>(set())\nE        +    where <built-in method issubset of set object at 0x7f4a533df680> = {'about', 'profile', 'settings'}.issubset\n\ntests/test_final_state.py:283: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_buttons_bind_on_click",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781456304433,
+                "stop": 1781456304437,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_bundle_contains_panel_literal",
+                "status": "failed",
+                "duration": 7678,
+                "start": 1781456304437,
+                "stop": 1781456312115,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def exported_static_dir():\n        \"\"\"Run `uv run reflex export --frontend-only --no-zip` and yield the\n        static output directory.\"\"\"\n        # Clean any stale output to ensure we're checking a fresh build.\n        if os.path.isdir(STATIC_DIR):\n            shutil.rmtree(STATIC_DIR, ignore_errors=True)\n    \n        result = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"export\", \"--frontend-only\", \"--no-zip\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=EXPORT_TIMEOUT_SEC,\n            check=False,\n        )\n    \n        assert result.returncode == 0, (\n            \"`uv run reflex export --frontend-only --no-zip` failed with exit \"\n            f\"code {result.returncode}.\\nSTDOUT:\\n{result.stdout}\\n\"\n            f\"STDERR:\\n{result.stderr}\"\n        )\n    \n>       assert os.path.isdir(STATIC_DIR), (\n            f\"Expected Reflex to produce a static frontend bundle at {STATIC_DIR}, \"\n            \"but it was not created.\"\n        )\nE       AssertionError: Expected Reflex to produce a static frontend bundle at /home/user/myproject/.web/_static, but it was not created.\nE       assert False\nE        +  where False = <function isdir at 0x7f4a53e182c0>('/home/user/myproject/.web/_static')\nE        +    where <function isdir at 0x7f4a53e182c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:349: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_bundle_contains_panel_literal",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781456312115,
+                "stop": 1781456312124,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def exported_static_dir():\n        \"\"\"Run `uv run reflex export --frontend-only --no-zip` and yield the\n        static output directory.\"\"\"\n        # Clean any stale output to ensure we're checking a fresh build.\n        if os.path.isdir(STATIC_DIR):\n            shutil.rmtree(STATIC_DIR, ignore_errors=True)\n    \n        result = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"export\", \"--frontend-only\", \"--no-zip\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=EXPORT_TIMEOUT_SEC,\n            check=False,\n        )\n    \n        assert result.returncode == 0, (\n            \"`uv run reflex export --frontend-only --no-zip` failed with exit \"\n            f\"code {result.returncode}.\\nSTDOUT:\\n{result.stdout}\\n\"\n            f\"STDERR:\\n{result.stderr}\"\n        )\n    \n>       assert os.path.isdir(STATIC_DIR), (\n            f\"Expected Reflex to produce a static frontend bundle at {STATIC_DIR}, \"\n            \"but it was not created.\"\n        )\nE       AssertionError: Expected Reflex to produce a static frontend bundle at /home/user/myproject/.web/_static, but it was not created.\nE       assert False\nE        +  where False = <function isdir at 0x7f4a53e182c0>('/home/user/myproject/.web/_static')\nE        +    where <function isdir at 0x7f4a53e182c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:349: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_bundle_contains_panel_literal",
+                "status": "failed",
+                "duration": 33,
+                "start": 1781456312124,
+                "stop": 1781456312157,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def exported_static_dir():\n        \"\"\"Run `uv run reflex export --frontend-only --no-zip` and yield the\n        static output directory.\"\"\"\n        # Clean any stale output to ensure we're checking a fresh build.\n        if os.path.isdir(STATIC_DIR):\n            shutil.rmtree(STATIC_DIR, ignore_errors=True)\n    \n        result = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"export\", \"--frontend-only\", \"--no-zip\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=EXPORT_TIMEOUT_SEC,\n            check=False,\n        )\n    \n        assert result.returncode == 0, (\n            \"`uv run reflex export --frontend-only --no-zip` failed with exit \"\n            f\"code {result.returncode}.\\nSTDOUT:\\n{result.stdout}\\n\"\n            f\"STDERR:\\n{result.stderr}\"\n        )\n    \n>       assert os.path.isdir(STATIC_DIR), (\n            f\"Expected Reflex to produce a static frontend bundle at {STATIC_DIR}, \"\n            \"but it was not created.\"\n        )\nE       AssertionError: Expected Reflex to produce a static frontend bundle at /home/user/myproject/.web/_static, but it was not created.\nE       assert False\nE        +  where False = <function isdir at 0x7f4a53e182c0>('/home/user/myproject/.web/_static')\nE        +    where <function isdir at 0x7f4a53e182c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:349: AssertionError"
+            }
+        ]
+    }
+}

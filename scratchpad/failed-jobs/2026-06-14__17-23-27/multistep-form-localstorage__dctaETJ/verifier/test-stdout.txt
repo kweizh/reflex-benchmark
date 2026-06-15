@@ -1,0 +1,258 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 10 items
+
+tests/test_final_state.py EEEEEEEEF.                                     [100%]
+
+==================================== ERRORS ====================================
+__________________ ERROR at setup of test_state_has_step_var ___________________
+
+    @pytest.fixture(scope="session")
+    def app_sources() -> str:
+>       return _read_app_sources()
+
+tests/test_final_state.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_app_sources() -> str:
+        """Read and concatenate every .py file in the Reflex application package.
+    
+        The agent may organize their state across multiple files. We aggregate them
+        all for the AST/regex source-level checks described in the task truth.
+        """
+        package = Path(APP_PACKAGE_DIR)
+>       assert package.is_dir(), (
+            f"Expected the Reflex application package directory at {APP_PACKAGE_DIR}."
+        )
+E       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.
+E       assert False
+E        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()
+E        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir
+
+tests/test_final_state.py:31: AssertionError
+________________ ERROR at setup of test_state_has_submitted_var ________________
+
+    @pytest.fixture(scope="session")
+    def app_sources() -> str:
+>       return _read_app_sources()
+
+tests/test_final_state.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_app_sources() -> str:
+        """Read and concatenate every .py file in the Reflex application package.
+    
+        The agent may organize their state across multiple files. We aggregate them
+        all for the AST/regex source-level checks described in the task truth.
+        """
+        package = Path(APP_PACKAGE_DIR)
+>       assert package.is_dir(), (
+            f"Expected the Reflex application package directory at {APP_PACKAGE_DIR}."
+        )
+E       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.
+E       assert False
+E        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()
+E        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir
+
+tests/test_final_state.py:31: AssertionError
+_____ ERROR at setup of test_state_uses_at_least_six_local_storage_fields ______
+
+    @pytest.fixture(scope="session")
+    def app_sources() -> str:
+>       return _read_app_sources()
+
+tests/test_final_state.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_app_sources() -> str:
+        """Read and concatenate every .py file in the Reflex application package.
+    
+        The agent may organize their state across multiple files. We aggregate them
+        all for the AST/regex source-level checks described in the task truth.
+        """
+        package = Path(APP_PACKAGE_DIR)
+>       assert package.is_dir(), (
+            f"Expected the Reflex application package directory at {APP_PACKAGE_DIR}."
+        )
+E       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.
+E       assert False
+E        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()
+E        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir
+
+tests/test_final_state.py:31: AssertionError
+_____ ERROR at setup of test_local_storage_names_cover_all_required_fields _____
+
+    @pytest.fixture(scope="session")
+    def app_sources() -> str:
+>       return _read_app_sources()
+
+tests/test_final_state.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_app_sources() -> str:
+        """Read and concatenate every .py file in the Reflex application package.
+    
+        The agent may organize their state across multiple files. We aggregate them
+        all for the AST/regex source-level checks described in the task truth.
+        """
+        package = Path(APP_PACKAGE_DIR)
+>       assert package.is_dir(), (
+            f"Expected the Reflex application package directory at {APP_PACKAGE_DIR}."
+        )
+E       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.
+E       assert False
+E        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()
+E        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir
+
+tests/test_final_state.py:31: AssertionError
+________ ERROR at setup of test_event_handlers_next_and_prev_step_exist ________
+
+    @pytest.fixture(scope="session")
+    def app_sources() -> str:
+>       return _read_app_sources()
+
+tests/test_final_state.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_app_sources() -> str:
+        """Read and concatenate every .py file in the Reflex application package.
+    
+        The agent may organize their state across multiple files. We aggregate them
+        all for the AST/regex source-level checks described in the task truth.
+        """
+        package = Path(APP_PACKAGE_DIR)
+>       assert package.is_dir(), (
+            f"Expected the Reflex application package directory at {APP_PACKAGE_DIR}."
+        )
+E       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.
+E       assert False
+E        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()
+E        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir
+
+tests/test_final_state.py:31: AssertionError
+______________ ERROR at setup of test_event_handlers_mutate_step _______________
+
+    @pytest.fixture(scope="session")
+    def app_sources() -> str:
+>       return _read_app_sources()
+
+tests/test_final_state.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_app_sources() -> str:
+        """Read and concatenate every .py file in the Reflex application package.
+    
+        The agent may organize their state across multiple files. We aggregate them
+        all for the AST/regex source-level checks described in the task truth.
+        """
+        package = Path(APP_PACKAGE_DIR)
+>       assert package.is_dir(), (
+            f"Expected the Reflex application package directory at {APP_PACKAGE_DIR}."
+        )
+E       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.
+E       assert False
+E        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()
+E        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir
+
+tests/test_final_state.py:31: AssertionError
+_______________ ERROR at setup of test_step_bounds_are_enforced ________________
+
+    @pytest.fixture(scope="session")
+    def app_sources() -> str:
+>       return _read_app_sources()
+
+tests/test_final_state.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_app_sources() -> str:
+        """Read and concatenate every .py file in the Reflex application package.
+    
+        The agent may organize their state across multiple files. We aggregate them
+        all for the AST/regex source-level checks described in the task truth.
+        """
+        package = Path(APP_PACKAGE_DIR)
+>       assert package.is_dir(), (
+            f"Expected the Reflex application package directory at {APP_PACKAGE_DIR}."
+        )
+E       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.
+E       assert False
+E        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()
+E        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir
+
+tests/test_final_state.py:31: AssertionError
+__ ERROR at setup of test_final_submit_validates_passwords_and_clears_storage __
+
+    @pytest.fixture(scope="session")
+    def app_sources() -> str:
+>       return _read_app_sources()
+
+tests/test_final_state.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_app_sources() -> str:
+        """Read and concatenate every .py file in the Reflex application package.
+    
+        The agent may organize their state across multiple files. We aggregate them
+        all for the AST/regex source-level checks described in the task truth.
+        """
+        package = Path(APP_PACKAGE_DIR)
+>       assert package.is_dir(), (
+            f"Expected the Reflex application package directory at {APP_PACKAGE_DIR}."
+        )
+E       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.
+E       assert False
+E        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()
+E        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir
+
+tests/test_final_state.py:31: AssertionError
+=================================== FAILURES ===================================
+_______________ test_exported_frontend_contains_all_field_names ________________
+
+exported_frontend = PosixPath('/home/user/myproject/.web')
+
+    def test_exported_frontend_contains_all_field_names(exported_frontend: Path):
+        candidate_dirs = [exported_frontend / "pages", exported_frontend / "utils", exported_frontend]
+        contents_blob_parts: list[str] = []
+        for candidate in candidate_dirs:
+            if not candidate.exists():
+                continue
+            for path in candidate.rglob("*"):
+                if path.is_file() and path.suffix in {".js", ".jsx", ".ts", ".tsx", ".html"}:
+                    try:
+                        contents_blob_parts.append(path.read_text(encoding="utf-8", errors="ignore"))
+                    except OSError:
+                        continue
+    
+        blob = "\n".join(contents_blob_parts)
+        assert blob.strip(), (
+            f"Could not read any exported frontend files under {exported_frontend}."
+        )
+    
+        missing = []
+        for field in REQUIRED_FIELDS:
+            # Accept the field name appearing as a quoted string (used by Reflex as
+            # the input `name` attribute or storage key).
+            if not re.search(rf'["\']{re.escape(field)}["\']', blob):
+                missing.append(field)
+>       assert not missing, (
+            f"Exported frontend is missing references to required field names: {missing}."
+        )
+E       AssertionError: Exported frontend is missing references to required field names: ['name', 'email', 'address', 'city', 'password', 'confirm_password'].
+E       assert not ['name', 'email', 'address', 'city', 'password', 'confirm_password']
+
+tests/test_final_state.py:262: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_ports_are_free
+ERROR tests/test_final_state.py::test_state_has_step_var - AssertionError: Ex...
+ERROR tests/test_final_state.py::test_state_has_submitted_var - AssertionErro...
+ERROR tests/test_final_state.py::test_state_uses_at_least_six_local_storage_fields
+ERROR tests/test_final_state.py::test_local_storage_names_cover_all_required_fields
+ERROR tests/test_final_state.py::test_event_handlers_next_and_prev_step_exist
+ERROR tests/test_final_state.py::test_event_handlers_mutate_step - AssertionE...
+ERROR tests/test_final_state.py::test_step_bounds_are_enforced - AssertionErr...
+ERROR tests/test_final_state.py::test_final_submit_validates_passwords_and_clears_storage
+FAILED tests/test_final_state.py::test_exported_frontend_contains_all_field_names
+==================== 1 failed, 1 passed, 8 errors in 0.14s =====================

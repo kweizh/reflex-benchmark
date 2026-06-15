@@ -1,0 +1,284 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py FFFFFFFFFFE                                    [100%]
+
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_index_page_serves_html _________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7fa1337dfbf0>
+reflex_export = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=1, stdout='────────...Build failed with exit code 1\nerror: Script not found "export"\n\n\n\nRun with --loglevel debug  for the full log.\n')
+
+    @pytest.fixture(scope="session")
+    def reflex_server(xprocess, reflex_export):
+        class Starter(ProcessStarter):
+            name = "reflex_server"
+            args = ["uv", "run", "reflex", "run", "--loglevel", "info"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 600
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.settimeout(1.0)
+                    return s.connect_ex(("localhost", FRONTEND_PORT)) == 0
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:381: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.reflex_server.<locals>.Starter object at 0x7fa1337dfef0>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 600                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_server$ uv run reflex run --loglevel info
+process 'reflex_server' started pid=1472
+=================================== FAILURES ===================================
+_____________ test_react_quill_class_exists_and_subclasses_no_ssr ______________
+
+    def test_react_quill_class_exists_and_subclasses_no_ssr():
+        path, cls = _find_react_quill_class()
+>       assert cls is not None, (
+            f"Could not find a class named `ReactQuill` inheriting from `NoSSRComponent` under {APP_PKG_DIR}."
+        )
+E       AssertionError: Could not find a class named `ReactQuill` inheriting from `NoSSRComponent` under /home/user/myproject/myproject.
+E       assert None is not None
+
+tests/test_final_state.py:95: AssertionError
+______________________ test_react_quill_library_is_pinned ______________________
+
+    def test_react_quill_library_is_pinned():
+        _path, cls = _find_react_quill_class()
+>       assert cls is not None, "ReactQuill class not found."
+E       AssertionError: ReactQuill class not found.
+E       assert None is not None
+
+tests/test_final_state.py:103: AssertionError
+_____________________ test_react_quill_tag_is_react_quill ______________________
+
+    def test_react_quill_tag_is_react_quill():
+        _path, cls = _find_react_quill_class()
+>       assert cls is not None, "ReactQuill class not found."
+E       AssertionError: ReactQuill class not found.
+E       assert None is not None
+
+tests/test_final_state.py:127: AssertionError
+_________________________ test_react_quill_value_prop __________________________
+
+    def test_react_quill_value_prop():
+        _path, cls = _find_react_quill_class()
+>       assert cls is not None, "ReactQuill class not found."
+E       AssertionError: ReactQuill class not found.
+E       assert None is not None
+
+tests/test_final_state.py:145: AssertionError
+___________________ test_react_quill_on_change_event_handler ___________________
+
+    def test_react_quill_on_change_event_handler():
+        _path, cls = _find_react_quill_class()
+>       assert cls is not None, "ReactQuill class not found."
+E       AssertionError: ReactQuill class not found.
+E       assert None is not None
+
+tests/test_final_state.py:160: AssertionError
+______________________ test_react_quill_factory_exported _______________________
+
+    def test_react_quill_factory_exported():
+        """A module-level `react_quill = ReactQuill.create` must exist somewhere."""
+        for _path, tree, _src in _parse_files(APP_PKG_DIR):
+            for node in tree.body:
+                if isinstance(node, ast.Assign) and len(node.targets) == 1:
+                    tgt = node.targets[0]
+                    if isinstance(tgt, ast.Name) and tgt.id == "react_quill":
+                        val = node.value
+                        if isinstance(val, ast.Attribute) and val.attr == "create":
+                            if isinstance(val.value, ast.Name) and val.value.id == "ReactQuill":
+                                return
+>       pytest.fail(
+            "Expected a module-level assignment `react_quill = ReactQuill.create` exposed as a factory."
+        )
+E       Failed: Expected a module-level assignment `react_quill = ReactQuill.create` exposed as a factory.
+
+tests/test_final_state.py:183: Failed
+_______________________ test_state_has_content_str_field _______________________
+
+    def test_state_has_content_str_field():
+        found = False
+        for _path, cls in _iter_classes_inheriting_state():
+            for stmt in cls.body:
+                if isinstance(stmt, ast.AnnAssign) and isinstance(stmt.target, ast.Name) and stmt.target.id == "content":
+                    ann_text = _annotation_text(stmt.annotation)
+                    if ann_text == "str" and isinstance(stmt.value, ast.Constant) and stmt.value.value == "":
+                        found = True
+>       assert found, (
+            "Expected a class inheriting from `rx.State` to declare `content: str = \"\"`."
+        )
+E       AssertionError: Expected a class inheriting from `rx.State` to declare `content: str = ""`.
+E       assert False
+
+tests/test_final_state.py:208: AssertionError
+______________________ test_state_has_set_content_handler ______________________
+
+    def test_state_has_set_content_handler():
+        found = False
+        for _path, cls in _iter_classes_inheriting_state():
+            # Need both content field and set_content handler in same class.
+            has_content = False
+            for stmt in cls.body:
+                if isinstance(stmt, ast.AnnAssign) and isinstance(stmt.target, ast.Name) and stmt.target.id == "content":
+                    has_content = True
+            if not has_content:
+                continue
+            for stmt in cls.body:
+                if isinstance(stmt, ast.FunctionDef) and stmt.name == "set_content":
+                    args = [a.arg for a in stmt.args.args]
+                    if args[:2] != ["self", "v"]:
+                        continue
+                    # Body must assign self.content = v
+                    for sub in ast.walk(stmt):
+                        if isinstance(sub, ast.Assign) and len(sub.targets) == 1:
+                            tgt = sub.targets[0]
+                            if (
+                                isinstance(tgt, ast.Attribute)
+                                and isinstance(tgt.value, ast.Name)
+                                and tgt.value.id == "self"
+                                and tgt.attr == "content"
+                                and isinstance(sub.value, ast.Name)
+                                and sub.value.id == "v"
+                            ):
+                                found = True
+>       assert found, (
+            "Expected the state class to define `set_content(self, v: str)` that assigns `self.content = v`."
+        )
+E       AssertionError: Expected the state class to define `set_content(self, v: str)` that assigns `self.content = v`.
+E       assert False
+
+tests/test_final_state.py:241: AssertionError
+________________________ test_quill_stylesheet_is_wired ________________________
+
+    def test_quill_stylesheet_is_wired():
+        """rxconfig stylesheets contains a `quill` URL, or ReactQuill declares lib_dependencies containing 'quill'."""
+        # Path A: rxconfig stylesheets
+        rx_ok = False
+        if os.path.isfile(RXCONFIG_PATH):
+            try:
+                with open(RXCONFIG_PATH, "r", encoding="utf-8") as f:
+                    src = f.read()
+                tree = ast.parse(src)
+                for node in ast.walk(tree):
+                    if isinstance(node, ast.Call):
+                        func_name = ""
+                        if isinstance(node.func, ast.Attribute):
+                            func_name = node.func.attr
+                        elif isinstance(node.func, ast.Name):
+                            func_name = node.func.id
+                        if func_name == "Config":
+                            for kw in node.keywords:
+                                if kw.arg == "stylesheets" and isinstance(kw.value, (ast.List, ast.Tuple)):
+                                    for elt in kw.value.elts:
+                                        if isinstance(elt, ast.Constant) and isinstance(elt.value, str):
+                                            if "quill" in elt.value.lower():
+                                                rx_ok = True
+            except SyntaxError:
+                pass
+    
+        # Path B: ReactQuill.lib_dependencies references quill
+        lib_dep_ok = False
+        _path, cls = _find_react_quill_class()
+        if cls is not None:
+            for stmt in cls.body:
+                target_name = None
+                value = None
+                if isinstance(stmt, ast.Assign) and len(stmt.targets) == 1 and isinstance(stmt.targets[0], ast.Name):
+                    target_name = stmt.targets[0].id
+                    value = stmt.value
+                elif isinstance(stmt, ast.AnnAssign) and isinstance(stmt.target, ast.Name):
+                    target_name = stmt.target.id
+                    value = stmt.value
+                if target_name == "lib_dependencies" and isinstance(value, (ast.List, ast.Tuple)):
+                    for elt in value.elts:
+                        if isinstance(elt, ast.Constant) and isinstance(elt.value, str):
+                            if "quill" in elt.value.lower():
+                                lib_dep_ok = True
+    
+>       assert rx_ok or lib_dep_ok, (
+            "Expected Quill's stylesheet to be wired in either `rxconfig.py` (via `stylesheets=[...]` "
+            "containing a 'quill' URL) or via `lib_dependencies` containing a 'quill' entry on the ReactQuill class."
+        )
+E       AssertionError: Expected Quill's stylesheet to be wired in either `rxconfig.py` (via `stylesheets=[...]` containing a 'quill' URL) or via `lib_dependencies` containing a 'quill' entry on the ReactQuill class.
+E       assert (False or False)
+
+tests/test_final_state.py:293: AssertionError
+__________________ test_web_package_json_contains_react_quill __________________
+
+reflex_export = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=1, stdout='────────...Build failed with exit code 1\nerror: Script not found "export"\n\n\n\nRun with --loglevel debug  for the full log.\n')
+
+    def test_web_package_json_contains_react_quill(reflex_export):
+        assert os.path.isfile(WEB_PACKAGE_JSON), (
+            f"Expected `{WEB_PACKAGE_JSON}` to exist after `reflex export`. "
+            f"Export stdout/stderr: {reflex_export.stdout[-800:]} {reflex_export.stderr[-800:]}"
+        )
+        with open(WEB_PACKAGE_JSON, "r", encoding="utf-8") as f:
+            raw = f.read()
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            pytest.fail(f"{WEB_PACKAGE_JSON} is not valid JSON.")
+        deps = {}
+        for key in ("dependencies", "devDependencies"):
+            if isinstance(data.get(key), dict):
+                deps.update(data[key])
+        found_in_deps = any("react-quill" in name for name in deps.keys())
+        found_anywhere = "react-quill" in raw
+>       assert found_in_deps or found_anywhere, (
+            f"Expected `.web/package.json` to declare a `react-quill` dependency. "
+            f"Found dependencies: {list(deps.keys())}"
+        )
+E       AssertionError: Expected `.web/package.json` to declare a `react-quill` dependency. Found dependencies: ['@radix-ui/themes', '@react-router/node', 'isbot', 'lucide-react', 'react', 'react-dom', 'react-error-boundary', 'react-helmet', 'react-router', 'react-router-dom', 'socket.io-client', 'sonner', 'universal-cookie', '@emotion/react', '@react-router/dev', '@react-router/fs-routes', '@tailwindcss/postcss', '@tailwindcss/typography', 'autoprefixer', 'postcss', 'postcss-import', 'tailwindcss', 'vite']
+E       assert (False or False)
+
+tests/test_final_state.py:355: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_index_page_serves_html - TimeoutError: ...
+FAILED tests/test_final_state.py::test_react_quill_class_exists_and_subclasses_no_ssr
+FAILED tests/test_final_state.py::test_react_quill_library_is_pinned - Assert...
+FAILED tests/test_final_state.py::test_react_quill_tag_is_react_quill - Asser...
+FAILED tests/test_final_state.py::test_react_quill_value_prop - AssertionErro...
+FAILED tests/test_final_state.py::test_react_quill_on_change_event_handler - ...
+FAILED tests/test_final_state.py::test_react_quill_factory_exported - Failed:...
+FAILED tests/test_final_state.py::test_state_has_content_str_field - Assertio...
+FAILED tests/test_final_state.py::test_state_has_set_content_handler - Assert...
+FAILED tests/test_final_state.py::test_quill_stylesheet_is_wired - AssertionE...
+FAILED tests/test_final_state.py::test_web_package_json_contains_react_quill
+=================== 10 failed, 1 error in 606.36s (0:10:06) ====================

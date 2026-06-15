@@ -1,0 +1,98 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:49:44.578454+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 5,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781455774772,
+            "stop": 1781455784578
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_dynamic_route_registration_present",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781455774814,
+                "stop": 1781455774817,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_accesses_router_for_slug",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455774818,
+                "stop": 1781455774820,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hardcoded_posts_have_three_unique_slugs",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781455774820,
+                "stop": 1781455774824,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_export_succeeds",
+                "status": "passed",
+                "duration": 9378,
+                "start": 1781455774824,
+                "stop": 1781455784202,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dynamic_route_page_generated",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 338,
+                "start": 1781455784203,
+                "stop": 1781455784541,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_export_result = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500...\u2501\u2501\u2501 100% 19/18 0:00:00\\nCreating Production Build:  \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 100% 4/4 0:00:06\\n', stderr='')\n\n    def test_dynamic_route_page_generated(reflex_export_result):\n        assert reflex_export_result.returncode == 0, (\n            \"Skipping generated-page check because the reflex export command failed.\"\n        )\n        candidates = [\n            Path(PROJECT_DIR) / \".web\" / \"pages\" / \"posts\" / \"[slug].js\",\n            Path(PROJECT_DIR) / \".web\" / \"pages\" / \"posts\" / \"[slug].jsx\",\n            Path(PROJECT_DIR) / \".web\" / \"pages\" / \"posts\" / \"[slug].tsx\",\n            Path(PROJECT_DIR) / \".web\" / \".next\" / \"server\" / \"pages\" / \"posts\" / \"[slug].html\",\n            Path(PROJECT_DIR) / \".web\" / \".next\" / \"server\" / \"pages\" / \"posts\" / \"[slug].js\",\n        ]\n        for candidate in candidates:\n            if candidate.exists():\n                return\n    \n        # Fallback: glob search for any generated artifact for posts/[slug] under .web or _export.\n        search_roots = [Path(PROJECT_DIR) / \".web\", Path(PROJECT_DIR) / \"_export\"]\n        for root in search_roots:\n            if not root.exists():\n                continue\n            for path in root.rglob(\"*\"):\n                if path.is_file() and \"posts\" in path.parts:\n                    # accept either the literal [slug] segment or pre-rendered slug subpaths\n                    if \"[slug]\" in path.name or any(part == \"[slug]\" for part in path.parts):\n                        return\n    \n>       raise AssertionError(\n            \"Could not find a generated Next.js page file for the dynamic route 'posts/[slug]' \"\n            \"after running `reflex export --frontend-only --no-zip`. \"\n            f\"Checked candidates: {[str(c) for c in candidates]}\"\n        )\nE       AssertionError: Could not find a generated Next.js page file for the dynamic route 'posts/[slug]' after running `reflex export --frontend-only --no-zip`. Checked candidates: ['/home/user/myproject/.web/pages/posts/[slug].js', '/home/user/myproject/.web/pages/posts/[slug].jsx', '/home/user/myproject/.web/pages/posts/[slug].tsx', '/home/user/myproject/.web/.next/server/pages/posts/[slug].html', '/home/user/myproject/.web/.next/server/pages/posts/[slug].js']\n\ntests/test_final_state.py:182: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_post_title_appears_in_build_output",
+                "status": "passed",
+                "duration": 6,
+                "start": 1781455784542,
+                "stop": 1781455784548,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_reflex_servers_remaining",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 29,
+                "start": 1781455784548,
+                "stop": 1781455784577,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_no_reflex_servers_remaining():\n        \"\"\"Make sure no leftover reflex/uvicorn/next dev servers are running after verification.\"\"\"\n        result = subprocess.run(\n            [\"pgrep\", \"-fa\", r\"reflex run|next dev|uvicorn .*reflex\"],\n            capture_output=True,\n            text=True,\n        )\n        # pgrep exits 1 when there is no match; that is the desired state.\n        if result.returncode == 0 and result.stdout.strip():\n            # Attempt cleanup so subsequent tests in the same harness are not affected.\n            subprocess.run([\"pkill\", \"-f\", \"reflex run\"], capture_output=True)\n            subprocess.run([\"pkill\", \"-f\", \"next dev\"], capture_output=True)\n            subprocess.run([\"pkill\", \"-f\", \"uvicorn\"], capture_output=True)\n>           raise AssertionError(\n                \"Expected no leftover Reflex/Next/uvicorn dev servers after task completion, \"\n                f\"but found:\\n{result.stdout}\"\n            )\nE           AssertionError: Expected no leftover Reflex/Next/uvicorn dev servers after task completion, but found:\nE           1104 uv run reflex run\nE           1124 /home/user/myproject/.venv/bin/python3 /home/user/myproject/.venv/bin/reflex run\n\ntests/test_final_state.py:240: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

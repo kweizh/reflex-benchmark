@@ -1,0 +1,77 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:45:14.267350+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 0,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781459094086,
+            "stop": 1781459114267
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_source_uses_rx_cond_with_show_panel",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1043,
+                "start": 1781459094112,
+                "stop": 1781459095155,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "python_sources = [('/home/user/myproject/main.py', 'def main():\\n    print(\"Hello from myproject!\")\\n\\n\\nif __name__ == \"__main__\":\\n  ...     justify=\"center\",\\n            min_height=\"85vh\",\\n        ),\\n    )\\n\\n\\napp = rx.App()\\napp.add_page(index)\\n')]\n\n    def test_source_uses_rx_cond_with_show_panel(python_sources):\n        \"\"\"Criterion 1: AST/regex search finds rx.cond( referencing a state var named show_panel.\"\"\"\n        # Match rx.cond(<something>.show_panel ...) \u2014 the first argument should reference a state attr `show_panel`.\n        pattern = re.compile(\n            r\"rx\\.cond\\s*\\(\\s*[A-Za-z_][\\w.]*\\.show_panel\\b\",\n            re.MULTILINE,\n        )\n        matches = []\n        for path, content in python_sources:\n            if pattern.search(content):\n                matches.append(path)\n>       assert matches, (\n            \"Could not find any `rx.cond(<State>.show_panel ...)` call in the project's Python sources. \"\n            \"The index page must conditionally render the panel via `rx.cond` against the `show_panel` state var.\"\n        )\nE       AssertionError: Could not find any `rx.cond(<State>.show_panel ...)` call in the project's Python sources. The index page must conditionally render the panel via `rx.cond` against the `show_panel` state var.\nE       assert []\n\ntests/test_final_state.py:120: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_boolean_state_var_show_panel_defaults_false",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 8,
+                "start": 1781459095155,
+                "stop": 1781459095163,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "python_sources = [('/home/user/myproject/main.py', 'def main():\\n    print(\"Hello from myproject!\")\\n\\n\\nif __name__ == \"__main__\":\\n  ...     justify=\"center\",\\n            min_height=\"85vh\",\\n        ),\\n    )\\n\\n\\napp = rx.App()\\napp.add_page(index)\\n')]\n\n    def test_boolean_state_var_show_panel_defaults_false(python_sources):\n        \"\"\"Criterion 2: A boolean state var `show_panel: bool = False` is declared on an rx.State subclass.\"\"\"\n        # Find each class definition that inherits from rx.State (directly or via attribute access).\n        class_pattern = re.compile(\n            r\"class\\s+([A-Za-z_]\\w*)\\s*\\(([^)]*)\\)\\s*:\",\n            re.MULTILINE,\n        )\n        # Within that class body, look for `show_panel : bool = False` (whitespace tolerant).\n        show_panel_pattern = re.compile(\n            r\"^\\s*show_panel\\s*:\\s*bool\\s*=\\s*False\\b\",\n            re.MULTILINE,\n        )\n    \n        found = False\n        for path, content in python_sources:\n            for match in class_pattern.finditer(content):\n                bases = match.group(2)\n                if \"rx.State\" not in bases and \"State\" not in bases.split(\",\"):\n                    # Conservative: require the literal text \"rx.State\" or a bare \"State\" base.\n                    # We still continue; rx.State subclassing is what we expect from the docs.\n                    if \"rx.State\" not in bases:\n                        continue\n                # Extract the body of the class by slicing until the next top-level def/class\n                # at the same indentation. A simple heuristic is enough for static regex checks.\n                body_start = match.end()\n                body = content[body_start:]\n                # Cut the body at the next class definition that starts at column 0.\n                next_class = re.search(r\"\\nclass\\s+\\w+\\s*\\(\", body)\n                if next_class:\n                    body = body[: next_class.start()]\n                if show_panel_pattern.search(body):\n                    found = True\n                    break\n            if found:\n                break\n    \n>       assert found, (\n            \"Could not find a boolean state var declaration `show_panel: bool = False` inside any class \"\n            \"that inherits from `rx.State`. The state must define a default-False boolean named `show_panel`.\"\n        )\nE       AssertionError: Could not find a boolean state var declaration `show_panel: bool = False` inside any class that inherits from `rx.State`. The state must define a default-False boolean named `show_panel`.\nE       assert False\n\ntests/test_final_state.py:162: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_cached_computed_var_visibility_label",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 8,
+                "start": 1781459095163,
+                "stop": 1781459095171,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "python_sources = [('/home/user/myproject/main.py', 'def main():\\n    print(\"Hello from myproject!\")\\n\\n\\nif __name__ == \"__main__\":\\n  ...     justify=\"center\",\\n            min_height=\"85vh\",\\n        ),\\n    )\\n\\n\\napp = rx.App()\\napp.add_page(index)\\n')]\n\n    def test_cached_computed_var_visibility_label(python_sources):\n        \"\"\"Criterion 3: A cached computed var `visibility_label` returns the two visibility literals.\"\"\"\n        # Match `@rx.var(... cache=True ...)` on the line(s) directly above `def visibility_label(...)`.\n        # Allow other decorators / whitespace between them, but keep the search reasonably tight.\n        decorator_def_pattern = re.compile(\n            r\"@rx\\.var\\s*\\(\\s*[^)]*\\bcache\\s*=\\s*True\\b[^)]*\\)\\s*(?:\\r?\\n\\s*@[^\\n]*)*\\s*\\r?\\n\\s*def\\s+visibility_label\\s*\\(\\s*self\\s*\\)\\s*(?:->\\s*[^:]+)?:\\s*\\r?\\n(?P<body>(?:[ \\t]+[^\\n]*\\r?\\n)+)\",\n            re.MULTILINE,\n        )\n    \n        found_decorator_and_def = False\n        found_shown_literal = False\n        found_hidden_literal = False\n    \n        for path, content in python_sources:\n            for match in decorator_def_pattern.finditer(content):\n                found_decorator_and_def = True\n                body = match.group(\"body\")\n                if \"Visibility: shown\" in body:\n                    found_shown_literal = True\n                if \"Visibility: hidden\" in body:\n                    found_hidden_literal = True\n                if found_shown_literal and found_hidden_literal:\n                    break\n            if found_shown_literal and found_hidden_literal:\n                break\n    \n>       assert found_decorator_and_def, (\n            \"Could not find a `@rx.var(cache=True)`-decorated method named `visibility_label(self)` \"\n            \"in the project's Python sources. The state must expose a cached computed var named `visibility_label`.\"\n        )\nE       AssertionError: Could not find a `@rx.var(cache=True)`-decorated method named `visibility_label(self)` in the project's Python sources. The state must expose a cached computed var named `visibility_label`.\nE       assert False\n\ntests/test_final_state.py:194: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_frontend_contains_required_literals",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 19095,
+                "start": 1781459095171,
+                "stop": 1781459114266,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "compiled_frontend = '/home/user/myproject/.web'\n\n    def test_compiled_frontend_contains_required_literals(compiled_frontend):\n        \"\"\"Criterion 4: After exporting the frontend, the compiled output contains all three literals.\"\"\"\n        required_literals = [\n            \"Secret Panel Content\",\n            \"Visibility: shown\",\n            \"Visibility: hidden\",\n        ]\n        found = {literal: False for literal in required_literals}\n    \n        for dirpath, _dirnames, filenames in os.walk(compiled_frontend):\n            for filename in filenames:\n                full_path = os.path.join(dirpath, filename)\n                try:\n                    with open(full_path, \"r\", encoding=\"utf-8\", errors=\"ignore\") as fh:\n                        contents = fh.read()\n                except OSError:\n                    continue\n                for literal in required_literals:\n                    if not found[literal] and literal in contents:\n                        found[literal] = True\n                if all(found.values()):\n                    break\n            if all(found.values()):\n                break\n    \n        missing = [literal for literal, was_found in found.items() if not was_found]\n>       assert not missing, (\n            \"The compiled Reflex frontend under \"\n            f\"{compiled_frontend} is missing the following expected literal(s): {missing}. \"\n            \"Ensure the `/` page renders `Secret Panel Content` inside the `rx.cond` panel and \"\n            'displays the `visibility_label` text (\"Visibility: shown\" / \"Visibility: hidden\").'\n        )\nE       AssertionError: The compiled Reflex frontend under /home/user/myproject/.web is missing the following expected literal(s): ['Secret Panel Content', 'Visibility: shown', 'Visibility: hidden']. Ensure the `/` page renders `Secret Panel Content` inside the `rx.cond` panel and displays the `visibility_label` text (\"Visibility: shown\" / \"Visibility: hidden\").\nE       assert not ['Secret Panel Content', 'Visibility: shown', 'Visibility: hidden']\n\ntests/test_final_state.py:232: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

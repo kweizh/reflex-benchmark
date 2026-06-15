@@ -1,0 +1,52 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py ..FFF..                                        [100%]
+
+=================================== FAILURES ===================================
+___________________ test_deploy_script_exists_and_executable ___________________
+
+    def test_deploy_script_exists_and_executable():
+>       assert os.path.isfile(DEPLOY_SCRIPT), (
+            f"Expected deploy script at {DEPLOY_SCRIPT}."
+        )
+E       AssertionError: Expected deploy script at /home/user/myproject/deploy.sh.
+E       assert False
+E        +  where False = <function isfile at 0x7fd8e8200220>('/home/user/myproject/deploy.sh')
+E        +    where <function isfile at 0x7fd8e8200220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:43: AssertionError
+_______________________ test_deploy_script_uses_env_vars _______________________
+
+    def test_deploy_script_uses_env_vars():
+>       with open(DEPLOY_SCRIPT, "r", encoding="utf-8") as fh:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/deploy.sh'
+
+tests/test_final_state.py:53: FileNotFoundError
+_______________________ test_deploy_log_records_app_name _______________________
+
+    def test_deploy_log_records_app_name():
+>       assert os.path.isfile(DEPLOY_LOG), (
+            f"Expected deploy log at {DEPLOY_LOG} after running deploy.sh."
+        )
+E       AssertionError: Expected deploy log at /home/user/myproject/deploy.log after running deploy.sh.
+E       assert False
+E        +  where False = <function isfile at 0x7fd8e8200220>('/home/user/myproject/deploy.log')
+E        +    where <function isfile at 0x7fd8e8200220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:64: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_rxconfig_exists
+PASSED tests/test_final_state.py::test_requirements_txt_contains_reflex
+PASSED tests/test_final_state.py::test_reflex_cloud_apps_list_returns_at_least_one_app
+PASSED tests/test_final_state.py::test_reflex_dev_ports_are_free
+FAILED tests/test_final_state.py::test_deploy_script_exists_and_executable - ...
+FAILED tests/test_final_state.py::test_deploy_script_uses_env_vars - FileNotF...
+FAILED tests/test_final_state.py::test_deploy_log_records_app_name - Assertio...
+========================= 3 failed, 4 passed in 2.68s ==========================

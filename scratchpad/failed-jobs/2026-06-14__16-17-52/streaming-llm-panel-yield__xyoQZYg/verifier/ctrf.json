@@ -1,0 +1,149 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:26:19.591235+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 13,
+            "passed": 12,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781454350876,
+            "stop": 1781454379591
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_module_file_exists",
+                "status": "passed",
+                "duration": 15,
+                "start": 1781454350939,
+                "stop": 1781454350954,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rxconfig_references_app_name",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781454350954,
+                "stop": 1781454350955,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_class_declares_required_vars",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454350956,
+                "stop": 1781454350958,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handler_is_async_generator_with_event_decorator",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454350958,
+                "stop": 1781454350960,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handler_calls_asyncio_sleep",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454350960,
+                "stop": 1781454350962,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handler_contains_expected_chunk_list",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 25,
+                "start": 1781454350962,
+                "stop": 1781454350987,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_event_handler_contains_expected_chunk_list():\n        handler = _find_streaming_handler()\n        chunks = _find_chunk_list(handler)\n>       assert chunks is not None, (\n            \"Streaming handler must contain a list literal whose string elements \"\n            f\"join to exactly {EXPECTED_JOINED!r}. Expected list: {EXPECTED_CHUNKS!r}.\"\n        )\nE       AssertionError: Streaming handler must contain a list literal whose string elements join to exactly 'Hello world, this is streamed.'. Expected list: ['Hello', ' world', ', this', ' is', ' streamed', '.'].\nE       assert None is not None\n\ntests/test_final_state.py:338: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_ui_uses_text_area_and_send_button_label",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781454350987,
+                "stop": 1781454350988,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ui_uses_rx_cond_with_is_loading_for_spinner",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781454350989,
+                "stop": 1781454350990,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_static_export_contains_send_label",
+                "status": "passed",
+                "duration": 7875,
+                "start": 1781454350991,
+                "stop": 1781454358866,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_static_export_contains_spinner_component",
+                "status": "passed",
+                "duration": 17,
+                "start": 1781454358866,
+                "stop": 1781454358883,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dev_server_frontend_serves_root",
+                "status": "passed",
+                "duration": 5609,
+                "start": 1781454358884,
+                "stop": 1781454364493,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dev_server_backend_ping",
+                "status": "passed",
+                "duration": 64,
+                "start": 1781454364493,
+                "stop": 1781454364557,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_lingering_reflex_processes_after_teardown",
+                "status": "passed",
+                "duration": 15032,
+                "start": 1781454364558,
+                "stop": 1781454379590,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

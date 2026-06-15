@@ -1,0 +1,65 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:11:13.564274+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781457059980,
+            "stop": 1781457073564
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_source_uses_rx_cond_with_show_panel",
+                "status": "passed",
+                "duration": 1026,
+                "start": 1781457060011,
+                "stop": 1781457061037,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_boolean_state_var_show_panel_defaults_false",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781457061037,
+                "stop": 1781457061039,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cached_computed_var_visibility_label",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781457061040,
+                "stop": 1781457061041,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_frontend_contains_required_literals",
+                "status": "passed",
+                "duration": 12521,
+                "start": 1781457061042,
+                "stop": 1781457073563,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

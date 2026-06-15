@@ -1,0 +1,100 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py ........F.F                                    [100%]
+
+=================================== FAILURES ===================================
+______________________________ test_backend_ping _______________________________
+
+reflex_server = {'backend_ready': True, 'frontend_ready': True, 'proc': <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--loglevel', ...>}
+
+    def test_backend_ping(reflex_server):
+        if not reflex_server["backend_ready"]:
+            pytest.skip("backend not ready")
+>       status, body = _http_get(f"http://127.0.0.1:{BACKEND_PORT}/ping", timeout=10)
+
+tests/test_final_state.py:452: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:213: in _http_get
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+usr/lib/python3.12/urllib/request.py:215: in urlopen
+    return opener.open(url, data, timeout)
+usr/lib/python3.12/urllib/request.py:515: in open
+    response = self._open(req, data)
+usr/lib/python3.12/urllib/request.py:532: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+usr/lib/python3.12/urllib/request.py:492: in _call_chain
+    result = func(*args)
+usr/lib/python3.12/urllib/request.py:1373: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+usr/lib/python3.12/urllib/request.py:1348: in do_open
+    r = h.getresponse()
+usr/lib/python3.12/http/client.py:1448: in getresponse
+    response.begin()
+usr/lib/python3.12/http/client.py:336: in begin
+    version, status, reason = self._read_status()
+usr/lib/python3.12/http/client.py:297: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x7fd6e5d4b6d0>
+b = <memory at 0x7fd6e5e67100>
+
+    def readinto(self, b):
+        """Read up to len(b) bytes into the writable buffer *b* and return
+        the number of bytes read.  If the socket is non-blocking and no bytes
+        are available, None is returned.
+    
+        If *b* is non-empty, a 0 return value indicates that the connection
+        was shutdown at the other end.
+        """
+        self._checkClosed()
+        self._checkReadable()
+        if self._timeout_occurred:
+            raise OSError("cannot read from timed out object")
+        while True:
+            try:
+>               return self._sock.recv_into(b)
+E               TimeoutError: timed out
+
+usr/lib/python3.12/socket.py:707: TimeoutError
+_______________ test_compiled_frontend_contains_send_and_foreach _______________
+
+reflex_server = {'backend_ready': True, 'frontend_ready': True, 'proc': <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--loglevel', ...>}
+
+    def test_compiled_frontend_contains_send_and_foreach(reflex_server):
+        """Once the dev server has compiled, .web/pages/index.{js,jsx} should
+        contain the literal label `Send` and a `.map(` call (which is how Reflex
+        compiles `rx.foreach`).
+        """
+        if not reflex_server["frontend_ready"]:
+            pytest.skip("frontend not ready; cannot inspect compiled output")
+        web_dir = os.path.join(PROJECT_DIR, ".web", "pages")
+>       assert os.path.isdir(web_dir), (
+            f"Expected compiled frontend directory {web_dir} to exist after the "
+            "dev server has started."
+        )
+E       AssertionError: Expected compiled frontend directory /home/user/collab_board/.web/pages to exist after the dev server has started.
+E       assert False
+E        +  where False = <function isdir at 0x7fd6e68b02c0>('/home/user/collab_board/.web/pages')
+E        +    where <function isdir at 0x7fd6e68b02c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:472: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_exists
+PASSED tests/test_final_state.py::test_module_level_global_feed_is_a_list
+PASSED tests/test_final_state.py::test_state_class_has_required_vars
+PASSED tests/test_final_state.py::test_background_poll_event_exists
+PASSED tests/test_final_state.py::test_send_message_mutates_global_feed
+PASSED tests/test_final_state.py::test_page_registers_on_load_polling
+PASSED tests/test_final_state.py::test_backend_is_listening
+PASSED tests/test_final_state.py::test_frontend_is_listening
+PASSED tests/test_final_state.py::test_frontend_serves_index
+FAILED tests/test_final_state.py::test_backend_ping - TimeoutError: timed out
+FAILED tests/test_final_state.py::test_compiled_frontend_contains_send_and_foreach
+========================= 2 failed, 9 passed in 21.56s =========================

@@ -1,0 +1,86 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:12:56.530553+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 5,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781453565497,
+            "stop": 1781453576530
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_rxconfig_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781453565901,
+                "stop": 1781453565903,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_app_module_imports_reflex",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781453565903,
+                "stop": 1781453565905,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_two_rx_var_computed_methods_exist",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781453565906,
+                "stop": 1781453565909,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_text_area_uses_required_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781453565910,
+                "stop": 1781453565911,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_backend_is_listening",
+                "status": "passed",
+                "duration": 8010,
+                "start": 1781453565912,
+                "stop": 1781453573922,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_returns_200_with_expected_markers",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2606,
+                "start": 1781453573923,
+                "stop": 1781453576529,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--loglevel', ...>\n\n    def test_frontend_returns_200_with_expected_markers(reflex_server):\n        last_exc = None\n        body = \"\"\n        for _ in range(30):\n            try:\n                resp = requests.get(FRONTEND_URL, timeout=10)\n                if resp.status_code == 200:\n                    body = resp.text\n                    break\n            except requests.RequestException as exc:\n                last_exc = exc\n            time.sleep(2.0)\n        else:\n            pytest.fail(\n                f\"Frontend at {FRONTEND_URL} never returned 200. Last error: {last_exc!r}\"\n            )\n    \n        # The compiled Next.js HTML should mention the textarea id and the static\n        # labels. Reflex sometimes inlines labels into the JS bundle; if the\n        # markers aren't in the initial HTML, follow up by checking the linked\n        # _next chunk(s) referenced from <script src=...>.\n        haystacks = [body]\n        chunk_urls = set(\n            re.findall(r'src=\"(/_next/static/[^\"]+\\.js)\"', body)\n        )\n        for chunk in list(chunk_urls)[:25]:\n            try:\n                chunk_resp = requests.get(\n                    f\"http://localhost:{FRONTEND_PORT}{chunk}\", timeout=10\n                )\n                if chunk_resp.status_code == 200:\n                    haystacks.append(chunk_resp.text)\n            except requests.RequestException:\n                continue\n    \n        combined = \"\\n\".join(haystacks)\n>       assert \"content_input\" in combined, (\n            \"Expected the textarea id 'content_input' to appear in the rendered page \"\n            \"or its JS bundle.\"\n        )\nE       AssertionError: Expected the textarea id 'content_input' to appear in the rendered page or its JS bundle.\nE       assert 'content_input' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'\n\ntests/test_final_state.py:314: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

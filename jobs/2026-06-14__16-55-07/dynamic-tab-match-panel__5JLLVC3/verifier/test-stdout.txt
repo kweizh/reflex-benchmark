@@ -1,0 +1,180 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py ......F.EEE                                    [100%]
+
+==================================== ERRORS ====================================
+_ ERROR at setup of test_compiled_bundle_contains_panel_literal[User Profile Page] _
+
+    @pytest.fixture(scope="session")
+    def exported_static_dir():
+        """Run `uv run reflex export --frontend-only --no-zip` and yield the
+        static output directory."""
+        # Clean any stale output to ensure we're checking a fresh build.
+        if os.path.isdir(STATIC_DIR):
+            shutil.rmtree(STATIC_DIR, ignore_errors=True)
+    
+        result = subprocess.run(
+            ["uv", "run", "reflex", "export", "--frontend-only", "--no-zip"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=EXPORT_TIMEOUT_SEC,
+            check=False,
+        )
+    
+        assert result.returncode == 0, (
+            "`uv run reflex export --frontend-only --no-zip` failed with exit "
+            f"code {result.returncode}.\nSTDOUT:\n{result.stdout}\n"
+            f"STDERR:\n{result.stderr}"
+        )
+    
+>       assert os.path.isdir(STATIC_DIR), (
+            f"Expected Reflex to produce a static frontend bundle at {STATIC_DIR}, "
+            "but it was not created."
+        )
+E       AssertionError: Expected Reflex to produce a static frontend bundle at /home/user/myproject/.web/_static, but it was not created.
+E       assert False
+E        +  where False = <function isdir at 0x7f4a53e182c0>('/home/user/myproject/.web/_static')
+E        +    where <function isdir at 0x7f4a53e182c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:349: AssertionError
+_ ERROR at setup of test_compiled_bundle_contains_panel_literal[Settings Page] _
+
+    @pytest.fixture(scope="session")
+    def exported_static_dir():
+        """Run `uv run reflex export --frontend-only --no-zip` and yield the
+        static output directory."""
+        # Clean any stale output to ensure we're checking a fresh build.
+        if os.path.isdir(STATIC_DIR):
+            shutil.rmtree(STATIC_DIR, ignore_errors=True)
+    
+        result = subprocess.run(
+            ["uv", "run", "reflex", "export", "--frontend-only", "--no-zip"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=EXPORT_TIMEOUT_SEC,
+            check=False,
+        )
+    
+        assert result.returncode == 0, (
+            "`uv run reflex export --frontend-only --no-zip` failed with exit "
+            f"code {result.returncode}.\nSTDOUT:\n{result.stdout}\n"
+            f"STDERR:\n{result.stderr}"
+        )
+    
+>       assert os.path.isdir(STATIC_DIR), (
+            f"Expected Reflex to produce a static frontend bundle at {STATIC_DIR}, "
+            "but it was not created."
+        )
+E       AssertionError: Expected Reflex to produce a static frontend bundle at /home/user/myproject/.web/_static, but it was not created.
+E       assert False
+E        +  where False = <function isdir at 0x7f4a53e182c0>('/home/user/myproject/.web/_static')
+E        +    where <function isdir at 0x7f4a53e182c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:349: AssertionError
+__ ERROR at setup of test_compiled_bundle_contains_panel_literal[About Page] ___
+
+    @pytest.fixture(scope="session")
+    def exported_static_dir():
+        """Run `uv run reflex export --frontend-only --no-zip` and yield the
+        static output directory."""
+        # Clean any stale output to ensure we're checking a fresh build.
+        if os.path.isdir(STATIC_DIR):
+            shutil.rmtree(STATIC_DIR, ignore_errors=True)
+    
+        result = subprocess.run(
+            ["uv", "run", "reflex", "export", "--frontend-only", "--no-zip"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=EXPORT_TIMEOUT_SEC,
+            check=False,
+        )
+    
+        assert result.returncode == 0, (
+            "`uv run reflex export --frontend-only --no-zip` failed with exit "
+            f"code {result.returncode}.\nSTDOUT:\n{result.stdout}\n"
+            f"STDERR:\n{result.stderr}"
+        )
+    
+>       assert os.path.isdir(STATIC_DIR), (
+            f"Expected Reflex to produce a static frontend bundle at {STATIC_DIR}, "
+            "but it was not created."
+        )
+E       AssertionError: Expected Reflex to produce a static frontend bundle at /home/user/myproject/.web/_static, but it was not created.
+E       assert False
+E        +  where False = <function isdir at 0x7f4a53e182c0>('/home/user/myproject/.web/_static')
+E        +    where <function isdir at 0x7f4a53e182c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:349: AssertionError
+=================================== FAILURES ===================================
+______________________ test_event_handlers_set_active_tab ______________________
+
+    def test_event_handlers_set_active_tab():
+        """Either (a) three handlers each assigning a specific literal, or
+        (b) one parameterized handler that assigns self.active_tab = <param>."""
+        modules = _parse_modules()
+        required_literals = {"profile", "settings", "about"}
+        literal_handlers: set[str] = set()
+        has_parameterized = False
+    
+        for tree in modules.values():
+            for node in ast.walk(tree):
+                if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                    continue
+                params = [a.arg for a in node.args.args]
+                for body_node in ast.walk(node):
+                    if not isinstance(body_node, ast.Assign):
+                        continue
+                    for target in body_node.targets:
+                        if not (
+                            isinstance(target, ast.Attribute)
+                            and target.attr == "active_tab"
+                            and isinstance(target.value, ast.Name)
+                            and target.value.id == "self"
+                        ):
+                            continue
+                        literal = _string_const(body_node.value)
+                        if literal in required_literals:
+                            literal_handlers.add(literal)
+                        elif (
+                            isinstance(body_node.value, ast.Name)
+                            and body_node.value.id in params
+                        ):
+                            has_parameterized = True
+    
+>       assert has_parameterized or required_literals.issubset(literal_handlers), (
+            "Expected either (a) three handlers assigning self.active_tab to "
+            '"profile", "settings", "about" respectively, or (b) one '
+            "parameterized handler that assigns self.active_tab = <param>. "
+            f"Literal handlers found: {sorted(literal_handlers)}; "
+            f"parameterized handler found: {has_parameterized}."
+        )
+E       AssertionError: Expected either (a) three handlers assigning self.active_tab to "profile", "settings", "about" respectively, or (b) one parameterized handler that assigns self.active_tab = <param>. Literal handlers found: []; parameterized handler found: False.
+E       assert (False or False)
+E        +  where False = <built-in method issubset of set object at 0x7f4a533df680>(set())
+E        +    where <built-in method issubset of set object at 0x7f4a533df680> = {'about', 'profile', 'settings'}.issubset
+
+tests/test_final_state.py:283: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_exists
+PASSED tests/test_final_state.py::test_pyproject_toml_exists
+PASSED tests/test_final_state.py::test_rxconfig_exists
+PASSED tests/test_final_state.py::test_active_tab_state_var_defined
+PASSED tests/test_final_state.py::test_three_tab_buttons_exist
+PASSED tests/test_final_state.py::test_rx_match_uses_active_tab_with_three_cases_and_default
+PASSED tests/test_final_state.py::test_buttons_bind_on_click
+ERROR tests/test_final_state.py::test_compiled_bundle_contains_panel_literal[User Profile Page]
+ERROR tests/test_final_state.py::test_compiled_bundle_contains_panel_literal[Settings Page]
+ERROR tests/test_final_state.py::test_compiled_bundle_contains_panel_literal[About Page]
+FAILED tests/test_final_state.py::test_event_handlers_set_active_tab - Assert...
+==================== 1 failed, 7 passed, 3 errors in 7.85s =====================

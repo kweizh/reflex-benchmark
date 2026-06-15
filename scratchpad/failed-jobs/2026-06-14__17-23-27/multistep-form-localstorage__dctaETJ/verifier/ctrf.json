@@ -1,0 +1,130 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:55:54.882674+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 1,
+            "failed": 9,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781459754740,
+            "stop": 1781459754882
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_state_has_step_var",
+                "status": "failed",
+                "duration": 25,
+                "start": 1781459754779,
+                "stop": 1781459754804,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def app_sources() -> str:\n>       return _read_app_sources()\n\ntests/test_final_state.py:55: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_app_sources() -> str:\n        \"\"\"Read and concatenate every .py file in the Reflex application package.\n    \n        The agent may organize their state across multiple files. We aggregate them\n        all for the AST/regex source-level checks described in the task truth.\n        \"\"\"\n        package = Path(APP_PACKAGE_DIR)\n>       assert package.is_dir(), (\n            f\"Expected the Reflex application package directory at {APP_PACKAGE_DIR}.\"\n        )\nE       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.\nE       assert False\nE        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()\nE        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir\n\ntests/test_final_state.py:31: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_submitted_var",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781459754804,
+                "stop": 1781459754813,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def app_sources() -> str:\n>       return _read_app_sources()\n\ntests/test_final_state.py:55: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_app_sources() -> str:\n        \"\"\"Read and concatenate every .py file in the Reflex application package.\n    \n        The agent may organize their state across multiple files. We aggregate them\n        all for the AST/regex source-level checks described in the task truth.\n        \"\"\"\n        package = Path(APP_PACKAGE_DIR)\n>       assert package.is_dir(), (\n            f\"Expected the Reflex application package directory at {APP_PACKAGE_DIR}.\"\n        )\nE       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.\nE       assert False\nE        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()\nE        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir\n\ntests/test_final_state.py:31: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_state_uses_at_least_six_local_storage_fields",
+                "status": "failed",
+                "duration": 8,
+                "start": 1781459754814,
+                "stop": 1781459754822,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def app_sources() -> str:\n>       return _read_app_sources()\n\ntests/test_final_state.py:55: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_app_sources() -> str:\n        \"\"\"Read and concatenate every .py file in the Reflex application package.\n    \n        The agent may organize their state across multiple files. We aggregate them\n        all for the AST/regex source-level checks described in the task truth.\n        \"\"\"\n        package = Path(APP_PACKAGE_DIR)\n>       assert package.is_dir(), (\n            f\"Expected the Reflex application package directory at {APP_PACKAGE_DIR}.\"\n        )\nE       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.\nE       assert False\nE        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()\nE        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir\n\ntests/test_final_state.py:31: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_local_storage_names_cover_all_required_fields",
+                "status": "failed",
+                "duration": 7,
+                "start": 1781459754823,
+                "stop": 1781459754830,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def app_sources() -> str:\n>       return _read_app_sources()\n\ntests/test_final_state.py:55: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_app_sources() -> str:\n        \"\"\"Read and concatenate every .py file in the Reflex application package.\n    \n        The agent may organize their state across multiple files. We aggregate them\n        all for the AST/regex source-level checks described in the task truth.\n        \"\"\"\n        package = Path(APP_PACKAGE_DIR)\n>       assert package.is_dir(), (\n            f\"Expected the Reflex application package directory at {APP_PACKAGE_DIR}.\"\n        )\nE       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.\nE       assert False\nE        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()\nE        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir\n\ntests/test_final_state.py:31: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_event_handlers_next_and_prev_step_exist",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781459754831,
+                "stop": 1781459754840,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def app_sources() -> str:\n>       return _read_app_sources()\n\ntests/test_final_state.py:55: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_app_sources() -> str:\n        \"\"\"Read and concatenate every .py file in the Reflex application package.\n    \n        The agent may organize their state across multiple files. We aggregate them\n        all for the AST/regex source-level checks described in the task truth.\n        \"\"\"\n        package = Path(APP_PACKAGE_DIR)\n>       assert package.is_dir(), (\n            f\"Expected the Reflex application package directory at {APP_PACKAGE_DIR}.\"\n        )\nE       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.\nE       assert False\nE        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()\nE        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir\n\ntests/test_final_state.py:31: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_event_handlers_mutate_step",
+                "status": "failed",
+                "duration": 8,
+                "start": 1781459754840,
+                "stop": 1781459754848,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def app_sources() -> str:\n>       return _read_app_sources()\n\ntests/test_final_state.py:55: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_app_sources() -> str:\n        \"\"\"Read and concatenate every .py file in the Reflex application package.\n    \n        The agent may organize their state across multiple files. We aggregate them\n        all for the AST/regex source-level checks described in the task truth.\n        \"\"\"\n        package = Path(APP_PACKAGE_DIR)\n>       assert package.is_dir(), (\n            f\"Expected the Reflex application package directory at {APP_PACKAGE_DIR}.\"\n        )\nE       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.\nE       assert False\nE        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()\nE        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir\n\ntests/test_final_state.py:31: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_step_bounds_are_enforced",
+                "status": "failed",
+                "duration": 8,
+                "start": 1781459754848,
+                "stop": 1781459754856,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def app_sources() -> str:\n>       return _read_app_sources()\n\ntests/test_final_state.py:55: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_app_sources() -> str:\n        \"\"\"Read and concatenate every .py file in the Reflex application package.\n    \n        The agent may organize their state across multiple files. We aggregate them\n        all for the AST/regex source-level checks described in the task truth.\n        \"\"\"\n        package = Path(APP_PACKAGE_DIR)\n>       assert package.is_dir(), (\n            f\"Expected the Reflex application package directory at {APP_PACKAGE_DIR}.\"\n        )\nE       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.\nE       assert False\nE        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()\nE        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir\n\ntests/test_final_state.py:31: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_final_submit_validates_passwords_and_clears_storage",
+                "status": "failed",
+                "duration": 8,
+                "start": 1781459754856,
+                "stop": 1781459754864,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def app_sources() -> str:\n>       return _read_app_sources()\n\ntests/test_final_state.py:55: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _read_app_sources() -> str:\n        \"\"\"Read and concatenate every .py file in the Reflex application package.\n    \n        The agent may organize their state across multiple files. We aggregate them\n        all for the AST/regex source-level checks described in the task truth.\n        \"\"\"\n        package = Path(APP_PACKAGE_DIR)\n>       assert package.is_dir(), (\n            f\"Expected the Reflex application package directory at {APP_PACKAGE_DIR}.\"\n        )\nE       AssertionError: Expected the Reflex application package directory at /home/user/myproject/multistep_form.\nE       assert False\nE        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')>()\nE        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/multistep_form')> = PosixPath('/home/user/myproject/multistep_form').is_dir\n\ntests/test_final_state.py:31: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_exported_frontend_contains_all_field_names",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 15,
+                "start": 1781459754865,
+                "stop": 1781459754880,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "exported_frontend = PosixPath('/home/user/myproject/.web')\n\n    def test_exported_frontend_contains_all_field_names(exported_frontend: Path):\n        candidate_dirs = [exported_frontend / \"pages\", exported_frontend / \"utils\", exported_frontend]\n        contents_blob_parts: list[str] = []\n        for candidate in candidate_dirs:\n            if not candidate.exists():\n                continue\n            for path in candidate.rglob(\"*\"):\n                if path.is_file() and path.suffix in {\".js\", \".jsx\", \".ts\", \".tsx\", \".html\"}:\n                    try:\n                        contents_blob_parts.append(path.read_text(encoding=\"utf-8\", errors=\"ignore\"))\n                    except OSError:\n                        continue\n    \n        blob = \"\\n\".join(contents_blob_parts)\n        assert blob.strip(), (\n            f\"Could not read any exported frontend files under {exported_frontend}.\"\n        )\n    \n        missing = []\n        for field in REQUIRED_FIELDS:\n            # Accept the field name appearing as a quoted string (used by Reflex as\n            # the input `name` attribute or storage key).\n            if not re.search(rf'[\"\\']{re.escape(field)}[\"\\']', blob):\n                missing.append(field)\n>       assert not missing, (\n            f\"Exported frontend is missing references to required field names: {missing}.\"\n        )\nE       AssertionError: Exported frontend is missing references to required field names: ['name', 'email', 'address', 'city', 'password', 'confirm_password'].\nE       assert not ['name', 'email', 'address', 'city', 'password', 'confirm_password']\n\ntests/test_final_state.py:262: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_ports_are_free",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781459754880,
+                "stop": 1781459754882,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

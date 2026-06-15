@@ -1,0 +1,50 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 8 items
+
+tests/test_final_state.py .......F                                       [100%]
+
+=================================== FAILURES ===================================
+__________________ test_index_page_renders_table_and_buttons ___________________
+
+reflex_dev_server = None
+
+    def test_index_page_renders_table_and_buttons(reflex_dev_server):
+        last_err: Exception | None = None
+        body = ""
+        for _ in range(30):
+            try:
+                resp = requests.get(f"http://127.0.0.1:{FRONTEND_PORT}/", timeout=10)
+                if resp.status_code < 500:
+                    body = resp.text
+                    break
+            except requests.RequestException as e:
+                last_err = e
+            time.sleep(2)
+        else:
+            raise AssertionError(
+                f"Failed to fetch / from the Reflex dev server: {last_err}"
+            )
+    
+>       assert "Prev" in body, "Expected the rendered index page to contain a 'Prev' button label."
+E       AssertionError: Expected the rendered index page to contain a 'Prev' button label.
+E       assert 'Prev' in '<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'
+
+tests/test_final_state.py:394: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_dev$ uv run reflex run --env dev --loglevel info
+process 'reflex_dev' started pid=2345
+reflex_dev process startup detected
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_dir_exists
+PASSED tests/test_final_state.py::test_user_model_declared_as_rx_model_table
+PASSED tests/test_final_state.py::test_background_event_uses_async_session_and_state_lock
+PASSED tests/test_final_state.py::test_state_declares_pagination_vars
+PASSED tests/test_final_state.py::test_sqlite_db_file_created
+PASSED tests/test_final_state.py::test_user_table_schema
+PASSED tests/test_final_state.py::test_exported_frontend_contains_bindings_and_labels
+FAILED tests/test_final_state.py::test_index_page_renders_table_and_buttons
+========================= 1 failed, 7 passed in 21.66s =========================

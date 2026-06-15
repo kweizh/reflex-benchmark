@@ -1,0 +1,113 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:29:12.279632+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 6,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781454191800,
+            "stop": 1781454552279
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_frontend_reachable",
+                "status": "failed",
+                "duration": 360080,
+                "start": 1781454192140,
+                "stop": 1781454552220,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f323663c140>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        if os.path.exists(REFLEX_LOG_PATH):\n            os.remove(REFLEX_LOG_PATH)\n        log_fp = open(REFLEX_LOG_PATH, \"w\")\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_server\"\n            args = [\"uv\", \"run\", \"reflex\", \"run\", \"--loglevel\", \"info\"]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n                \"stdout\": log_fp,\n                \"stderr\": subprocess.STDOUT,\n            }\n            timeout = 360\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(FRONTEND_PORT) and _port_open(BACKEND_PORT)\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:122: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7f323663c3b0>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 360                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_frontend_contains_add_and_total",
+                "status": "failed",
+                "duration": 21,
+                "start": 1781454552221,
+                "stop": 1781454552242,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f323663c140>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        if os.path.exists(REFLEX_LOG_PATH):\n            os.remove(REFLEX_LOG_PATH)\n        log_fp = open(REFLEX_LOG_PATH, \"w\")\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_server\"\n            args = [\"uv\", \"run\", \"reflex\", \"run\", \"--loglevel\", \"info\"]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n                \"stdout\": log_fp,\n                \"stderr\": subprocess.STDOUT,\n            }\n            timeout = 360\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(FRONTEND_PORT) and _port_open(BACKEND_PORT)\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:122: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7f323663c3b0>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 360                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_no_immutable_state_error_in_logs",
+                "status": "failed",
+                "duration": 22,
+                "start": 1781454552243,
+                "stop": 1781454552265,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "xprocess = <xprocess.xprocess.XProcess object at 0x7f323663c140>\n\n    @pytest.fixture(scope=\"session\")\n    def reflex_server(xprocess):\n        if os.path.exists(REFLEX_LOG_PATH):\n            os.remove(REFLEX_LOG_PATH)\n        log_fp = open(REFLEX_LOG_PATH, \"w\")\n    \n        class Starter(ProcessStarter):\n            name = \"reflex_server\"\n            args = [\"uv\", \"run\", \"reflex\", \"run\", \"--loglevel\", \"info\"]\n            env = os.environ.copy()\n            popen_kwargs = {\n                \"cwd\": PROJECT_DIR,\n                \"text\": True,\n                \"stdout\": log_fp,\n                \"stderr\": subprocess.STDOUT,\n            }\n            timeout = 360\n            terminate_on_interrupt = True\n    \n            def startup_check(self):\n                return _port_open(FRONTEND_PORT) and _port_open(BACKEND_PORT)\n    \n>       xprocess.ensure(Starter.name, Starter)\n\ntests/test_final_state.py:122: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure\n    if not starter.wait(log_file_handle):\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait\n    callback_ok = self.wait_callback()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_final_state.reflex_server.<locals>.Starter object at 0x7f323663c3b0>\n\n    def wait_callback(self):\n        \"\"\"Assert that process is ready to answer queries using provided\n        callback funtion. Will raise TimeoutError if self.callback does not\n        return True before self.timeout seconds\"\"\"\n        while True:\n            sleep(0.1)\n            if self.startup_check():\n                return True\n            if datetime.now() > self._max_time:\n>               raise TimeoutError(\n                    \"The provided startup callback could not assert process\\\n                    responsiveness within the specified time interval of {} \\\n                    seconds\".format(\n                        self.timeout\n                    )\n                )\nE               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 360                     seconds\n\nusr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError"
+            },
+            {
+                "name": "test_final_state.py::test_source_declares_new_item_base_var",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454552266,
+                "stop": 1781454552268,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_declares_items_base_var",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454552268,
+                "stop": 1781454552270,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_uses_rx_foreach_over_items",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454552270,
+                "stop": 1781454552272,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_has_add_handler",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454552272,
+                "stop": 1781454552274,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_has_remove_by_index_handler",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454552274,
+                "stop": 1781454552276,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_has_cached_total_computed_var",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454552277,
+                "stop": 1781454552279,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

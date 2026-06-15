@@ -1,0 +1,113 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:45:57.463759+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 8,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781459092111,
+            "stop": 1781459157463
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_frontend_reachable",
+                "status": "passed",
+                "duration": 64733,
+                "start": 1781459092523,
+                "stop": 1781459157256,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_frontend_contains_add_and_total",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 189,
+                "start": 1781459157257,
+                "stop": 1781459157446,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_compiled_frontend_contains_add_and_total(reflex_server):\n        text = _collect_compiled_frontend_text()\n        assert text, (\n            \"Could not collect any compiled frontend text. Did the Reflex frontend \"\n            \"actually start and serve `GET /`?\"\n        )\n        assert \"Add\" in text, (\n            \"Could not find the literal string 'Add' in the compiled frontend \"\n            \"(HTML body of `GET /` plus .web/_static assets). The task requires \"\n            \"an 'Add' button on the index page.\"\n        )\n>       assert \"Total:\" in text, (\n            \"Could not find the literal string 'Total:' in the compiled frontend. \"\n            \"The task requires the total to be rendered as 'Total: N'.\"\n        )\nE       AssertionError: Could not find the literal string 'Total:' in the compiled frontend. The task requires the total to be rendered as 'Total: N'.\nE       assert 'Total:' in '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=...  });\\n  }\\n} else {\\n  startTransition(() => {\\n    hydrateRoot(document, createElement(HydratedRouter));\\n  });\\n}\\n'\n\ntests/test_final_state.py:166: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_no_immutable_state_error_in_logs",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781459157447,
+                "stop": 1781459157448,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_declares_new_item_base_var",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781459157448,
+                "stop": 1781459157450,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_declares_items_base_var",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781459157450,
+                "stop": 1781459157452,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_uses_rx_foreach_over_items",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781459157452,
+                "stop": 1781459157454,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_has_add_handler",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781459157454,
+                "stop": 1781459157455,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_has_remove_by_index_handler",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781459157456,
+                "stop": 1781459157458,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_has_cached_total_computed_var",
+                "status": "passed",
+                "duration": 5,
+                "start": 1781459157458,
+                "stop": 1781459157463,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,57 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py ....F..                                        [100%]
+
+=================================== FAILURES ===================================
+______________________ test_dynamic_route_page_generated _______________________
+
+reflex_export_result = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout='────────...━━━ 100% 19/18 0:00:00\nCreating Production Build:  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 4/4 0:00:05\n', stderr='')
+
+    def test_dynamic_route_page_generated(reflex_export_result):
+        assert reflex_export_result.returncode == 0, (
+            "Skipping generated-page check because the reflex export command failed."
+        )
+        candidates = [
+            Path(PROJECT_DIR) / ".web" / "pages" / "posts" / "[slug].js",
+            Path(PROJECT_DIR) / ".web" / "pages" / "posts" / "[slug].jsx",
+            Path(PROJECT_DIR) / ".web" / "pages" / "posts" / "[slug].tsx",
+            Path(PROJECT_DIR) / ".web" / ".next" / "server" / "pages" / "posts" / "[slug].html",
+            Path(PROJECT_DIR) / ".web" / ".next" / "server" / "pages" / "posts" / "[slug].js",
+        ]
+        for candidate in candidates:
+            if candidate.exists():
+                return
+    
+        # Fallback: glob search for any generated artifact for posts/[slug] under .web or _export.
+        search_roots = [Path(PROJECT_DIR) / ".web", Path(PROJECT_DIR) / "_export"]
+        for root in search_roots:
+            if not root.exists():
+                continue
+            for path in root.rglob("*"):
+                if path.is_file() and "posts" in path.parts:
+                    # accept either the literal [slug] segment or pre-rendered slug subpaths
+                    if "[slug]" in path.name or any(part == "[slug]" for part in path.parts):
+                        return
+    
+>       raise AssertionError(
+            "Could not find a generated Next.js page file for the dynamic route 'posts/[slug]' "
+            "after running `reflex export --frontend-only --no-zip`. "
+            f"Checked candidates: {[str(c) for c in candidates]}"
+        )
+E       AssertionError: Could not find a generated Next.js page file for the dynamic route 'posts/[slug]' after running `reflex export --frontend-only --no-zip`. Checked candidates: ['/home/user/myproject/.web/pages/posts/[slug].js', '/home/user/myproject/.web/pages/posts/[slug].jsx', '/home/user/myproject/.web/pages/posts/[slug].tsx', '/home/user/myproject/.web/.next/server/pages/posts/[slug].html', '/home/user/myproject/.web/.next/server/pages/posts/[slug].js']
+
+tests/test_final_state.py:182: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_dynamic_route_registration_present
+PASSED tests/test_final_state.py::test_state_accesses_router_for_slug
+PASSED tests/test_final_state.py::test_hardcoded_posts_have_three_unique_slugs
+PASSED tests/test_final_state.py::test_reflex_export_succeeds
+PASSED tests/test_final_state.py::test_post_title_appears_in_build_output
+PASSED tests/test_final_state.py::test_no_reflex_servers_remaining
+FAILED tests/test_final_state.py::test_dynamic_route_page_generated - Asserti...
+========================= 1 failed, 6 passed in 8.50s ==========================

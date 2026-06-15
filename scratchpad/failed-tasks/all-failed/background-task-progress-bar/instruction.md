@@ -1,0 +1,46 @@
+# Reflex Background Task Progress Bar
+
+## Background
+Reflex is a full-stack Python framework for building reactive web applications. Long-running operations should be implemented with background event handlers (`@rx.event(background=True)`) so that the UI stays responsive while a task runs and progress is reported to the client through state updates. Background tasks must acquire the State lock with `async with self:` before mutating any synchronized vars; otherwise Reflex raises `ImmutableStateError`.
+
+Your job is to build a small Reflex app that simulates such a long-running operation and surfaces its progress to the user via a progress bar and status text.
+
+## Requirements
+- Create a Reflex project at `/home/user/myproject` using the `blank` template.
+- The project package name (the Python module created by `reflex init`) must be `myproject`.
+- Define a State class with at least the following vars:
+  - A synchronized integer var holding the current progress percentage, initialized to `0`.
+  - A synchronized string var holding the current status message, initialized to `"Ready"`.
+  - A backend-only boolean var (i.e. prefixed with `_`) tracking whether the background task is currently running, initialized to `False`.
+- Define an async background event handler that simulates work in five steps:
+  - Acquire the State lock first to mark the task as running, set the status message to `"Processing..."`, and reset progress to `0`.
+  - Loop five times. In each iteration, perform `await asyncio.sleep(0.5)` OUTSIDE any `async with self:` block, then re-enter the lock to update the progress var to `i * 20` (so after iteration `i` the progress equals `i * 20`).
+  - After the loop, acquire the lock once more to set the status message to `"Completed!"` and mark the task as no longer running.
+- Render a single index page that contains:
+  - A button labeled exactly `Start` that triggers the background event handler.
+  - The status message text.
+  - An `rx.progress` component whose `value` prop is bound to the progress var.
+  - The button must be disabled while the background task is running.
+
+## Implementation Hints
+- Initialize the project non-interactively with `uv init`, `uv add reflex`, and `uv run reflex init --template blank`.
+- Inside the project, edit `myproject/myproject.py` to define the State class, the background event handler, and the index page.
+- Remember the rules for background events: mutations only inside `async with self:` blocks, and any `await asyncio.sleep(...)` for the loop delay must live OUTSIDE the lock so the UI stays responsive.
+- Use a backend-only var (underscore prefix) for the running flag so it is not exposed to the frontend.
+- The `rx.progress` component takes its current percentage via the `value` prop; bind it to the State var.
+- Start the application with `uv run reflex run` from inside the project directory. The frontend listens on port `3000` and the backend on port `8000`.
+- Make sure to kill any background server processes started during your work (e.g. Reflex dev server, Next.js frontend) before you finish.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- The Reflex project package directory is `myproject/` and its main module file `myproject/myproject.py` exists.
+- Start command: `cd /home/user/myproject && uv run reflex run`
+- Port: 3000 (frontend) and 8000 (backend).
+- Source code in `myproject/myproject.py` must contain:
+  - A State class subclassing `rx.State` with the three vars described above. The backend-only var name must start with an underscore. The two synchronized vars must be named `progress` (annotated `int`, default `0`) and `status_message` (annotated `str`, default `"Ready"`).
+  - An async method decorated with `@rx.event(background=True)`.
+  - At least three `async with self:` blocks inside that method.
+  - At least one `await asyncio.sleep(` call that is NOT nested inside any `async with self:` block.
+- The exported frontend (after compilation) under `.web/` must contain the literal button label `Start` and reference the Radix progress component (i.e. include an element matching `rx-Progress` / `Progress` from `@radix-ui/themes`) bound to the progress var.
+- All background servers spawned during the task must be terminated before completion.
+

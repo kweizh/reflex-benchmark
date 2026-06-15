@@ -1,0 +1,101 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T18:05:55.930931+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781460348472,
+            "stop": 1781460355930
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_layout_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781460348500,
+                "stop": 1781460348502,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rx_cookie_default_and_name",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781460348502,
+                "stop": 1781460348505,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_theme_field_uses_rx_cookie",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781460348505,
+                "stop": 1781460348506,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_toggle_uses_exactly_light_and_dark",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781460348506,
+                "stop": 1781460348507,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_button_label_in_python_sources",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781460348508,
+                "stop": 1781460348508,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_export_succeeds_and_creates_web_dir",
+                "status": "passed",
+                "duration": 7362,
+                "start": 1781460348509,
+                "stop": 1781460355871,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exported_frontend_contains_button_label",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781460355872,
+                "stop": 1781460355873,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exported_frontend_binds_theme_cookie",
+                "status": "passed",
+                "duration": 56,
+                "start": 1781460355874,
+                "stop": 1781460355930,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

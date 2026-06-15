@@ -1,0 +1,34 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 6 items
+
+tests/test_final_state.py ....F.                                         [100%]
+
+=================================== FAILURES ===================================
+____________________ test_frontend_serves_form_input_names _____________________
+
+reflex_server = 'http://localhost:3000/'
+
+    def test_frontend_serves_form_input_names(reflex_server):
+        payload = _collect_served_payload(reflex_server)
+        for field in ("name", "email", "message"):
+>           assert _payload_contains_input_name(payload, field), (
+                f'Expected the served `/` page (HTML + referenced JS chunks) to '
+                f'contain an input with name="{field}". Not found.'
+            )
+E           AssertionError: Expected the served `/` page (HTML + referenced JS chunks) to contain an input with name="name". Not found.
+E           assert False
+E            +  where False = _payload_contains_input_name('<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1" name=...FDO0FBQ3RCLENBQUMsQ0FBQyxXQUFXLENBQUMsUUFBUSxDQUFDLENBQUMsYUFBYSxDQUFDLGNBQWMsQ0FBQyxDQUFDO0FBQ3RELENBQUMsQ0FBQzsifQ==', 'name')
+
+tests/test_final_state.py:472: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_state_has_submissions_list_dict
+PASSED tests/test_final_state.py::test_state_has_last_submission_dict
+PASSED tests/test_final_state.py::test_state_has_cached_submission_count
+PASSED tests/test_final_state.py::test_rx_form_with_on_submit_present
+PASSED tests/test_final_state.py::test_frontend_serves_submit_button_text
+FAILED tests/test_final_state.py::test_frontend_serves_form_input_names - Ass...
+========================= 1 failed, 5 passed in 7.69s ==========================

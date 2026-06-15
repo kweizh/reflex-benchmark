@@ -1,0 +1,7 @@
+{
+  "library_name": "Reflex",
+  "task_name": "streaming-llm-panel-yield",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "plan.md",
+  "output_dir": "tasks/"
+}

@@ -1,0 +1,40 @@
+# Reflex Contact Form with Reset and Cached Submission Count
+
+## Background
+Build a small Reflex web application that demonstrates `rx.form`, base state vars, computed vars, and event-handler-driven UI updates. The Reflex framework compiles a Python `App` into a Next.js frontend and a FastAPI backend that share state over websockets.
+
+You must use `uv` to manage the Python environment because some of Reflex's transitive dependencies conflict with system Python packages.
+
+## Requirements
+- Create a Reflex application whose `/` (index) page renders a contact form built with `rx.form` (or `rx.form.root`).
+- The form must contain three text inputs with `id`s `name`, `email`, and `message`, plus a Submit button (`type="submit"`) and a Reset button.
+- When the form is submitted, the state must:
+  - Store a `dict` of the form values (keys `name`, `email`, `message`) into a state var called `last_submission`.
+  - Append that same `dict` to a state list var called `submissions`.
+- The Reset button must clear the form by resetting the relevant state vars to their empty defaults.
+- Below the form, display the current number of submissions through a cached computed var named `submission_count` that returns `len(self.submissions)`.
+- The page must be reachable at the root route `/`.
+
+## Implementation Hints
+- Initialize the project non-interactively with `uv init`, then add Reflex with `uv add reflex` and bootstrap it with `uv run reflex init --template blank`.
+- Reflex form controls identify themselves via the `name` (or `id`) attribute when the form is submitted; submitted data arrives as a `dict` in the `on_submit` event handler.
+- Use the `@rx.event` decorator on event handlers and `@rx.var(cache=True)` for the computed var.
+- Use the dev server (`uv run reflex run`) on the default ports (frontend `3000`, backend `8000`) for verification.
+- Make sure to stop any background dev server you started before finishing the task.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Start command: cd /home/user/myproject && uv run reflex run --loglevel info
+- Frontend port: 3000
+- Backend port: 8000
+- Routes:
+  - `/`: Renders an HTML `<form>` containing three input controls whose `name` attributes are `name`, `email`, and `message`, plus a visible Submit button and a visible Reset button. Below the form, the current submission count is rendered as text.
+- State contract (verified via AST scan of the Python source files under `/home/user/myproject`):
+  - The Reflex `State` subclass declares a list var `submissions: list[dict]` with default value `[]`.
+  - The same state declares a dict var `last_submission` with an empty-dict default.
+  - The same state defines a cached computed var named `submission_count` (decorated with `@rx.var` or `@rx.var(cache=True)`) that returns `len(self.submissions)`.
+  - At least one `rx.form` (or `rx.form.root`) call binds an `on_submit` handler on the state.
+- Behavior contract (verified at runtime against the served frontend):
+  - The frontend HTML/JS exposed by the dev server contains the three input `name` attributes and the literal text of the Submit button.
+- All background servers (frontend and backend) started by the task implementer must be stopped before completion. The verifier will start its own servers if needed.
+

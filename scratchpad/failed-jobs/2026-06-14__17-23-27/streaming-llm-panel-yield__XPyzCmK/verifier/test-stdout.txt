@@ -1,0 +1,143 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 13 items
+
+tests/test_final_state.py ........EE.F.                                  [100%]
+
+==================================== ERRORS ====================================
+___________ ERROR at setup of test_static_export_contains_send_label ___________
+
+    @pytest.fixture(scope="session")
+    def static_export() -> str:
+        """Produce a static frontend export under .web/_static and return its path."""
+        assert shutil.which("uv") is not None, "uv binary not found in PATH"
+        # Clean previous export to avoid stale artifacts.
+        if os.path.isdir(EXPORT_DIR):
+            shutil.rmtree(EXPORT_DIR, ignore_errors=True)
+        result = subprocess.run(
+            ["uv", "run", "reflex", "export", "--frontend-only", "--no-zip"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=900,
+        )
+        assert result.returncode == 0, (
+            "`uv run reflex export --frontend-only --no-zip` failed.\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+>       assert os.path.isdir(EXPORT_DIR), (
+            f"Expected static export directory {EXPORT_DIR} after reflex export, "
+            "but it was not created."
+        )
+E       AssertionError: Expected static export directory /home/user/streaming_llm_panel/.web/_static after reflex export, but it was not created.
+E       assert False
+E        +  where False = <function isdir at 0x7ff6e07902c0>('/home/user/streaming_llm_panel/.web/_static')
+E        +    where <function isdir at 0x7ff6e07902c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:175: AssertionError
+_______ ERROR at setup of test_static_export_contains_spinner_component ________
+
+    @pytest.fixture(scope="session")
+    def static_export() -> str:
+        """Produce a static frontend export under .web/_static and return its path."""
+        assert shutil.which("uv") is not None, "uv binary not found in PATH"
+        # Clean previous export to avoid stale artifacts.
+        if os.path.isdir(EXPORT_DIR):
+            shutil.rmtree(EXPORT_DIR, ignore_errors=True)
+        result = subprocess.run(
+            ["uv", "run", "reflex", "export", "--frontend-only", "--no-zip"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=900,
+        )
+        assert result.returncode == 0, (
+            "`uv run reflex export --frontend-only --no-zip` failed.\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+>       assert os.path.isdir(EXPORT_DIR), (
+            f"Expected static export directory {EXPORT_DIR} after reflex export, "
+            "but it was not created."
+        )
+E       AssertionError: Expected static export directory /home/user/streaming_llm_panel/.web/_static after reflex export, but it was not created.
+E       assert False
+E        +  where False = <function isdir at 0x7ff6e07902c0>('/home/user/streaming_llm_panel/.web/_static')
+E        +    where <function isdir at 0x7ff6e07902c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:175: AssertionError
+=================================== FAILURES ===================================
+_________________________ test_dev_server_backend_ping _________________________
+
+dev_server = {'backend_up': True, 'frontend_up': True, 'log_path': '/tmp/reflex_streaming_panel.log', 'process': <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--loglevel', ...>}
+
+    def test_dev_server_backend_ping(dev_server):
+        assert dev_server["backend_up"], (
+            "Reflex backend did not come up on port 8000 within the timeout. "
+            f"See {dev_server['log_path']} for details."
+        )
+        try:
+>           with urllib.request.urlopen("http://127.0.0.1:8000/ping", timeout=30) as resp:
+
+tests/test_final_state.py:458: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/urllib/request.py:215: in urlopen
+    return opener.open(url, data, timeout)
+usr/lib/python3.12/urllib/request.py:515: in open
+    response = self._open(req, data)
+usr/lib/python3.12/urllib/request.py:532: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+usr/lib/python3.12/urllib/request.py:492: in _call_chain
+    result = func(*args)
+usr/lib/python3.12/urllib/request.py:1373: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+usr/lib/python3.12/urllib/request.py:1348: in do_open
+    r = h.getresponse()
+usr/lib/python3.12/http/client.py:1448: in getresponse
+    response.begin()
+usr/lib/python3.12/http/client.py:336: in begin
+    version, status, reason = self._read_status()
+usr/lib/python3.12/http/client.py:297: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x7ff6dfc98970>
+b = <memory at 0x7ff6dfb48100>
+
+    def readinto(self, b):
+        """Read up to len(b) bytes into the writable buffer *b* and return
+        the number of bytes read.  If the socket is non-blocking and no bytes
+        are available, None is returned.
+    
+        If *b* is non-empty, a 0 return value indicates that the connection
+        was shutdown at the other end.
+        """
+        self._checkClosed()
+        self._checkReadable()
+        if self._timeout_occurred:
+            raise OSError("cannot read from timed out object")
+        while True:
+            try:
+>               return self._sock.recv_into(b)
+E               TimeoutError: timed out
+
+usr/lib/python3.12/socket.py:707: TimeoutError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_module_file_exists
+PASSED tests/test_final_state.py::test_rxconfig_references_app_name
+PASSED tests/test_final_state.py::test_state_class_declares_required_vars
+PASSED tests/test_final_state.py::test_event_handler_is_async_generator_with_event_decorator
+PASSED tests/test_final_state.py::test_event_handler_calls_asyncio_sleep
+PASSED tests/test_final_state.py::test_event_handler_contains_expected_chunk_list
+PASSED tests/test_final_state.py::test_ui_uses_text_area_and_send_button_label
+PASSED tests/test_final_state.py::test_ui_uses_rx_cond_with_is_loading_for_spinner
+PASSED tests/test_final_state.py::test_dev_server_frontend_serves_root
+PASSED tests/test_final_state.py::test_no_lingering_reflex_processes_after_teardown
+ERROR tests/test_final_state.py::test_static_export_contains_send_label - Ass...
+ERROR tests/test_final_state.py::test_static_export_contains_spinner_component
+FAILED tests/test_final_state.py::test_dev_server_backend_ping - TimeoutError...
+=================== 1 failed, 10 passed, 2 errors in 53.79s ====================

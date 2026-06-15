@@ -1,0 +1,101 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:54:49.781703+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781456077366,
+            "stop": 1781456089781
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_database_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456077427,
+                "stop": 1781456077428,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_user_table_schema",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456077429,
+                "stop": 1781456077430,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_user_model_definition",
+                "status": "passed",
+                "duration": 281,
+                "start": 1781456077431,
+                "stop": 1781456077712,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_exposes_users_var_and_load_event",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456077713,
+                "stop": 1781456077714,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handlers_present",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456077714,
+                "stop": 1781456077715,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sync_rx_session_used_at_least_twice",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456077716,
+                "stop": 1781456077717,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exported_frontend_contains_required_labels",
+                "status": "passed",
+                "duration": 9035,
+                "start": 1781456077717,
+                "stop": 1781456086752,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dev_server_serves_root",
+                "status": "passed",
+                "duration": 3027,
+                "start": 1781456086753,
+                "stop": 1781456089780,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

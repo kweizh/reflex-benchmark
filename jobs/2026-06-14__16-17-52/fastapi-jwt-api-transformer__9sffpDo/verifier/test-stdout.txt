@@ -1,0 +1,35 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 9 items
+
+tests/test_final_state.py .......F.                                      [100%]
+
+=================================== FAILURES ===================================
+__________________ test_me_without_token_returns_unauthorized __________________
+
+reflex_backend = None
+
+    def test_me_without_token_returns_unauthorized(reflex_backend):
+        r = requests.get(f"{BACKEND}/api/me", timeout=10)
+>       assert r.status_code in (401, 403), (
+            f"Expected 401 or 403 from GET /api/me without a token, got {r.status_code}: {r.text}"
+        )
+E       AssertionError: Expected 401 or 403 from GET /api/me without a token, got 422: {"detail":[{"type":"missing","loc":["header","authorization"],"msg":"Field required","input":null}]}
+E       assert 422 in (401, 403)
+E        +  where 422 = <Response [422]>.status_code
+
+tests/test_final_state.py:375: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_rx_app_uses_api_transformer_with_fastapi_instance
+PASSED tests/test_final_state.py::test_endpoints_registered_on_fastapi_instance
+PASSED tests/test_final_state.py::test_jwt_secret_generated_with_secure_random
+PASSED tests/test_final_state.py::test_state_has_backend_only_current_user
+PASSED tests/test_final_state.py::test_login_with_correct_credentials_returns_access_token
+PASSED tests/test_final_state.py::test_login_with_wrong_credentials_returns_401
+PASSED tests/test_final_state.py::test_me_with_valid_token_returns_admin
+PASSED tests/test_final_state.py::test_me_with_malformed_token_returns_unauthorized
+FAILED tests/test_final_state.py::test_me_without_token_returns_unauthorized
+========================= 1 failed, 8 passed in 7.05s ==========================

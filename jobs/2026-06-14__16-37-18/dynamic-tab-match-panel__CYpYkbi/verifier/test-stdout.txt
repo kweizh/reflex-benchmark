@@ -1,0 +1,22 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py ...........                                    [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_exists
+PASSED tests/test_final_state.py::test_pyproject_toml_exists
+PASSED tests/test_final_state.py::test_rxconfig_exists
+PASSED tests/test_final_state.py::test_active_tab_state_var_defined
+PASSED tests/test_final_state.py::test_three_tab_buttons_exist
+PASSED tests/test_final_state.py::test_rx_match_uses_active_tab_with_three_cases_and_default
+PASSED tests/test_final_state.py::test_event_handlers_set_active_tab
+PASSED tests/test_final_state.py::test_buttons_bind_on_click
+PASSED tests/test_final_state.py::test_compiled_bundle_contains_panel_literal[User Profile Page]
+PASSED tests/test_final_state.py::test_compiled_bundle_contains_panel_literal[Settings Page]
+PASSED tests/test_final_state.py::test_compiled_bundle_contains_panel_literal[About Page]
+============================= 11 passed in 22.68s ==============================

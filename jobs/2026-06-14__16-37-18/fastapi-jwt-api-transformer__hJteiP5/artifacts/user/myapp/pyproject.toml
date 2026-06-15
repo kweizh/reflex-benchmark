@@ -1,0 +1,13 @@
+[project]
+name = "myapp"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.137.0",
+    "httpx>=0.28.1",
+    "pydantic>=2.13.4",
+    "pyjwt>=2.13.0",
+    "reflex>=0.9.5.post2",
+    "uvicorn>=0.49.0",
+]

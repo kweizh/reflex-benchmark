@@ -1,0 +1,131 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:42:44.174862+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 10,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781455360682,
+            "stop": 1781455364174
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_react_quill_class_exists_and_subclasses_no_ssr",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455360985,
+                "stop": 1781455360987,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_react_quill_library_is_pinned",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455360987,
+                "stop": 1781455360989,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_react_quill_tag_is_react_quill",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455360989,
+                "stop": 1781455360991,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_react_quill_value_prop",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781455360992,
+                "stop": 1781455360993,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_react_quill_on_change_event_handler",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781455360994,
+                "stop": 1781455360995,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_react_quill_factory_exported",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781455360996,
+                "stop": 1781455360997,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_content_str_field",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455360997,
+                "stop": 1781455360999,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_set_content_handler",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455360999,
+                "stop": 1781455361001,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_quill_stylesheet_is_wired",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455361001,
+                "stop": 1781455361003,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_web_package_json_contains_react_quill",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1548,
+                "start": 1781455361003,
+                "stop": 1781455362551,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_export = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=1, stdout='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500...n file to install from\\nnote: Run \"bun init\" to initialize a project\\n\\nRun with --loglevel debug for the full log.\\n')\n\n    def test_web_package_json_contains_react_quill(reflex_export):\n>       assert os.path.isfile(WEB_PACKAGE_JSON), (\n            f\"Expected `{WEB_PACKAGE_JSON}` to exist after `reflex export`. \"\n            f\"Export stdout/stderr: {reflex_export.stdout[-800:]} {reflex_export.stderr[-800:]}\"\n        )\nE       AssertionError: Expected `/home/user/myproject/.web/package.json` to exist after `reflex export`. Export stdout/stderr: \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 Compiling production app and preparing for export. \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nE         DeprecationWarning: Implicit Radix Themes enablement has been deprecated in \nE         version 0.9.0. a Radix Themes component was detected, which enables the full \nE         Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to\nE         make this explicit, or remove Radix components to avoid loading the stylesheet. \nE         It will be completely removed in 1.0. \nE         (.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)\nE         Compiling: \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 100% 17/16 0:00:00\nE          error: Bun could not find a package.json file to install from\nE         note: Run \"bun init\" to initialize a project\nE         \nE         Run with --loglevel debug for the full log.\nE         \nE       assert False\nE        +  where False = <function isfile at 0x7f14efec8220>('/home/user/myproject/.web/package.json')\nE        +    where <function isfile at 0x7f14efec8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:339: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_index_page_serves_html",
+                "status": "passed",
+                "duration": 1620,
+                "start": 1781455362552,
+                "stop": 1781455364172,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

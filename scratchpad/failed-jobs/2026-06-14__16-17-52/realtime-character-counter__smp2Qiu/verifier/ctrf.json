@@ -1,0 +1,85 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:37:02.987123+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 4,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781454717776,
+            "stop": 1781455022986
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_rxconfig_exists",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781454718323,
+                "stop": 1781454718326,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_app_module_imports_reflex",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781454718327,
+                "stop": 1781454718331,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_two_rx_var_computed_methods_exist",
+                "status": "passed",
+                "duration": 8,
+                "start": 1781454718332,
+                "stop": 1781454718340,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_text_area_uses_required_id",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781454718341,
+                "stop": 1781454718345,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_backend_is_listening",
+                "status": "failed",
+                "duration": 304629,
+                "start": 1781454718346,
+                "stop": 1781455022975,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def reflex_server():\n        \"\"\"Start `uv run reflex run` in the background and tear it down after.\"\"\"\n        # Pre-flight: make sure nothing else is hanging onto the ports.\n        subprocess.run(\n            [\"pkill\", \"-f\", \"reflex run\"],\n            check=False,\n            stdout=subprocess.DEVNULL,\n            stderr=subprocess.DEVNULL,\n        )\n        time.sleep(1.0)\n    \n        log_path = os.path.join(PROJECT_DIR, \"_reflex_server.log\")\n        log_fh = open(log_path, \"w\", encoding=\"utf-8\")\n    \n        env = os.environ.copy()\n        # Reflex emits less noise / no telemetry prompts in CI.\n        env.setdefault(\"TELEMETRY_ENABLED\", \"false\")\n    \n        proc = subprocess.Popen(\n            [\"uv\", \"run\", \"reflex\", \"run\", \"--loglevel\", \"info\"],\n            cwd=PROJECT_DIR,\n            stdout=log_fh,\n            stderr=subprocess.STDOUT,\n            env=env,\n            start_new_session=True,\n        )\n    \n        try:\n            backend_ready = _wait_for_port(BACKEND_PORT, timeout=300.0)\n            frontend_ready = _wait_for_port(FRONTEND_PORT, timeout=300.0)\n            if not (backend_ready and frontend_ready):\n                log_fh.flush()\n                log_tail = \"\"\n                try:\n                    with open(log_path, \"r\", encoding=\"utf-8\") as f:\n                        log_tail = f.read()[-4000:]\n                except OSError:\n                    pass\n>               pytest.fail(\n                    f\"Reflex dev server failed to start \"\n                    f\"(backend_ready={backend_ready}, frontend_ready={frontend_ready}).\\n\"\n                    f\"--- server log tail ---\\n{log_tail}\"\n                )\nE               Failed: Reflex dev server failed to start (backend_ready=True, frontend_ready=False).\nE               --- server log tail ---\nE               \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 Starting Reflex App \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nE               Warning: Unable to bind to :3000 due to: [Errno 98] Address already in use.\nE               Info: The frontend will run on port 3001.\nE               DeprecationWarning: Implicit Radix Themes enablement has been deprecated in \nE               version 0.9.0. a Radix Themes component was detected, which enables the full \nE               Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to\nE               make this explicit, or remove Radix components to avoid loading the stylesheet. \nE               It will be completely removed in 1.0. \nE               (.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)\nE               Compiling: \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 100% 17/16 0:00:00\nE               \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 App Running \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nE               App running at: http://localhost:3001/\nE               Backend running at: http://0.0.0.0:8000\n\ntests/test_final_state.py:138: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_returns_200_with_expected_markers",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781455022976,
+                "stop": 1781455022986,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def reflex_server():\n        \"\"\"Start `uv run reflex run` in the background and tear it down after.\"\"\"\n        # Pre-flight: make sure nothing else is hanging onto the ports.\n        subprocess.run(\n            [\"pkill\", \"-f\", \"reflex run\"],\n            check=False,\n            stdout=subprocess.DEVNULL,\n            stderr=subprocess.DEVNULL,\n        )\n        time.sleep(1.0)\n    \n        log_path = os.path.join(PROJECT_DIR, \"_reflex_server.log\")\n        log_fh = open(log_path, \"w\", encoding=\"utf-8\")\n    \n        env = os.environ.copy()\n        # Reflex emits less noise / no telemetry prompts in CI.\n        env.setdefault(\"TELEMETRY_ENABLED\", \"false\")\n    \n        proc = subprocess.Popen(\n            [\"uv\", \"run\", \"reflex\", \"run\", \"--loglevel\", \"info\"],\n            cwd=PROJECT_DIR,\n            stdout=log_fh,\n            stderr=subprocess.STDOUT,\n            env=env,\n            start_new_session=True,\n        )\n    \n        try:\n            backend_ready = _wait_for_port(BACKEND_PORT, timeout=300.0)\n            frontend_ready = _wait_for_port(FRONTEND_PORT, timeout=300.0)\n            if not (backend_ready and frontend_ready):\n                log_fh.flush()\n                log_tail = \"\"\n                try:\n                    with open(log_path, \"r\", encoding=\"utf-8\") as f:\n                        log_tail = f.read()[-4000:]\n                except OSError:\n                    pass\n>               pytest.fail(\n                    f\"Reflex dev server failed to start \"\n                    f\"(backend_ready={backend_ready}, frontend_ready={frontend_ready}).\\n\"\n                    f\"--- server log tail ---\\n{log_tail}\"\n                )\nE               Failed: Reflex dev server failed to start (backend_ready=True, frontend_ready=False).\nE               --- server log tail ---\nE               \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 Starting Reflex App \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nE               Warning: Unable to bind to :3000 due to: [Errno 98] Address already in use.\nE               Info: The frontend will run on port 3001.\nE               DeprecationWarning: Implicit Radix Themes enablement has been deprecated in \nE               version 0.9.0. a Radix Themes component was detected, which enables the full \nE               Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to\nE               make this explicit, or remove Radix components to avoid loading the stylesheet. \nE               It will be completely removed in 1.0. \nE               (.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)\nE               Compiling: \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 100% 17/16 0:00:00\nE               \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 App Running \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nE               App running at: http://localhost:3001/\nE               Backend running at: http://0.0.0.0:8000\n\ntests/test_final_state.py:138: Failed"
+            }
+        ]
+    }
+}

@@ -1,0 +1,85 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:18:58.215830+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 4,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781457234244,
+            "stop": 1781457538215
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_rxconfig_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781457234560,
+                "stop": 1781457234561,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_app_module_imports_reflex",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781457234562,
+                "stop": 1781457234564,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_two_rx_var_computed_methods_exist",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781457234564,
+                "stop": 1781457234567,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_text_area_uses_required_id",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781457234567,
+                "stop": 1781457234569,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_backend_is_listening",
+                "status": "failed",
+                "duration": 303630,
+                "start": 1781457234569,
+                "stop": 1781457538199,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def reflex_server():\n        \"\"\"Start `uv run reflex run` in the background and tear it down after.\"\"\"\n        # Pre-flight: make sure nothing else is hanging onto the ports.\n        subprocess.run(\n            [\"pkill\", \"-f\", \"reflex run\"],\n            check=False,\n            stdout=subprocess.DEVNULL,\n            stderr=subprocess.DEVNULL,\n        )\n        time.sleep(1.0)\n    \n        log_path = os.path.join(PROJECT_DIR, \"_reflex_server.log\")\n        log_fh = open(log_path, \"w\", encoding=\"utf-8\")\n    \n        env = os.environ.copy()\n        # Reflex emits less noise / no telemetry prompts in CI.\n        env.setdefault(\"TELEMETRY_ENABLED\", \"false\")\n    \n        proc = subprocess.Popen(\n            [\"uv\", \"run\", \"reflex\", \"run\", \"--loglevel\", \"info\"],\n            cwd=PROJECT_DIR,\n            stdout=log_fh,\n            stderr=subprocess.STDOUT,\n            env=env,\n            start_new_session=True,\n        )\n    \n        try:\n            backend_ready = _wait_for_port(BACKEND_PORT, timeout=300.0)\n            frontend_ready = _wait_for_port(FRONTEND_PORT, timeout=300.0)\n            if not (backend_ready and frontend_ready):\n                log_fh.flush()\n                log_tail = \"\"\n                try:\n                    with open(log_path, \"r\", encoding=\"utf-8\") as f:\n                        log_tail = f.read()[-4000:]\n                except OSError:\n                    pass\n>               pytest.fail(\n                    f\"Reflex dev server failed to start \"\n                    f\"(backend_ready={backend_ready}, frontend_ready={frontend_ready}).\\n\"\n                    f\"--- server log tail ---\\n{log_tail}\"\n                )\nE               Failed: Reflex dev server failed to start (backend_ready=True, frontend_ready=False).\nE               --- server log tail ---\nE               \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 Starting Reflex App \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nE               \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 App Running \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nE               Starting frontend failed with exit code 127\nE               $ react-router dev --host\nE               /usr/bin/bash: line 1: react-router: command not found\nE               error: script \"dev\" exited with code 127\nE               \nE               \nE               \nE               Run with --loglevel debug  for the full log.\n\ntests/test_final_state.py:138: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_returns_200_with_expected_markers",
+                "status": "failed",
+                "duration": 14,
+                "start": 1781457538200,
+                "stop": 1781457538214,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def reflex_server():\n        \"\"\"Start `uv run reflex run` in the background and tear it down after.\"\"\"\n        # Pre-flight: make sure nothing else is hanging onto the ports.\n        subprocess.run(\n            [\"pkill\", \"-f\", \"reflex run\"],\n            check=False,\n            stdout=subprocess.DEVNULL,\n            stderr=subprocess.DEVNULL,\n        )\n        time.sleep(1.0)\n    \n        log_path = os.path.join(PROJECT_DIR, \"_reflex_server.log\")\n        log_fh = open(log_path, \"w\", encoding=\"utf-8\")\n    \n        env = os.environ.copy()\n        # Reflex emits less noise / no telemetry prompts in CI.\n        env.setdefault(\"TELEMETRY_ENABLED\", \"false\")\n    \n        proc = subprocess.Popen(\n            [\"uv\", \"run\", \"reflex\", \"run\", \"--loglevel\", \"info\"],\n            cwd=PROJECT_DIR,\n            stdout=log_fh,\n            stderr=subprocess.STDOUT,\n            env=env,\n            start_new_session=True,\n        )\n    \n        try:\n            backend_ready = _wait_for_port(BACKEND_PORT, timeout=300.0)\n            frontend_ready = _wait_for_port(FRONTEND_PORT, timeout=300.0)\n            if not (backend_ready and frontend_ready):\n                log_fh.flush()\n                log_tail = \"\"\n                try:\n                    with open(log_path, \"r\", encoding=\"utf-8\") as f:\n                        log_tail = f.read()[-4000:]\n                except OSError:\n                    pass\n>               pytest.fail(\n                    f\"Reflex dev server failed to start \"\n                    f\"(backend_ready={backend_ready}, frontend_ready={frontend_ready}).\\n\"\n                    f\"--- server log tail ---\\n{log_tail}\"\n                )\nE               Failed: Reflex dev server failed to start (backend_ready=True, frontend_ready=False).\nE               --- server log tail ---\nE               \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 Starting Reflex App \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nE               \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 App Running \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nE               Starting frontend failed with exit code 127\nE               $ react-router dev --host\nE               /usr/bin/bash: line 1: react-router: command not found\nE               error: script \"dev\" exited with code 127\nE               \nE               \nE               \nE               Run with --loglevel debug  for the full log.\n\ntests/test_final_state.py:138: Failed"
+            }
+        ]
+    }
+}

@@ -1,0 +1,113 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:36:30.878197+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 8,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781454983822,
+            "stop": 1781454990877
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_rx_app_uses_api_transformer_with_fastapi_instance",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781454984205,
+                "stop": 1781454984209,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_endpoints_registered_on_fastapi_instance",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781454984210,
+                "stop": 1781454984213,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jwt_secret_generated_with_secure_random",
+                "status": "passed",
+                "duration": 5,
+                "start": 1781454984213,
+                "stop": 1781454984218,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_backend_only_current_user",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781454984218,
+                "stop": 1781454984221,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_login_with_correct_credentials_returns_access_token",
+                "status": "passed",
+                "duration": 4094,
+                "start": 1781454984222,
+                "stop": 1781454988316,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_login_with_wrong_credentials_returns_401",
+                "status": "passed",
+                "duration": 8,
+                "start": 1781454988317,
+                "stop": 1781454988325,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_me_with_valid_token_returns_admin",
+                "status": "passed",
+                "duration": 14,
+                "start": 1781454988326,
+                "stop": 1781454988340,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_me_without_token_returns_unauthorized",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 46,
+                "start": 1781454988340,
+                "stop": 1781454988386,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_backend = None\n\n    def test_me_without_token_returns_unauthorized(reflex_backend):\n        r = requests.get(f\"{BACKEND}/api/me\", timeout=10)\n>       assert r.status_code in (401, 403), (\n            f\"Expected 401 or 403 from GET /api/me without a token, got {r.status_code}: {r.text}\"\n        )\nE       AssertionError: Expected 401 or 403 from GET /api/me without a token, got 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"header\",\"authorization\"],\"msg\":\"Field required\",\"input\":null}]}\nE       assert 422 in (401, 403)\nE        +  where 422 = <Response [422]>.status_code\n\ntests/test_final_state.py:375: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_me_with_malformed_token_returns_unauthorized",
+                "status": "passed",
+                "duration": 2489,
+                "start": 1781454988387,
+                "stop": 1781454990876,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:00:10.189936+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781456408088,
+            "stop": 1781456410189
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_rxconfig_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456408117,
+                "stop": 1781456408118,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_requirements_txt_contains_reflex",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456408118,
+                "stop": 1781456408119,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_deploy_script_exists_and_executable",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456408120,
+                "stop": 1781456408121,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_deploy_script_uses_env_vars",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456408121,
+                "stop": 1781456408122,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_deploy_log_records_app_name",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456408122,
+                "stop": 1781456408123,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_cloud_apps_list_returns_at_least_one_app",
+                "status": "passed",
+                "duration": 2065,
+                "start": 1781456408123,
+                "stop": 1781456410188,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_dev_ports_are_free",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456410188,
+                "stop": 1781456410189,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

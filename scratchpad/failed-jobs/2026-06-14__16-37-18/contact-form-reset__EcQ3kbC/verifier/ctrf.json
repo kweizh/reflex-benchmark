@@ -1,0 +1,86 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:49:11.354308+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 5,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781455743569,
+            "stop": 1781455751353
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_state_has_submissions_list_dict",
+                "status": "passed",
+                "duration": 6,
+                "start": 1781455743624,
+                "stop": 1781455743630,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_last_submission_dict",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455743630,
+                "stop": 1781455743632,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_has_cached_submission_count",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455743633,
+                "stop": 1781455743635,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rx_form_with_on_submit_present",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781455743635,
+                "stop": 1781455743638,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_serves_form_input_names",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7273,
+                "start": 1781455743638,
+                "stop": 1781455750911,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = 'http://localhost:3000/'\n\n    def test_frontend_serves_form_input_names(reflex_server):\n        payload = _collect_served_payload(reflex_server)\n        for field in (\"name\", \"email\", \"message\"):\n>           assert _payload_contains_input_name(payload, field), (\n                f'Expected the served `/` page (HTML + referenced JS chunks) to '\n                f'contain an input with name=\"{field}\". Not found.'\n            )\nE           AssertionError: Expected the served `/` page (HTML + referenced JS chunks) to contain an input with name=\"name\". Not found.\nE           assert False\nE            +  where False = _payload_contains_input_name('<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=...Style(__vite__id, __vite__css)\\nimport.meta.hot.accept()\\nimport.meta.hot.prune(() => __vite__removeStyle(__vite__id))', 'name')\n\ntests/test_final_state.py:472: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_serves_submit_button_text",
+                "status": "passed",
+                "duration": 441,
+                "start": 1781455750912,
+                "stop": 1781455751353,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

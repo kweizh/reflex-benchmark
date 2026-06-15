@@ -1,0 +1,95 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:14:55.672548+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 6,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781457287161,
+            "stop": 1781457295672
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_dynamic_route_registration_present",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781457287199,
+                "stop": 1781457287201,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_accesses_router_for_slug",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781457287201,
+                "stop": 1781457287202,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hardcoded_posts_have_three_unique_slugs",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781457287202,
+                "stop": 1781457287204,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_export_succeeds",
+                "status": "passed",
+                "duration": 8175,
+                "start": 1781457287205,
+                "stop": 1781457295380,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dynamic_route_page_generated",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 281,
+                "start": 1781457295380,
+                "stop": 1781457295661,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_export_result = CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500...\u2501\u2501\u2501 100% 19/18 0:00:00\\nCreating Production Build:  \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 100% 4/4 0:00:05\\n', stderr='')\n\n    def test_dynamic_route_page_generated(reflex_export_result):\n        assert reflex_export_result.returncode == 0, (\n            \"Skipping generated-page check because the reflex export command failed.\"\n        )\n        candidates = [\n            Path(PROJECT_DIR) / \".web\" / \"pages\" / \"posts\" / \"[slug].js\",\n            Path(PROJECT_DIR) / \".web\" / \"pages\" / \"posts\" / \"[slug].jsx\",\n            Path(PROJECT_DIR) / \".web\" / \"pages\" / \"posts\" / \"[slug].tsx\",\n            Path(PROJECT_DIR) / \".web\" / \".next\" / \"server\" / \"pages\" / \"posts\" / \"[slug].html\",\n            Path(PROJECT_DIR) / \".web\" / \".next\" / \"server\" / \"pages\" / \"posts\" / \"[slug].js\",\n        ]\n        for candidate in candidates:\n            if candidate.exists():\n                return\n    \n        # Fallback: glob search for any generated artifact for posts/[slug] under .web or _export.\n        search_roots = [Path(PROJECT_DIR) / \".web\", Path(PROJECT_DIR) / \"_export\"]\n        for root in search_roots:\n            if not root.exists():\n                continue\n            for path in root.rglob(\"*\"):\n                if path.is_file() and \"posts\" in path.parts:\n                    # accept either the literal [slug] segment or pre-rendered slug subpaths\n                    if \"[slug]\" in path.name or any(part == \"[slug]\" for part in path.parts):\n                        return\n    \n>       raise AssertionError(\n            \"Could not find a generated Next.js page file for the dynamic route 'posts/[slug]' \"\n            \"after running `reflex export --frontend-only --no-zip`. \"\n            f\"Checked candidates: {[str(c) for c in candidates]}\"\n        )\nE       AssertionError: Could not find a generated Next.js page file for the dynamic route 'posts/[slug]' after running `reflex export --frontend-only --no-zip`. Checked candidates: ['/home/user/myproject/.web/pages/posts/[slug].js', '/home/user/myproject/.web/pages/posts/[slug].jsx', '/home/user/myproject/.web/pages/posts/[slug].tsx', '/home/user/myproject/.web/.next/server/pages/posts/[slug].html', '/home/user/myproject/.web/.next/server/pages/posts/[slug].js']\n\ntests/test_final_state.py:182: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_post_title_appears_in_build_output",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781457295661,
+                "stop": 1781457295664,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_reflex_servers_remaining",
+                "status": "passed",
+                "duration": 7,
+                "start": 1781457295664,
+                "stop": 1781457295671,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

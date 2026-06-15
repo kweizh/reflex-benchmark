@@ -1,0 +1,101 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:33:58.972419+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 4,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781458436284,
+            "stop": 1781458438972
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_rxconfig_exists",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781458436322,
+                "stop": 1781458436325,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_requirements_txt_contains_reflex",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781458436326,
+                "stop": 1781458436330,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_deploy_script_exists_and_executable",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 24,
+                "start": 1781458436331,
+                "stop": 1781458436355,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_deploy_script_exists_and_executable():\n>       assert os.path.isfile(DEPLOY_SCRIPT), (\n            f\"Expected deploy script at {DEPLOY_SCRIPT}.\"\n        )\nE       AssertionError: Expected deploy script at /home/user/myproject/deploy.sh.\nE       assert False\nE        +  where False = <function isfile at 0x7fd8e8200220>('/home/user/myproject/deploy.sh')\nE        +    where <function isfile at 0x7fd8e8200220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:43: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_deploy_script_uses_env_vars",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1781458436355,
+                "stop": 1781458436361,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_deploy_script_uses_env_vars():\n>       with open(DEPLOY_SCRIPT, \"r\", encoding=\"utf-8\") as fh:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/deploy.sh'\n\ntests/test_final_state.py:53: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_deploy_log_records_app_name",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1781458436361,
+                "stop": 1781458436368,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_deploy_log_records_app_name():\n>       assert os.path.isfile(DEPLOY_LOG), (\n            f\"Expected deploy log at {DEPLOY_LOG} after running deploy.sh.\"\n        )\nE       AssertionError: Expected deploy log at /home/user/myproject/deploy.log after running deploy.sh.\nE       assert False\nE        +  where False = <function isfile at 0x7fd8e8200220>('/home/user/myproject/deploy.log')\nE        +    where <function isfile at 0x7fd8e8200220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:64: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_cloud_apps_list_returns_at_least_one_app",
+                "status": "passed",
+                "duration": 2597,
+                "start": 1781458436368,
+                "stop": 1781458438965,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_dev_ports_are_free",
+                "status": "passed",
+                "duration": 5,
+                "start": 1781458438966,
+                "stop": 1781458438971,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

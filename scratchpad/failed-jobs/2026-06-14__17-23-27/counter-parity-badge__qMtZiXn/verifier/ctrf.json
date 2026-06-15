@@ -1,0 +1,98 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:34:15.913963+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 5,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781458444442,
+            "stop": 1781458455913
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_state_class_with_count_int_zero",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781458444472,
+                "stop": 1781458444474,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_three_event_handlers_for_count",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781458444474,
+                "stop": 1781458444476,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_parity_cached_computed_var",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781458444476,
+                "stop": 1781458444478,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rx_cond_used_in_layout",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781458444479,
+                "stop": 1781458444480,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_export_succeeds",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 10377,
+                "start": 1781458444481,
+                "stop": 1781458454858,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "exported_frontend = {'proc': CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout=...\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 100% 4/4 0:00:07\\n', stderr=''), 'static_dir': PosixPath('/home/user/myproject/.web/_static')}\n\n    def test_frontend_export_succeeds(exported_frontend):\n        proc = exported_frontend[\"proc\"]\n        static_dir: Path = exported_frontend[\"static_dir\"]\n        assert proc.returncode == 0, (\n            \"`uv run reflex export --frontend-only --no-zip` failed with \"\n            f\"exit code {proc.returncode}.\\n\"\n            f\"stdout:\\n{proc.stdout}\\nstderr:\\n{proc.stderr}\"\n        )\n>       assert static_dir.is_dir(), (\n            f\"Expected exported frontend assets under {static_dir} after \"\n            \"`reflex export`.\"\n        )\nE       AssertionError: Expected exported frontend assets under /home/user/myproject/.web/_static after `reflex export`.\nE       assert False\nE        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/.web/_static')>()\nE        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/.web/_static')> = PosixPath('/home/user/myproject/.web/_static').is_dir\n\ntests/test_final_state.py:255: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_contains_required_literals",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 12,
+                "start": 1781458454859,
+                "stop": 1781458454871,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "exported_frontend = {'proc': CompletedProcess(args=['uv', 'run', 'reflex', 'export', '--frontend-only', '--no-zip'], returncode=0, stdout=...\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 100% 4/4 0:00:07\\n', stderr=''), 'static_dir': PosixPath('/home/user/myproject/.web/_static')}\n\n    def test_frontend_contains_required_literals(exported_frontend):\n        static_dir: Path = exported_frontend[\"static_dir\"]\n>       assert static_dir.is_dir(), (\n            f\"Frontend static dir missing: {static_dir}\"\n        )\nE       AssertionError: Frontend static dir missing: /home/user/myproject/.web/_static\nE       assert False\nE        +  where False = <bound method Path.is_dir of PosixPath('/home/user/myproject/.web/_static')>()\nE        +    where <bound method Path.is_dir of PosixPath('/home/user/myproject/.web/_static')> = PosixPath('/home/user/myproject/.web/_static').is_dir\n\ntests/test_final_state.py:263: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_no_reflex_servers_running_after_teardown",
+                "status": "passed",
+                "duration": 1041,
+                "start": 1781458454871,
+                "stop": 1781458455912,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

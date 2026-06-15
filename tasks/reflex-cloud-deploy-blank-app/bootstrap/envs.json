@@ -1,0 +1,4 @@
+{
+    "task": ["REFLEX_CLOUD_TOKEN", "REFLEX_CLOUD_PROJECT_ID"],
+    "verifier": ["REFLEX_CLOUD_TOKEN", "REFLEX_CLOUD_PROJECT_ID"]
+}

@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 4 items
+
+bootstrap/test_initial_state.py::test_uv_binary_available PASSED
+bootstrap/test_initial_state.py::test_python3_binary_available PASSED
+bootstrap/test_initial_state.py::test_sqlite3_binary_available PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+
+============================== 4 passed in 0.03s ===============================
+pytest-xprocess reminder::Be sure to terminate the started process by running 'pytest --xkill' if you have not explicitly done so in your fixture with 'xprocess.getinfo(<process_name>).terminate()'.

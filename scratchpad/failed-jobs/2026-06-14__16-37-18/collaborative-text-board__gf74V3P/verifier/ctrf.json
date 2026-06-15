@@ -1,0 +1,134 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:44:09.781898+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 9,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781455425121,
+            "stop": 1781455449781
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455425181,
+                "stop": 1781455425183,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_module_level_global_feed_is_a_list",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455425183,
+                "stop": 1781455425185,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_class_has_required_vars",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455425186,
+                "stop": 1781455425188,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_background_poll_event_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455425188,
+                "stop": 1781455425190,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_send_message_mutates_global_feed",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455425191,
+                "stop": 1781455425193,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_page_registers_on_load_polling",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781455425193,
+                "stop": 1781455425196,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_backend_is_listening",
+                "status": "passed",
+                "duration": 1015,
+                "start": 1781455425197,
+                "stop": 1781455426212,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_is_listening",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781455426212,
+                "stop": 1781455426214,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_backend_ping",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 10658,
+                "start": 1781455426214,
+                "stop": 1781455436872,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = {'backend_ready': True, 'frontend_ready': True, 'proc': <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--loglevel', ...>}\n\n    def test_backend_ping(reflex_server):\n        if not reflex_server[\"backend_ready\"]:\n            pytest.skip(\"backend not ready\")\n>       status, body = _http_get(f\"http://127.0.0.1:{BACKEND_PORT}/ping\", timeout=10)\n\ntests/test_final_state.py:452: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:213: in _http_get\n    with urllib.request.urlopen(req, timeout=timeout) as resp:\nusr/lib/python3.12/urllib/request.py:215: in urlopen\n    return opener.open(url, data, timeout)\nusr/lib/python3.12/urllib/request.py:515: in open\n    response = self._open(req, data)\nusr/lib/python3.12/urllib/request.py:532: in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\nusr/lib/python3.12/urllib/request.py:492: in _call_chain\n    result = func(*args)\nusr/lib/python3.12/urllib/request.py:1373: in http_open\n    return self.do_open(http.client.HTTPConnection, req)\nusr/lib/python3.12/urllib/request.py:1348: in do_open\n    r = h.getresponse()\nusr/lib/python3.12/http/client.py:1448: in getresponse\n    response.begin()\nusr/lib/python3.12/http/client.py:336: in begin\n    version, status, reason = self._read_status()\nusr/lib/python3.12/http/client.py:297: in _read_status\n    line = str(self.fp.readline(_MAXLINE + 1), \"iso-8859-1\")\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <socket.SocketIO object at 0x7fca99b175b0>\nb = <memory at 0x7fca99c0f100>\n\n    def readinto(self, b):\n        \"\"\"Read up to len(b) bytes into the writable buffer *b* and return\n        the number of bytes read.  If the socket is non-blocking and no bytes\n        are available, None is returned.\n    \n        If *b* is non-empty, a 0 return value indicates that the connection\n        was shutdown at the other end.\n        \"\"\"\n        self._checkClosed()\n        self._checkReadable()\n        if self._timeout_occurred:\n            raise OSError(\"cannot read from timed out object\")\n        while True:\n            try:\n>               return self._sock.recv_into(b)\nE               TimeoutError: timed out\n\nusr/lib/python3.12/socket.py:707: TimeoutError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_serves_index",
+                "status": "passed",
+                "duration": 2827,
+                "start": 1781455436872,
+                "stop": 1781455439699,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_frontend_contains_send_and_foreach",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 10078,
+                "start": 1781455439701,
+                "stop": 1781455449779,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = {'backend_ready': True, 'frontend_ready': True, 'proc': <Popen: returncode: None args: ['uv', 'run', 'reflex', 'run', '--loglevel', ...>}\n\n    def test_compiled_frontend_contains_send_and_foreach(reflex_server):\n        \"\"\"Once the dev server has compiled, .web/pages/index.{js,jsx} should\n        contain the literal label `Send` and a `.map(` call (which is how Reflex\n        compiles `rx.foreach`).\n        \"\"\"\n        if not reflex_server[\"frontend_ready\"]:\n            pytest.skip(\"frontend not ready; cannot inspect compiled output\")\n        web_dir = os.path.join(PROJECT_DIR, \".web\", \"pages\")\n>       assert os.path.isdir(web_dir), (\n            f\"Expected compiled frontend directory {web_dir} to exist after the \"\n            \"dev server has started.\"\n        )\nE       AssertionError: Expected compiled frontend directory /home/user/collab_board/.web/pages to exist after the dev server has started.\nE       assert False\nE        +  where False = <function isdir at 0x7fca9a65c2c0>('/home/user/collab_board/.web/pages')\nE        +    where <function isdir at 0x7fca9a65c2c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:472: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,148 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:05:07.449041+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 13,
+            "passed": 11,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781456678992,
+            "stop": 1781456707448
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_module_file_exists",
+                "status": "passed",
+                "duration": 16,
+                "start": 1781456679058,
+                "stop": 1781456679074,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rxconfig_references_app_name",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456679075,
+                "stop": 1781456679076,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_class_declares_required_vars",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781456679076,
+                "stop": 1781456679078,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handler_is_async_generator_with_event_decorator",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456679079,
+                "stop": 1781456679080,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handler_calls_asyncio_sleep",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781456679081,
+                "stop": 1781456679083,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handler_contains_expected_chunk_list",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456679083,
+                "stop": 1781456679084,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ui_uses_text_area_and_send_button_label",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781456679085,
+                "stop": 1781456679086,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ui_uses_rx_cond_with_is_loading_for_spinner",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781456679086,
+                "stop": 1781456679088,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_static_export_contains_send_label",
+                "status": "failed",
+                "duration": 7769,
+                "start": 1781456679088,
+                "stop": 1781456686857,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def static_export() -> str:\n        \"\"\"Produce a static frontend export under .web/_static and return its path.\"\"\"\n        assert shutil.which(\"uv\") is not None, \"uv binary not found in PATH\"\n        # Clean previous export to avoid stale artifacts.\n        if os.path.isdir(EXPORT_DIR):\n            shutil.rmtree(EXPORT_DIR, ignore_errors=True)\n        result = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"export\", \"--frontend-only\", \"--no-zip\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=900,\n        )\n        assert result.returncode == 0, (\n            \"`uv run reflex export --frontend-only --no-zip` failed.\\n\"\n            f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n        )\n>       assert os.path.isdir(EXPORT_DIR), (\n            f\"Expected static export directory {EXPORT_DIR} after reflex export, \"\n            \"but it was not created.\"\n        )\nE       AssertionError: Expected static export directory /home/user/streaming_llm_panel/.web/_static after reflex export, but it was not created.\nE       assert False\nE        +  where False = <function isdir at 0x7f97848b02c0>('/home/user/streaming_llm_panel/.web/_static')\nE        +    where <function isdir at 0x7f97848b02c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:175: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_static_export_contains_spinner_component",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781456686858,
+                "stop": 1781456686868,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def static_export() -> str:\n        \"\"\"Produce a static frontend export under .web/_static and return its path.\"\"\"\n        assert shutil.which(\"uv\") is not None, \"uv binary not found in PATH\"\n        # Clean previous export to avoid stale artifacts.\n        if os.path.isdir(EXPORT_DIR):\n            shutil.rmtree(EXPORT_DIR, ignore_errors=True)\n        result = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"export\", \"--frontend-only\", \"--no-zip\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=900,\n        )\n        assert result.returncode == 0, (\n            \"`uv run reflex export --frontend-only --no-zip` failed.\\n\"\n            f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n        )\n>       assert os.path.isdir(EXPORT_DIR), (\n            f\"Expected static export directory {EXPORT_DIR} after reflex export, \"\n            \"but it was not created.\"\n        )\nE       AssertionError: Expected static export directory /home/user/streaming_llm_panel/.web/_static after reflex export, but it was not created.\nE       assert False\nE        +  where False = <function isdir at 0x7f97848b02c0>('/home/user/streaming_llm_panel/.web/_static')\nE        +    where <function isdir at 0x7f97848b02c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:175: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_dev_server_frontend_serves_root",
+                "status": "passed",
+                "duration": 5482,
+                "start": 1781456686869,
+                "stop": 1781456692351,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dev_server_backend_ping",
+                "status": "passed",
+                "duration": 61,
+                "start": 1781456692351,
+                "stop": 1781456692412,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_lingering_reflex_processes_after_teardown",
+                "status": "passed",
+                "duration": 15036,
+                "start": 1781456692412,
+                "stop": 1781456707448,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,144 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 6 items
+
+tests/test_final_state.py ....EE                                         [100%]
+
+==================================== ERRORS ====================================
+_________________ ERROR at setup of test_backend_is_listening __________________
+
+    @pytest.fixture(scope="session")
+    def reflex_server():
+        """Start `uv run reflex run` in the background and tear it down after."""
+        # Pre-flight: make sure nothing else is hanging onto the ports.
+        subprocess.run(
+            ["pkill", "-f", "reflex run"],
+            check=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        time.sleep(1.0)
+    
+        log_path = os.path.join(PROJECT_DIR, "_reflex_server.log")
+        log_fh = open(log_path, "w", encoding="utf-8")
+    
+        env = os.environ.copy()
+        # Reflex emits less noise / no telemetry prompts in CI.
+        env.setdefault("TELEMETRY_ENABLED", "false")
+    
+        proc = subprocess.Popen(
+            ["uv", "run", "reflex", "run", "--loglevel", "info"],
+            cwd=PROJECT_DIR,
+            stdout=log_fh,
+            stderr=subprocess.STDOUT,
+            env=env,
+            start_new_session=True,
+        )
+    
+        try:
+            backend_ready = _wait_for_port(BACKEND_PORT, timeout=300.0)
+            frontend_ready = _wait_for_port(FRONTEND_PORT, timeout=300.0)
+            if not (backend_ready and frontend_ready):
+                log_fh.flush()
+                log_tail = ""
+                try:
+                    with open(log_path, "r", encoding="utf-8") as f:
+                        log_tail = f.read()[-4000:]
+                except OSError:
+                    pass
+>               pytest.fail(
+                    f"Reflex dev server failed to start "
+                    f"(backend_ready={backend_ready}, frontend_ready={frontend_ready}).\n"
+                    f"--- server log tail ---\n{log_tail}"
+                )
+E               Failed: Reflex dev server failed to start (backend_ready=True, frontend_ready=False).
+E               --- server log tail ---
+E               ───────────────────────────── Starting Reflex App ──────────────────────────────
+E               Warning: Unable to bind to :3000 due to: [Errno 98] Address already in use.
+E               Info: The frontend will run on port 3001.
+E               DeprecationWarning: Implicit Radix Themes enablement has been deprecated in 
+E               version 0.9.0. a Radix Themes component was detected, which enables the full 
+E               Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to
+E               make this explicit, or remove Radix components to avoid loading the stylesheet. 
+E               It will be completely removed in 1.0. 
+E               (.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)
+E               Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 17/16 0:00:00
+E               ───────────────────────────────── App Running ──────────────────────────────────
+E               App running at: http://localhost:3001/
+E               Backend running at: http://0.0.0.0:8000
+
+tests/test_final_state.py:138: Failed
+______ ERROR at setup of test_frontend_returns_200_with_expected_markers _______
+
+    @pytest.fixture(scope="session")
+    def reflex_server():
+        """Start `uv run reflex run` in the background and tear it down after."""
+        # Pre-flight: make sure nothing else is hanging onto the ports.
+        subprocess.run(
+            ["pkill", "-f", "reflex run"],
+            check=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        time.sleep(1.0)
+    
+        log_path = os.path.join(PROJECT_DIR, "_reflex_server.log")
+        log_fh = open(log_path, "w", encoding="utf-8")
+    
+        env = os.environ.copy()
+        # Reflex emits less noise / no telemetry prompts in CI.
+        env.setdefault("TELEMETRY_ENABLED", "false")
+    
+        proc = subprocess.Popen(
+            ["uv", "run", "reflex", "run", "--loglevel", "info"],
+            cwd=PROJECT_DIR,
+            stdout=log_fh,
+            stderr=subprocess.STDOUT,
+            env=env,
+            start_new_session=True,
+        )
+    
+        try:
+            backend_ready = _wait_for_port(BACKEND_PORT, timeout=300.0)
+            frontend_ready = _wait_for_port(FRONTEND_PORT, timeout=300.0)
+            if not (backend_ready and frontend_ready):
+                log_fh.flush()
+                log_tail = ""
+                try:
+                    with open(log_path, "r", encoding="utf-8") as f:
+                        log_tail = f.read()[-4000:]
+                except OSError:
+                    pass
+>               pytest.fail(
+                    f"Reflex dev server failed to start "
+                    f"(backend_ready={backend_ready}, frontend_ready={frontend_ready}).\n"
+                    f"--- server log tail ---\n{log_tail}"
+                )
+E               Failed: Reflex dev server failed to start (backend_ready=True, frontend_ready=False).
+E               --- server log tail ---
+E               ───────────────────────────── Starting Reflex App ──────────────────────────────
+E               Warning: Unable to bind to :3000 due to: [Errno 98] Address already in use.
+E               Info: The frontend will run on port 3001.
+E               DeprecationWarning: Implicit Radix Themes enablement has been deprecated in 
+E               version 0.9.0. a Radix Themes component was detected, which enables the full 
+E               Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to
+E               make this explicit, or remove Radix components to avoid loading the stylesheet. 
+E               It will be completely removed in 1.0. 
+E               (.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)
+E               Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 17/16 0:00:00
+E               ───────────────────────────────── App Running ──────────────────────────────────
+E               App running at: http://localhost:3001/
+E               Backend running at: http://0.0.0.0:8000
+
+tests/test_final_state.py:138: Failed
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_rxconfig_exists
+PASSED tests/test_final_state.py::test_app_module_imports_reflex
+PASSED tests/test_final_state.py::test_two_rx_var_computed_methods_exist
+PASSED tests/test_final_state.py::test_text_area_uses_required_id
+ERROR tests/test_final_state.py::test_backend_is_listening - Failed: Reflex d...
+ERROR tests/test_final_state.py::test_frontend_returns_200_with_expected_markers
+=================== 4 passed, 2 errors in 305.20s (0:05:05) ====================

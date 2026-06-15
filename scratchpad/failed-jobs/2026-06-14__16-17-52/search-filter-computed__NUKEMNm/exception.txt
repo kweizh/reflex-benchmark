@@ -1,0 +1,131 @@
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 160, in run
+    await self._prepare()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 187, in _prepare
+    await self._setup_agent_environment()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 612, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 618, in _start_agent_environment
+    await asyncio.wait_for(
+    ...<4 lines>...
+    )
+  File "/usr/lib/python3.13/asyncio/tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 517, in start
+    await self._run_docker_compose_command(["build"])
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 418, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment search-filter-computed. Command: docker compose --project-name search-filter-computed__nukemnm --project-directory /home/kweizh/zealt/reflex-benchmark/scratchpad/pending-tasks/search-filter-computed/environment -f /tmp/tmp1ne_rmuo/search-filter-computed__NUKEMNm-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpkjwumqis/docker-compose-mounts.json build. Return code: 17. Stdout: #0 building with "default" instance using docker driver
+
+#1 [main 1/3] FROM docker.io/library/ubuntu:24.04
+#1 DONE 0.0s
+
+#2 [main internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.06kB done
+#2 DONE 0.0s
+
+#3 [main internal] load metadata for docker.io/library/ubuntu:24.04
+#3 DONE 0.0s
+
+#4 [main internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [main 2/5] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep         build-essential unzip procps &&     ln -s /usr/bin/python3 /usr/bin/python &&     curl -fsSL https://deb.nodesource.com/setup_24.x | bash - &&     apt-get install -y --no-install-recommends nodejs &&     pip3 install --break-system-packages pytest-json-ctrf &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#5 CACHED
+
+#6 [main 3/5] RUN curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin sh &&     /usr/local/bin/uv --version
+#6 CACHED
+
+#7 [main 4/5] RUN mkdir -p /home/user && chmod 0755 /home/user
+#7 CACHED
+
+#8 [main 5/5] RUN mkdir -p /home/user/myproject &&     cd /home/user/myproject &&     uv init --name myproject --no-readme --no-workspace --no-pin-python &&     uv add reflex &&     uv run reflex init --template blank &&     uv run python -c "import reflex; print('reflex', reflex.__version__)"
+#8 0.951 Initialized project `myproject`
+#8 1.172 Using CPython 3.12.3 interpreter at: /usr/bin/python3
+#8 1.173 Creating virtual environment at: .venv
+#8 2.267 Resolved 47 packages in 1.05s
+#8 2.401 Downloading pygments (1.2MiB)
+#8 2.402 Downloading pydantic-core (2.0MiB)
+#8 2.407 Downloading granian (6.6MiB)
+#8 2.815  Downloaded pydantic-core
+#8 2.916  Downloaded granian
+#8 3.163  Downloaded pygments
+#8 3.165 Prepared 44 packages in 854ms
+#8 3.240 Installed 44 packages in 75ms
+#8 3.240  + annotated-types==0.7.0
+#8 3.240  + anyio==4.13.0
+#8 3.240  + bidict==0.23.1
+#8 3.240  + certifi==2026.5.20
+#8 3.240  + click==8.4.1
+#8 3.240  + granian==2.7.6
+#8 3.240  + h11==0.16.0
+#8 3.241  + httpcore==1.0.9
+#8 3.241  + httpx==0.28.1
+#8 3.241  + idna==3.18
+#8 3.241  + markdown-it-py==4.2.0
+#8 3.241  + mdurl==0.1.2
+#8 3.241  + packaging==26.2
+#8 3.241  + platformdirs==4.10.0
+#8 3.241  + pydantic==2.13.4
+#8 3.241  + pydantic-core==2.46.4
+#8 3.241  + pygments==2.20.0
+#8 3.241  + python-engineio==4.13.2
+#8 3.242  + python-multipart==0.0.32
+#8 3.242  + python-socketio==5.16.2
+#8 3.242  + redis==7.4.1
+#8 3.242  + reflex==0.9.5.post2
+#8 3.242  + reflex-base==0.9.5.post2
+#8 3.242  + reflex-components-code==0.9.2
+#8 3.242  + reflex-components-core==0.9.5
+#8 3.242  + reflex-components-dataeditor==0.9.1
+#8 3.242  + reflex-components-gridjs==0.9.1
+#8 3.242  + reflex-components-lucide==1.0.2
+#8 3.242  + reflex-components-markdown==0.9.3
+#8 3.242  + reflex-components-moment==0.9.1
+#8 3.242  + reflex-components-plotly==0.9.2
+#8 3.242  + reflex-components-radix==0.9.5
+#8 3.242  + reflex-components-react-player==0.9.1
+#8 3.242  + reflex-components-recharts==0.9.1
+#8 3.242  + reflex-components-sonner==0.9.1
+#8 3.242  + reflex-hosting-cli==0.1.66
+#8 3.242  + rich==14.3.4
+#8 3.242  + simple-websocket==1.1.0
+#8 3.242  + starlette==1.3.1
+#8 3.243  + typing-extensions==4.15.0
+#8 3.243  + typing-inspection==0.4.2
+#8 3.243  + watchfiles==1.2.0
+#8 3.243  + wrapt==2.2.1
+#8 3.243  + wsproto==1.3.2
+#8 5.501 ──────────────────────────── Initializing myproject ────────────────────────────
+#8 8.303 [16:18:07] Initializing the web directory.                        console.py:231
+#8 9.822 [16:18:09] Initializing the app directory.                        console.py:231
+#8 10.36 Success: Initialized myproject using the blank template. Run `uv run reflex run`
+#8 10.36 to start the app.
+#8 10.61 Traceback (most recent call last):
+#8 10.61   File "<string>", line 1, in <module>
+#8 10.61   File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/__init__.py", line 267, in __getattr__
+#8 10.61     return getattr(name)
+#8 10.62            ^^^^^^^^^^^^^
+#8 10.62   File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex_base/utils/lazy_loader.py", line 90, in __getattr__
+#8 10.62     raise AttributeError(msg)
+#8 10.62 AttributeError: No reflex attribute __version__
+#8 ERROR: process "/bin/sh -c mkdir -p /home/user/myproject &&     cd /home/user/myproject &&     uv init --name myproject --no-readme --no-workspace --no-pin-python &&     uv add reflex &&     uv run reflex init --template blank &&     uv run python -c \"import reflex; print('reflex', reflex.__version__)\"" did not complete successfully: exit code: 1
+------
+ > [main 5/5] RUN mkdir -p /home/user/myproject &&     cd /home/user/myproject &&     uv init --name myproject --no-readme --no-workspace --no-pin-python &&     uv add reflex &&     uv run reflex init --template blank &&     uv run python -c "import reflex; print('reflex', reflex.__version__)":
+10.36 Success: Initialized myproject using the blank template. Run `uv run reflex run`
+10.36 to start the app.
+10.61 Traceback (most recent call last):
+10.61   File "<string>", line 1, in <module>
+10.61   File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex/__init__.py", line 267, in __getattr__
+10.61     return getattr(name)
+10.62            ^^^^^^^^^^^^^
+10.62   File "/home/user/myproject/.venv/lib/python3.12/site-packages/reflex_base/utils/lazy_loader.py", line 90, in __getattr__
+10.62     raise AttributeError(msg)
+10.62 AttributeError: No reflex attribute __version__
+------
+failed to solve: process "/bin/sh -c mkdir -p /home/user/myproject &&     cd /home/user/myproject &&     uv init --name myproject --no-readme --no-workspace --no-pin-python &&     uv add reflex &&     uv run reflex init --template blank &&     uv run python -c \"import reflex; print('reflex', reflex.__version__)\"" did not complete successfully: exit code: 1
+. Stderr: None. 

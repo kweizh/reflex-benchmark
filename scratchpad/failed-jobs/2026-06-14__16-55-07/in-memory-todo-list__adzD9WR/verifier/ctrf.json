@@ -1,0 +1,119 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T17:06:45.508285+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 0,
+            "failed": 9,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781456805055,
+            "stop": 1781456805508
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_frontend_reachable",
+                "status": "failed",
+                "duration": 36,
+                "start": 1781456805415,
+                "stop": 1781456805451,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _no_stale_ports():\n        assert not _port_open(FRONTEND_PORT), (\n            f\"Port {FRONTEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server. The task description requires the candidate to terminate \"\n            f\"any background `reflex run` processes after they finish.\"\n        )\n>       assert not _port_open(BACKEND_PORT), (\n            f\"Port {BACKEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server.\"\n        )\nE       AssertionError: Port 8000 is already in use before the verifier started the Reflex server.\nE       assert not True\nE        +  where True = _port_open(8000)\n\ntests/test_final_state.py:94: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_frontend_contains_add_and_total",
+                "status": "failed",
+                "duration": 7,
+                "start": 1781456805451,
+                "stop": 1781456805458,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _no_stale_ports():\n        assert not _port_open(FRONTEND_PORT), (\n            f\"Port {FRONTEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server. The task description requires the candidate to terminate \"\n            f\"any background `reflex run` processes after they finish.\"\n        )\n>       assert not _port_open(BACKEND_PORT), (\n            f\"Port {BACKEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server.\"\n        )\nE       AssertionError: Port 8000 is already in use before the verifier started the Reflex server.\nE       assert not True\nE        +  where True = _port_open(8000)\n\ntests/test_final_state.py:94: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_no_immutable_state_error_in_logs",
+                "status": "failed",
+                "duration": 6,
+                "start": 1781456805458,
+                "stop": 1781456805464,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _no_stale_ports():\n        assert not _port_open(FRONTEND_PORT), (\n            f\"Port {FRONTEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server. The task description requires the candidate to terminate \"\n            f\"any background `reflex run` processes after they finish.\"\n        )\n>       assert not _port_open(BACKEND_PORT), (\n            f\"Port {BACKEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server.\"\n        )\nE       AssertionError: Port 8000 is already in use before the verifier started the Reflex server.\nE       assert not True\nE        +  where True = _port_open(8000)\n\ntests/test_final_state.py:94: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_source_declares_new_item_base_var",
+                "status": "failed",
+                "duration": 6,
+                "start": 1781456805465,
+                "stop": 1781456805471,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _no_stale_ports():\n        assert not _port_open(FRONTEND_PORT), (\n            f\"Port {FRONTEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server. The task description requires the candidate to terminate \"\n            f\"any background `reflex run` processes after they finish.\"\n        )\n>       assert not _port_open(BACKEND_PORT), (\n            f\"Port {BACKEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server.\"\n        )\nE       AssertionError: Port 8000 is already in use before the verifier started the Reflex server.\nE       assert not True\nE        +  where True = _port_open(8000)\n\ntests/test_final_state.py:94: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_source_declares_items_base_var",
+                "status": "failed",
+                "duration": 6,
+                "start": 1781456805472,
+                "stop": 1781456805478,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _no_stale_ports():\n        assert not _port_open(FRONTEND_PORT), (\n            f\"Port {FRONTEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server. The task description requires the candidate to terminate \"\n            f\"any background `reflex run` processes after they finish.\"\n        )\n>       assert not _port_open(BACKEND_PORT), (\n            f\"Port {BACKEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server.\"\n        )\nE       AssertionError: Port 8000 is already in use before the verifier started the Reflex server.\nE       assert not True\nE        +  where True = _port_open(8000)\n\ntests/test_final_state.py:94: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_source_uses_rx_foreach_over_items",
+                "status": "failed",
+                "duration": 6,
+                "start": 1781456805479,
+                "stop": 1781456805485,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _no_stale_ports():\n        assert not _port_open(FRONTEND_PORT), (\n            f\"Port {FRONTEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server. The task description requires the candidate to terminate \"\n            f\"any background `reflex run` processes after they finish.\"\n        )\n>       assert not _port_open(BACKEND_PORT), (\n            f\"Port {BACKEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server.\"\n        )\nE       AssertionError: Port 8000 is already in use before the verifier started the Reflex server.\nE       assert not True\nE        +  where True = _port_open(8000)\n\ntests/test_final_state.py:94: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_source_has_add_handler",
+                "status": "failed",
+                "duration": 7,
+                "start": 1781456805486,
+                "stop": 1781456805493,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _no_stale_ports():\n        assert not _port_open(FRONTEND_PORT), (\n            f\"Port {FRONTEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server. The task description requires the candidate to terminate \"\n            f\"any background `reflex run` processes after they finish.\"\n        )\n>       assert not _port_open(BACKEND_PORT), (\n            f\"Port {BACKEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server.\"\n        )\nE       AssertionError: Port 8000 is already in use before the verifier started the Reflex server.\nE       assert not True\nE        +  where True = _port_open(8000)\n\ntests/test_final_state.py:94: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_source_has_remove_by_index_handler",
+                "status": "failed",
+                "duration": 7,
+                "start": 1781456805493,
+                "stop": 1781456805500,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _no_stale_ports():\n        assert not _port_open(FRONTEND_PORT), (\n            f\"Port {FRONTEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server. The task description requires the candidate to terminate \"\n            f\"any background `reflex run` processes after they finish.\"\n        )\n>       assert not _port_open(BACKEND_PORT), (\n            f\"Port {BACKEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server.\"\n        )\nE       AssertionError: Port 8000 is already in use before the verifier started the Reflex server.\nE       assert not True\nE        +  where True = _port_open(8000)\n\ntests/test_final_state.py:94: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_source_has_cached_total_computed_var",
+                "status": "failed",
+                "duration": 6,
+                "start": 1781456805501,
+                "stop": 1781456805507,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\", autouse=True)\n    def _no_stale_ports():\n        assert not _port_open(FRONTEND_PORT), (\n            f\"Port {FRONTEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server. The task description requires the candidate to terminate \"\n            f\"any background `reflex run` processes after they finish.\"\n        )\n>       assert not _port_open(BACKEND_PORT), (\n            f\"Port {BACKEND_PORT} is already in use before the verifier started the \"\n            f\"Reflex server.\"\n        )\nE       AssertionError: Port 8000 is already in use before the verifier started the Reflex server.\nE       assert not True\nE        +  where True = _port_open(8000)\n\ntests/test_final_state.py:94: AssertionError"
+            }
+        ]
+    }
+}

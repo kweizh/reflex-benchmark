@@ -1,0 +1,95 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:13:13.403746+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 6,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781453538477,
+            "stop": 1781453593403
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_dynamic_route_registration_present",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781453538505,
+                "stop": 1781453538507,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_state_accesses_router_for_slug",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781453538507,
+                "stop": 1781453538508,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hardcoded_posts_have_three_unique_slugs",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781453538509,
+                "stop": 1781453538512,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reflex_export_succeeds",
+                "status": "passed",
+                "duration": 54795,
+                "start": 1781453538513,
+                "stop": 1781453593308,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dynamic_route_page_generated",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781453593309,
+                "stop": 1781453593311,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_post_title_appears_in_build_output",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781453593311,
+                "stop": 1781453593314,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_reflex_servers_remaining",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 87,
+                "start": 1781453593315,
+                "stop": 1781453593402,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_no_reflex_servers_remaining():\n        \"\"\"Make sure no leftover reflex/uvicorn/next dev servers are running after verification.\"\"\"\n        result = subprocess.run(\n            [\"pgrep\", \"-fa\", r\"reflex run|next dev|uvicorn .*reflex\"],\n            capture_output=True,\n            text=True,\n        )\n        # pgrep exits 1 when there is no match; that is the desired state.\n        if result.returncode == 0 and result.stdout.strip():\n            # Attempt cleanup so subsequent tests in the same harness are not affected.\n            subprocess.run([\"pkill\", \"-f\", \"reflex run\"], capture_output=True)\n            subprocess.run([\"pkill\", \"-f\", \"next dev\"], capture_output=True)\n            subprocess.run([\"pkill\", \"-f\", \"uvicorn\"], capture_output=True)\n>           raise AssertionError(\n                \"Expected no leftover Reflex/Next/uvicorn dev servers after task completion, \"\n                f\"but found:\\n{result.stdout}\"\n            )\nE           AssertionError: Expected no leftover Reflex/Next/uvicorn dev servers after task completion, but found:\nE           2622 uv run reflex run\nE           2641 /home/user/myproject/.venv/bin/python3 /home/user/myproject/.venv/bin/reflex run\nE           2715 sh -c next dev --turbopack\nE           2716 node /home/user/myproject/.web/node_modules/.bin/next dev --turbopack\n\ntests/test_final_state.py:240: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

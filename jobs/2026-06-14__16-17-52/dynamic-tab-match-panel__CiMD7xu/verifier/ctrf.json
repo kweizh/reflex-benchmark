@@ -1,0 +1,131 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-14T16:20:32.219775+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 8,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781454023917,
+            "stop": 1781454032219
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_exists",
+                "status": "passed",
+                "duration": 26,
+                "start": 1781454023959,
+                "stop": 1781454023985,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pyproject_toml_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781454023986,
+                "stop": 1781454023987,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rxconfig_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781454023987,
+                "stop": 1781454023988,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_active_tab_state_var_defined",
+                "status": "passed",
+                "duration": 5,
+                "start": 1781454023988,
+                "stop": 1781454023993,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_three_tab_buttons_exist",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454023994,
+                "stop": 1781454023996,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rx_match_uses_active_tab_with_three_cases_and_default",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454023997,
+                "stop": 1781454023999,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_event_handlers_set_active_tab",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781454023999,
+                "stop": 1781454024003,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_buttons_bind_on_click",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781454024003,
+                "stop": 1781454024005,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_bundle_contains_panel_literal",
+                "status": "failed",
+                "duration": 8171,
+                "start": 1781454024006,
+                "stop": 1781454032177,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def exported_static_dir():\n        \"\"\"Run `uv run reflex export --frontend-only --no-zip` and yield the\n        static output directory.\"\"\"\n        # Clean any stale output to ensure we're checking a fresh build.\n        if os.path.isdir(STATIC_DIR):\n            shutil.rmtree(STATIC_DIR, ignore_errors=True)\n    \n        result = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"export\", \"--frontend-only\", \"--no-zip\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=EXPORT_TIMEOUT_SEC,\n            check=False,\n        )\n    \n        assert result.returncode == 0, (\n            \"`uv run reflex export --frontend-only --no-zip` failed with exit \"\n            f\"code {result.returncode}.\\nSTDOUT:\\n{result.stdout}\\n\"\n            f\"STDERR:\\n{result.stderr}\"\n        )\n    \n>       assert os.path.isdir(STATIC_DIR), (\n            f\"Expected Reflex to produce a static frontend bundle at {STATIC_DIR}, \"\n            \"but it was not created.\"\n        )\nE       AssertionError: Expected Reflex to produce a static frontend bundle at /home/user/myproject/.web/_static, but it was not created.\nE       assert False\nE        +  where False = <function isdir at 0x7f59006982c0>('/home/user/myproject/.web/_static')\nE        +    where <function isdir at 0x7f59006982c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:349: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_bundle_contains_panel_literal",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781454032177,
+                "stop": 1781454032188,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def exported_static_dir():\n        \"\"\"Run `uv run reflex export --frontend-only --no-zip` and yield the\n        static output directory.\"\"\"\n        # Clean any stale output to ensure we're checking a fresh build.\n        if os.path.isdir(STATIC_DIR):\n            shutil.rmtree(STATIC_DIR, ignore_errors=True)\n    \n        result = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"export\", \"--frontend-only\", \"--no-zip\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=EXPORT_TIMEOUT_SEC,\n            check=False,\n        )\n    \n        assert result.returncode == 0, (\n            \"`uv run reflex export --frontend-only --no-zip` failed with exit \"\n            f\"code {result.returncode}.\\nSTDOUT:\\n{result.stdout}\\n\"\n            f\"STDERR:\\n{result.stderr}\"\n        )\n    \n>       assert os.path.isdir(STATIC_DIR), (\n            f\"Expected Reflex to produce a static frontend bundle at {STATIC_DIR}, \"\n            \"but it was not created.\"\n        )\nE       AssertionError: Expected Reflex to produce a static frontend bundle at /home/user/myproject/.web/_static, but it was not created.\nE       assert False\nE        +  where False = <function isdir at 0x7f59006982c0>('/home/user/myproject/.web/_static')\nE        +    where <function isdir at 0x7f59006982c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:349: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_compiled_bundle_contains_panel_literal",
+                "status": "failed",
+                "duration": 31,
+                "start": 1781454032188,
+                "stop": 1781454032219,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def exported_static_dir():\n        \"\"\"Run `uv run reflex export --frontend-only --no-zip` and yield the\n        static output directory.\"\"\"\n        # Clean any stale output to ensure we're checking a fresh build.\n        if os.path.isdir(STATIC_DIR):\n            shutil.rmtree(STATIC_DIR, ignore_errors=True)\n    \n        result = subprocess.run(\n            [\"uv\", \"run\", \"reflex\", \"export\", \"--frontend-only\", \"--no-zip\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            timeout=EXPORT_TIMEOUT_SEC,\n            check=False,\n        )\n    \n        assert result.returncode == 0, (\n            \"`uv run reflex export --frontend-only --no-zip` failed with exit \"\n            f\"code {result.returncode}.\\nSTDOUT:\\n{result.stdout}\\n\"\n            f\"STDERR:\\n{result.stderr}\"\n        )\n    \n>       assert os.path.isdir(STATIC_DIR), (\n            f\"Expected Reflex to produce a static frontend bundle at {STATIC_DIR}, \"\n            \"but it was not created.\"\n        )\nE       AssertionError: Expected Reflex to produce a static frontend bundle at /home/user/myproject/.web/_static, but it was not created.\nE       assert False\nE        +  where False = <function isdir at 0x7f59006982c0>('/home/user/myproject/.web/_static')\nE        +    where <function isdir at 0x7f59006982c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:349: AssertionError"
+            }
+        ]
+    }
+}
