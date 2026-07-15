@@ -1,0 +1,74 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T17:15:23.251802+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 1,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784049103404,
+            "stop": 1784049323251
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_optimistic_add_toggle_and_rollback",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 138429,
+                "start": 1784049103463,
+                "stop": 1784049241892,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\nbrowser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x7cd3274bbe00>\n\n    def test_optimistic_add_toggle_and_rollback(start_app, browser_verifier):\n        \"\"\"Add a normal todo, attempt a failing todo (rollback + error banner),\n        toggle completion, and confirm persistence survives a reload.\"\"\"\n        reason = (\n            \"The app is an optimistic todo list. Adding a normal todo shows it \"\n            \"immediately and persists it. Adding a todo whose title contains 'fail' \"\n            \"must be rolled back with an error banner and never persisted. Toggling \"\n            \"completion is persisted. Counts are shown live and successful changes \"\n            \"survive a page reload.\"\n        )\n        truth = (\n            f\"Navigate to {FRONTEND_URL}. \"\n            \"Confirm the todo list is empty and the counts read exactly 'Active: 0', \"\n            \"'Completed: 0', and 'Total: 0', with no error banner shown. \"\n            \"In the text input whose placeholder is 'New todo', type 'buy milk' and \"\n            \"click the button labeled 'Add'. Verify that within a few seconds a todo \"\n            \"item showing 'buy milk' appears, the counts become 'Active: 1', \"\n            \"'Completed: 0', 'Total: 1', and no error banner is shown. \"\n            \"Next type 'fail the build' into the same input and click 'Add'. Verify \"\n            \"that an error banner appears whose text mentions 'fail the build', and \"\n            \"that after a moment the list still shows only 'buy milk' with no item \"\n            \"named 'fail the build', and the counts remain 'Active: 1', \"\n            \"'Completed: 0', 'Total: 1'. \"\n            \"Then click the checkbox on the 'buy milk' item to mark it complete and \"\n            \"verify the counts become 'Active: 0', 'Completed: 1', 'Total: 1'. \"\n            f\"Finally reload the page (navigate to {FRONTEND_URL} again) and verify \"\n            \"that 'buy milk' is still present and shown as completed, that no item \"\n            \"named 'fail the build' exists, and that the counts read 'Active: 0', \"\n            \"'Completed: 1', 'Total: 1'.\"\n        )\n        result = browser_verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_optimistic_add_toggle_and_rollback\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The test case failed because adding a todo whose title contains 'fail' ('fail the build') triggered a Python backend exception: 'TypeError: optimistic_todo.optimistic_todo.TodoItem() argument after ** must be a mapping, not tuple' instead of displaying an error banner whose text mentions 'fail the build'. Clicking the completion checkbox on the 'buy milk' item also triggered the same backend TypeError exception, failing to mark the item as completed and failing to update the counts to 'Active: 0', 'Completed: 1', 'Total: 1'.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\n/tests/test_final_state.py:152: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_sqlite_has_only_successful_todo",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 38,
+                "start": 1784049241892,
+                "stop": 1784049241930,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_sqlite_has_only_successful_todo(start_app):\n        \"\"\"The SQLite table must contain only the successful, completed todo.\"\"\"\n        rows_out = _query_db(\"SELECT title, completed FROM todoitem;\")\n        assert rows_out is not None, (\n            f\"Could not read table 'todoitem' from {DB_PATH}. The app must persist \"\n            \"todos in a SQLite table named 'todoitem'.\"\n        )\n        rows = [line for line in rows_out.splitlines() if line.strip()]\n        assert len(rows) == 1, (\n            f\"Expected exactly one persisted todo, found {len(rows)}: {rows!r}\"\n        )\n        title, _, completed = rows[0].partition(\"|\")\n        assert title.strip() == \"buy milk\", (\n            f\"Expected the persisted todo title to be 'buy milk', got {title!r}.\"\n        )\n>       assert completed.strip() in (\"1\", \"true\", \"True\"), (\n            f\"Expected the persisted 'buy milk' todo to be completed (truthy), got {completed!r}.\"\n        )\nE       AssertionError: Expected the persisted 'buy milk' todo to be completed (truthy), got '0'.\nE       assert '0' in ('1', 'true', 'True')\nE        +  where '0' = <built-in method strip of str object at 0xb45e98>()\nE        +    where <built-in method strip of str object at 0xb45e98> = '0'.strip\n\n/tests/test_final_state.py:170: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_delete_clears_list_and_db",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 81313,
+                "start": 1784049241931,
+                "stop": 1784049323244,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\nbrowser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x7cd3274bbe00>\n\n    def test_delete_clears_list_and_db(start_app, browser_verifier):\n        \"\"\"Deleting the remaining todo empties both the UI and the database.\"\"\"\n        reason = (\n            \"Deleting a todo removes it from the visible list and from the SQLite \"\n            \"database, and the empty state survives a reload.\"\n        )\n        truth = (\n            f\"Navigate to {FRONTEND_URL}. The list should show a single todo 'buy \"\n            \"milk' that is marked complete. Click the button labeled 'Delete' on the \"\n            \"'buy milk' item. Verify that the todo list becomes empty and the counts \"\n            \"read exactly 'Active: 0', 'Completed: 0', and 'Total: 0'. Then reload \"\n            f\"the page (navigate to {FRONTEND_URL} again) and confirm the list is \"\n            \"still empty with all three counts equal to 0.\"\n        )\n        result = browser_verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_delete_clears_list_and_db\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The test failed because the initial state of the todo list did not match the specified verification steps. The steps expected a single todo 'buy milk' that is marked complete. However, upon navigating to http://127.0.0.1:3000, the 'buy milk' todo was active/incomplete (checkbox unchecked, 'Active: 1', 'Completed: 0', 'Total: 1'). Although clicking 'Delete' successfully cleared the list and set all counts to 0, and this empty state persisted after reloading, the incorrect initial state constitutes a test failure.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\n/tests/test_final_state.py:203: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_sqlite_empty_after_delete",
+                "status": "passed",
+                "duration": 6,
+                "start": 1784049323245,
+                "stop": 1784049323251,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

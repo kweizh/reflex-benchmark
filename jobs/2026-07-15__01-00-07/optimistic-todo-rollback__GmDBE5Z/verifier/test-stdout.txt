@@ -1,0 +1,247 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 4 items
+
+../tests/test_final_state.py FFF.                                        [100%]
+
+=================================== FAILURES ===================================
+___________________ test_optimistic_add_toggle_and_rollback ____________________
+
+start_app = None
+browser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x7cd3274bbe00>
+
+    def test_optimistic_add_toggle_and_rollback(start_app, browser_verifier):
+        """Add a normal todo, attempt a failing todo (rollback + error banner),
+        toggle completion, and confirm persistence survives a reload."""
+        reason = (
+            "The app is an optimistic todo list. Adding a normal todo shows it "
+            "immediately and persists it. Adding a todo whose title contains 'fail' "
+            "must be rolled back with an error banner and never persisted. Toggling "
+            "completion is persisted. Counts are shown live and successful changes "
+            "survive a page reload."
+        )
+        truth = (
+            f"Navigate to {FRONTEND_URL}. "
+            "Confirm the todo list is empty and the counts read exactly 'Active: 0', "
+            "'Completed: 0', and 'Total: 0', with no error banner shown. "
+            "In the text input whose placeholder is 'New todo', type 'buy milk' and "
+            "click the button labeled 'Add'. Verify that within a few seconds a todo "
+            "item showing 'buy milk' appears, the counts become 'Active: 1', "
+            "'Completed: 0', 'Total: 1', and no error banner is shown. "
+            "Next type 'fail the build' into the same input and click 'Add'. Verify "
+            "that an error banner appears whose text mentions 'fail the build', and "
+            "that after a moment the list still shows only 'buy milk' with no item "
+            "named 'fail the build', and the counts remain 'Active: 1', "
+            "'Completed: 0', 'Total: 1'. "
+            "Then click the checkbox on the 'buy milk' item to mark it complete and "
+            "verify the counts become 'Active: 0', 'Completed: 1', 'Total: 1'. "
+            f"Finally reload the page (navigate to {FRONTEND_URL} again) and verify "
+            "that 'buy milk' is still present and shown as completed, that no item "
+            "named 'fail the build' exists, and that the counts read 'Active: 0', "
+            "'Completed: 1', 'Total: 1'."
+        )
+        result = browser_verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_optimistic_add_toggle_and_rollback",
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The test case failed because adding a todo whose title contains 'fail' ('fail the build') triggered a Python backend exception: 'TypeError: optimistic_todo.optimistic_todo.TodoItem() argument after ** must be a mapping, not tuple' instead of displaying an error banner whose text mentions 'fail the build'. Clicking the completion checkbox on the 'buy milk' item also triggered the same backend TypeError exception, failing to mark the item as completed and failing to update the counts to 'Active: 0', 'Completed: 1', 'Total: 1'.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+/tests/test_final_state.py:152: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run
+process 'reflex_app' started pid=3123
+reflex_app process startup detected
+===================== [STARTED: Begin] reflex_app logfile =====================
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+removed in 1.0.0. (<frozen abc>:106)
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 17/16 0:00:00
+───────────────────────────────── App Running ──────────────────────────────────
+DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+removed in 1.0.0. (<frozen abc>:106)
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===================== [STARTED: End  ] reflex_app logfile =====================
+_____________________ test_sqlite_has_only_successful_todo _____________________
+
+start_app = None
+
+    def test_sqlite_has_only_successful_todo(start_app):
+        """The SQLite table must contain only the successful, completed todo."""
+        rows_out = _query_db("SELECT title, completed FROM todoitem;")
+        assert rows_out is not None, (
+            f"Could not read table 'todoitem' from {DB_PATH}. The app must persist "
+            "todos in a SQLite table named 'todoitem'."
+        )
+        rows = [line for line in rows_out.splitlines() if line.strip()]
+        assert len(rows) == 1, (
+            f"Expected exactly one persisted todo, found {len(rows)}: {rows!r}"
+        )
+        title, _, completed = rows[0].partition("|")
+        assert title.strip() == "buy milk", (
+            f"Expected the persisted todo title to be 'buy milk', got {title!r}."
+        )
+>       assert completed.strip() in ("1", "true", "True"), (
+            f"Expected the persisted 'buy milk' todo to be completed (truthy), got {completed!r}."
+        )
+E       AssertionError: Expected the persisted 'buy milk' todo to be completed (truthy), got '0'.
+E       assert '0' in ('1', 'true', 'True')
+E        +  where '0' = <built-in method strip of str object at 0xb45e98>()
+E        +    where <built-in method strip of str object at 0xb45e98> = '0'.strip
+
+/tests/test_final_state.py:170: AssertionError
+________________________ test_delete_clears_list_and_db ________________________
+
+start_app = None
+browser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x7cd3274bbe00>
+
+    def test_delete_clears_list_and_db(start_app, browser_verifier):
+        """Deleting the remaining todo empties both the UI and the database."""
+        reason = (
+            "Deleting a todo removes it from the visible list and from the SQLite "
+            "database, and the empty state survives a reload."
+        )
+        truth = (
+            f"Navigate to {FRONTEND_URL}. The list should show a single todo 'buy "
+            "milk' that is marked complete. Click the button labeled 'Delete' on the "
+            "'buy milk' item. Verify that the todo list becomes empty and the counts "
+            "read exactly 'Active: 0', 'Completed: 0', and 'Total: 0'. Then reload "
+            f"the page (navigate to {FRONTEND_URL} again) and confirm the list is "
+            "still empty with all three counts equal to 0."
+        )
+        result = browser_verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_delete_clears_list_and_db",
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The test failed because the initial state of the todo list did not match the specified verification steps. The steps expected a single todo 'buy milk' that is marked complete. However, upon navigating to http://127.0.0.1:3000, the 'buy milk' todo was active/incomplete (checkbox unchecked, 'Active: 1', 'Completed: 0', 'Total: 1'). Although clicking 'Delete' successfully cleared the list and set all counts to 0, and this empty state persisted after reloading, the incorrect initial state constitutes a test failure.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+/tests/test_final_state.py:203: AssertionError
+==================================== PASSES ====================================
+--------------------------- Captured stdout teardown ---------------------------
+===================== [TEARDOWN: Begin] reflex_app logfile =====================
+(skipped 12 already-printed lines)
+/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/pydantic/main.py:475: UserWarning: Pydantic serializer warnings:
+  PydanticSerializationUnexpectedValue(Expected `general-fields` - serialized value may not be as expected [input_value=({'_sa_instance_state': <...alse}, MutableProxy({})), input_type=tuple])
+  return self.__pydantic_serializer__.to_python(
+[Reflex Backend Exception]
+ Traceback (most recent call last):
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/event_processor.py", line 737, in _finish_task
+    future.result()
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/event_processor.py", line 728, in _finish_task
+    result = task.result()
+             ^^^^^^^^^^^^^
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/event_processor.py", line 565, in _process_event_queue_entry
+    await self._execute_event(entry=entry, 
+registered_handler=registered_handler)
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/base_state_processor.py", line 382, in _execute_event
+    await process_event(
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/base_state_processor.py", line 264, in process_event
+    async for event in events:
+  File "/home/user/optimistic_todo/optimistic_todo/optimistic_todo.py", line 59,
+in add_todo
+    self._backup_todos = [TodoItem(**item.model_dump()) for item in self.todos]
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: optimistic_todo.optimistic_todo.TodoItem() argument after ** must be 
+a mapping, not tuple
+
+
+[Reflex Backend Exception]
+ Traceback (most recent call last):
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/event_processor.py", line 737, in _finish_task
+    future.result()
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/event_processor.py", line 728, in _finish_task
+    result = task.result()
+             ^^^^^^^^^^^^^
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/event_processor.py", line 565, in _process_event_queue_entry
+    await self._execute_event(entry=entry, 
+registered_handler=registered_handler)
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/base_state_processor.py", line 382, in _execute_event
+    await process_event(
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/base_state_processor.py", line 264, in process_event
+    async for event in events:
+  File "/home/user/optimistic_todo/optimistic_todo/optimistic_todo.py", line 59,
+in add_todo
+    self._backup_todos = [TodoItem(**item.model_dump()) for item in self.todos]
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: optimistic_todo.optimistic_todo.TodoItem() argument after ** must be 
+a mapping, not tuple
+
+
+[Reflex Backend Exception]
+ Traceback (most recent call last):
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/event_processor.py", line 737, in _finish_task
+    future.result()
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/event_processor.py", line 728, in _finish_task
+    result = task.result()
+             ^^^^^^^^^^^^^
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/event_processor.py", line 565, in _process_event_queue_entry
+    await self._execute_event(entry=entry, 
+registered_handler=registered_handler)
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/base_state_processor.py", line 382, in _execute_event
+    await process_event(
+  File 
+"/home/user/optimistic_todo/.venv/lib/python3.12/site-packages/reflex_base/event
+/processor/base_state_processor.py", line 264, in process_event
+    async for event in events:
+  File "/home/user/optimistic_todo/optimistic_todo/optimistic_todo.py", line 
+108, in toggle_todo
+    self._backup_todos = [TodoItem(**item.model_dump()) for item in self.todos]
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: optimistic_todo.optimistic_todo.TodoItem() argument after ** must be 
+a mapping, not tuple
+
+
+
+===================== [TEARDOWN: End  ] reflex_app logfile =====================
+=========================== short test summary info ============================
+PASSED ../tests/test_final_state.py::test_sqlite_empty_after_delete
+FAILED ../tests/test_final_state.py::test_optimistic_add_toggle_and_rollback
+FAILED ../tests/test_final_state.py::test_sqlite_has_only_successful_todo - A...
+FAILED ../tests/test_final_state.py::test_delete_clears_list_and_db - Asserti...
+=================== 3 failed, 1 passed in 219.85s (0:03:39) ====================

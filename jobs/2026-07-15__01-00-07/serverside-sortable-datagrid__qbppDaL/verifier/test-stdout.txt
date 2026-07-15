@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 9 items
+
+../tests/test_final_state.py .........                                   [100%]
+
+==================================== PASSES ====================================
+_____________________________ test_backend_health ______________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run
+process 'reflex_app' started pid=2649
+reflex_app process startup detected
+===================== [STARTED: Begin] reflex_app logfile =====================
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+removed in 1.0.0. (<frozen abc>:106)
+DeprecationWarning: Implicit Radix Themes enablement has been deprecated in 
+version 0.9.0. a Radix Themes component was detected, which enables the full 
+Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to
+make this explicit, or remove Radix components to avoid loading the stylesheet. 
+It will be completely removed in 1.0. 
+(.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 17/16 0:00:00
+───────────────────────────────── App Running ──────────────────────────────────
+DeprecationWarning: reflex.Model has been deprecated in version 0.9.2. Directly 
+use database ORM layer, like sqlalchemy or SQLModel. It will be completely 
+removed in 1.0.0. (<frozen abc>:106)
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===================== [STARTED: End  ] reflex_app logfile =====================
+--------------------------- Captured stdout teardown ---------------------------
+===================== [TEARDOWN: Begin] reflex_app logfile =====================
+(skipped 18 already-printed lines)
+
+===================== [TEARDOWN: End  ] reflex_app logfile =====================
+=========================== short test summary info ============================
+PASSED ../tests/test_final_state.py::test_backend_health
+PASSED ../tests/test_final_state.py::test_default_listing_shape_and_order
+PASSED ../tests/test_final_state.py::test_pagination_last_page
+PASSED ../tests/test_final_state.py::test_department_filter
+PASSED ../tests/test_final_state.py::test_min_salary_filter
+PASSED ../tests/test_final_state.py::test_name_contains_filter
+PASSED ../tests/test_final_state.py::test_multi_column_sort
+PASSED ../tests/test_final_state.py::test_single_column_sort_salary_desc
+PASSED ../tests/test_final_state.py::test_browser_grid_renders
+========================= 9 passed in 64.65s (0:01:04) =========================

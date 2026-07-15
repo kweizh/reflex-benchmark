@@ -1,0 +1,76 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 7 items
+
+../../../tests/test_final_state.py ......F                               [100%]
+
+=================================== FAILURES ===================================
+______________________ test_frontend_compiled_with_title _______________________
+
+start_app = None
+
+    def test_frontend_compiled_with_title(start_app):
+        web_dir = os.path.join(PROJECT_DIR, ".web")
+        assert os.path.isdir(web_dir), (
+            f"Expected compiled frontend directory {web_dir} to exist after the app runs."
+        )
+        found = False
+        for root, dirs, files in os.walk(web_dir):
+            # Skip dependency dir to keep the scan fast.
+            if "node_modules" in dirs:
+                dirs.remove("node_modules")
+            for fname in files:
+                if not fname.endswith((".js", ".jsx", ".ts", ".tsx", ".html")):
+                    continue
+                fpath = os.path.join(root, fname)
+                try:
+                    with open(fpath, "r", errors="ignore") as f:
+                        if TITLE_TEXT in f.read():
+                            found = True
+                            break
+                except OSError:
+                    continue
+            if found:
+                break
+>       assert found, (
+            f"Expected the string '{TITLE_TEXT}' to appear in the compiled frontend under {web_dir}, "
+            "confirming the dashboard title/heading was implemented."
+        )
+E       AssertionError: Expected the string 'Live Metrics Dashboard' to appear in the compiled frontend under /home/user/metrics_app/.web, confirming the dashboard title/heading was implemented.
+E       assert False
+
+/tests/test_final_state.py:192: AssertionError
+--------------------------- Captured stdout teardown ---------------------------
+===================== [TEARDOWN: Begin] reflex_app logfile =====================
+(skipped 9 already-printed lines)
+
+===================== [TEARDOWN: End  ] reflex_app logfile =====================
+==================================== PASSES ====================================
+________________________ test_initial_metrics_snapshot _________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run --frontend-port 3000 --backend-port 8000
+process 'reflex_app' started pid=1455
+reflex_app process startup detected
+===================== [STARTED: Begin] reflex_app logfile =====================
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+Warning: Your version (20.20.2) of Node.js is out of date. Upgrade to 22.12.0 or
+higher.
+───────────────────────────────── App Running ──────────────────────────────────
+Warning: Your version (20.20.2) of Node.js is out of date. Upgrade to 22.12.0 or
+higher.
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===================== [STARTED: End  ] reflex_app logfile =====================
+=========================== short test summary info ============================
+PASSED ../../../tests/test_final_state.py::test_initial_metrics_snapshot
+PASSED ../../../tests/test_final_state.py::test_increment_default_amount
+PASSED ../../../tests/test_final_state.py::test_increment_explicit_amount
+PASSED ../../../tests/test_final_state.py::test_snapshot_reflects_increments
+PASSED ../../../tests/test_final_state.py::test_unknown_counter_rejected
+PASSED ../../../tests/test_final_state.py::test_frontend_served
+FAILED ../../../tests/test_final_state.py::test_frontend_compiled_with_title
+========================= 1 failed, 6 passed in 33.30s =========================

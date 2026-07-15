@@ -1,0 +1,30 @@
+{
+    "task": {
+        "path": "/home/kw/code/zealt/reflex-benchmark/scratchpad/pending-tasks/role-based-access-guard",
+        "source": "pending-tasks"
+    },
+    "trial_name": "role-based-access-guard__5rpHU2i",
+    "trials_dir": "jobs/2026-07-15__02-01-24",
+    "agent": {
+        "import_path": "agents.pochi:Pochi",
+        "model_name": "minimax/MiniMax-M3",
+        "env": {
+            "POCHI_API_KEY": "${POCHI_API_KEY}",
+            "MINIMAX_API_KEY": "${MINIMAX_API_KEY}"
+        }
+    },
+    "environment": {
+        "type": "daytona",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "test_initial_state.py",
+                "target": "/bootstrap/test_initial_state.py"
+            }
+        ]
+    },
+    "artifacts": [
+        "/home/user"
+    ],
+    "job_id": "1f2aa2c5-10b4-4eaa-8f27-6a712d947c53"
+}

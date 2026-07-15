@@ -1,0 +1,42 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 12 items
+
+../tests/test_final_state.py ............                                [100%]
+
+==================================== PASSES ====================================
+____________________________ test_backend_port_open ____________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/shopping_cart_app$ uv run reflex run --frontend-port 3000 --backend-port 8000
+process 'shopping_cart_app' started pid=1679
+shopping_cart_app process startup detected
+===================== [STARTED: Begin] shopping_cart_app logfile =====================
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 18/17 0:00:00
+───────────────────────────────── App Running ──────────────────────────────────
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===================== [STARTED: End  ] shopping_cart_app logfile =====================
+--------------------------- Captured stdout teardown ---------------------------
+===================== [TEARDOWN: Begin] shopping_cart_app logfile =====================
+(skipped 6 already-printed lines)
+
+===================== [TEARDOWN: End  ] shopping_cart_app logfile =====================
+=========================== short test summary info ============================
+PASSED ../tests/test_final_state.py::test_cart_core_importable_without_reflex
+PASSED ../tests/test_final_state.py::test_tax_rate_constant
+PASSED ../tests/test_final_state.py::test_discount_codes_defined
+PASSED ../tests/test_final_state.py::test_empty_cart_totals_are_zero
+PASSED ../tests/test_final_state.py::test_totals_without_code
+PASSED ../tests/test_final_state.py::test_totals_with_valid_code
+PASSED ../tests/test_final_state.py::test_code_is_case_insensitive
+PASSED ../tests/test_final_state.py::test_invalid_code_applies_no_discount
+PASSED ../tests/test_final_state.py::test_totals_with_save20
+PASSED ../tests/test_final_state.py::test_backend_port_open
+PASSED ../tests/test_final_state.py::test_frontend_serves_page
+PASSED ../tests/test_final_state.py::test_shopping_cart_behavior
+======================== 12 passed in 99.80s (0:01:39) =========================

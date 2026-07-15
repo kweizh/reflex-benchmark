@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "/home/kw/code/zealt/reflex-benchmark/scratchpad/pending-tasks/decimal-financial-report-serializer",
+        "source": "pending-tasks"
+    },
+    "trial_name": "decimal-financial-report-seriali__6TEtVdH",
+    "trials_dir": "jobs/2026-07-15__03-01-38",
+    "agent": {
+        "import_path": "agents.pochi:Pochi",
+        "model_name": "zai/glm-5.2",
+        "env": {
+            "POCHI_API_KEY": "${POCHI_API_KEY}"
+        }
+    },
+    "environment": {
+        "type": "daytona",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "test_initial_state.py",
+                "target": "/bootstrap/test_initial_state.py"
+            }
+        ]
+    },
+    "artifacts": [
+        "/home/user"
+    ],
+    "job_id": "865199db-6bdd-46c8-af9d-c15a1c149bf4"
+}

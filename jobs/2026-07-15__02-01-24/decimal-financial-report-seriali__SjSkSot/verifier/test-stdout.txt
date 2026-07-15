@@ -1,0 +1,36 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 2 items
+
+../tests/test_final_state.py ..                                          [100%]
+
+==================================== PASSES ====================================
+__________________________ test_initial_ledger_report __________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run
+process 'reflex_app' started pid=4943
+reflex_app process startup detected
+===== [STARTED: Begin] reflex_app logfile =====
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+DeprecationWarning: App(theme=...) has been deprecated in version 0.9.0. 
+configure `rx.plugins.RadixThemesPlugin(theme=...)` in `rxconfig.py` instead. It
+will be completely removed in 1.0. 
+(.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:100)
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 17/16 0:00:00
+───────────────────────────────── App Running ──────────────────────────────────
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===== [STARTED: End] reflex_app logfile =====
+--------------------------- Captured stdout teardown ---------------------------
+===== [TEARDOWN: Begin] reflex_app logfile =====
+(skipped 10 already-printed lines)
+
+===== [TEARDOWN: End] reflex_app logfile =====
+=========================== short test summary info ============================
+PASSED ../tests/test_final_state.py::test_initial_ledger_report
+PASSED ../tests/test_final_state.py::test_add_entry_updates_report
+======================== 2 passed in 148.85s (0:02:28) =========================

@@ -1,0 +1,9 @@
+[project]
+name = "dynamic-form-builder"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "reflex[db]>=0.9.6.post1",
+    "sqlalchemy>=2.0.51",
+    "sqlmodel>=0.0.39",
+]

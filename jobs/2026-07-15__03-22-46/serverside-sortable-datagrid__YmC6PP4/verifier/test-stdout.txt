@@ -1,0 +1,59 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 9 items
+
+../tests/test_final_state.py .........                                   [100%]
+
+==================================== PASSES ====================================
+_____________________________ test_backend_health ______________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run
+process 'reflex_app' started pid=2877
+reflex_app process startup detected
+===================== [STARTED: Begin] reflex_app logfile =====================
+@@__xproc_block_delimiter__@@
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable 
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable 
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+───────────────────────────── Starting Reflex App ──────────────────────────────
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable 
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+DeprecationWarning: App(theme=...) has been deprecated in version 0.9.0. 
+configure `rx.plugins.RadixThemesPlugin(theme=...)` in `rxconfig.py` instead. It
+will be completely removed in 1.0. 
+(.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:100)
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 14/13 0:00:00
+───────────────────────────────── App Running ──────────────────────────────────
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable 
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===================== [STARTED: End  ] reflex_app logfile =====================
+--------------------------- Captured stdout teardown ---------------------------
+===================== [TEARDOWN: Begin] reflex_app logfile =====================
+(skipped 26 already-printed lines)
+
+===================== [TEARDOWN: End  ] reflex_app logfile =====================
+=========================== short test summary info ============================
+PASSED ../tests/test_final_state.py::test_backend_health
+PASSED ../tests/test_final_state.py::test_default_listing_shape_and_order
+PASSED ../tests/test_final_state.py::test_pagination_last_page
+PASSED ../tests/test_final_state.py::test_department_filter
+PASSED ../tests/test_final_state.py::test_min_salary_filter
+PASSED ../tests/test_final_state.py::test_name_contains_filter
+PASSED ../tests/test_final_state.py::test_multi_column_sort
+PASSED ../tests/test_final_state.py::test_single_column_sort_salary_desc
+PASSED ../tests/test_final_state.py::test_browser_grid_renders
+======================== 9 passed in 207.93s (0:03:27) =========================

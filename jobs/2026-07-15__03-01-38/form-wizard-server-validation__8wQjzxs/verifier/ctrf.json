@@ -1,0 +1,239 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T19:14:08.433567+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 23,
+            "passed": 22,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784056371326,
+            "stop": 1784056448433
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_step1_valid_email",
+                "status": "passed",
+                "duration": 1,
+                "start": 1784056371417,
+                "stop": 1784056371418,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_step1_blank_email",
+                "status": "passed",
+                "duration": 1,
+                "start": 1784056371418,
+                "stop": 1784056371419,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_step1_malformed_email",
+                "status": "passed",
+                "duration": 0,
+                "start": 1784056371419,
+                "stop": 1784056371419,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_step2_valid_password",
+                "status": "passed",
+                "duration": 0,
+                "start": 1784056371419,
+                "stop": 1784056371419,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_step2_password_too_short",
+                "status": "passed",
+                "duration": 0,
+                "start": 1784056371420,
+                "stop": 1784056371420,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_step2_password_no_uppercase",
+                "status": "passed",
+                "duration": 0,
+                "start": 1784056371420,
+                "stop": 1784056371420,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_step2_password_no_lowercase",
+                "status": "passed",
+                "duration": 1,
+                "start": 1784056371420,
+                "stop": 1784056371421,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_step2_password_no_digit",
+                "status": "passed",
+                "duration": 0,
+                "start": 1784056371421,
+                "stop": 1784056371421,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_step2_password_mismatch",
+                "status": "passed",
+                "duration": 1,
+                "start": 1784056371421,
+                "stop": 1784056371422,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_step3_valid",
+                "status": "passed",
+                "duration": 0,
+                "start": 1784056371422,
+                "stop": 1784056371422,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_step3_blank_full_name",
+                "status": "passed",
+                "duration": 0,
+                "start": 1784056371422,
+                "stop": 1784056371422,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_step3_terms_not_accepted",
+                "status": "passed",
+                "duration": 1,
+                "start": 1784056371422,
+                "stop": 1784056371423,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_db_path_constant",
+                "status": "passed",
+                "duration": 0,
+                "start": 1784056371423,
+                "stop": 1784056371423,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_init_db_creates_schema",
+                "status": "passed",
+                "duration": 4,
+                "start": 1784056371423,
+                "stop": 1784056371427,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_insert_registration_persists_row",
+                "status": "passed",
+                "duration": 2,
+                "start": 1784056371427,
+                "stop": 1784056371429,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_app_defines_reflex_state",
+                "status": "passed",
+                "duration": 25,
+                "start": 1784056371429,
+                "stop": 1784056371454,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_app_uses_validate_step",
+                "status": "passed",
+                "duration": 23,
+                "start": 1784056371455,
+                "stop": 1784056371478,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_app_uses_persistence",
+                "status": "passed",
+                "duration": 24,
+                "start": 1784056371478,
+                "stop": 1784056371502,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_app_uses_cond",
+                "status": "passed",
+                "duration": 24,
+                "start": 1784056371502,
+                "stop": 1784056371526,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_app_defines_computed_vars",
+                "status": "passed",
+                "duration": 23,
+                "start": 1784056371526,
+                "stop": 1784056371549,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_backend_ping",
+                "status": "passed",
+                "duration": 1216,
+                "start": 1784056371550,
+                "stop": 1784056372766,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_serves_wizard",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 75664,
+                "start": 1784056372767,
+                "stop": 1784056448431,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "reflex_server = None\n\n    def test_frontend_serves_wizard(reflex_server):\n        # The frontend dev server compiles the page on first request; retry a few times.\n        last_exc = None\n        body = \"\"\n        status = None\n        for _ in range(15):\n            try:\n                resp = requests.get(f\"{FRONTEND_URL}/\", timeout=30)\n                status = resp.status_code\n                body = resp.text\n                if status == 200 and \"registration wizard\" in body.lower():\n                    break\n            except requests.RequestException as exc:  # noqa: PERF203\n                last_exc = exc\n            import time\n            time.sleep(5)\n        assert last_exc is None or status == 200, \\\n            f\"Failed to load the frontend page at {FRONTEND_URL}: {last_exc}\"\n        assert status == 200, f\"Frontend root returned status {status}\"\n>       assert \"registration wizard\" in body.lower(), \\\n            \"The frontend page should carry the document title 'Registration Wizard'.\"\nE       AssertionError: The frontend page should carry the document title 'Registration Wizard'.\nE       assert 'registration wizard' in '<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactroutercontext.streamcontroller.close();</script><!--/$--><!--/$--></body></html>'\nE        +  where '<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactroutercontext.streamcontroller.close();</script><!--/$--><!--/$--></body></html>' = <built-in method lower of str object at 0x21b8dde0>()\nE        +    where <built-in method lower of str object at 0x21b8dde0> = '<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta content=\"width=device-width, initial-scale=1\" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'.lower\n\n/tests/test_final_state.py:334: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_startup_creates_database",
+                "status": "passed",
+                "duration": 2,
+                "start": 1784056448431,
+                "stop": 1784056448433,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

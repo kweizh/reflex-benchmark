@@ -1,0 +1,50 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T19:36:29.641365+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784057489242,
+            "stop": 1784057789641
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_initial_ledger_report",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 212412,
+                "start": 1784057489311,
+                "stop": 1784057701723,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\nbrowser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x75dfc1efe330>\n\n    def test_initial_ledger_report(start_app, browser_verifier):\n        \"\"\"Verify serialized amounts/timestamps, running balances, and totals.\"\"\"\n        reason = (\n            \"The financial ledger report stores decimal.Decimal amounts and \"\n            \"datetime timestamps in state and uses custom serializers plus computed \"\n            \"vars to render a table with a running balance and totals. The seeded \"\n            \"data must render with the exact currency and datetime formatting.\"\n        )\n        truth = (\n            f\"Navigate to {BASE_URL} and wait until the ledger table is populated \"\n            \"with data (four seeded rows must appear; do not judge before the table \"\n            \"has data). \"\n            \"Verify the table shows these amounts formatted exactly as: \"\n            \"'$1,000.00', '-$234.56', '$2,500.00', and '-$89.99'. \"\n            \"Verify the table shows these timestamps formatted exactly as: \"\n            \"'2024-01-01 09:00', '2024-01-02 14:30', '2024-01-05 08:00', and \"\n            \"'2024-01-10 16:45'. \"\n            \"Verify the running Balance column shows the cumulative balances in \"\n            \"order: '$1,000.00', '$765.44', '$3,265.44', and '$3,175.45'. \"\n            \"Verify the totals shown on the page are: Total credits '$3,500.00', \"\n            \"Total debits '$324.55', and Net balance '$3,175.45'. \"\n            \"The verification passes only if every one of these formatted values is \"\n            \"present on the page.\"\n        )\n        result = browser_verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_initial_ledger_report\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The browser sub-agent failed to complete the verification because the task aborted after reaching the maximum number of retries.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\n/tests/test_final_state.py:119: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_add_entry_updates_report",
+                "status": "passed",
+                "duration": 87917,
+                "start": 1784057701723,
+                "stop": 1784057789640,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

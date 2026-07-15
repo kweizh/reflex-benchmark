@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "/home/kw/code/zealt/reflex-benchmark/scratchpad/pending-tasks/form-wizard-server-validation",
+        "source": "pending-tasks"
+    },
+    "trial_name": "form-wizard-server-validation__MLk5SYR",
+    "trials_dir": "jobs/2026-07-15__01-00-07",
+    "agent": {
+        "import_path": "agents.pochi:Pochi",
+        "model_name": "google/gemini-3.5-flash",
+        "env": {
+            "POCHI_API_KEY": "${POCHI_API_KEY}"
+        }
+    },
+    "environment": {
+        "type": "daytona",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "test_initial_state.py",
+                "target": "/bootstrap/test_initial_state.py"
+            }
+        ]
+    },
+    "artifacts": [
+        "/home/user"
+    ],
+    "job_id": "6d64b53d-f11d-4bb8-a623-bac0527c5c95"
+}

@@ -1,0 +1,90 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 23 items
+
+../tests/test_final_state.py .....................F.                     [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_frontend_serves_wizard __________________________
+
+reflex_server = None
+
+    def test_frontend_serves_wizard(reflex_server):
+        # The frontend dev server compiles the page on first request; retry a few times.
+        last_exc = None
+        body = ""
+        status = None
+        for _ in range(15):
+            try:
+                resp = requests.get(f"{FRONTEND_URL}/", timeout=30)
+                status = resp.status_code
+                body = resp.text
+                if status == 200 and "registration wizard" in body.lower():
+                    break
+            except requests.RequestException as exc:  # noqa: PERF203
+                last_exc = exc
+            import time
+            time.sleep(5)
+        assert last_exc is None or status == 200, \
+            f"Failed to load the frontend page at {FRONTEND_URL}: {last_exc}"
+        assert status == 200, f"Frontend root returned status {status}"
+>       assert "registration wizard" in body.lower(), \
+            "The frontend page should carry the document title 'Registration Wizard'."
+E       AssertionError: The frontend page should carry the document title 'Registration Wizard'.
+E       assert 'registration wizard' in '<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactroutercontext.streamcontroller.close();</script><!--/$--><!--/$--></body></html>'
+E        +  where '<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactroutercontext.streamcontroller.close();</script><!--/$--><!--/$--></body></html>' = <built-in method lower of str object at 0x3d691300>()
+E        +    where <built-in method lower of str object at 0x3d691300> = '<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta content="width=device-width, initial-scale=1" name=.../script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>'.lower
+
+/tests/test_final_state.py:334: AssertionError
+==================================== PASSES ====================================
+______________________________ test_backend_ping _______________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_server$ uv run reflex run
+process 'reflex_server' started pid=1732
+reflex_server process startup detected
+===== [STARTED] reflex_server log =====
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+DeprecationWarning: Implicit Radix Themes enablement has been deprecated in 
+version 0.9.0. a Radix Themes component was detected, which enables the full 
+Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to
+make this explicit, or remove Radix components to avoid loading the stylesheet. 
+It will be completely removed in 1.0. 
+(.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 17/16 0:00:00
+───────────────────────────────── App Running ──────────────────────────────────
+
+===== [STARTED] end reflex_server log =====
+--------------------------- Captured stdout teardown ---------------------------
+===== [TEARDOWN] reflex_server log =====
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===== [TEARDOWN] end reflex_server log =====
+=========================== short test summary info ============================
+PASSED ../tests/test_final_state.py::test_step1_valid_email
+PASSED ../tests/test_final_state.py::test_step1_blank_email
+PASSED ../tests/test_final_state.py::test_step1_malformed_email
+PASSED ../tests/test_final_state.py::test_step2_valid_password
+PASSED ../tests/test_final_state.py::test_step2_password_too_short
+PASSED ../tests/test_final_state.py::test_step2_password_no_uppercase
+PASSED ../tests/test_final_state.py::test_step2_password_no_lowercase
+PASSED ../tests/test_final_state.py::test_step2_password_no_digit
+PASSED ../tests/test_final_state.py::test_step2_password_mismatch
+PASSED ../tests/test_final_state.py::test_step3_valid
+PASSED ../tests/test_final_state.py::test_step3_blank_full_name
+PASSED ../tests/test_final_state.py::test_step3_terms_not_accepted
+PASSED ../tests/test_final_state.py::test_db_path_constant
+PASSED ../tests/test_final_state.py::test_init_db_creates_schema
+PASSED ../tests/test_final_state.py::test_insert_registration_persists_row
+PASSED ../tests/test_final_state.py::test_app_defines_reflex_state
+PASSED ../tests/test_final_state.py::test_app_uses_validate_step
+PASSED ../tests/test_final_state.py::test_app_uses_persistence
+PASSED ../tests/test_final_state.py::test_app_uses_cond
+PASSED ../tests/test_final_state.py::test_app_defines_computed_vars
+PASSED ../tests/test_final_state.py::test_backend_ping
+PASSED ../tests/test_final_state.py::test_startup_creates_database
+FAILED ../tests/test_final_state.py::test_frontend_serves_wizard - AssertionE...
+=================== 1 failed, 22 passed in 77.04s (0:01:17) ====================

@@ -1,0 +1,49 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 3 items
+
+../tests/test_final_state.py ...                                         [100%]
+
+==================================== PASSES ====================================
+_______________________________ test_ui_journey ________________________________
+---------------------------- Captured stdout setup -----------------------------
+=== reflex db migrate stdout ===
+
+=== reflex db migrate stderr ===
+/home/user/dynamic_form_builder/.venv/lib/python3.12/site-packages/sqlmodel/main.py:582: UserWarning: Field name "schema_json" in "Submission" shadows an attribute in parent "SQLModel"
+  "SQLModel", super().__new__(cls, name, bases, dict_used, **config_kwargs)
+
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run
+process 'reflex_app' started pid=1893
+reflex_app process startup detected
+===================== [STARTED: Begin] reflex_app log =====================
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+/home/user/dynamic_form_builder/.venv/lib/python3.12/site-packages/sqlmodel/main.py:582: UserWarning: Field name "schema_json" in "Submission" shadows an attribute in parent "SQLModel"
+  "SQLModel", super().__new__(cls, name, bases, dict_used, **config_kwargs)
+DeprecationWarning: Implicit Radix Themes enablement has been deprecated in 
+version 0.9.0. a Radix Themes component was detected, which enables the full 
+Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to
+make this explicit, or remove Radix components to avoid loading the stylesheet. 
+It will be completely removed in 1.0. 
+(.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 17/16 0:00:00
+───────────────────────────────── App Running ──────────────────────────────────
+/home/user/dynamic_form_builder/.venv/lib/python3.12/site-packages/sqlmodel/main.py:582: UserWarning: Field name "schema_json" in "Submission" shadows an attribute in parent "SQLModel"
+  "SQLModel", super().__new__(cls, name, bases, dict_used, **config_kwargs)
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===================== [STARTED: End  ] reflex_app log =====================
+--------------------------- Captured stdout teardown ---------------------------
+===================== [TEARDOWN: Begin] reflex_app log =====================
+(skipped 16 already-printed lines)
+
+===================== [TEARDOWN: End  ] reflex_app log =====================
+=========================== short test summary info ============================
+PASSED ../tests/test_final_state.py::test_ui_journey
+PASSED ../tests/test_final_state.py::test_submission_persisted
+PASSED ../tests/test_final_state.py::test_submission_schema_and_values
+======================== 3 passed in 245.55s (0:04:05) =========================

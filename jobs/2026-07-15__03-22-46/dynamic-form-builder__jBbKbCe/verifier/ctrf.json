@@ -1,0 +1,65 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T19:36:09.092723+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784057593197,
+            "stop": 1784057769092
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_ui_journey",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 175802,
+                "start": 1784057593270,
+                "stop": 1784057769072,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "ui_flow = VerificationResult(status='fail', reason='The browser sub-agent failed to execute or could not be launched. Task abort...0m\\t\\x1b[37m\\x1b[39m\\x1b[0m\\x1b[0m\\x1b[1m\\x1b[37m\\tPochi\\x1b[39m\\x1b[22m\\x1b[0m\\x1b[0m\\tProcess exiting with code 0\\n\")\n\n    def test_ui_journey(ui_flow):\n>       assert ui_flow.status == \"pass\", f\"Browser verification failed: {ui_flow.reason}\"\nE       AssertionError: Browser verification failed: The browser sub-agent failed to execute or could not be launched. Task aborted: maximum number of retries reached (3).\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\n/tests/test_final_state.py:173: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_submission_persisted",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1784057769072,
+                "stop": 1784057769083,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "ui_flow = VerificationResult(status='fail', reason='The browser sub-agent failed to execute or could not be launched. Task abort...0m\\t\\x1b[37m\\x1b[39m\\x1b[0m\\x1b[0m\\x1b[1m\\x1b[37m\\tPochi\\x1b[39m\\x1b[22m\\x1b[0m\\x1b[0m\\tProcess exiting with code 0\\n\")\n\n    def test_submission_persisted(ui_flow):\n        \"\"\"Exactly one row must be persisted (the single valid submit).\"\"\"\n        assert os.path.isfile(DB_PATH), f\"SQLite database not found at {DB_PATH}.\"\n        conn = sqlite3.connect(DB_PATH)\n        try:\n            cur = conn.execute(\"SELECT COUNT(*) FROM submission\")\n            count = cur.fetchone()[0]\n        finally:\n            conn.close()\n        # If the invalid submit had persisted a row there would be two rows total.\n>       assert count == 1, (\n            f\"Expected exactly 1 row in the 'submission' table (one valid submit; the \"\n            f\"invalid submit must not persist), but found {count}.\"\n        )\nE       AssertionError: Expected exactly 1 row in the 'submission' table (one valid submit; the invalid submit must not persist), but found 0.\nE       assert 0 == 1\n\n/tests/test_final_state.py:186: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_submission_schema_and_values",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 8,
+                "start": 1784057769084,
+                "stop": 1784057769092,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "ui_flow = VerificationResult(status='fail', reason='The browser sub-agent failed to execute or could not be launched. Task abort...0m\\t\\x1b[37m\\x1b[39m\\x1b[0m\\x1b[0m\\x1b[1m\\x1b[37m\\tPochi\\x1b[39m\\x1b[22m\\x1b[0m\\x1b[0m\\tProcess exiting with code 0\\n\")\n\n    def test_submission_schema_and_values(ui_flow):\n        conn = sqlite3.connect(DB_PATH)\n        try:\n            row = conn.execute(\n                \"SELECT schema_json, values_json FROM submission ORDER BY id DESC LIMIT 1\"\n            ).fetchone()\n        finally:\n            conn.close()\n>       assert row is not None, \"No row found in the 'submission' table.\"\nE       AssertionError: No row found in the 'submission' table.\nE       assert None is not None\n\n/tests/test_final_state.py:200: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

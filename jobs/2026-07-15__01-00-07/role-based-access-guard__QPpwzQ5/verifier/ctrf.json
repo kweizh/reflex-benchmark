@@ -1,0 +1,83 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T17:18:09.108689+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784049138374,
+            "stop": 1784049489108
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_unauthenticated_guards_redirect_to_login",
+                "status": "passed",
+                "duration": 63907,
+                "start": 1784049138430,
+                "stop": 1784049202337,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_login_is_rejected",
+                "status": "passed",
+                "duration": 66491,
+                "start": 1784049202338,
+                "stop": 1784049268829,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_regular_user_login_and_admin_blocked",
+                "status": "passed",
+                "duration": 73604,
+                "start": 1784049268830,
+                "stop": 1784049342434,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_admin_can_access_admin_page",
+                "status": "passed",
+                "duration": 70968,
+                "start": 1784049342435,
+                "stop": 1784049413403,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_logout_clears_session",
+                "status": "passed",
+                "duration": 75646,
+                "start": 1784049413403,
+                "stop": 1784049489049,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_plaintext_secrets_not_exposed_in_frontend",
+                "status": "passed",
+                "duration": 57,
+                "start": 1784049489050,
+                "stop": 1784049489107,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

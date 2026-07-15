@@ -1,0 +1,65 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T19:16:43.382849+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784056342442,
+            "stop": 1784056603382
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_ui_journey",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 260848,
+                "start": 1784056342518,
+                "stop": 1784056603366,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "ui_flow = VerificationResult(status='fail', reason=\"The sub-agent failed the test because navigating to http://127.0.0.1:3000 di...0m\\t\\x1b[37m\\x1b[39m\\x1b[0m\\x1b[0m\\x1b[1m\\x1b[37m\\tPochi\\x1b[39m\\x1b[22m\\x1b[0m\\x1b[0m\\tProcess exiting with code 0\\n\")\n\n    def test_ui_journey(ui_flow):\n>       assert ui_flow.status == \"pass\", f\"Browser verification failed: {ui_flow.reason}\"\nE       AssertionError: Browser verification failed: The sub-agent failed the test because navigating to http://127.0.0.1:3000 displayed the default boilerplate 'Welcome to Reflex!' page instead of the 'Dynamic Form Builder' page, meaning the target application was not running or not served at the expected location. Since the sub-agent is forbidden from starting processes or modifying configuration, it had to fail.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\n/tests/test_final_state.py:173: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_submission_persisted",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1784056603366,
+                "stop": 1784056603371,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "ui_flow = VerificationResult(status='fail', reason=\"The sub-agent failed the test because navigating to http://127.0.0.1:3000 di...0m\\t\\x1b[37m\\x1b[39m\\x1b[0m\\x1b[0m\\x1b[1m\\x1b[37m\\tPochi\\x1b[39m\\x1b[22m\\x1b[0m\\x1b[0m\\tProcess exiting with code 0\\n\")\n\n    def test_submission_persisted(ui_flow):\n        \"\"\"Exactly one row must be persisted (the single valid submit).\"\"\"\n>       assert os.path.isfile(DB_PATH), f\"SQLite database not found at {DB_PATH}.\"\nE       AssertionError: SQLite database not found at /home/user/dynamic_form_builder/reflex.db.\nE       assert False\nE        +  where False = <function isfile at 0x728361058220>('/home/user/dynamic_form_builder/reflex.db')\nE        +    where <function isfile at 0x728361058220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:178: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_submission_schema_and_values",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1784056603371,
+                "stop": 1784056603382,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "ui_flow = VerificationResult(status='fail', reason=\"The sub-agent failed the test because navigating to http://127.0.0.1:3000 di...0m\\t\\x1b[37m\\x1b[39m\\x1b[0m\\x1b[0m\\x1b[1m\\x1b[37m\\tPochi\\x1b[39m\\x1b[22m\\x1b[0m\\x1b[0m\\tProcess exiting with code 0\\n\")\n\n    def test_submission_schema_and_values(ui_flow):\n        conn = sqlite3.connect(DB_PATH)\n        try:\n>           row = conn.execute(\n                \"SELECT schema_json, values_json FROM submission ORDER BY id DESC LIMIT 1\"\n            ).fetchone()\nE           sqlite3.OperationalError: no such table: submission\n\n/tests/test_final_state.py:195: OperationalError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

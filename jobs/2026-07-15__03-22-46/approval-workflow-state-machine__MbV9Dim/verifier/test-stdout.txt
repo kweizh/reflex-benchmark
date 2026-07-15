@@ -1,0 +1,40 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 3 items
+
+../tests/test_final_state.py ...                                         [100%]
+
+==================================== PASSES ====================================
+______________________________ test_backend_ping _______________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run
+process 'reflex_app' started pid=3475
+reflex_app process startup detected
+===== [STARTED] reflex_app log =====
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+/home/user/approval_app/.venv/lib/python3.12/site-packages/reflex/model.py:253: SAWarning: Table 'document' already exists within the given MetaData - not copying.
+  table.to_metadata(metadata)
+/home/user/approval_app/.venv/lib/python3.12/site-packages/reflex/model.py:253: SAWarning: Table 'auditlogentry' already exists within the given MetaData - not copying.
+  table.to_metadata(metadata)
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 18/17 0:00:00
+Warning: Your version (20.20.2) of Node.js is out of date. Upgrade to 22.12.0 or
+higher.
+───────────────────────────────── App Running ──────────────────────────────────
+Warning: Your version (20.20.2) of Node.js is out of date. Upgrade to 22.12.0 or
+higher.
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===== [STARTED] end reflex_app log =====
+--------------------------- Captured stdout teardown ---------------------------
+===== [TEARDOWN] reflex_app log =====
+
+===== [TEARDOWN] end reflex_app log =====
+=========================== short test summary info ============================
+PASSED ../tests/test_final_state.py::test_backend_ping
+PASSED ../tests/test_final_state.py::test_frontend_serves
+PASSED ../tests/test_final_state.py::test_workflow_state_machine_and_audit_log
+============================== 3 passed in 43.02s ==============================

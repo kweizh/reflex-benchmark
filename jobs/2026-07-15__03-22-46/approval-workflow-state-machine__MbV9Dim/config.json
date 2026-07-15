@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "/home/kw/code/zealt/reflex-benchmark/scratchpad/pending-tasks/approval-workflow-state-machine",
+        "source": "pending-tasks"
+    },
+    "trial_name": "approval-workflow-state-machine__MbV9Dim",
+    "trials_dir": "jobs/2026-07-15__03-22-46",
+    "agent": {
+        "import_path": "agents.pochi:Pochi",
+        "model_name": "anthropic/claude-4-6-sonnet",
+        "env": {
+            "POCHI_API_KEY": "${POCHI_API_KEY}"
+        }
+    },
+    "environment": {
+        "type": "daytona",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "test_initial_state.py",
+                "target": "/bootstrap/test_initial_state.py"
+            }
+        ]
+    },
+    "artifacts": [
+        "/home/user"
+    ],
+    "job_id": "bcd5620e-cb72-4539-8a1d-5e3fd7f3bd0b"
+}

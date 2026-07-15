@@ -1,0 +1,7 @@
+[project]
+name = "task-board"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "reflex[db]>=0.9.6.post1",
+]

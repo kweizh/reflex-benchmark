@@ -1,0 +1,56 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T19:12:43.776296+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784056343982,
+            "stop": 1784056363776
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_backend_ping",
+                "status": "passed",
+                "duration": 7545,
+                "start": 1784056344057,
+                "stop": 1784056351602,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_serves",
+                "status": "passed",
+                "duration": 194,
+                "start": 1784056351602,
+                "stop": 1784056351796,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_workflow_state_machine_and_audit_log",
+                "status": "passed",
+                "duration": 11979,
+                "start": 1784056351796,
+                "stop": 1784056363775,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

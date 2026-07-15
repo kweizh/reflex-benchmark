@@ -1,0 +1,45 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 5 items
+
+../tests/test_final_state.py .....                                       [100%]
+
+==================================== PASSES ====================================
+_____________________ test_initial_render_and_total_count ______________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run --frontend-port 3000 --backend-port 8000
+process 'reflex_app' started pid=3045
+reflex_app process startup detected
+===================== [STARTED: Begin] Captured reflex_app logfile =====================
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+DeprecationWarning: Implicit Radix Themes enablement has been deprecated in 
+version 0.9.0. a Radix Themes component was detected, which enables the full 
+Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to
+make this explicit, or remove Radix components to avoid loading the stylesheet. 
+It will be completely removed in 1.0. 
+(.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 17/16 0:00:00
+Warning: Your version (20.20.2) of Node.js is out of date. Upgrade to 22.12.0 or
+higher.
+───────────────────────────────── App Running ──────────────────────────────────
+Warning: Your version (20.20.2) of Node.js is out of date. Upgrade to 22.12.0 or
+higher.
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===================== [STARTED: End  ] Captured reflex_app logfile =====================
+--------------------------- Captured stdout teardown ---------------------------
+===================== [TEARDOWN: Begin] Captured reflex_app logfile =====================
+(skipped 16 already-printed lines)
+
+===================== [TEARDOWN: End  ] Captured reflex_app logfile =====================
+=========================== short test summary info ============================
+PASSED ../tests/test_final_state.py::test_initial_render_and_total_count
+PASSED ../tests/test_final_state.py::test_expand_folders_and_select_deep_file
+PASSED ../tests/test_final_state.py::test_select_shallow_file
+PASSED ../tests/test_final_state.py::test_expand_docs_and_select_file
+PASSED ../tests/test_final_state.py::test_collapse_hides_descendants
+======================== 5 passed in 468.36s (0:07:48) =========================

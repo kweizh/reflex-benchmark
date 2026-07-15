@@ -1,0 +1,95 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T19:27:39.182339+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 6,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784057225875,
+            "stop": 1784057259182
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_initial_metrics_snapshot",
+                "status": "passed",
+                "duration": 33127,
+                "start": 1784057225956,
+                "stop": 1784057259083,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_increment_default_amount",
+                "status": "passed",
+                "duration": 2,
+                "start": 1784057259083,
+                "stop": 1784057259085,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_increment_explicit_amount",
+                "status": "passed",
+                "duration": 1,
+                "start": 1784057259085,
+                "stop": 1784057259086,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_snapshot_reflects_increments",
+                "status": "passed",
+                "duration": 1,
+                "start": 1784057259086,
+                "stop": 1784057259087,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_unknown_counter_rejected",
+                "status": "passed",
+                "duration": 42,
+                "start": 1784057259087,
+                "stop": 1784057259129,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_served",
+                "status": "passed",
+                "duration": 31,
+                "start": 1784057259129,
+                "stop": 1784057259160,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_compiled_with_title",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 22,
+                "start": 1784057259160,
+                "stop": 1784057259182,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_frontend_compiled_with_title(start_app):\n        web_dir = os.path.join(PROJECT_DIR, \".web\")\n        assert os.path.isdir(web_dir), (\n            f\"Expected compiled frontend directory {web_dir} to exist after the app runs.\"\n        )\n        found = False\n        for root, dirs, files in os.walk(web_dir):\n            # Skip dependency dir to keep the scan fast.\n            if \"node_modules\" in dirs:\n                dirs.remove(\"node_modules\")\n            for fname in files:\n                if not fname.endswith((\".js\", \".jsx\", \".ts\", \".tsx\", \".html\")):\n                    continue\n                fpath = os.path.join(root, fname)\n                try:\n                    with open(fpath, \"r\", errors=\"ignore\") as f:\n                        if TITLE_TEXT in f.read():\n                            found = True\n                            break\n                except OSError:\n                    continue\n            if found:\n                break\n>       assert found, (\n            f\"Expected the string '{TITLE_TEXT}' to appear in the compiled frontend under {web_dir}, \"\n            \"confirming the dashboard title/heading was implemented.\"\n        )\nE       AssertionError: Expected the string 'Live Metrics Dashboard' to appear in the compiled frontend under /home/user/metrics_app/.web, confirming the dashboard title/heading was implemented.\nE       assert False\n\n/tests/test_final_state.py:192: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

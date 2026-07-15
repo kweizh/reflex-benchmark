@@ -1,0 +1,65 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T18:15:37.849166+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784052752755,
+            "stop": 1784052937849
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_optimistic_add_toggle_and_rollback",
+                "status": "passed",
+                "duration": 116143,
+                "start": 1784052752830,
+                "stop": 1784052868973,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sqlite_has_only_successful_todo",
+                "status": "passed",
+                "duration": 9,
+                "start": 1784052868974,
+                "stop": 1784052868983,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_delete_clears_list_and_db",
+                "status": "passed",
+                "duration": 68856,
+                "start": 1784052868983,
+                "stop": 1784052937839,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sqlite_empty_after_delete",
+                "status": "passed",
+                "duration": 9,
+                "start": 1784052937839,
+                "stop": 1784052937848,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

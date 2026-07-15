@@ -1,0 +1,74 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T19:38:47.701547+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784057459341,
+            "stop": 1784057927701
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_initial_render_and_total_count",
+                "status": "passed",
+                "duration": 68347,
+                "start": 1784057459416,
+                "stop": 1784057527763,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_expand_folders_and_select_deep_file",
+                "status": "passed",
+                "duration": 201752,
+                "start": 1784057527764,
+                "stop": 1784057729516,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_select_shallow_file",
+                "status": "passed",
+                "duration": 62274,
+                "start": 1784057729516,
+                "stop": 1784057791790,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_expand_docs_and_select_file",
+                "status": "passed",
+                "duration": 69892,
+                "start": 1784057791790,
+                "stop": 1784057861682,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_collapse_hides_descendants",
+                "status": "passed",
+                "duration": 66018,
+                "start": 1784057861683,
+                "stop": 1784057927701,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

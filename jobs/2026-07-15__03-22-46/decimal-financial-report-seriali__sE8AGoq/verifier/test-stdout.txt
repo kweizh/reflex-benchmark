@@ -1,0 +1,74 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 2 items
+
+../tests/test_final_state.py F.                                          [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_initial_ledger_report __________________________
+
+start_app = None
+browser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x75dfc1efe330>
+
+    def test_initial_ledger_report(start_app, browser_verifier):
+        """Verify serialized amounts/timestamps, running balances, and totals."""
+        reason = (
+            "The financial ledger report stores decimal.Decimal amounts and "
+            "datetime timestamps in state and uses custom serializers plus computed "
+            "vars to render a table with a running balance and totals. The seeded "
+            "data must render with the exact currency and datetime formatting."
+        )
+        truth = (
+            f"Navigate to {BASE_URL} and wait until the ledger table is populated "
+            "with data (four seeded rows must appear; do not judge before the table "
+            "has data). "
+            "Verify the table shows these amounts formatted exactly as: "
+            "'$1,000.00', '-$234.56', '$2,500.00', and '-$89.99'. "
+            "Verify the table shows these timestamps formatted exactly as: "
+            "'2024-01-01 09:00', '2024-01-02 14:30', '2024-01-05 08:00', and "
+            "'2024-01-10 16:45'. "
+            "Verify the running Balance column shows the cumulative balances in "
+            "order: '$1,000.00', '$765.44', '$3,265.44', and '$3,175.45'. "
+            "Verify the totals shown on the page are: Total credits '$3,500.00', "
+            "Total debits '$324.55', and Net balance '$3,175.45'. "
+            "The verification passes only if every one of these formatted values is "
+            "present on the page."
+        )
+        result = browser_verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_initial_ledger_report",
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The browser sub-agent failed to complete the verification because the task aborted after reaching the maximum number of retries.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+/tests/test_final_state.py:119: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run
+process 'reflex_app' started pid=3277
+reflex_app process startup detected
+===== [STARTED: Begin] reflex_app logfile =====
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 18/17 0:00:00
+───────────────────────────────── App Running ──────────────────────────────────
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===== [STARTED: End] reflex_app logfile =====
+==================================== PASSES ====================================
+--------------------------- Captured stdout teardown ---------------------------
+===== [TEARDOWN: Begin] reflex_app logfile =====
+(skipped 6 already-printed lines)
+
+===== [TEARDOWN: End] reflex_app logfile =====
+=========================== short test summary info ============================
+PASSED ../tests/test_final_state.py::test_add_entry_updates_report
+FAILED ../tests/test_final_state.py::test_initial_ledger_report - AssertionEr...
+=================== 1 failed, 1 passed in 300.40s (0:05:00) ====================

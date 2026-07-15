@@ -1,0 +1,59 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T18:09:17.076406+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784052549521,
+            "stop": 1784052557076
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_backend_ping",
+                "status": "passed",
+                "duration": 7185,
+                "start": 1784052549592,
+                "stop": 1784052556777,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_serves",
+                "status": "passed",
+                "duration": 96,
+                "start": 1784052556777,
+                "stop": 1784052556873,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_workflow_state_machine_and_audit_log",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 202,
+                "start": 1784052556873,
+                "stop": 1784052557075,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_workflow_state_machine_and_audit_log(start_app):\n        # --- Clean start (truth: Setup / reset) ---\n        r = run_cli(\"reset\")\n>       assert r.returncode == 0, f\"'reset' should exit 0, got {r.returncode}. stderr: {r.stderr}\"\nE       AssertionError: 'reset' should exit 0, got 1. stderr: /home/user/approval_app/.venv/bin/python3: No module named approval_app.workflow_cli\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['uv', 'run', 'python', '-m', 'approval_app.workflow_cli', 'reset'], returncode=1, stdout='', stderr='/home/user/approval_app/.venv/bin/python3: No module named approval_app.workflow_cli\\n').returncode\n\n/tests/test_final_state.py:148: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

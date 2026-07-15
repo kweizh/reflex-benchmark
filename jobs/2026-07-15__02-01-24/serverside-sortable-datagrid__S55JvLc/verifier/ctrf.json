@@ -1,0 +1,134 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T18:11:45.250832+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 1,
+            "failed": 8,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784052600046,
+            "stop": 1784052705250
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_backend_health",
+                "status": "passed",
+                "duration": 3748,
+                "start": 1784052600144,
+                "stop": 1784052603892,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_default_listing_shape_and_order",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 170,
+                "start": 1784052603892,
+                "stop": 1784052604062,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_default_listing_shape_and_order(start_app):\n        resp = _get()\n        assert resp.status_code == 200, f\"GET /api/employees returned {resp.status_code}\"\n        data = resp.json()\n        assert set(data.keys()) == RESPONSE_KEYS, (\n            f\"Response keys must be exactly {RESPONSE_KEYS}, got {set(data.keys())}\"\n        )\n>       assert data[\"total\"] == 24, f\"Expected total 24, got {data['total']}\"\nE       AssertionError: Expected total 24, got 0\nE       assert 0 == 24\n\n/tests/test_final_state.py:138: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_pagination_last_page",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 9,
+                "start": 1784052604062,
+                "stop": 1784052604071,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_pagination_last_page(start_app):\n        resp = _get({\"page\": 3, \"page_size\": 10})\n        assert resp.status_code == 200, f\"Pagination request returned {resp.status_code}\"\n        data = resp.json()\n>       assert data[\"page_label\"] == \"Page 3 of 3\", (\n            f\"Expected page_label 'Page 3 of 3', got {data['page_label']!r}\"\n        )\nE       AssertionError: Expected page_label 'Page 3 of 3', got 'Page 3 of 1'\nE       assert 'Page 3 of 1' == 'Page 3 of 3'\nE         - Page 3 of 3\nE         ?           ^\nE         + Page 3 of 1\nE         ?           ^\n\n/tests/test_final_state.py:171: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_department_filter",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 8,
+                "start": 1784052604071,
+                "stop": 1784052604079,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_department_filter(start_app):\n        resp = _get({\"department\": \"Engineering\", \"page_size\": 100})\n        assert resp.status_code == 200, f\"Department filter returned {resp.status_code}\"\n        data = resp.json()\n        expected = [e for e in expected_employees() if e[\"department\"] == \"Engineering\"]\n>       assert data[\"total\"] == len(expected), (\n            f\"Engineering total should be {len(expected)}, got {data['total']}\"\n        )\nE       AssertionError: Engineering total should be 6, got 0\nE       assert 0 == 6\nE        +  where 6 = len([{'active': True, 'department': 'Engineering', 'id': 1, 'name': 'Employee 01', ...}, {'active': False, 'department': '...: 17, 'name': 'Employee 17', ...}, {'active': True, 'department': 'Engineering', 'id': 21, 'name': 'Employee 21', ...}])\n\n/tests/test_final_state.py:185: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_min_salary_filter",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 89,
+                "start": 1784052604079,
+                "stop": 1784052604168,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_min_salary_filter(start_app):\n        salaries = sorted(e[\"salary\"] for e in expected_employees())\n        threshold = salaries[len(salaries) // 2]  # median-ish value derived from the data\n        resp = _get({\"min_salary\": threshold, \"page_size\": 100})\n        assert resp.status_code == 200, f\"min_salary filter returned {resp.status_code}\"\n        data = resp.json()\n        expected_count = sum(1 for e in expected_employees() if e[\"salary\"] >= threshold)\n>       assert data[\"total\"] == expected_count, (\n            f\"min_salary={threshold} total should be {expected_count}, got {data['total']}\"\n        )\nE       AssertionError: min_salary=55100 total should be 12, got 0\nE       assert 0 == 12\n\n/tests/test_final_state.py:202: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_name_contains_filter",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 12,
+                "start": 1784052604168,
+                "stop": 1784052604180,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_name_contains_filter(start_app):\n        resp = _get({\"name_contains\": \"1\", \"page_size\": 100})\n        assert resp.status_code == 200, f\"name_contains filter returned {resp.status_code}\"\n        data = resp.json()\n        expected_count = sum(1 for e in expected_employees() if \"1\" in e[\"name\"])\n>       assert data[\"total\"] == expected_count, (\n            f\"name_contains='1' total should be {expected_count}, got {data['total']}\"\n        )\nE       AssertionError: name_contains='1' total should be 12, got 0\nE       assert 0 == 12\n\n/tests/test_final_state.py:216: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_multi_column_sort",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 8,
+                "start": 1784052604180,
+                "stop": 1784052604188,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_multi_column_sort(start_app):\n        resp = _get({\"sort\": \"department:asc,salary:desc\", \"page_size\": 100})\n        assert resp.status_code == 200, f\"Multi-column sort returned {resp.status_code}\"\n        data = resp.json()\n        rows = data[\"rows\"]\n>       assert len(rows) == 24, f\"Expected all 24 rows, got {len(rows)}\"\nE       AssertionError: Expected all 24 rows, got 0\nE       assert 0 == 24\nE        +  where 0 = len([])\n\n/tests/test_final_state.py:228: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_single_column_sort_salary_desc",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1784052604188,
+                "stop": 1784052604194,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_single_column_sort_salary_desc(start_app):\n        resp = _get({\"sort\": \"salary:desc\"})\n        assert resp.status_code == 200, f\"salary:desc sort returned {resp.status_code}\"\n        data = resp.json()\n        max_salary_emp = max(expected_employees(), key=lambda e: e[\"salary\"])\n>       first = data[\"rows\"][0]\nE       IndexError: list index out of range\n\n/tests/test_final_state.py:259: IndexError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_browser_grid_renders",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 101056,
+                "start": 1784052604194,
+                "stop": 1784052705250,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\nbrowser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x7cfa227f9e20>\n\n    def test_browser_grid_renders(start_app, browser_verifier):\n        reason = (\n            \"The Reflex application's home page must render a server-side employee data \"\n            \"grid showing employee rows, department values, sortable column headers, and a \"\n            \"computed page label.\"\n        )\n        truth = (\n            f\"Navigate to {FRONTEND_URL}. Verify the page shows a table of employees \"\n            \"containing rows with names like 'Employee 01' and department values such as \"\n            \"'Engineering'. Verify the page displays the text 'Page 1 of 3'. Verify that \"\n            \"clickable column headers for 'name', 'department', and 'salary' are present.\"\n        )\n        result = browser_verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_grid_renders\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The test failed because the employee data grid did not render any employee rows. Specifically, the table displayed 'No matching rows.' instead of containing rows with names like 'Employee 01' and department values such as 'Engineering'. Additionally, the computed page label showed 'Page 1 of 1' instead of 'Page 1 of 3'. While the clickable column headers for 'Name', 'Department', and 'Salary' were present, the lack of employee data and incorrect page count means the verification steps were not successfully met.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\n/tests/test_final_state.py:286: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

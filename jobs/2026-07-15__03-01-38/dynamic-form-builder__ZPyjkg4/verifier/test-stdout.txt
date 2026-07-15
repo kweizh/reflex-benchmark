@@ -1,0 +1,108 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 3 items
+
+../tests/test_final_state.py FFF                                         [100%]
+
+=================================== FAILURES ===================================
+_______________________________ test_ui_journey ________________________________
+
+ui_flow = VerificationResult(status='fail', reason="The sub-agent failed the test because navigating to http://127.0.0.1:3000 di...0m\t\x1b[37m\x1b[39m\x1b[0m\x1b[0m\x1b[1m\x1b[37m\tPochi\x1b[39m\x1b[22m\x1b[0m\x1b[0m\tProcess exiting with code 0\n")
+
+    def test_ui_journey(ui_flow):
+>       assert ui_flow.status == "pass", f"Browser verification failed: {ui_flow.reason}"
+E       AssertionError: Browser verification failed: The sub-agent failed the test because navigating to http://127.0.0.1:3000 displayed the default boilerplate 'Welcome to Reflex!' page instead of the 'Dynamic Form Builder' page, meaning the target application was not running or not served at the expected location. Since the sub-agent is forbidden from starting processes or modifying configuration, it had to fail.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+/tests/test_final_state.py:173: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+=== reflex db migrate stdout ===
+
+=== reflex db migrate stderr ===
+Traceback (most recent call last):
+  File "/home/user/dynamic_form_builder/.venv/bin/reflex", line 10, in <module>
+    sys.exit(cli())
+             ^^^^^
+  File "/home/user/dynamic_form_builder/.venv/lib/python3.12/site-packages/click/core.py", line 1569, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/dynamic_form_builder/.venv/lib/python3.12/site-packages/click/core.py", line 1490, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/home/user/dynamic_form_builder/.venv/lib/python3.12/site-packages/click/core.py", line 1970, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/dynamic_form_builder/.venv/lib/python3.12/site-packages/click/core.py", line 1970, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/dynamic_form_builder/.venv/lib/python3.12/site-packages/click/core.py", line 1353, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/dynamic_form_builder/.venv/lib/python3.12/site-packages/click/core.py", line 907, in invoke
+    return callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/dynamic_form_builder/.venv/lib/python3.12/site-packages/reflex/reflex.py", line 698, in migrate
+    model.migrate()
+  File "/home/user/dynamic_form_builder/.venv/lib/python3.12/site-packages/reflex/model.py", line 46, in _print_db_not_available
+    raise ImportError(msg)
+ImportError: Database is not available. Please install the required packages: `pip install reflex[db]`.
+
+/tests/.pytest_cache/d/.xprocess/reflex_app$ uv run reflex run
+process 'reflex_app' started pid=2636
+reflex_app process startup detected
+===================== [STARTED: Begin] reflex_app log =====================
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+DeprecationWarning: Implicit Radix Themes enablement has been deprecated in 
+version 0.9.0. a Radix Themes component was detected, which enables the full 
+Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to
+make this explicit, or remove Radix components to avoid loading the stylesheet. 
+It will be completely removed in 1.0. 
+(.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 17/16 0:00:00
+───────────────────────────────── App Running ──────────────────────────────────
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+===================== [STARTED: End  ] reflex_app log =====================
+__________________________ test_submission_persisted ___________________________
+
+ui_flow = VerificationResult(status='fail', reason="The sub-agent failed the test because navigating to http://127.0.0.1:3000 di...0m\t\x1b[37m\x1b[39m\x1b[0m\x1b[0m\x1b[1m\x1b[37m\tPochi\x1b[39m\x1b[22m\x1b[0m\x1b[0m\tProcess exiting with code 0\n")
+
+    def test_submission_persisted(ui_flow):
+        """Exactly one row must be persisted (the single valid submit)."""
+>       assert os.path.isfile(DB_PATH), f"SQLite database not found at {DB_PATH}."
+E       AssertionError: SQLite database not found at /home/user/dynamic_form_builder/reflex.db.
+E       assert False
+E        +  where False = <function isfile at 0x728361058220>('/home/user/dynamic_form_builder/reflex.db')
+E        +    where <function isfile at 0x728361058220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+/tests/test_final_state.py:178: AssertionError
+______________________ test_submission_schema_and_values _______________________
+
+ui_flow = VerificationResult(status='fail', reason="The sub-agent failed the test because navigating to http://127.0.0.1:3000 di...0m\t\x1b[37m\x1b[39m\x1b[0m\x1b[0m\x1b[1m\x1b[37m\tPochi\x1b[39m\x1b[22m\x1b[0m\x1b[0m\tProcess exiting with code 0\n")
+
+    def test_submission_schema_and_values(ui_flow):
+        conn = sqlite3.connect(DB_PATH)
+        try:
+>           row = conn.execute(
+                "SELECT schema_json, values_json FROM submission ORDER BY id DESC LIMIT 1"
+            ).fetchone()
+E           sqlite3.OperationalError: no such table: submission
+
+/tests/test_final_state.py:195: OperationalError
+--------------------------- Captured stdout teardown ---------------------------
+===================== [TEARDOWN: Begin] reflex_app log =====================
+(skipped 12 already-printed lines)
+
+===================== [TEARDOWN: End  ] reflex_app log =====================
+=========================== short test summary info ============================
+FAILED ../tests/test_final_state.py::test_ui_journey - AssertionError: Browse...
+FAILED ../tests/test_final_state.py::test_submission_persisted - AssertionErr...
+FAILED ../tests/test_final_state.py::test_submission_schema_and_values - sqli...
+======================== 3 failed in 260.94s (0:04:20) =========================

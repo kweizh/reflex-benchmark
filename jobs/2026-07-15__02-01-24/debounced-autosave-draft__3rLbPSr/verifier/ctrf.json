@@ -1,0 +1,53 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T18:19:53.869888+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784052741377,
+            "stop": 1784053193869
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_debounced_autosave_flow",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 452333,
+                "start": 1784052741457,
+                "stop": 1784053193790,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\nbrowser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x7e85520af7d0>\n\n    def test_debounced_autosave_flow(start_app, browser_verifier):\n        \"\"\"End-to-end: initial Unsaved state, debounced autosave, and restore on reload.\"\"\"\n        reason = (\n            \"The app at / is a note editor with a text area and a save-status \"\n            \"indicator. Typing is debounced; a short quiet period after the last \"\n            \"keystroke, a background task autosaves the draft to SQLite and the \"\n            \"status changes from 'Unsaved' to 'Saved' with a timestamp. On page \"\n            \"load the most recently saved draft is restored into the text area.\"\n        )\n        truth = (\n            f\"Navigate to {BASE_URL} and wait for the editor to fully load so the \"\n            f\"text area is editable. Verify the status indicator shows 'Unsaved' \"\n            f\"and the text area is initially empty. Click the text area and type \"\n            f\"exactly: {DRAFT_TEXT} . Do not click any save button (there is none). \"\n            f\"Wait about 8 seconds for the automatic debounced autosave to finish, \"\n            f\"then verify the status indicator now shows a 'Saved' label that \"\n            f\"includes a timestamp. Next, reload the page and wait for it to load \"\n            f\"again; verify the text area is automatically restored to contain the \"\n            f\"text '{DRAFT_TEXT}' and the status again shows 'Saved'.\"\n        )\n>       result = browser_verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_debounced_autosave_flow\",\n        )\n\n/tests/test_final_state.py:130: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/usr/local/lib/python3.12/dist-packages/pochi_verifier/verifier.py:176: in verify\n    return self._parse_result(proc.stdout, proc.stderr)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <pochi_verifier.verifier.PochiVerifier object at 0x7e85520af7d0>\nstdout = '\\nPochi 0.6.17 (update available 0.6.18-beta.1)\\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500...wser doctor\\n| \ud83d\udcab Executing agent-browser set viewport 1280 720\\n| \ud83d\udcab Executing agent-browser open http://127.0.0.1:3000'\nstderr = '\\x1b[37m2026-07-14 18:12:26.966\\x1b[39m\\x1b[0m\\x1b[0m\\t\\x1b[32m\\x1b[1mDEBUG\\x1b[22m\\x1b[39m\\x1b[0m\\x1b[0m\\t\\x1b[37m/$...ss\" | \"fail\",\\n        \"reason\": \"A detailed explanation of why the test passed or failed.\"\\n    }\\n    ```\\n\\nEOF\\n\\n'\n\n    def _parse_result(self, stdout: str, stderr: str) -> VerificationResult:\n        \"\"\"Parses the stdout from pochi to extract the verification result.\"\"\"\n    \n        lines = stdout.splitlines()\n        json_lines = []\n        capturing = False\n        start_line_index = -1\n    \n        # Find the start of the JSON block\n        for i, line in enumerate(lines):\n            stripped_line = line.strip()\n            if stripped_line == \"\ud83c\udf89 Task Completed\":\n                if i + 1 < len(lines) and lines[i+1].strip() == '{':\n                    start_line_index = i + 2\n                    capturing = True\n                    break\n    \n        if not capturing:\n>           raise PochiOutputError(\"Cannot find the start of the JSON block.\")\nE           pochi_verifier.verifier.PochiOutputError: Cannot find the start of the JSON block.\n\n/usr/local/lib/python3.12/dist-packages/pochi_verifier/verifier.py:205: PochiOutputError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_draft_persisted_in_sqlite",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 78,
+                "start": 1784053193791,
+                "stop": 1784053193869,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_draft_persisted_in_sqlite(start_app):\n        \"\"\"The autosaved draft text must be stored in the local SQLite database.\"\"\"\n        assert os.path.exists(DB_PATH), (\n            f\"Expected the SQLite database file at {DB_PATH} to exist after autosave.\"\n        )\n    \n        con = sqlite3.connect(DB_PATH)\n        try:\n            cur = con.cursor()\n            tables = [\n                row[0]\n                for row in cur.execute(\n                    \"SELECT name FROM sqlite_master WHERE type='table'\"\n                ).fetchall()\n            ]\n            found = False\n            for table in tables:\n                try:\n                    rows = cur.execute(f'SELECT * FROM \"{table}\"').fetchall()\n                except sqlite3.DatabaseError:\n                    continue\n                for row in rows:\n                    for value in row:\n                        if isinstance(value, str) and DRAFT_TEXT in value:\n                            found = True\n                            break\n                    if found:\n                        break\n                if found:\n                    break\n        finally:\n            con.close()\n    \n>       assert found, (\n            f\"Expected a stored draft containing '{DRAFT_TEXT}' in the SQLite \"\n            f\"database at {DB_PATH}, but no such row was found. Tables: {tables}\"\n        )\nE       AssertionError: Expected a stored draft containing 'autosave-check-9f3a2b: the quick brown fox' in the SQLite database at /home/user/note_app/reflex.db, but no such row was found. Tables: ['alembic_version', 'draft']\nE       assert False\n\n/tests/test_final_state.py:172: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

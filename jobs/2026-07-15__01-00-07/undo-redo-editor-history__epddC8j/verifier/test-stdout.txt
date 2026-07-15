@@ -1,0 +1,38 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 2 items
+
+../tests/test_final_state.py ..                                          [100%]
+
+==================================== PASSES ====================================
+______________________ test_initial_commit_undo_redo_flow ______________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/reflex_editor$ uv run reflex run
+process 'reflex_editor' started pid=1786
+reflex_editor process startup detected
+============================== [STARTED: Begin] Captured reflex_editor logfile ==============================
+@@__xproc_block_delimiter__@@
+───────────────────────────── Starting Reflex App ──────────────────────────────
+DeprecationWarning: Implicit Radix Themes enablement has been deprecated in 
+version 0.9.0. a Radix Themes component was detected, which enables the full 
+Radix CSS bundle. Configure `rx.plugins.RadixThemesPlugin()` in `rxconfig.py` to
+make this explicit, or remove Radix components to avoid loading the stylesheet. 
+It will be completely removed in 1.0. 
+(.venv/lib/python3.12/site-packages/reflex_components_radix/plugin.py:72)
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 17/16 0:00:00
+───────────────────────────────── App Running ──────────────────────────────────
+App running at: http://localhost:3000/
+Backend running at: http://0.0.0.0:8000
+
+============================== [STARTED: End  ] Captured reflex_editor logfile ==============================
+--------------------------- Captured stdout teardown ---------------------------
+============================== [TEARDOWN: Begin] Captured reflex_editor logfile ==============================
+(skipped 12 already-printed lines)
+
+============================== [TEARDOWN: End  ] Captured reflex_editor logfile ==============================
+=========================== short test summary info ============================
+PASSED ../tests/test_final_state.py::test_initial_commit_undo_redo_flow
+PASSED ../tests/test_final_state.py::test_bounded_history_depth
+======================== 2 passed in 268.32s (0:04:28) =========================
